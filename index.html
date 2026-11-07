@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CALIFORNIA EVIDENCE // ARCHIVE</title>
+  <title>ĐẠI TỘI VÙNG CALIFORNIA // ARCHIVE</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;600;700&family=Reenie+Beanie&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
@@ -17,10 +17,9 @@
       --polaroid-paper: #e5ded2;
       --postit-yellow: #f4dc66;
       --text-main: #f0eef5;
-      --text-dim: #8b889a;
+      --text-dim: #9b98ab;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --discord-bg: #110e14;
-      --discord-card: #18141c;
+      --orb-glow: rgba(230, 0, 38, 0.35);
     }
 
     body.ted-illuminated {
@@ -38,6 +37,7 @@
       user-select: none;
     }
 
+    /* BACKGROUND CHÍNH THỨC CỦA BẠN ĐƯỢC GIỮ NGUYÊN */
     body {
       background: 
         radial-gradient(circle at 50% 30%, transparent 20%, rgba(5, 4, 6, 0.85) 80%),
@@ -94,7 +94,7 @@
       mix-blend-mode: screen;
     }
 
-    /* THANH NÚT TRÊN CÙNG */
+    /* THANH NÚT ĐIỀU KHIỂN TRÊN CÙNG */
     .top-bar-controls {
       position: fixed;
       top: 14px;
@@ -105,11 +105,11 @@
     }
 
     .audio-pill, .light-pill {
-      background: rgba(14, 8, 12, 0.9);
+      background: rgba(14, 8, 12, 0.88);
       border: 1px solid rgba(230, 0, 38, 0.35);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       padding: 6px 14px;
-      border-radius: 2px;
+      border-radius: 30px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
       letter-spacing: 1.5px;
@@ -138,7 +138,7 @@
     }
     @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ================= 1. CỔNG 18+ (ĐÃ ĐỔI THÀNH BẠN) ================= */
+    /* ================= 1. CỔNG 18+: ĐẠI TỘI VÙNG CALIFORNIA ================= */
     #gate-18 {
       position: fixed;
       inset: 0;
@@ -152,7 +152,7 @@
 
     .gate-card {
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       background: #0b0709;
       border: 1px solid rgba(230, 0, 38, 0.35);
       padding: 40px 24px 30px;
@@ -162,10 +162,11 @@
 
     .gate-card h1 {
       font-family: 'Cinzel', serif;
-      font-size: 1.6rem;
+      font-size: 1.55rem;
       letter-spacing: 2px;
       margin-bottom: 12px;
       color: #fff;
+      line-height: 1.25;
     }
 
     .gate-card p {
@@ -194,7 +195,7 @@
       box-shadow: 0 0 30px var(--crimson-glow);
     }
 
-    /* ================= 2. THƯ CỦA TED (ĐÃ ĐỔI THÀNH BẠN) ================= */
+    /* ================= 2. THƯ CỦA TED ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
@@ -344,7 +345,6 @@
       z-index: 1;
     }
 
-    /* BỐ CỤC ĐẦU TRANG ĐÃ ĐƯỢC TÁI THIẾT KẾ GỌN GÀNG */
     .redesigned-header {
       display: flex;
       flex-direction: column;
@@ -382,86 +382,101 @@
       cursor: pointer;
       box-shadow: 0 0 15px rgba(230,0,38,0.25);
       transition: all 0.3s;
+      border-radius: 20px;
     }
     .btn-ted-terminal-access:hover {
       background: var(--crimson);
       box-shadow: 0 0 25px var(--crimson-glow);
     }
 
-    /* ================= 3 MỘC ĐÓNG DẤU PHỨC TẠP: CALIFORNIA - CHICAGO - OHIO ================= */
-    .bureau-stamps-rack {
+    /* ================= 3 NÚT BONG BÓNG MỜ ẢO (MỸ THUẬT SƠN DẦU) ================= */
+    .ethereal-orbs-nav {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 18px;
-      margin-top: 18px;
+      gap: 22px;
+      margin-top: 20px;
       flex-wrap: wrap;
     }
 
-    .complex-bureau-stamp {
+    .art-orb-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
       cursor: pointer;
       text-decoration: none;
-      transition: transform 0.25s, filter 0.25s;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: floatOrb 5s ease-in-out infinite alternate;
     }
-    .complex-bureau-stamp:hover, .complex-bureau-stamp.active {
-      transform: scale(1.08) translateY(-4px);
+    .art-orb-btn:nth-child(2) { animation-delay: 1.5s; }
+    .art-orb-btn:nth-child(3) { animation-delay: 3s; }
+
+    @keyframes floatOrb {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
     }
 
-    /* HÌNH MỘC ĐÓNG DẤU MỰC ĐỎ PHÁP Y ĐA TẦNG */
-    .stamp-svg-artwork {
-      width: 78px;
-      height: 78px;
+    /* HÌNH BONG BÓNG THỦY TINH MỜ ẢO TRÒN TRỊA */
+    .glass-orb-bubble {
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      border: 2px dashed rgba(230, 0, 38, 0.7);
-      background: radial-gradient(circle, rgba(230, 0, 38, 0.12) 0%, rgba(10, 5, 8, 0.9) 100%);
-      box-shadow: 0 0 15px rgba(230, 0, 38, 0.25);
-      transform: rotate(var(--stamp-angle, 0deg));
+      background: radial-gradient(circle at 35% 30%, rgba(255, 60, 90, 0.35) 0%, rgba(30, 10, 18, 0.75) 60%, rgba(8, 4, 7, 0.95) 100%);
+      border: 1.5px solid rgba(255, 100, 120, 0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8), inset 0 0 16px rgba(230, 0, 38, 0.4);
+      backdrop-filter: blur(14px);
     }
 
-    .complex-bureau-stamp.active .stamp-svg-artwork,
-    .complex-bureau-stamp:hover .stamp-svg-artwork {
+    .art-orb-btn:hover .glass-orb-bubble,
+    .art-orb-btn.active .glass-orb-bubble {
       border-color: #fff;
-      box-shadow: 0 0 25px var(--crimson-glow);
+      box-shadow: 0 0 30px var(--crimson-glow), inset 0 0 20px var(--crimson);
+      transform: scale(1.1);
     }
 
-    .stamp-svg-artwork svg {
-      width: 100%;
-      height: 100%;
+    .glass-orb-bubble svg {
+      width: 38px;
+      height: 38px;
       fill: none;
-      stroke: var(--crimson);
-      stroke-width: 1.2;
+      stroke: #ecd6dc;
+      stroke-width: 1.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 5px rgba(230,0,38,0.7));
+      transition: all 0.3s;
+    }
+    .art-orb-btn:hover .glass-orb-bubble svg,
+    .art-orb-btn.active .glass-orb-bubble svg {
+      stroke: #fff;
+      filter: drop-shadow(0 0 10px var(--crimson));
     }
 
-    .stamp-city-name {
+    .orb-label-title {
       font-family: 'Cinzel', serif;
       font-weight: 700;
       font-size: 0.65rem;
       letter-spacing: 1.5px;
-      color: #b5b2c4;
-      margin-top: 6px;
+      color: #beb9cb;
+      margin-top: 8px;
       text-transform: uppercase;
+      transition: color 0.3s;
     }
-    .complex-bureau-stamp.active .stamp-city-name,
-    .complex-bureau-stamp:hover .stamp-city-name {
+    .art-orb-btn:hover .orb-label-title,
+    .art-orb-btn.active .orb-label-title {
       color: #fff;
       text-shadow: 0 0 8px var(--crimson);
     }
 
-    /* MỘC CALIFORNIA ĐẶC QUYỀN (DẪN THẲNG ĐẾN FACEBOOK TED) */
-    .california-main-stamp .stamp-svg-artwork {
-      border-style: double;
-      border-width: 3px;
-      border-color: #ff2a4b;
-      box-shadow: 0 0 20px rgba(230, 0, 38, 0.45);
+    /* BONG BÓNG BẢN DOANH TED (FACEBOOK) */
+    .ted-orb-special .glass-orb-bubble {
+      border-color: #ff3355;
+      box-shadow: 0 0 25px rgba(230, 0, 38, 0.45), inset 0 0 18px rgba(230, 0, 38, 0.6);
     }
-    .california-main-stamp .stamp-city-name {
+    .ted-orb-special .orb-label-title {
       color: #ff3355;
       font-weight: 900;
       text-shadow: 0 0 10px var(--crimson);
@@ -600,7 +615,6 @@
       align-items: center;
     }
 
-    /* ICON CON DẤU YÊU THÍCH (THẢ TIM) NHỎ TỐI GIẢN */
     .stamp-like-btn {
       display: inline-flex;
       align-items: center;
@@ -673,81 +687,79 @@
       border-color: #55000c;
     }
 
-    /* ================= 4. DIỄN ĐÀN THẢO LUẬN & FEEDBACK KIỂU DISCORD ================= */
+    /* ================= 4. DIỄN ĐÀN PHẢN HỒI MỸ THUẬT GOTHIC ================= */
     .discord-feedback-zone {
-      background: var(--discord-bg);
-      border: 1px solid rgba(230, 0, 38, 0.3);
-      padding: 20px 16px;
+      background: rgba(14, 9, 14, 0.85);
+      border: 1px solid rgba(230, 0, 38, 0.35);
+      padding: 22px 18px;
       border-radius: 4px;
       position: relative;
       z-index: 15;
-      margin-top: 30px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+      margin-top: 35px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.95);
+      backdrop-filter: blur(14px);
     }
 
     .discord-channel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       padding-bottom: 12px;
       margin-bottom: 16px;
     }
 
     .channel-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
       color: #fff;
+      letter-spacing: 1px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .channel-title span { color: var(--crimson); font-weight: bold; font-size: 1rem; }
+    .channel-title span { color: var(--crimson); font-weight: bold; font-size: 1.1rem; }
 
     .btn-open-feedback-modal {
       background: var(--crimson);
       border: none;
       color: #fff;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      padding: 6px 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 7px 14px;
       cursor: pointer;
       border-radius: 2px;
       letter-spacing: 1px;
+      box-shadow: 0 0 12px var(--crimson-glow);
     }
 
     .discord-messages-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      max-height: 280px;
+      max-height: 290px;
       overflow-y: auto;
       padding-right: 6px;
     }
 
     .discord-message-item {
       display: flex;
-      gap: 10px;
-      background: var(--discord-card);
-      padding: 10px 12px;
+      gap: 12px;
+      background: rgba(22, 14, 20, 0.85);
+      padding: 10px 14px;
       border-radius: 3px;
-      border-left: 2px solid var(--crimson);
+      border-left: 2.5px solid var(--crimson);
     }
 
-    .discord-avatar {
-      width: 32px;
-      height: 32px;
+    .discord-avatar-img {
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      background: #2a222e;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      font-weight: bold;
+      object-fit: cover;
       flex-shrink: 0;
-      border: 1px solid rgba(230,0,38,0.4);
+      border: 1px solid rgba(230,0,38,0.5);
+      box-shadow: 0 0 8px rgba(0,0,0,0.8);
     }
 
     .discord-msg-content {
@@ -764,16 +776,16 @@
     .author-name {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #fff;
     }
 
     .author-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem;
-      background: rgba(230,0,38,0.2);
+      font-size: 0.55rem;
+      background: rgba(230,0,38,0.25);
       color: var(--crimson);
-      padding: 1px 4px;
+      padding: 1px 5px;
       border-radius: 2px;
     }
 
@@ -784,9 +796,9 @@
     }
 
     .msg-body-text {
-      font-size: 0.8rem;
-      line-height: 1.4;
-      color: #c9c7d4;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: #cfcbdb;
     }
 
     /* MODAL ĐĂNG FEEDBACK */
@@ -890,7 +902,7 @@
 
     .terminal-window {
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       background: #0d070a;
       border: 1px solid var(--crimson);
       padding: 30px 22px;
@@ -955,7 +967,7 @@
       z-index: 15;
     }
 
-    /* MODAL CHỈNH SỬA HỒ SƠ */
+    /* MODAL CHỈNH SỬA HỒ SƠ DÀNH CHO TED */
     #edit-dossier-modal {
       position: fixed;
       inset: 0;
@@ -972,7 +984,7 @@
 
   <div id="jumpscare-overlay"></div>
 
-  <!-- NHẠC WHO IS SHE -->
+  <!-- NHẠC WHO IS SHE CHẠY LIÊN TỤC -->
   <audio id="noir-ambient-audio" loop preload="auto">
     <source src="I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3" type="audio/mpeg">
     <source src="I%20Monster%20-%20Who%20Is%20She%20%28Lyrics%29%20Immortal%20She%20Return%20To%20Me%20%5BTikTok%20Song%5D.mp3" type="audio/mpeg">
@@ -992,17 +1004,17 @@
     </div>
   </div>
 
-  <!-- 1. CỔNG 18+ (ĐÃ ĐỔI THÀNH BẠN) -->
+  <!-- 1. CỔNG 18+: ĐẠI TỘI VÙNG CALIFORNIA -->
   <section id="gate-18">
     <div class="gate-card">
       <span style="font-family:'JetBrains Mono'; font-size:0.65rem; color:var(--crimson); letter-spacing:2px;">// PROTOCOL 18+</span>
-      <h1>VÙNG TỐI CALIFORNIA</h1>
+      <h1>ĐẠI TỘI VÙNG CALIFORNIA</h1>
       <p>Kho lưu trữ chứa các tư liệu hiện trường án mạng và thực thể dị thường. Yêu cầu bạn xác nhận độ tuổi trước khi giải mã dữ liệu.</p>
       <button class="btn-action-glow" id="btn-pass-gate">[ XÁC NHẬN TRÊN 18 TUỔI ]</button>
     </div>
   </section>
 
-  <!-- 2. THƯ CỦA TED (ĐÃ ĐỔI THÀNH BẠN) -->
+  <!-- 2. THƯ CỦA TED -->
   <section id="letter-screen">
     <div class="forensic-dossier-letter">
       <div class="dossier-barcode">
@@ -1042,57 +1054,47 @@
   <main id="board-main">
     <canvas id="thread-canvas"></canvas>
 
-    <!-- BỐ CỤC ĐẦU TRANG ĐÃ ĐƯỢC THIẾT KẾ LẠI GỌN GÀNG -->
     <div class="redesigned-header">
       <h2 class="brand-headline">CALIFORNIA FORENSIC ARCHIVE</h2>
       <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
       <button class="btn-ted-terminal-access" id="btn-open-terminal">[ ACCESS TERMINAL: TED ]</button>
 
-      <!-- 3 MỘC ĐÓNG DẤU PHỨC TẠP: CALIFORNIA - CHICAGO - OHIO -->
-      <div class="bureau-stamps-rack">
+      <!-- 3 NÚT BONG BÓNG MỜ ẢO ĐÚNG TÊN CŨ -->
+      <div class="ethereal-orbs-nav">
         
-        <!-- MỘC 1: CALIFORNIA (BẢN DOANH CHÍNH - LIÊN KẾT FACEBOOK CỦA BẠN) -->
-        <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="complex-bureau-stamp california-main-stamp" style="--stamp-angle: -3deg;">
-          <div class="stamp-svg-artwork">
-            <svg viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="46" stroke-width="1.5" stroke-dasharray="3 2" />
-              <circle cx="50" cy="50" r="38" stroke-width="0.8" />
-              <!-- Cánh đại bàng & Ngôi sao trung tâm -->
-              <path d="M50 24 L53 35 L64 35 L55 42 L58 53 L50 46 L42 53 L45 42 L36 35 L47 35 Z" fill="var(--crimson)" />
-              <circle cx="50" cy="50" r="28" stroke-width="0.6" stroke-dasharray="2 2" />
-              <text x="50" y="80" text-anchor="middle" font-family="'Cinzel'" font-size="7" fill="var(--crimson)">★ TED HQ ★</text>
+        <!-- BONG BÓNG 1: TẤT CẢ HỒ SƠ -->
+        <div class="art-orb-btn active" data-filter="all">
+          <div class="glass-orb-bubble">
+            <svg viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="14" stroke-dasharray="3 2" />
+              <circle cx="20" cy="20" r="8" />
+              <path d="M20 6 L20 12 M20 28 L20 34 M6 20 L12 20 M28 20 L34 20" />
             </svg>
           </div>
-          <span class="stamp-city-name">CALIFORNIA ↗</span>
+          <span class="orb-label-title">TẤT CẢ HỒ SƠ</span>
+        </div>
+
+        <!-- BONG BÓNG 2: LỆNH TRUY NÃ -->
+        <div class="art-orb-btn" data-filter="Active">
+          <div class="glass-orb-bubble">
+            <svg viewBox="0 0 40 40">
+              <path d="M20 7 L23 16 L33 20 L23 24 L20 33 L17 24 L7 20 L17 16 Z" />
+              <circle cx="20" cy="20" r="3" fill="var(--crimson)" />
+            </svg>
+          </div>
+          <span class="orb-label-title">LỆNH TRUY NÃ</span>
+        </div>
+
+        <!-- BONG BÓNG 3: TRẠM CHỦ TED (DẪN FACEBOOK) -->
+        <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="art-orb-btn ted-orb-special">
+          <div class="glass-orb-bubble">
+            <svg viewBox="0 0 40 40">
+              <path d="M20 14 C14 4 6 14 10 26 C14 24 18 20 20 22 C22 20 26 24 30 26 C34 14 26 4 20 14 Z" />
+              <circle cx="20" cy="22" r="2.5" fill="#fff" />
+            </svg>
+          </div>
+          <span class="orb-label-title">TRẠM CHỦ TED ↗</span>
         </a>
-
-        <!-- MỘC 2: CHICAGO (PHÂN KHU ÁN MẠNG) -->
-        <div class="complex-bureau-stamp active" data-filter="all" style="--stamp-angle: 2deg;">
-          <div class="stamp-svg-artwork">
-            <svg viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="46" stroke-width="1.5" />
-              <circle cx="50" cy="50" r="39" stroke-width="0.8" stroke-dasharray="4 2" />
-              <polygon points="50,14 80,66 20,66" stroke-width="1" />
-              <circle cx="50" cy="48" r="8" fill="var(--crimson)" />
-              <text x="50" y="84" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#aaa">DIV-02</text>
-            </svg>
-          </div>
-          <span class="stamp-city-name">CHICAGO</span>
-        </div>
-
-        <!-- MỘC 3: OHIO (PHÂN KHU SITE 17-A) -->
-        <div class="complex-bureau-stamp" data-filter="Beaumont" style="--stamp-angle: -2deg;">
-          <div class="stamp-svg-artwork">
-            <svg viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="46" stroke-width="1.2" stroke-dasharray="5 3" />
-              <circle cx="50" cy="50" r="38" stroke-width="1" />
-              <path d="M32 30 L68 70 M68 30 L32 70" stroke-width="1.5" />
-              <circle cx="50" cy="50" r="16" fill="rgba(230,0,38,0.2)" stroke-width="1" />
-              <text x="50" y="83" text-anchor="middle" font-family="'Cinzel'" font-size="6.5" fill="#aaa">SEC-17A</text>
-            </svg>
-          </div>
-          <span class="stamp-city-name">OHIO</span>
-        </div>
 
       </div>
     </div>
@@ -1154,44 +1156,33 @@
     <!-- BẢNG GHIM POLAROID 2 CỘT -->
     <div class="conspiracy-board-wall" id="cases-wall"></div>
 
-    <!-- ================= DIỄN ĐÀN THẢO LUẬN & FEEDBACK KIỂU DISCORD ================= -->
+    <!-- ================= DIỄN ĐÀN PHẢN HỒI GOTHIC MỸ THUẬT ================= -->
     <section class="discord-feedback-zone">
       <div class="discord-channel-header">
         <div class="channel-title">
-          <span>#</span> manh-moi-va-feedback
+          <span>#</span> MANH MỐI & PHẢN HỒI
         </div>
-        <button class="btn-open-feedback-modal" id="btn-trigger-feedback">+ ĐĂNG FEEDBACK</button>
+        <button class="btn-open-feedback-modal" id="btn-trigger-feedback">+ GỬI MANH MỐI</button>
       </div>
 
       <div class="discord-messages-list" id="feedback-chat-list">
-        <!-- Tin nhắn mẫu của Ted -->
-        <div class="discord-message-item">
-          <div class="discord-avatar">T</div>
-          <div class="discord-msg-content">
-            <div class="discord-author-line">
-              <span class="author-name">Ted</span>
-              <span class="author-badge">ADMIN</span>
-              <span class="msg-timestamp">Hôm nay</span>
-            </div>
-            <div class="msg-body-text">Mọi manh mối bạn phát hiện được hãy để lại tại đây. Hãy cẩn trọng với những gì bạn thấy.</div>
-          </div>
-        </div>
+        <!-- Danh sách comment -->
       </div>
     </section>
   </main>
 
-  <!-- MODAL ĐĂNG FEEDBACK -->
+  <!-- MODAL ĐĂNG FEEDBACK (CÓ BỘ LỌC TỪ NGỮ BẬY TỤC) -->
   <div id="feedback-modal">
     <div class="terminal-window">
       <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.2rem; cursor:pointer;" id="btn-close-feedback">&times;</button>
       <h4 style="font-family:'Cinzel'; font-size:1.2rem; color:#fff;">// GỬI PHẢN HỒI</h4>
       <div class="field-wrap">
         <label>Tên của bạn:</label>
-        <input type="text" id="fb-user-name" required placeholder="Nhập bí danh...">
+        <input type="text" id="fb-user-name" required placeholder="Nhập bí danh của bạn...">
       </div>
       <div class="field-wrap">
-        <label>Nội dung manh mối / Feedback:</label>
-        <textarea id="fb-user-msg" rows="3" required placeholder="Chia sẻ cảm nghĩ hoặc suy luận..."></textarea>
+        <label>Nội dung manh mối / Cảm nghĩ:</label>
+        <textarea id="fb-user-msg" rows="3" required placeholder="Chia sẻ suy luận của bạn..."></textarea>
       </div>
       <button type="button" class="btn-terminal-submit" id="btn-send-feedback">ĐĂNG VÀO DIỄN ĐÀN</button>
     </div>
@@ -1215,7 +1206,7 @@
     </div>
   </div>
 
-  <!-- MODAL CHỈNH SỬA HỒ SƠ DÀNH CHO TED -->
+  <!-- MODAL CHỈNH SỬA HỒ SƠ (CHO PHÉP ĐỔI CẢ ẢNH MỚI) -->
   <div id="edit-dossier-modal">
     <div class="terminal-window">
       <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.2rem; cursor:pointer;" id="btn-close-edit">&times;</button>
@@ -1230,6 +1221,10 @@
         <input type="text" id="edit-name">
       </div>
       <div class="field-wrap">
+        <label>Tải ảnh mới để thay thế (để trống nếu giữ ảnh cũ):</label>
+        <input type="file" id="edit-file" accept="image/*">
+      </div>
+      <div class="field-wrap">
         <label>Link Plot:</label>
         <input type="url" id="edit-plot">
       </div>
@@ -1241,7 +1236,7 @@
         <label>Ghi chú:</label>
         <textarea id="edit-desc" rows="2"></textarea>
       </div>
-      <button type="button" class="btn-terminal-submit" id="btn-save-edit">CẬP NHẬT HỒ SƠ</button>
+      <button type="button" class="btn-terminal-submit" id="btn-save-edit">CẬP NHẬT & ĐỒNG BỘ MÂY</button>
     </div>
   </div>
 
@@ -1315,9 +1310,7 @@
       }
     }, { once: false });
 
-    /* ÂM THANH NỔ HÙ DỌA & TIẾNG ĐẬP MỘC */
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
     function playJumpscareSound() {
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
@@ -1374,13 +1367,11 @@
     function drawEmbers() {
       emberCtx.clearRect(0, 0, emberCanvas.width, emberCanvas.height);
       embers.forEach(p => {
-        p.y += p.dy;
-        p.x += p.dx;
+        p.y += p.dy; p.x += p.dx;
         if (p.y < 0) {
           p.y = emberCanvas.height + 10;
           p.x = Math.random() * emberCanvas.width;
         }
-
         emberCtx.beginPath();
         emberCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         emberCtx.fillStyle = `rgba(230, 20, 40, ${p.alpha})`;
@@ -1429,11 +1420,12 @@
       }
     ];
 
-    let dossiers = JSON.parse(localStorage.getItem('cali_cases_v7')) || GLOBAL_DEFAULT_CASES;
+    let dossiers = JSON.parse(localStorage.getItem('cali_cases_v8')) || GLOBAL_DEFAULT_CASES;
 
+    // Tải mây ngay lập tức
     async function loadSharedCloudCases() {
       try {
-        const idRes = await fetch('https://api.keyval.org/get/ted_cali_vault_v7');
+        const idRes = await fetch('https://api.keyval.org/get/ted_cali_vault_v8');
         const blobId = (await idRes.text()).trim();
         if (blobId && blobId.length > 10 && !blobId.includes("error")) {
           const dataRes = await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
@@ -1443,7 +1435,7 @@
             const cloudCases = await dataRes.json();
             if (Array.isArray(cloudCases) && cloudCases.length > 0) {
               dossiers = cloudCases;
-              localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
+              localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
               renderCasesWall(dossiers);
             }
           }
@@ -1452,12 +1444,13 @@
         console.log("Dùng cache nội bộ:", err);
       }
     }
+    loadSharedCloudCases(); // Kéo dữ liệu tự động ngay khi mở web
 
     async function saveSharedCloudCases(casesData) {
       try {
         let blobId = "";
         try {
-          const idRes = await fetch('https://api.keyval.org/get/ted_cali_vault_v7');
+          const idRes = await fetch('https://api.keyval.org/get/ted_cali_vault_v8');
           blobId = (await idRes.text()).trim();
         } catch(e){}
 
@@ -1476,7 +1469,7 @@
           const location = createRes.headers.get('Location') || "";
           const newBlobId = location.split('/').pop();
           if (newBlobId) {
-            await fetch('https://api.keyval.org/set/ted_cali_vault_v7/' + newBlobId);
+            await fetch('https://api.keyval.org/set/ted_cali_vault_v8/' + newBlobId);
           }
         }
       } catch (err) {
@@ -1484,7 +1477,7 @@
       }
     }
 
-    /* ================= 5. MỞ CỔNG + HIỆU ỨNG NHÁ ĐÈN ================= */
+    /* ================= 5. MỞ CỔNG + NHÁ ĐÈN ================= */
     const gate18 = document.getElementById('gate-18');
     const btnPassGate = document.getElementById('btn-pass-gate');
     const letterScreen = document.getElementById('letter-screen');
@@ -1518,7 +1511,7 @@
       }, 450);
     });
 
-    /* ================= 6. VẼ BẢNG POLAROID & DẤU ẤN YÊU THÍCH ================= */
+    /* ================= 6. VẼ BẢNG POLAROID & LIKE ================= */
     const casesWall = document.getElementById('cases-wall');
 
     function renderCasesWall(itemsToRender) {
@@ -1557,7 +1550,6 @@
       renderRedThreads();
     }
 
-    // ĐÓNG DẤU YÊU THÍCH (THẢ TIM)
     window.toggleLikeChar = function(idx, event) {
       event.stopPropagation();
       const item = dossiers[idx];
@@ -1570,19 +1562,19 @@
         item.likes = Math.max(0, (item.likes || 1) - 1);
         localStorage.removeItem(key);
       }
-      localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
+      localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
       renderCasesWall(dossiers);
       saveSharedCloudCases(dossiers);
     };
 
-    /* CHUYỂN BỘ LỌC 3 MỘC BANG */
-    const bureauStamps = document.querySelectorAll('.complex-bureau-stamp');
-    bureauStamps.forEach(stamp => {
-      stamp.addEventListener('click', () => {
-        if (stamp.hasAttribute('href')) return;
-        bureauStamps.forEach(s => s.classList.remove('active'));
-        stamp.classList.add('active');
-        const filter = stamp.getAttribute('data-filter');
+    /* CHUYỂN BỘ LỌC 3 BONG BÓNG */
+    const orbBtns = document.querySelectorAll('.art-orb-btn');
+    orbBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.hasAttribute('href')) return;
+        orbBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
         if (filter === 'all') {
           renderCasesWall(dossiers);
         } else {
@@ -1607,7 +1599,6 @@
       inspectModal.style.display = 'flex';
       playStampBang();
     }
-
     btnCloseInspect.addEventListener('click', () => inspectModal.style.display = 'none');
 
     /* ================= 8. DÂY CHỈ ĐỎ PHÁT QUANG ================= */
@@ -1663,19 +1654,40 @@
     }
     window.addEventListener('resize', renderRedThreads);
 
-    /* ================= 9. DIỄN ĐÀN FEEDBACK KIỂU DISCORD ================= */
+    /* ================= 9. DIỄN ĐÀN FEEDBACK (AVATAR MỸ THUẬT & CHẶN TỪ TỤC TĨU) ================= */
     const feedbackModal = document.getElementById('feedback-modal');
     const btnTriggerFeedback = document.getElementById('btn-trigger-feedback');
     const btnCloseFeedback = document.getElementById('btn-close-feedback');
     const btnSendFeedback = document.getElementById('btn-send-feedback');
     const feedbackChatList = document.getElementById('feedback-chat-list');
 
-    let feedbacks = JSON.parse(localStorage.getItem('cali_feedbacks')) || [];
+    // 🎨 BỘ SƯU TẬP AVATAR MỸ THUẬT / TRANH SƠN DẦU CỰC XINH
+    const FINE_ART_AVATARS = [
+      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=120&q=80",
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80",
+      "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=120&q=80",
+      "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=120&q=80",
+      "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=120&q=80"
+    ];
+
+    // 🚫 BỘ LỌC CHẶN TỪ NGỮ NHẠY CẢM / BẬY TỤC
+    const BAD_WORDS_BLACKLIST = [
+      "chó", "lồn", "cặc", "đụ", "địt", "đụ mẹ", "địt mẹ", 
+      "lỗ đít", "đít", "đái", "buồi", "dâm", "chịch", "vú", 
+      "ngu lồn", "thằng chó", "con chó", "hãm lồn"
+    ];
+
+    function containsProfanity(text) {
+      const lower = text.toLowerCase();
+      return BAD_WORDS_BLACKLIST.some(bad => lower.includes(bad));
+    }
+
+    let feedbacks = JSON.parse(localStorage.getItem('cali_feedbacks_v2')) || [];
 
     function renderFeedbacks() {
       const items = feedbacks.map(f => `
         <div class="discord-message-item">
-          <div class="discord-avatar">${f.name.charAt(0).toUpperCase()}</div>
+          <img src="${f.avatar}" class="discord-avatar-img" alt="${f.name}">
           <div class="discord-msg-content">
             <div class="discord-author-line">
               <span class="author-name">${f.name}</span>
@@ -1688,11 +1700,11 @@
 
       feedbackChatList.innerHTML = `
         <div class="discord-message-item">
-          <div class="discord-avatar">T</div>
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="discord-avatar-img" alt="Ted">
           <div class="discord-msg-content">
             <div class="discord-author-line">
               <span class="author-name">Ted</span>
-              <span class="author-badge">ADMIN</span>
+              <span class="author-badge">CUSTODIAN</span>
               <span class="msg-timestamp">Hôm nay</span>
             </div>
             <div class="msg-body-text">Mọi manh mối bạn phát hiện được hãy để lại tại đây. Hãy cẩn trọng với những gì bạn thấy.</div>
@@ -1701,7 +1713,6 @@
         ${items}
       `;
     }
-
     renderFeedbacks();
 
     btnTriggerFeedback.addEventListener('click', () => feedbackModal.style.display = 'flex');
@@ -1710,16 +1721,26 @@
     btnSendFeedback.addEventListener('click', () => {
       const name = document.getElementById('fb-user-name').value.trim();
       const msg = document.getElementById('fb-user-msg').value.trim();
-      if (!name || !msg) { alert("Vui lòng điền tên và nội dung phản hồi!"); return; }
+      if (!name || !msg) { alert("Vui lòng điền đầy đủ tên và nội dung!"); return; }
+
+      // KIỂM TRA TỪ NGỮ BẬY TỤC
+      if (containsProfanity(name) || containsProfanity(msg)) {
+        alert("⚠️ HỆ THỐNG TỪ CHỐI LƯU VẾT!\nPhát hiện ngôn từ nhạy cảm hoặc tục tĩu. Vui lòng giữ văn minh khi truy cập kho lưu trữ!");
+        return;
+      }
+
+      // Phát ngẫu nhiên avatar tranh sơn dầu xinh đẹp
+      const randomAvatar = FINE_ART_AVATARS[Math.floor(Math.random() * FINE_ART_AVATARS.length)];
 
       const newFb = {
         name: name,
         msg: msg,
+        avatar: randomAvatar,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
 
       feedbacks.push(newFb);
-      localStorage.setItem('cali_feedbacks', JSON.stringify(feedbacks));
+      localStorage.setItem('cali_feedbacks_v2', JSON.stringify(feedbacks));
       renderFeedbacks();
       feedbackModal.style.display = 'none';
       document.getElementById('fb-user-msg').value = "";
@@ -1771,7 +1792,7 @@
       btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
     });
 
-    /* ================= 11. SỬA & XÓA CỦA TED ================= */
+    /* ================= 11. SỬA HỒ SƠ (CÓ ĐỔI CẢ ẢNH) & XOÁ ================= */
     const editModal = document.getElementById('edit-dossier-modal');
     const btnCloseEdit = document.getElementById('btn-close-edit');
     const btnSaveEdit = document.getElementById('btn-save-edit');
@@ -1785,6 +1806,7 @@
       document.getElementById('edit-plot').value = c.plot;
       document.getElementById('edit-ggai').value = c.ggai;
       document.getElementById('edit-desc').value = c.desc;
+      document.getElementById('edit-file').value = ""; // reset file input
       editModal.style.display = 'flex';
     };
 
@@ -1792,26 +1814,39 @@
 
     btnSaveEdit.addEventListener('click', async () => {
       const idx = document.getElementById('edit-idx').value;
+      const fileInput = document.getElementById('edit-file');
+
       dossiers[idx].code = document.getElementById('edit-code').value;
       dossiers[idx].name = document.getElementById('edit-name').value;
       dossiers[idx].plot = document.getElementById('edit-plot').value;
       dossiers[idx].ggai = document.getElementById('edit-ggai').value;
       dossiers[idx].desc = document.getElementById('edit-desc').value;
 
-      localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
-      renderCasesWall(dossiers);
-      editModal.style.display = 'none';
-      playStampBang();
+      // NẾU TED CHỌN ẢNH MỚI: NÉN VÀ THAY THẾ
+      if (fileInput.files && fileInput.files[0]) {
+        compressImageKeepRatio(fileInput.files[0], async function(newImgBase64) {
+          dossiers[idx].img = newImgBase64;
+          await finalizeEdit();
+        });
+      } else {
+        await finalizeEdit();
+      }
 
-      await saveSharedCloudCases(dossiers);
-      alert("ĐÃ CẬP NHẬT HỒ SƠ THÀNH CÔNG!");
+      async function finalizeEdit() {
+        localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
+        renderCasesWall(dossiers);
+        editModal.style.display = 'none';
+        playStampBang();
+        await saveSharedCloudCases(dossiers);
+        alert("ĐÃ CẬP NHẬT HỒ SƠ & LƯU MÂY TOÀN CẦU THÀNH CÔNG!");
+      }
     });
 
     window.deleteCase = async function(idx, event) {
       event.stopPropagation();
       if (confirm(`Bạn có chắc chắn muốn tiêu huỷ hồ sơ [${dossiers[idx].name}] vĩnh viễn không?`)) {
         dossiers.splice(idx, 1);
-        localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
+        localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
         renderCasesWall(dossiers);
         playStampBang();
 
@@ -1820,7 +1855,7 @@
       }
     };
 
-    /* ================= 12. NÉN ẢNH CHUẨN TỈ LỆ & ĐĂNG MỚI ================= */
+    /* ================= 12. NÉN ẢNH CHUẨN TỈ LỆ (KHÔNG BỊ MÉO) & ĐĂNG MỚI ================= */
     const createDossierForm = document.getElementById('create-dossier-form');
     const btnUploadSubmit = document.getElementById('btn-upload-submit');
 
@@ -1873,7 +1908,7 @@
         };
 
         dossiers.unshift(newRecord);
-        localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
+        localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
         renderCasesWall(dossiers);
 
         await saveSharedCloudCases(dossiers);
