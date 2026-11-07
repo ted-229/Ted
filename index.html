@@ -6,28 +6,26 @@
   <title>CALIFORNIA EVIDENCE // ARCHIVE</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;700&family=Reenie+Beanie&family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;700&family=Reenie+Beanie&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #070608;
-      --blood-deep: #4a0008;
+      --bg: #050406;
       --crimson: #e60026;
-      --crimson-glow: rgba(230, 0, 38, 0.45);
-      --crimson-dim: rgba(230, 0, 38, 0.15);
-      --polaroid-paper: #e6dfd1;
+      --crimson-glow: rgba(230, 0, 38, 0.55);
+      --crimson-dark: #3a0008;
+      --polaroid-paper: #e5ded2;
       --postit-yellow: #f4dc66;
       --text-main: #f0eef5;
-      --text-dim: #7f7d8c;
+      --text-dim: #7f7c8d;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --wax-red: #8f0e1e;
     }
 
     body.ted-illuminated {
-      --bg: #141112;
+      --bg: #140f12;
     }
     body.ted-illuminated .spotlight-layer {
-      background: radial-gradient(circle 900px at 50% 30%, rgba(255, 215, 160, 0.22) 0%, rgba(20, 16, 18, 0.65) 60%, rgba(8, 7, 9, 0.88) 100%) !important;
+      background: radial-gradient(circle 900px at 50% 30%, rgba(255, 215, 160, 0.25) 0%, rgba(25, 15, 20, 0.6) 60%, rgba(8, 6, 9, 0.88) 100%) !important;
     }
 
     * {
@@ -48,41 +46,52 @@
       transition: background-color 0.8s ease;
     }
 
-    /* ĐÈN SPOTLIGHT ĐIỆN ẢNH CHIẾU THEO TAY */
+    /* ================= 1. NỀN GOTHIC ÁM ẢNH & TÀN TRO RỰC LỬA ================= */
+    .gothic-arch-backdrop {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: 
+        radial-gradient(circle at 50% 25%, rgba(180, 0, 25, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 20% 70%, rgba(100, 0, 15, 0.15) 0%, transparent 50%);
+      opacity: 0.9;
+    }
+
+    /* Vết bàn tay máu & chữ Lies ẩn sau tường (Ảnh 4 & 6) */
+    .ambient-crime-traces {
+      position: fixed;
+      top: 10%;
+      right: -20px;
+      width: 340px;
+      height: 450px;
+      background: radial-gradient(ellipse at center, rgba(180, 0, 25, 0.16) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 2;
+      transform: rotate(12deg);
+    }
+
+    /* Đèn spotlight rọi theo ngón tay */
     .spotlight-layer {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 35;
-      background: radial-gradient(circle 290px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(7, 6, 8, 0.45) 55%, rgba(7, 6, 8, 0.85) 100%);
+      background: radial-gradient(circle 300px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5, 4, 6, 0.45) 55%, rgba(5, 4, 6, 0.85) 100%);
       transition: background 0.08s ease-out;
     }
 
-    #fog-canvas {
+    #ember-canvas {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
       pointer-events: none;
       z-index: 30;
-      opacity: 0.32;
       mix-blend-mode: screen;
     }
 
-    /* VẾT BÀN TAY MÁU MỜ ẢO SAU TƯỜNG (ẢNH 4) */
-    .blood-handprint-watermark {
-      position: fixed;
-      top: 15%;
-      right: -30px;
-      width: 320px;
-      height: 380px;
-      background: radial-gradient(ellipse at center, rgba(160, 0, 20, 0.18) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 2;
-      transform: rotate(15deg);
-    }
-
-    /* NÚT TRÊN CÙNG */
+    /* NÚT ĐIỀU KHIỂN TRÊN CÙNG */
     .top-bar-controls {
       position: fixed;
       top: 14px;
@@ -93,8 +102,8 @@
     }
 
     .audio-pill, .light-pill {
-      background: rgba(14, 10, 14, 0.9);
-      border: 1px solid rgba(230, 0, 38, 0.3);
+      background: rgba(14, 8, 12, 0.9);
+      border: 1px solid rgba(230, 0, 38, 0.35);
       backdrop-filter: blur(12px);
       padding: 6px 14px;
       border-radius: 2px;
@@ -107,7 +116,6 @@
       gap: 6px;
       cursor: pointer;
       transition: 0.3s;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
     }
     .audio-pill.active {
       border-color: var(--crimson);
@@ -127,7 +135,7 @@
     }
     @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ================= 1. CỔNG 18+ GOTHIC ================= */
+    /* ================= 2. CỔNG 18+ ================= */
     #gate-18 {
       position: fixed;
       inset: 0;
@@ -142,11 +150,11 @@
     .gate-card {
       width: 100%;
       max-width: 420px;
-      background: #0c090c;
+      background: #0b0709;
       border: 1px solid rgba(230, 0, 38, 0.35);
       padding: 40px 24px 30px;
       position: relative;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 40px rgba(230, 0, 38, 0.18);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 40px rgba(230, 0, 38, 0.2);
     }
 
     .gate-card h1 {
@@ -183,11 +191,11 @@
       box-shadow: 0 0 30px var(--crimson-glow);
     }
 
-    /* ================= 2. THƯ CỦA TED & MỘC CẤP PHÉP ================= */
+    /* ================= 3. THƯ CỦA TED & MỘC CẤP PHÉP ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
-      background: #050406;
+      background: #040305;
       z-index: 150;
       display: none;
       justify-content: center;
@@ -200,7 +208,7 @@
     .forensic-dossier-letter {
       width: 100%;
       max-width: 540px;
-      background: #0e0a0d;
+      background: #0d080b;
       border: 1px solid var(--border-subtle);
       padding: 35px 25px 30px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.95);
@@ -258,7 +266,7 @@
       width: 130px;
       height: 130px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(230, 0, 38, 0.12) 0%, rgba(12, 8, 12, 0.95) 100%);
+      background: radial-gradient(circle, rgba(230, 0, 38, 0.15) 0%, rgba(12, 6, 10, 0.95) 100%);
       border: 3px double var(--crimson);
       display: flex;
       flex-direction: column;
@@ -267,7 +275,7 @@
       cursor: pointer;
       position: relative;
       transform: rotate(-5deg);
-      box-shadow: 0 0 30px rgba(230, 0, 38, 0.28);
+      box-shadow: 0 0 30px rgba(230, 0, 38, 0.35);
       transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .declassification-stamp-btn:hover {
@@ -312,7 +320,7 @@
       color: #aaa;
     }
 
-    /* ================= 3. BẢNG COLLAGE ÁN MẠNG GOTHIC ================= */
+    /* ================= 4. BẢNG COLLAGE ÁN MẠNG GOTHIC ================= */
     #board-main {
       display: none;
       min-height: 100vh;
@@ -360,7 +368,7 @@
     }
 
     .btn-agent-terminal {
-      background: #120a0d;
+      background: #15090e;
       border: 1px solid var(--crimson);
       color: #fff;
       font-family: 'JetBrains Mono', monospace;
@@ -368,92 +376,104 @@
       padding: 8px 14px;
       border-radius: 2px;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(230,0,38,0.2);
+      box-shadow: 0 0 15px rgba(230,0,38,0.25);
     }
 
-    /* ================= KỆ TANG CHỨNG NGHỆ THUẬT (REPLACED GENERIC BUTTONS) ================= */
-    .artistic-evidence-shelves {
+    /* ================= CÁC DẤU ẤN NGHI THỨC NGHỆ THUẬT (THAY THẾ NÚT HỘP) ================= */
+    .occult-sigil-rack {
       display: flex;
+      justify-content: flex-start;
       align-items: center;
-      gap: 12px;
+      gap: 20px;
       overflow-x: auto;
-      padding: 10px 4px 18px;
+      padding: 10px 6px 20px;
       margin-bottom: 25px;
       position: relative;
       z-index: 15;
       scrollbar-width: none;
     }
-    .artistic-evidence-shelves::-webkit-scrollbar { display: none; }
+    .occult-sigil-rack::-webkit-scrollbar { display: none; }
 
-    /* Thẻ tang chứng bấm lỗ bằng bìa rách */
-    .evidence-tag-tab {
+    /* Dấu ấn Sigil ma mị không đóng khung */
+    .art-sigil-node {
       flex-shrink: 0;
-      background: #171317;
-      border: 1px dashed rgba(230, 0, 38, 0.4);
-      color: #b8b5c2;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      padding: 8px 14px 8px 24px;
-      position: relative;
-      cursor: pointer;
-      transition: all 0.25s;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.6);
-      transform: rotate(-1deg);
-    }
-    /* Lỗ xỏ dây tang chứng bằng kim loại */
-    .evidence-tag-tab::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 8px;
-      transform: translateY(-50%);
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #000;
-      border: 1px solid #777;
-      box-shadow: inset 0 1px 2px #000;
-    }
-    .evidence-tag-tab:hover, .evidence-tag-tab.active {
-      background: #240c12;
-      border-color: var(--crimson);
-      color: #fff;
-      transform: rotate(0deg) scale(1.04);
-      box-shadow: 0 0 15px rgba(230, 0, 38, 0.4);
-    }
-
-    /* NÚT FACEBOOK: PHÙ HIỆU MỘC SÁP ĐẶC VỤ TED (OCCULT GOTHIC CREST) */
-    .ted-occult-crest-btn {
-      flex-shrink: 0;
-      display: inline-flex;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #3d0309 0%, #150003 100%);
-      border: 1px solid #ff3355;
-      padding: 7px 16px;
-      color: #fff;
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 0.72rem;
-      letter-spacing: 1.5px;
-      text-decoration: none;
-      box-shadow: 0 0 20px rgba(230, 0, 38, 0.35);
+      gap: 6px;
+      cursor: pointer;
       position: relative;
-      transform: rotate(1deg);
-      transition: all 0.25s;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      opacity: 0.7;
     }
-    .ted-occult-crest-btn:hover {
-      transform: rotate(0deg) scale(1.06);
-      box-shadow: 0 0 30px rgba(230, 0, 38, 0.7);
-      background: linear-gradient(135deg, #61040f 0%, #260006 100%);
-      border-color: #fff;
-    }
-    .crest-icon-badge {
-      font-size: 0.95rem;
-      filter: drop-shadow(0 0 5px var(--crimson));
+    .art-sigil-node:hover, .art-sigil-node.active {
+      opacity: 1;
+      transform: translateY(-3px) scale(1.05);
     }
 
-    /* TÂM ĐIỂM '?' NỐI CHỈ ĐỎ */
+    .sigil-glyph {
+      width: 48px;
+      height: 48px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(230, 0, 38, 0.15) 0%, transparent 75%);
+    }
+
+    .sigil-glyph svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: #8b8899;
+      stroke-width: 1.5;
+      transition: stroke 0.3s, filter 0.3s;
+    }
+
+    .art-sigil-node.active .sigil-glyph svg,
+    .art-sigil-node:hover .sigil-glyph svg {
+      stroke: var(--crimson);
+      filter: drop-shadow(0 0 8px var(--crimson));
+    }
+
+    .sigil-caption {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      color: #9f9dae;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .art-sigil-node.active .sigil-caption,
+    .art-sigil-node:hover .sigil-caption {
+      color: #fff;
+      text-shadow: 0 0 6px var(--crimson);
+    }
+
+    /* PHÙ HIỆU ĐẶC VỤ TED (BẢN DOANH FACEBOOK CỦA BẠN) */
+    .ted-winged-sigil {
+      text-decoration: none;
+    }
+    .ted-winged-sigil .sigil-glyph {
+      background: radial-gradient(circle, rgba(230, 0, 38, 0.3) 0%, transparent 80%);
+    }
+    .ted-winged-sigil .sigil-glyph svg {
+      stroke: #ff2a4b;
+      filter: drop-shadow(0 0 10px rgba(230, 0, 38, 0.6));
+      animation: wingPulse 2.5s infinite ease-in-out;
+    }
+    @keyframes wingPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(230,0,38,0.5)); }
+      50% { transform: scale(1.08); filter: drop-shadow(0 0 16px rgba(230,0,38,0.9)); }
+    }
+    .ted-winged-sigil .sigil-caption {
+      color: #ff3355;
+      font-weight: 700;
+      text-shadow: 0 0 8px var(--crimson);
+    }
+
+    /* TÂM ĐIỂM '?' NỐI DÂY ĐỎ */
     .mystery-hub-modern {
       text-align: center;
       margin: 5px auto 30px;
@@ -509,7 +529,6 @@
       transform: rotate(var(--rot, 0deg));
     }
 
-    /* BĂNG KEO DÁN TRONG SUỐT GÓC ẢNH */
     .polaroid-evidence-card::after {
       content: "";
       position: absolute;
@@ -599,7 +618,7 @@
       pointer-events: none;
     }
 
-    /* ================= 4. TẬP HỒ SƠ CHI TIẾT ================= */
+    /* ================= 5. TẬP HỒ SƠ CHI TIẾT ================= */
     .dossier-inspect-overlay {
       position: fixed;
       inset: 0;
@@ -615,11 +634,11 @@
     .dossier-inspect-card {
       width: 100%;
       max-width: 460px;
-      background: #0f0b0e;
+      background: #0d080b;
       border: 1px solid var(--crimson);
       padding: 24px;
       position: relative;
-      box-shadow: 0 0 50px rgba(230, 0, 38, 0.3);
+      box-shadow: 0 0 50px rgba(230, 0, 38, 0.35);
     }
 
     .close-inspect-btn {
@@ -673,7 +692,7 @@
       box-shadow: 0 0 15px var(--crimson-glow);
     }
 
-    /* ================= 5. ĐĂNG NHẬP TED & BÀN HỒ SƠ ================= */
+    /* ================= 6. ĐĂNG NHẬP TED & BÀN HỒ SƠ ================= */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -689,7 +708,7 @@
     .terminal-window {
       width: 100%;
       max-width: 420px;
-      background: #0e090c;
+      background: #0d070a;
       border: 1px solid var(--crimson);
       padding: 30px 22px;
       box-shadow: 0 0 50px rgba(230, 0, 38, 0.3);
@@ -745,7 +764,7 @@
 
     #ted-active-desk {
       display: none;
-      background: #191216;
+      background: #181014;
       border: 1px solid var(--crimson);
       padding: 22px 18px;
       margin-bottom: 30px;
@@ -756,17 +775,19 @@
 </head>
 <body>
 
-  <!-- ĐÚNG 100% TÊN FILE NHẠC BẠN VỪA TẢI LÊN GITHUB -->
+  <!-- ĐẦY ĐỦ CÁC BIẾN THỂ TÊN FILE ĐỂ TRÌNH DUYỆT TÌM THẤY 100% -->
   <audio id="noir-ambient-audio" loop preload="auto">
+    <source src="KId_Cudi_-_She_Knows_This_slowed_reverb_(mp3.pm).mp3" type="audio/mpeg">
     <source src="Kld_Cudi_-_She_Knows_This_slowed_reverb_(mp3.pm).mp3" type="audio/mpeg">
+    <source src="Kid_Cudi_-_She_Knows_This_slowed_reverb_(mp3.pm).mp3" type="audio/mpeg">
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- VẾT BÀN TAY MÁU MỜ ẢO SAU TƯỜNG (ẢNH 4) -->
-  <div class="blood-handprint-watermark"></div>
-
+  <!-- NỀN GOTHIC & VẾT TÍCH ÁM ẢNH PHÍA SAU -->
+  <div class="gothic-arch-backdrop"></div>
+  <div class="ambient-crime-traces"></div>
   <div class="spotlight-layer" id="spotlight"></div>
-  <canvas id="fog-canvas"></canvas>
+  <canvas id="ember-canvas"></canvas>
 
   <div class="top-bar-controls">
     <div class="light-pill" id="btn-toggle-light" style="display:none;">
@@ -836,16 +857,51 @@
       <button class="btn-agent-terminal" id="btn-open-terminal">ACCESS TERMINAL: TED</button>
     </div>
 
-    <!-- KỆ TANG CHỨNG NGHỆ THUẬT & PHÙ HIỆU FACEBOOK ĐẶC VỤ TED -->
-    <div class="artistic-evidence-shelves">
-      <div class="evidence-tag-tab active" data-filter="all">TẤT CẢ HỒ SƠ</div>
-      <div class="evidence-tag-tab" data-filter="Active">LỆNH TRUY NÃ</div>
-      <div class="evidence-tag-tab" data-filter="Beaumont">SITE 17-A</div>
+    <!-- CÁC DẤU ẤN NGHI THỨC NGHỆ THUẬT (THAY THẾ TOÀN BỘ CÁC NÚT ĐÓNG KHUNG CŨ) -->
+    <div class="occult-sigil-rack">
+      <!-- DẤU ẤN TỔNG HỒ SƠ -->
+      <div class="art-sigil-node active" data-filter="all">
+        <div class="sigil-glyph">
+          <svg viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="17" stroke-dasharray="3 2" />
+            <circle cx="20" cy="20" r="11" />
+            <polygon points="20,6 32,27 8,27" />
+          </svg>
+        </div>
+        <span class="sigil-caption">TẤT CẢ HỒ SƠ</span>
+      </div>
 
-      <!-- PHÙ HIỆU MỘC SÁP DẪN THẲNG ĐẾN TRẠM CHỦ FACEBOOK CỦA TED -->
-      <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="ted-occult-crest-btn">
-        <span class="crest-icon-badge">⚜️</span>
-        <span>BẢN DOANH: ĐẶC VỤ TED ↗</span>
+      <!-- DẤU ẤN LỆNH TRUY NÃ -->
+      <div class="art-sigil-node" data-filter="Active">
+        <div class="sigil-glyph">
+          <svg viewBox="0 0 40 40">
+            <path d="M20 4 L23 18 L36 20 L23 22 L20 36 L17 22 L4 20 L17 18 Z" />
+            <circle cx="20" cy="20" r="4" fill="var(--crimson)" />
+          </svg>
+        </div>
+        <span class="sigil-caption">LỆNH TRUY NÃ</span>
+      </div>
+
+      <!-- DẤU ẤN CỔNG VÒM SITE 17-A -->
+      <div class="art-sigil-node" data-filter="Beaumont">
+        <div class="sigil-glyph">
+          <svg viewBox="0 0 40 40">
+            <path d="M10 34 L10 18 C10 10 30 10 30 18 L30 34" />
+            <path d="M16 34 L16 22 C16 16 24 16 24 22 L24 34" />
+          </svg>
+        </div>
+        <span class="sigil-caption">SITE 17-A</span>
+      </div>
+
+      <!-- PHÙ HIỆU ĐẶC VỤ TED DẪN THẲNG ĐẾN FACEBOOK -->
+      <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="art-sigil-node ted-winged-sigil">
+        <div class="sigil-glyph">
+          <svg viewBox="0 0 40 40">
+            <path d="M20 12 C12 4 4 14 8 26 C12 24 16 20 20 22 C24 20 28 24 32 26 C36 14 28 4 20 12 Z" />
+            <circle cx="20" cy="22" r="2.5" fill="#fff" />
+          </svg>
+        </div>
+        <span class="sigil-caption">TRẠM CHỦ TED ↗</span>
       </a>
     </div>
 
@@ -892,7 +948,7 @@
 
         <button type="submit" class="btn-terminal-submit" id="btn-upload-submit">+ GHIM HỒ SƠ LÊN BẢNG</button>
         
-        <button type="button" id="btn-export-code" style="width:100%; background:#221820; border:1px dashed #777; color:#ddd; padding:10px; font-family:'JetBrains Mono'; font-size:0.75rem; margin-top:8px; cursor:pointer;">
+        <button type="button" id="btn-export-code" style="width:100%; background:#22141c; border:1px dashed #777; color:#ddd; padding:10px; font-family:'JetBrains Mono'; font-size:0.75rem; margin-top:8px; cursor:pointer;">
           📋 XUẤT CODE DANH SÁCH ĐỂ DÁN VÀO GITHUB (CHO MỌI NGƯỜI CÙNG THẤY)
         </button>
       </form>
@@ -953,7 +1009,7 @@
   </div>
 
   <script>
-    /* ================= 1. ĐÈN SPOTLIGHT ĐIỆN ẢNH ================= */
+    /* ================= 1. ÁNH ĐÈN SPOTLIGHT ĐIỆN ẢNH ================= */
     const spotlight = document.getElementById('spotlight');
     function updateSpotlight(x, y) {
       spotlight.style.setProperty('--spot-x', `${x}px`);
@@ -964,23 +1020,27 @@
       if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    /* ================= 2. HỆ THỐNG ÂM THANH SHE KNOWS ================= */
+    /* ================= 2. HỆ THỐNG PHÁT NHẠC TỰ ĐỘNG THÔNG MINH ================= */
     const noirAudio = document.getElementById('noir-ambient-audio');
     let isAudioOn = false;
     const audioPill = document.getElementById('audio-pill');
     const audioState = document.getElementById('audio-state');
 
     function startMusic() {
-      noirAudio.volume = 0.75;
-      noirAudio.play().then(() => {
-        isAudioOn = true;
-        audioPill.classList.add('active');
-        audioState.innerText = "AMBIENT ON";
-      }).catch(err => {
-        console.log("Audio waiting for user gesture:", err);
-      });
+      noirAudio.volume = 0.8;
+      const playPromise = noirAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isAudioOn = true;
+          audioPill.classList.add('active');
+          audioState.innerText = "AMBIENT ON";
+        }).catch(err => {
+          console.log("Audio waiting for user tap:", err);
+        });
+      }
     }
 
+    // Bấm nút bật/tắt nhạc
     audioPill.addEventListener('click', () => {
       if (isAudioOn) {
         noirAudio.pause();
@@ -991,6 +1051,13 @@
         startMusic();
       }
     });
+
+    // Chạm bất kỳ đâu trên web lần đầu tiên cũng sẽ tự mở nhạc nếu bị chặn
+    document.addEventListener('pointerdown', () => {
+      if (!isAudioOn && gate18.style.display === 'none') {
+        startMusic();
+      }
+    }, { once: false });
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playStampBang() {
@@ -1008,48 +1075,49 @@
       osc.stop(audioCtx.currentTime + 0.4);
     }
 
-    /* ================= 3. KHÓI SƯƠNG CANVASS ================= */
-    const fogCanvas = document.getElementById('fog-canvas');
-    const fogCtx = fogCanvas.getContext('2d');
-    let particles = [];
+    /* ================= 3. TÀN TRO THAN ĐỎ RỰC LỬA TRÊN NỀN ================= */
+    const emberCanvas = document.getElementById('ember-canvas');
+    const emberCtx = emberCanvas.getContext('2d');
+    let embers = [];
+
     function resizeCanvas() {
-      fogCanvas.width = window.innerWidth;
-      fogCanvas.height = window.innerHeight;
+      emberCanvas.width = window.innerWidth;
+      emberCanvas.height = window.innerHeight;
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    for (let i = 0; i < 25; i++) {
-      particles.push({
-        x: Math.random() * fogCanvas.width,
-        y: Math.random() * fogCanvas.height,
-        r: 60 + Math.random() * 80,
-        dx: (Math.random() - 0.5) * 0.3,
-        dy: (Math.random() - 0.5) * 0.3,
-        alpha: 0.04 + Math.random() * 0.06
+    for (let i = 0; i < 35; i++) {
+      embers.push({
+        x: Math.random() * emberCanvas.width,
+        y: Math.random() * emberCanvas.height,
+        r: 1 + Math.random() * 2.5,
+        dy: -(0.4 + Math.random() * 0.8),
+        dx: (Math.random() - 0.5) * 0.4,
+        alpha: 0.2 + Math.random() * 0.7
       });
     }
 
-    function drawFog() {
-      fogCtx.clearRect(0, 0, fogCanvas.width, fogCanvas.height);
-      particles.forEach(p => {
-        p.x += p.dx; p.y += p.dy;
-        if (p.x < -p.r) p.x = fogCanvas.width + p.r;
-        if (p.x > fogCanvas.width + p.r) p.x = -p.r;
-        if (p.y < -p.r) p.y = fogCanvas.height + p.r;
-        if (p.y > fogCanvas.height + p.r) p.y = -p.r;
+    function drawEmbers() {
+      emberCtx.clearRect(0, 0, emberCanvas.width, emberCanvas.height);
+      embers.forEach(p => {
+        p.y += p.dy;
+        p.x += p.dx;
+        if (p.y < 0) {
+          p.y = emberCanvas.height + 10;
+          p.x = Math.random() * emberCanvas.width;
+        }
 
-        const grad = fogCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-        grad.addColorStop(0, `rgba(180, 180, 200, ${p.alpha})`);
-        grad.addColorStop(1, 'rgba(180, 180, 200, 0)');
-        fogCtx.fillStyle = grad;
-        fogCtx.beginPath();
-        fogCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        fogCtx.fill();
+        emberCtx.beginPath();
+        emberCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        emberCtx.fillStyle = `rgba(230, 20, 40, ${p.alpha})`;
+        emberCtx.shadowColor = "rgba(230, 0, 38, 0.8)";
+        emberCtx.shadowBlur = 8;
+        emberCtx.fill();
       });
-      requestAnimationFrame(drawFog);
+      requestAnimationFrame(drawEmbers);
     }
-    drawFog();
+    drawEmbers();
 
     /* ================= 4. DANH SÁCH HỒ SƠ MẶC ĐỊNH ================= */
     const GLOBAL_DEFAULT_CASES = [
@@ -1085,7 +1153,7 @@
       }
     ];
 
-    let dossiers = JSON.parse(localStorage.getItem('cali_cases_v3')) || GLOBAL_DEFAULT_CASES;
+    let dossiers = JSON.parse(localStorage.getItem('cali_cases_v4')) || GLOBAL_DEFAULT_CASES;
 
     /* ================= 5. MỞ CỔNG & BẢNG ÁN MẠNG ================= */
     const gate18 = document.getElementById('gate-18');
@@ -1144,11 +1212,12 @@
       renderRedThreads();
     }
 
-    /* LỌC THEO KỆ TANG CHỨNG */
-    const shelfTabs = document.querySelectorAll('.evidence-tag-tab');
-    shelfTabs.forEach(tab => {
+    /* CHUYỂN DẤU ẤN SIGIL PHÂN LOẠI */
+    const sigilTabs = document.querySelectorAll('.art-sigil-node');
+    sigilTabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        shelfTabs.forEach(t => t.classList.remove('active'));
+        if (tab.classList.contains('ted-winged-sigil')) return;
+        sigilTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         const filter = tab.getAttribute('data-filter');
         if (filter === 'all') {
@@ -1326,7 +1395,7 @@
         };
 
         dossiers.unshift(newRecord);
-        localStorage.setItem('cali_cases_v3', JSON.stringify(dossiers));
+        localStorage.setItem('cali_cases_v4', JSON.stringify(dossiers));
         renderCasesWall(dossiers);
         playStampBang();
         alert(`Đã đính hồ sơ [${nameVal}] lên bảng của bạn!\n\n👉 BẤM NÚT [XUẤT CODE DƯỚI ĐÂY] ĐỂ TRANG VÀ MỌI NGƯỜI CÙNG THẤY VĨNH VIỄN NHÉ!`);
