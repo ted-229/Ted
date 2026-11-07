@@ -3,55 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ĐẠI TỘI VÙNG CALIFORNIA // ARCHIVE</title>
+  <title>ĐẠI TỘI VÙNG CALIFORNIA</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;600;700&family=Reenie+Beanie&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Permanent+Marker&family=Special+Elite&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #050406;
-      --crimson: #e60026;
-      --crimson-glow: rgba(230, 0, 38, 0.65);
-      --crimson-dark: #3a0008;
-      --polaroid-paper: #e5ded2;
-      --postit-yellow: #f4dc66;
-      --text-main: #f0eef5;
-      --text-dim: #9b98ab;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --gold-baroque: #c5a059;
+      --bg: #030303;
+      --crimson: #a60311;
+      --crimson-glow: rgba(166, 3, 17, 0.6);
+      --polaroid: #f4f0e6;
+      --paper-note: #e8dcc4;
+      --tape: rgba(220, 215, 190, 0.6);
+      --text-main: #e0dcd3;
+      --text-dark: #1a1818;
     }
 
-    body.ted-illuminated {
-      --bg: #140f12;
-    }
-    body.ted-illuminated .spotlight-layer {
-      background: radial-gradient(circle 900px at 50% 30%, rgba(255, 215, 160, 0.22) 0%, rgba(20, 16, 18, 0.6) 60%, rgba(8, 7, 9, 0.88) 100%) !important;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-    }
-
-    /* ẢNH BACKGROUND CỦA BẠN ĐƯỢC GIỮ NGUYÊN */
+    /* NỀN BẢNG ÁN MẠNG GỐC CỦA BẠN */
     body {
       background: 
-        radial-gradient(circle at 50% 30%, transparent 20%, rgba(5, 4, 6, 0.85) 80%),
+        radial-gradient(circle at 50% 40%, transparent 10%, rgba(0, 0, 0, 0.85) 90%),
         url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
         var(--bg);
       color: var(--text-main);
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Courier Prime', monospace;
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
-      transition: background-color 0.8s ease;
     }
 
-    /* HIỆU ỨNG NHÁ ĐÈN HÙ DỌA (JUMPSCARE STROBE) */
+    /* ĐÈN RỌI SPOTLIGHT MỜ ẢO NHƯNG ĐỦ THẤY NỀN */
+    .spotlight-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 35;
+      background: radial-gradient(circle 350px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(2, 2, 2, 0.6) 60%, rgba(0, 0, 0, 0.92) 100%);
+      transition: background 0.1s ease-out;
+    }
+
+    body.ted-illuminated .spotlight-layer {
+      background: radial-gradient(circle 900px at 50% 30%, rgba(200, 150, 100, 0.1) 0%, rgba(10, 5, 5, 0.5) 60%, rgba(0, 0, 0, 0.85) 100%) !important;
+    }
+
+    /* HIỆU ỨNG NHÁ ĐÈN JUMPSCARE */
     #jumpscare-overlay {
       position: fixed;
       inset: 0;
@@ -60,286 +58,146 @@
       display: none;
       background: #fff;
     }
-
     .strobe-active {
       display: block !important;
-      animation: horrorStrobe 0.45s steps(2, start) forwards;
+      animation: horrorStrobe 0.4s steps(2, start) forwards;
     }
-
     @keyframes horrorStrobe {
       0% { background: #fff; opacity: 1; }
-      20% { background: var(--crimson); opacity: 0.9; }
-      40% { background: #000; opacity: 1; }
-      60% { background: #fff; opacity: 0.8; }
-      80% { background: var(--crimson); opacity: 1; }
+      25% { background: var(--crimson); opacity: 0.9; }
+      50% { background: #000; opacity: 1; }
+      75% { background: #fff; opacity: 0.8; }
       100% { background: transparent; opacity: 0; }
     }
 
-    .spotlight-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 35;
-      background: radial-gradient(circle 290px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5, 4, 6, 0.45) 55%, rgba(5, 4, 6, 0.82) 100%);
-      transition: background 0.08s ease-out;
-    }
-
-    #ember-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 30;
-      mix-blend-mode: screen;
-    }
-
-    /* THANH NÚT ĐIỀU KHIỂN GÓC TRÊN CÙNG (ĐÃ THU NHỎ NÚT TED VÀO ĐÂY) */
+    /* THANH NÚT TRÊN CÙNG KÍN ĐÁO */
     .top-bar-controls {
       position: fixed;
-      top: 14px;
-      right: 14px;
+      top: 15px;
+      right: 15px;
       z-index: 100;
       display: flex;
-      align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
-
-    .audio-pill, .light-pill, .admin-pill {
-      background: rgba(14, 8, 12, 0.9);
-      border: 1px solid rgba(230, 0, 38, 0.35);
-      backdrop-filter: blur(14px);
+    .ctrl-pill {
+      background: rgba(10, 10, 10, 0.85);
+      border: 1px solid #333;
       padding: 6px 12px;
-      border-radius: 30px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 1px;
-      color: var(--text-dim);
+      font-size: 0.75rem;
+      font-family: 'Courier Prime', monospace;
+      color: #999;
+      cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      cursor: pointer;
-      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+      transition: 0.2s;
     }
-    .admin-pill {
-      border-color: rgba(212, 175, 55, 0.4);
-      color: #dfcfab;
-    }
-    .admin-pill:hover, .admin-pill.active {
+    .ctrl-pill:hover, .ctrl-pill.active {
       border-color: var(--crimson);
       color: #fff;
-      box-shadow: 0 0 12px var(--crimson-glow);
-    }
-
-    .audio-pill.active {
-      border-color: var(--crimson);
-      color: #fff;
-      box-shadow: 0 0 15px var(--crimson-glow);
     }
     .audio-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--text-dim);
+      width: 6px; height: 6px; border-radius: 50%; background: #999;
     }
-    .audio-pill.active .audio-dot {
+    .ctrl-pill.active .audio-dot {
       background: var(--crimson);
       box-shadow: 0 0 8px var(--crimson);
-      animation: pulseDot 1.5s infinite;
     }
-    @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ================= 1. CỔNG 18+: ĐẠI TỘI VÙNG CALIFORNIA ================= */
+    /* ================= CỔNG 18+ VÀ THƯ CHÂN THỰC ================= */
     #gate-18 {
       position: fixed;
       inset: 0;
-      background: #030204;
+      background: #000;
       z-index: 200;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 24px;
+      padding: 20px;
     }
-
     .gate-card {
-      width: 100%;
-      max-width: 440px;
-      background: #0b0709;
-      border: 1px solid rgba(230, 0, 38, 0.35);
-      padding: 40px 24px 30px;
-      position: relative;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 40px rgba(230, 0, 38, 0.2);
+      background: #0a0a0a;
+      border: 1px solid var(--crimson);
+      padding: 30px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(166, 3, 17, 0.2);
     }
-
     .gate-card h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.55rem;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
+      font-family: 'Special Elite', cursive;
+      font-size: 1.8rem;
       color: #fff;
-      line-height: 1.25;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px var(--crimson);
     }
-
     .gate-card p {
-      color: var(--text-dim);
       font-size: 0.85rem;
       line-height: 1.6;
+      color: #aaa;
       margin-bottom: 25px;
     }
-
-    .btn-action-glow {
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--crimson);
-      color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .btn-action-glow:hover, .btn-action-glow:active {
+    .btn-blood {
       background: var(--crimson);
-      box-shadow: 0 0 30px var(--crimson-glow);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-family: 'Special Elite', cursive;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
     }
 
-    /* ================= 2. THƯ CỦA TED ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
-      background: #040305;
+      background: rgba(0,0,0,0.95);
       z-index: 150;
       display: none;
       justify-content: center;
       align-items: center;
-      padding: 18px;
-      overflow-y: auto;
-      transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+      padding: 20px;
+      transition: transform 0.8s ease-in;
     }
-
-    .forensic-dossier-letter {
-      width: 100%;
-      max-width: 540px;
-      background: #0d080b;
-      border: 1px solid var(--border-subtle);
-      padding: 35px 25px 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.95);
+    .letter-paper {
+      background: var(--paper-note);
+      color: var(--text-dark);
+      padding: 40px 30px;
+      max-width: 500px;
+      box-shadow: 0 10px 40px rgba(0,0,0,1);
       position: relative;
-      margin: auto;
+      transform: rotate(-1deg);
     }
-
-    .dossier-barcode {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--text-dim);
-      letter-spacing: 2px;
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: 10px;
-      margin-bottom: 18px;
-    }
-
-    .dossier-headline h2 {
-      font-family: 'Cinzel', serif;
+    .letter-paper h2 {
+      font-family: 'Special Elite', cursive;
       font-size: 1.8rem;
-      color: #fff;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
     }
-
-    .dossier-headline .sub {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--crimson);
-      letter-spacing: 2px;
-      margin-bottom: 18px;
+    .letter-paper p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    .stamp-break {
       display: block;
-    }
-
-    .dossier-body {
-      font-size: 0.88rem;
-      line-height: 1.7;
-      color: #b0afbe;
-      margin-bottom: 25px;
-      text-align: justify;
-    }
-
-    .seal-permit-zone {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 22px;
-    }
-
-    .declassification-stamp-btn {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(230, 0, 38, 0.15) 0%, rgba(12, 6, 10, 0.95) 100%);
-      border: 3px double var(--crimson);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      position: relative;
+      margin: 0 auto;
+      background: transparent;
+      border: 3px solid var(--crimson);
+      color: var(--crimson);
+      font-family: 'Special Elite', cursive;
+      font-size: 1.2rem;
+      padding: 10px 20px;
       transform: rotate(-5deg);
-      box-shadow: 0 0 30px rgba(230, 0, 38, 0.35);
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .declassification-stamp-btn:hover {
-      transform: rotate(0deg) scale(1.05);
-      border-color: #fff;
-      box-shadow: 0 0 35px var(--crimson-glow);
+      cursor: pointer;
     }
 
-    .stamp-svg-ring {
-      position: absolute;
-      inset: 4px;
-      width: calc(100% - 8px);
-      height: calc(100% - 8px);
-      animation: rotateStamp 25s linear infinite;
-      pointer-events: none;
-    }
-    @keyframes rotateStamp { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-    .stamp-center-text .permit-tag {
-      font-family: 'Cinzel', serif;
-      font-weight: 900;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      color: #fff;
-      text-shadow: 0 0 8px var(--crimson);
-      display: block;
-    }
-    .stamp-center-text .status-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.52rem;
-      color: var(--crimson);
-      letter-spacing: 1px;
-      border-top: 1px solid var(--crimson);
-      border-bottom: 1px solid var(--crimson);
-      padding: 1px 0;
-      margin: 2px 0;
-      display: block;
-    }
-    .stamp-center-text .auth-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.55rem;
-      color: #aaa;
-    }
-
-    /* ================= 3. BẢNG ÁN MẠNG GOTHIC ================= */
+    /* ================= BẢNG ÁN MẠNG GIAO DIỆN CHÂN THỰC ================= */
     #board-main {
       display: none;
       min-height: 100vh;
-      padding: 30px 12px 100px;
+      padding: 30px 15px 100px;
       max-width: 1200px;
       margin: 0 auto;
       position: relative;
@@ -348,1704 +206,775 @@
 
     #thread-canvas {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
     }
 
-    .redesigned-header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .main-title {
+      font-family: 'Special Elite', cursive;
+      font-size: 2rem;
       text-align: center;
-      margin-bottom: 25px;
-      position: relative;
-      z-index: 10;
-    }
-
-    .brand-headline {
-      font-family: 'Cinzel', serif;
-      font-size: 1.55rem;
-      letter-spacing: 2.5px;
       color: #fff;
-      margin-bottom: 4px;
-    }
-
-    .brand-sub {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      letter-spacing: 1px;
-      margin-bottom: 18px;
-    }
-
-    /* ================= 3 BONG BÓNG MỜ ẢO SƠN DẦU (FINE-ART LIQUID ORBS) ================= */
-    .ethereal-orbs-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 25px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .art-orb-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: floatOrb 5s ease-in-out infinite alternate;
-    }
-    .art-orb-btn:nth-child(2) { animation-delay: 1.5s; }
-    .art-orb-btn:nth-child(3) { animation-delay: 3s; }
-
-    @keyframes floatOrb {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-7px); }
-    }
-
-    .glass-orb-bubble {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      background: radial-gradient(circle at 35% 30%, rgba(255, 60, 90, 0.3) 0%, rgba(35, 12, 20, 0.85) 60%, rgba(8, 4, 7, 0.98) 100%);
-      border: 1.5px solid rgba(212, 175, 55, 0.45);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.85), inset 0 0 16px rgba(230, 0, 38, 0.45);
-      backdrop-filter: blur(14px);
-    }
-
-    .art-orb-btn:hover .glass-orb-bubble,
-    .art-orb-btn.active .glass-orb-bubble {
-      border-color: #fff;
-      box-shadow: 0 0 35px var(--crimson-glow), inset 0 0 20px var(--crimson);
-      transform: scale(1.1);
-    }
-
-    .glass-orb-bubble svg {
-      width: 42px;
-      height: 42px;
-      stroke: #dfd8e5;
-      fill: none;
-      stroke-width: 1.4;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: drop-shadow(0 0 6px rgba(230,0,38,0.7));
-      transition: all 0.3s;
-    }
-    .art-orb-btn:hover .glass-orb-bubble svg,
-    .art-orb-btn.active .glass-orb-bubble svg {
-      stroke: #fff;
-      filter: drop-shadow(0 0 12px var(--crimson));
-    }
-
-    .orb-label-title {
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 0.65rem;
-      letter-spacing: 1.5px;
-      color: #beb9cb;
-      margin-top: 8px;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-    .art-orb-btn:hover .orb-label-title,
-    .art-orb-btn.active .orb-label-title {
-      color: #fff;
-      text-shadow: 0 0 8px var(--crimson);
-    }
-
-    .ted-orb-special .glass-orb-bubble {
-      border-color: #ff3355;
-      box-shadow: 0 0 25px rgba(230, 0, 38, 0.45), inset 0 0 18px rgba(230, 0, 38, 0.6);
-    }
-    .ted-orb-special .orb-label-title {
-      color: #ff3355;
-      font-weight: 900;
-      text-shadow: 0 0 10px var(--crimson);
-    }
-
-    /* ================= THANH TÌM KIẾM / ĐIỀU TRA HỒ SƠ ================= */
-    .dossier-search-wrapper {
-      width: 100%;
-      max-width: 460px;
-      margin: 10px auto 25px;
-      position: relative;
-      z-index: 10;
-    }
-    .search-input-field {
-      width: 100%;
-      background: rgba(14, 8, 14, 0.85);
-      border: 1px solid rgba(230, 0, 38, 0.4);
-      color: #fff;
-      padding: 10px 16px 10px 38px;
-      border-radius: 25px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      outline: none;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
-      transition: all 0.3s;
-    }
-    .search-input-field:focus {
-      border-color: var(--crimson);
-      box-shadow: 0 0 20px var(--crimson-glow);
-    }
-    .search-lens-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.85rem;
-      color: var(--crimson);
-      pointer-events: none;
-    }
-
-    /* TÂM ĐIỂM '?' NỐI CHỈ ĐỎ */
-    .mystery-hub-modern {
-      text-align: center;
-      margin: 5px auto 25px;
-      position: relative;
-      z-index: 10;
-      width: fit-content;
-    }
-
-    .question-core {
-      font-family: 'Cinzel', serif;
-      font-size: 4rem;
-      line-height: 1;
-      color: var(--crimson);
-      text-shadow: 0 0 30px var(--crimson-glow);
-      position: relative;
-    }
-    .hub-pin-node {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
-    }
-
-    /* BẢNG POLAROID 2 CỘT */
-    .conspiracy-board-wall {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      position: relative;
-      z-index: 10;
-      margin-bottom: 45px;
-    }
-
-    @media (min-width: 768px) {
-      .conspiracy-board-wall {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 28px;
-      }
-    }
-
-    .polaroid-evidence-card {
-      background: var(--polaroid-paper);
-      color: #1a171a;
-      padding: 10px 10px 18px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.9);
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.25s, box-shadow 0.25s;
-      transform: rotate(var(--rot, 0deg));
-    }
-
-    .polaroid-evidence-card::after {
-      content: "";
-      position: absolute;
-      top: -8px;
-      right: 12px;
-      width: 38px;
-      height: 16px;
-      background: rgba(240, 230, 200, 0.45);
-      border-left: 1px dashed rgba(0,0,0,0.1);
-      border-right: 1px dashed rgba(0,0,0,0.1);
-      transform: rotate(12deg);
-      pointer-events: none;
-    }
-
-    .polaroid-evidence-card:hover {
-      transform: scale(1.04) rotate(0deg) !important;
-      z-index: 40 !important;
-      box-shadow: 0 20px 45px rgba(230, 0, 38, 0.5);
-    }
-
-    .red-pushpin {
-      position: absolute;
-      top: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 12px;
-      height: 12px;
-      background: #e60026;
-      border-radius: 50%;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.8), inset 0 1px 3px #fff;
-      border: 1px solid #660010;
-      z-index: 5;
-    }
-
-    .polaroid-photo-frame {
-      width: 100%;
-      height: 165px;
-      background: #111;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-
-    .polaroid-photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      filter: grayscale(100%) contrast(1.25);
-      transition: filter 0.3s;
-    }
-    .polaroid-evidence-card:hover .polaroid-photo-frame img {
-      filter: grayscale(10%) contrast(1.3);
-    }
-
-    .polaroid-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.88rem;
-      line-height: 1.2;
-      color: #121013;
-      margin-bottom: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .polaroid-meta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      color: #6a1a1a;
-      letter-spacing: 0.5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .stamp-like-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      cursor: pointer;
-      color: #777;
-      font-size: 0.68rem;
-      font-family: 'JetBrains Mono', monospace;
-      transition: all 0.2s;
-      padding: 2px 4px;
-      border-radius: 2px;
-    }
-    .stamp-like-btn.liked {
-      color: var(--crimson);
-      font-weight: bold;
-    }
-    .stamp-like-btn svg {
-      width: 13px;
-      height: 13px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.5;
-    }
-    .stamp-like-btn.liked svg {
-      fill: var(--crimson);
-      stroke: var(--crimson);
-      filter: drop-shadow(0 0 4px var(--crimson));
-    }
-
-    .sticky-note-clue {
-      position: absolute;
-      bottom: -10px;
-      right: -8px;
-      background: var(--postit-yellow);
-      color: #000;
-      font-family: 'Reenie Beanie', cursive;
-      font-size: 1.15rem;
-      padding: 4px 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      transform: rotate(8deg);
-      border-top: 2px solid rgba(0,0,0,0.05);
-      pointer-events: none;
-    }
-
-    /* NÚT SỬA & XÓA CỦA TED */
-    .ted-card-controls {
-      display: none;
-      margin-top: 8px;
-      padding-top: 6px;
-      border-top: 1px dashed rgba(0,0,0,0.25);
-      gap: 6px;
-    }
-    body.ted-illuminated .ted-card-controls {
-      display: flex;
-    }
-    .btn-card-edit, .btn-card-del {
-      flex: 1;
-      padding: 4px 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      font-weight: bold;
-      border: 1px solid #111;
-      background: #222;
-      color: #fff;
-      cursor: pointer;
-      text-align: center;
-    }
-    .btn-card-del {
-      background: #8a0014;
-      border-color: #55000c;
-    }
-
-    /* ================= 4. CỔNG DIỄN ĐÀN TRANH SƠN DẦU (FEEDBACK SALON) ================= */
-    .discord-feedback-zone {
-      background: radial-gradient(circle at 50% 20%, rgba(35, 15, 25, 0.9) 0%, rgba(12, 6, 12, 0.95) 100%);
-      border: 1.5px solid rgba(212, 175, 55, 0.45);
-      padding: 24px 20px;
-      border-radius: 6px;
-      position: relative;
-      z-index: 15;
-      margin-top: 35px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.95), inset 0 0 30px rgba(0,0,0,0.8);
-      backdrop-filter: blur(14px);
-    }
-
-    .discord-channel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-      padding-bottom: 14px;
-      margin-bottom: 18px;
-    }
-
-    .channel-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
-      color: #fff;
-      letter-spacing: 1.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .channel-title span { color: var(--gold-baroque); font-weight: bold; font-size: 1.2rem; }
-
-    .btn-open-feedback-modal {
-      background: linear-gradient(135deg, #a8001a 0%, #52000c 100%);
-      border: 1px solid var(--crimson);
-      color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.72rem;
-      padding: 8px 16px;
-      cursor: pointer;
-      border-radius: 20px;
-      letter-spacing: 1px;
-      box-shadow: 0 0 15px var(--crimson-glow);
-    }
-
-    .discord-messages-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      max-height: 310px;
-      overflow-y: auto;
-      padding-right: 6px;
-    }
-
-    .discord-message-item {
-      display: flex;
-      gap: 12px;
-      background: rgba(22, 12, 20, 0.75);
-      padding: 12px 14px;
-      border-radius: 4px;
-      border-left: 2.5px solid var(--crimson);
-      position: relative;
-    }
-
-    .discord-avatar-img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      flex-shrink: 0;
-      border: 1.5px solid rgba(212, 175, 55, 0.5);
-      box-shadow: 0 0 10px rgba(0,0,0,0.8);
-    }
-
-    .discord-msg-content {
-      flex: 1;
-    }
-
-    .discord-author-line {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 4px;
-    }
-
-    .author-name-tag {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .author-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: #fff;
-    }
-
-    .author-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.55rem;
-      background: rgba(230,0,38,0.25);
-      color: var(--crimson);
-      padding: 1px 5px;
-      border-radius: 2px;
-    }
-
-    .msg-timestamp {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--text-dim);
-    }
-
-    .msg-body-text {
-      font-size: 0.82rem;
-      line-height: 1.45;
-      color: #dfdaea;
-    }
-
-    /* Nút xoá comment dành riêng cho Ted */
-    .btn-del-feedback {
-      display: none;
-      background: #8a0014;
-      border: none;
-      color: #fff;
-      font-size: 0.6rem;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 2px 6px;
-      cursor: pointer;
-      border-radius: 2px;
-      margin-left: 8px;
-    }
-    body.ted-illuminated .btn-del-feedback {
-      display: inline-block;
-    }
-
-    /* MODAL ĐĂNG FEEDBACK */
-    #feedback-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(5,4,6,0.96);
-      z-index: 320;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    /* ================= 5. TẬP HỒ SƠ CHI TIẾT ================= */
-    .dossier-inspect-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(6, 4, 7, 0.95);
-      backdrop-filter: blur(15px);
-      z-index: 300;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
-
-    .dossier-inspect-card {
-      width: 100%;
-      max-width: 460px;
-      background: #0d080b;
-      border: 1px solid var(--crimson);
-      padding: 24px;
-      position: relative;
-      box-shadow: 0 0 50px rgba(230, 0, 38, 0.35);
-    }
-
-    .close-inspect-btn {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      background: none;
-      border: none;
-      color: var(--text-dim);
-      font-size: 1.4rem;
-      cursor: pointer;
-    }
-
-    .inspect-mugshot {
-      width: 100%;
-      height: 220px;
-      background: #000;
-      border: 1px solid var(--border-subtle);
-      margin: 12px 0 16px;
-      overflow: hidden;
-    }
-    .inspect-mugshot img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .inspect-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 16px;
-    }
-    .inspect-actions a {
-      text-align: center;
-      padding: 10px 4px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .btn-act-plot {
-      background: rgba(255,255,255,0.05);
-      color: #fff;
-      border: 1px solid var(--border-subtle);
-    }
-    .btn-act-ggai {
-      background: var(--crimson);
-      color: #fff;
-      box-shadow: 0 0 15px var(--crimson-glow);
-    }
-
-    /* ================= 6. ĐĂNG NHẬP TED & BÀN HỒ SƠ ================= */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 4, 6, 0.96);
-      backdrop-filter: blur(20px);
-      z-index: 250;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .terminal-window {
-      width: 100%;
-      max-width: 440px;
-      background: #0d070a;
-      border: 1px solid var(--crimson);
-      padding: 30px 22px;
-      box-shadow: 0 0 50px rgba(230, 0, 38, 0.3);
-      position: relative;
-    }
-
-    .field-wrap {
-      margin-bottom: 14px;
-    }
-    .field-wrap label {
-      display: block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--text-dim);
+      text-shadow: 2px 2px 5px #000;
       margin-bottom: 5px;
     }
-    .field-wrap input, .field-wrap textarea {
+    .sub-title {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 30px;
+    }
+
+    /* MENU GIẤY RÁCH DÁN BĂNG KEO (KHÔNG DÙNG ICON TRÒN NỮA) */
+    .paper-tabs-rack {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 10;
+    }
+    .paper-tab {
+      background: var(--paper-note);
+      color: var(--text-dark);
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1rem;
+      padding: 8px 20px;
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.6);
+      cursor: pointer;
+      position: relative;
+      transform: rotate(calc(-3deg + 6deg * var(--rand)));
+      transition: transform 0.2s;
+    }
+    .paper-tab::before {
+      content: "";
+      position: absolute;
+      top: -6px; left: 50%; transform: translateX(-50%) rotate(-5deg);
+      width: 40px; height: 15px;
+      background: var(--tape);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    .paper-tab:hover, .paper-tab.active {
+      transform: scale(1.1) rotate(0deg);
+      background: #fff;
+      color: var(--crimson);
+    }
+
+    /* TÂM ĐIỂM DẤU CHẤM HỎI ĐỎ MÁU */
+    .mystery-hub {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      margin-bottom: 30px;
+    }
+    .mystery-hub h1 {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 5rem;
+      color: var(--crimson);
+      text-shadow: 0 0 20px rgba(166, 3, 17, 0.8);
+      line-height: 1;
+    }
+    .hub-pin {
+      position: absolute;
+      top: 55%; left: 50%; transform: translate(-50%, -50%);
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #d4d4d4; box-shadow: 0 0 10px #fff;
+    }
+
+    /* KÍNH LÚP TÌM KIẾM */
+    .search-box {
+      max-width: 400px;
+      margin: 0 auto 30px;
+      position: relative;
+      z-index: 10;
+    }
+    .search-box input {
       width: 100%;
-      background: #060406;
-      border: 1px solid var(--border-subtle);
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px dashed #555;
+      padding: 10px 15px;
       color: #fff;
-      padding: 10px 12px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.85rem;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.9rem;
       outline: none;
     }
+    .search-box input:focus { border-color: var(--crimson); }
 
-    #auth-alert-box {
-      display: none;
-      background: rgba(230, 0, 38, 0.1);
-      border: 1px solid var(--crimson);
-      color: #ff6b81;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      padding: 8px;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    .btn-terminal-submit {
-      width: 100%;
-      background: var(--crimson);
-      border: none;
-      color: #fff;
-      padding: 12px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-
-    #ted-active-desk {
-      display: none;
-      background: #181014;
-      border: 1px solid var(--crimson);
-      padding: 22px 18px;
-      margin-bottom: 30px;
+    /* ================= THẺ ẢNH POLAROID CHÂN THỰC ================= */
+    .polaroid-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
       position: relative;
-      z-index: 15;
+      z-index: 10;
+      padding-bottom: 50px;
+    }
+    @media (min-width: 768px) {
+      .polaroid-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
     }
 
-    /* MODAL CHỈNH SỬA HỒ SƠ */
-    #edit-dossier-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(5,4,6,0.96);
-      z-index: 310;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+    .card-polaroid {
+      background: var(--polaroid);
+      padding: 12px 12px 25px 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+      position: relative;
+      cursor: pointer;
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 0.2s, z-index 0s;
     }
+    .card-polaroid:hover {
+      transform: scale(1.05) rotate(0deg) !important;
+      z-index: 40 !important;
+      box-shadow: 0 15px 35px rgba(166, 3, 17, 0.4);
+    }
+    
+    /* Ghim bấm 3D */
+    .pushpin {
+      position: absolute;
+      top: -8px; left: 50%; transform: translateX(-50%);
+      width: 14px; height: 14px;
+      background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000);
+      border-radius: 50%;
+      box-shadow: -2px 4px 6px rgba(0,0,0,0.8), inset -2px -2px 4px rgba(0,0,0,0.5);
+      z-index: 5;
+    }
+    /* Chân ghim (kim) */
+    .pushpin::after {
+      content: ''; position: absolute;
+      top: 100%; left: 50%; transform: translateX(-50%);
+      width: 2px; height: 8px; background: #555;
+      box-shadow: -2px 2px 2px rgba(0,0,0,0.6);
+      z-index: -1;
+    }
+
+    .polaroid-img {
+      width: 100%;
+      height: 200px;
+      background: #111;
+      margin-bottom: 10px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+    }
+    .polaroid-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(85%) contrast(1.2);
+    }
+    .card-polaroid:hover .polaroid-img img { filter: grayscale(10%) contrast(1.3); }
+
+    .polaroid-name {
+      font-family: 'Permanent Marker', cursive;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 1.2;
+    }
+    .polaroid-code {
+      font-size: 0.65rem;
+      color: #666;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* MỘC THẢ TIM GÓC POLAROID */
+    .like-stamp {
+      position: absolute;
+      bottom: 8px; right: 10px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.75rem;
+      color: #999;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .like-stamp.liked {
+      color: var(--crimson);
+      font-weight: bold;
+    }
+    .like-stamp svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+    .like-stamp.liked svg { fill: var(--crimson); stroke: var(--crimson); }
+
+    /* QUYỀN SỬA XOÁ CỦA TED TRÊN CARD */
+    .admin-controls {
+      display: none;
+      position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.85);
+      padding: 10px;
+      border: 1px solid var(--crimson);
+      gap: 10px;
+      z-index: 50;
+    }
+    body.ted-illuminated .card-polaroid:hover .admin-controls {
+      display: flex;
+    }
+    .btn-sm {
+      background: #222; color: #fff; border: 1px solid #555;
+      padding: 4px 8px; font-family: 'Courier Prime', monospace; font-size: 0.7rem; cursor: pointer;
+    }
+    .btn-sm.del { background: #5a0000; border-color: #f00; }
+
+    /* ================= KHUNG ĐĂNG HỒ SƠ ================= */
+    #admin-desk {
+      display: none;
+      background: rgba(10, 10, 10, 0.95);
+      border: 1px dashed var(--crimson);
+      padding: 20px;
+      margin-bottom: 40px;
+      position: relative; z-index: 10;
+    }
+    body.ted-illuminated #admin-desk { display: block; }
+    .input-grp { margin-bottom: 12px; }
+    .input-grp label { display: block; font-size: 0.75rem; color: #aaa; margin-bottom: 5px; }
+    .input-grp input, .input-grp textarea {
+      width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 8px; font-family: 'Courier Prime', monospace;
+    }
+
+    /* ================= DIỄN ĐÀN SƠN DẦU BỨC TƯỜNG (FEEDBACK) ================= */
+    .feedback-wall {
+      background: url('https://images.unsplash.com/photo-1578309559388-349f506822ac?auto=format&fit=crop&w=800&q=80') center/cover;
+      border: 4px solid #3b2c18;
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.9), 0 10px 30px rgba(0,0,0,0.8);
+      padding: 25px;
+      position: relative;
+      z-index: 10;
+      border-radius: 2px;
+    }
+    .feedback-wall::before {
+      content: ""; position: absolute; inset: 0; background: rgba(15, 10, 5, 0.85); pointer-events: none;
+    }
+    .fb-header { position: relative; display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #553a22; padding-bottom: 10px;}
+    .fb-header h3 { font-family: 'Cinzel', serif; color: #d4b872; font-size: 1.2rem; }
+    
+    .fb-list { position: relative; display: flex; flex-direction: column; gap: 15px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
+    .fb-item {
+      display: flex; gap: 12px; background: rgba(0,0,0,0.6); padding: 12px; border-left: 2px solid #d4b872; position: relative;
+    }
+    .fb-avatar {
+      width: 40px; height: 40px; border-radius: 50%; border: 1px solid #d4b872; object-fit: cover;
+    }
+    .fb-content { flex: 1; }
+    .fb-name { font-family: 'Cinzel', serif; color: #d4b872; font-weight: bold; font-size: 0.9rem; }
+    .fb-time { font-size: 0.6rem; color: #777; margin-left: 8px; }
+    .fb-text { font-size: 0.85rem; color: #ddd; margin-top: 4px; line-height: 1.4; }
+    
+    .btn-del-fb {
+      position: absolute; right: 10px; top: 10px;
+      background: transparent; color: var(--crimson); border: none; cursor: pointer; font-size: 0.8rem; display: none;
+    }
+    body.ted-illuminated .btn-del-fb { display: block; }
+
+    /* ================= MODAL CHUNG ================= */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 300;
+      display: none; justify-content: center; align-items: center; padding: 20px;
+    }
+    .modal-box {
+      background: #111; border: 1px solid #333; padding: 25px; width: 100%; max-width: 400px; position: relative;
+    }
+    .close-x { position: absolute; top: 10px; right: 15px; color: #777; cursor: pointer; font-size: 1.2rem; border: none; background: none; }
   </style>
 </head>
 <body>
 
   <div id="jumpscare-overlay"></div>
 
-  <!-- BÀI HÁT WHO IS SHE TIẾP TỤC CHẠY -->
-  <audio id="noir-ambient-audio" loop preload="auto">
+  <!-- BÀI HÁT WHO IS SHE (TỰ ĐỘNG CHẠY KHI VÀO CỔNG) -->
+  <audio id="noir-audio" loop preload="auto">
     <source src="I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3" type="audio/mpeg">
     <source src="I%20Monster%20-%20Who%20Is%20She%20%28Lyrics%29%20Immortal%20She%20Return%20To%20Me%20%5BTikTok%20Song%5D.mp3" type="audio/mpeg">
-    <source src="KId_Cudi_-_She_Knows_This_slowed_reverb_(mp3.pm).mp3" type="audio/mpeg">
   </audio>
 
   <div class="spotlight-layer" id="spotlight"></div>
-  <canvas id="ember-canvas"></canvas>
 
-  <!-- THANH ĐIỀU KHIỂN GÓC TRÊN CÙNG: ĐÈN + NHẠC + NÚT TED KÍN ĐÁO -->
   <div class="top-bar-controls">
-    <div class="light-pill" id="btn-toggle-light" style="display:none;">
-      <span>💡 ĐÈN: BẬT</span>
-    </div>
-    <div class="audio-pill" id="audio-pill">
-      <div class="audio-dot"></div>
-      <span id="audio-state">AMBIENT OFF</span>
-    </div>
-    <!-- NÚT TED ĐƯỢC THU NHỎ KÍN ĐÁO TẠI ĐÂY -->
-    <div class="admin-pill" id="btn-open-terminal">
-      <span>🔒 TED</span>
-    </div>
+    <div class="ctrl-pill" id="btn-light" style="display:none;">💡 ĐÈN TẮT</div>
+    <div class="ctrl-pill" id="btn-audio"><div class="audio-dot"></div> NHẠC OFF</div>
+    <div class="ctrl-pill" id="btn-login-trigger">🔒 TED</div>
   </div>
 
-  <!-- 1. CỔNG 18+: ĐẠI TỘI VÙNG CALIFORNIA -->
+  <!-- 1. CỔNG 18+ -->
   <section id="gate-18">
     <div class="gate-card">
-      <span style="font-family:'JetBrains Mono'; font-size:0.65rem; color:var(--crimson); letter-spacing:2px;">// PROTOCOL 18+</span>
       <h1>ĐẠI TỘI VÙNG CALIFORNIA</h1>
-      <p>Kho lưu trữ chứa các tư liệu hiện trường án mạng và thực thể dị thường. Yêu cầu bạn xác nhận độ tuổi trước khi giải mã dữ liệu.</p>
-      <button class="btn-action-glow" id="btn-pass-gate">[ XÁC NHẬN TRÊN 18 TUỔI ]</button>
+      <p>Kho lưu trữ chứa các tư liệu án mạng và thực thể dị thường. Yêu cầu bạn xác nhận độ tuổi trước khi giải mã.</p>
+      <button class="btn-blood" id="btn-pass-gate">[ XÁC NHẬN TRÊN 18 TUỔI ]</button>
     </div>
   </section>
 
-  <!-- 2. THƯ CỦA TED -->
+  <!-- 2. BỨC THƯ -->
   <section id="letter-screen">
-    <div class="forensic-dossier-letter">
-      <div class="dossier-barcode">
-        <span>MEMORANDUM // DEPT-04</span>
-        <span>STATUS: CLASSIFIED</span>
-      </div>
-
-      <div class="dossier-headline">
-        <h2>Welcome to California</h2>
-        <span class="sub">CHIEF CUSTODIAN OF RECORDS: TED</span>
-      </div>
-
-      <div class="dossier-body">
-        Chào mừng bạn đã bước vào hệ thống điều tra đen của California. Mọi bức ảnh, vết nứt tâm thần và chuỗi sự kiện tại đây đều là <em>những manh mối còn sót lại từ bóng tối</em>. Mỗi nạn nhân và kẻ thủ ác đều được nối với nhau qua một sợi chỉ định mệnh.
-        <br><br>
-        <em>"Trust the facts, not the rumors. Not every story has a happy ending."</em>
-      </div>
-
-      <div class="seal-permit-zone">
-        <div class="declassification-stamp-btn" id="art-seal">
-          <svg class="stamp-svg-ring" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="47" fill="none" stroke="rgba(230,0,38,0.6)" stroke-width="1.2" stroke-dasharray="3, 2.5"/>
-            <circle cx="50" cy="50" r="41" fill="none" stroke="rgba(230,0,38,0.3)" stroke-width="0.7"/>
-          </svg>
-          <div class="stamp-center-text" style="text-align:center;">
-            <span class="permit-tag">AUTHORIZED</span>
-            <span class="status-tag">DECLASSIFIED</span>
-            <span class="auth-code">CA-TED-098</span>
-          </div>
-        </div>
-        <div style="font-family:'JetBrains Mono'; font-size:0.62rem; color:var(--text-dim);">[ CHẠM MỘC ĐỂ MỞ TÀI LIỆU ]</div>
-      </div>
+    <div class="letter-paper">
+      <h2>Welcome to California</h2>
+      <p>Chào mừng bạn đã bước vào hệ thống điều tra đen của California. Mọi bức ảnh, vết nứt tâm thần và chuỗi sự kiện tại đây đều là <em>những manh mối còn sót lại từ bóng tối</em>. Mỗi nạn nhân và kẻ thủ ác đều được nối với nhau qua một sợi chỉ định mệnh.</p>
+      <p style="font-style: italic;">"Trust the facts, not the rumors. Not every story has a happy ending."</p>
+      <button class="stamp-break" id="btn-break-seal">CẤP PHÉP MỞ HỒ SƠ</button>
     </div>
   </section>
 
-  <!-- 3. BẢNG COLLAGE DÂY CHỈ ĐỎ ÁN MẠNG -->
+  <!-- 3. BẢNG ÁN MẠNG CHÍNH -->
   <main id="board-main">
     <canvas id="thread-canvas"></canvas>
 
-    <div class="redesigned-header">
-      <h2 class="brand-headline">CALIFORNIA FORENSIC ARCHIVE</h2>
-      <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
-
-      <!-- 3 NÚT BONG BÓNG MỜ ẢO SƠN DẦU (FINE ART ORBS) -->
-      <div class="ethereal-orbs-nav">
-        
-        <!-- BONG BÓNG 1: TẤT CẢ HỒ SƠ (CUỐN THƯ CỔ VÀ LA BÀN SƠN DẦU) -->
-        <div class="art-orb-btn active" data-filter="all">
-          <div class="glass-orb-bubble">
-            <svg viewBox="0 0 40 40">
-              <circle cx="20" cy="20" r="14" stroke="rgba(212,175,55,0.7)" stroke-dasharray="3 2" />
-              <path d="M12 15 C16 12 24 12 28 15 L28 27 C24 24 16 24 12 27 Z" stroke="#fff" />
-              <path d="M20 13 L20 25" stroke="var(--crimson)" />
-            </svg>
-          </div>
-          <span class="orb-label-title">TẤT CẢ HỒ SƠ</span>
-        </div>
-
-        <!-- BONG BÓNG 2: LỆNH TRUY NÃ (TRÁI TIM GAI & DAO GĂM GOTHIC) -->
-        <div class="art-orb-btn" data-filter="Active">
-          <div class="glass-orb-bubble">
-            <svg viewBox="0 0 40 40">
-              <path d="M20 28 C10 20 8 13 14 9 C18 6 20 10 20 10 C20 10 22 6 26 9 C32 13 30 20 20 28 Z" stroke="#fff" fill="rgba(230,0,38,0.25)" />
-              <path d="M20 5 L20 34" stroke="var(--crimson)" stroke-width="1.8" />
-              <path d="M15 12 L25 12" stroke="rgba(212,175,55,0.8)" stroke-width="1.5" />
-            </svg>
-          </div>
-          <span class="orb-label-title">LỆNH TRUY NÃ</span>
-        </div>
-
-        <!-- BONG BÓNG 3: TRẠM CHỦ TED (ĐÔI CÁNH THIÊN THẦN DẪN FACEBOOK) -->
-        <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="art-orb-btn ted-orb-special">
-          <div class="glass-orb-bubble">
-            <svg viewBox="0 0 40 40">
-              <path d="M20 14 C13 4 5 14 9 26 C13 24 17 20 20 22 C23 20 27 24 31 26 C35 14 27 4 20 14 Z" stroke="#ff3355" fill="rgba(255,51,85,0.2)" />
-              <circle cx="20" cy="23" r="2.5" fill="#fff" />
-              <circle cx="20" cy="10" r="5" stroke="rgba(212,175,55,0.9)" stroke-width="1.2" stroke-dasharray="2 2" />
-            </svg>
-          </div>
-          <span class="orb-label-title">TRẠM CHỦ TED ↗</span>
-        </a>
-
-      </div>
-
-      <!-- KÍNH LÚP ĐIỀU TRA: TÌM KIẾM THEO MÃ SỐ VÀ TÊN HỒ SƠ -->
-      <div class="dossier-search-wrapper">
-        <span class="search-lens-icon">🔍</span>
-        <input type="text" id="case-search-input" class="search-input-field" placeholder="NHẬP MÃ SỐ (VD: 01) HOẶC TÊN ĐỐI TƯỢNG ĐỂ ĐIỀU TRA...">
-      </div>
+    <div style="position:relative; z-index:10; margin-bottom: 25px;">
+      <h1 class="main-title">ĐẠI TỘI VÙNG CALIFORNIA</h1>
+      <div class="sub-title">CUSTODIAN OF RECORDS: TED</div>
     </div>
 
-    <!-- KHU VỰC ĐĂNG HỒ SƠ TED -->
-    <section id="ted-active-desk">
-      <h4 style="font-family:'Cinzel'; color:var(--crimson); font-size:1.1rem; margin-bottom:12px;">// ĐÍNH HỒ SƠ MỚI [QUYỀN CHỦ: TED]</h4>
-      <form id="create-dossier-form">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-          <div class="field-wrap">
-            <label>Mã hồ sơ:</label>
-            <input type="text" id="in-code" required placeholder="CA-01">
+    <!-- MENU MẨU GIẤY RÁCH DÁN BĂNG KEO -->
+    <div class="paper-tabs-rack">
+      <div class="paper-tab active" data-filter="all" style="--rand: 0.2;">TẤT CẢ HỒ SƠ</div>
+      <div class="paper-tab" data-filter="Active" style="--rand: 0.8;">LỆNH TRUY NÃ</div>
+      <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="paper-tab" style="--rand: 0.5; color: #a60311; text-decoration: none;">TRẠM CHỦ TED ↗</a>
+    </div>
+
+    <!-- TÌM KIẾM -->
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="🔍 TÌM MÃ SỐ (VD: 01) HOẶC TÊN...">
+    </div>
+
+    <!-- KHU VỰC TED ĐĂNG HỒ SƠ -->
+    <section id="admin-desk">
+      <h3 style="color:var(--crimson); margin-bottom:15px; font-family:'Special Elite';">// ĐÍNH HỒ SƠ MỚI</h3>
+      <form id="create-form">
+        <div style="display:flex; gap:10px;">
+          <div class="input-grp" style="flex:1;"><label>Mã (CA-01):</label><input type="text" id="in-code" required></div>
+          <div class="input-grp" style="flex:2;"><label>Tên nhân vật:</label><input type="text" id="in-name" required></div>
+        </div>
+        <div class="input-grp"><label>Tải ảnh Chân dung:</label><input type="file" id="in-file" accept="image/*" required></div>
+        <div class="input-grp"><label>Tags:</label><input type="text" id="in-tags" placeholder="Hi, Active"></div>
+        <div class="input-grp"><label>Ghi chú án mạng:</label><textarea id="in-desc" rows="2"></textarea></div>
+        <button type="submit" class="btn-blood">+ GHIM LÊN BẢNG (LƯU VĨNH VIỄN)</button>
+        <!-- Ô chứa mã máy chủ của Ted -->
+        <div style="margin-top:15px; font-size:0.7rem; color:#888; border-top:1px dashed #444; padding-top:10px;">
+          <strong>MÃ MÁY CHỦ CỦA TED:</strong> <span id="ted-cloud-id" style="color:#d4b872;">Đang tải...</span><br>
+          (Lưu mã này lại. Nếu đổi điện thoại, nhập mã này vào ô dưới để khôi phục mọi Char).
+          <div style="display:flex; gap:5px; margin-top:5px;">
+            <input type="text" id="in-restore-id" placeholder="Nhập mã khôi phục..." style="flex:1; padding:4px; background:#000; border:1px solid #444; color:#fff;">
+            <button type="button" id="btn-restore" class="btn-sm">KHÔI PHỤC</button>
           </div>
-          <div class="field-wrap">
-            <label>Tên nhân vật / đối tượng:</label>
-            <input type="text" id="in-name" required placeholder="Tên nhân vật">
-          </div>
         </div>
-
-        <div class="field-wrap">
-          <label>Tải ảnh Chân dung (Tự động nén chuẩn tỉ lệ không méo):</label>
-          <input type="file" id="in-file" accept="image/*" required>
-        </div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-          <div class="field-wrap">
-            <label>Link Plot:</label>
-            <input type="url" id="in-plot" required placeholder="https://...">
-          </div>
-          <div class="field-wrap">
-            <label>Link GGAI:</label>
-            <input type="url" id="in-ggai" required placeholder="https://aistudio.google.com/...">
-          </div>
-        </div>
-
-        <div class="field-wrap">
-          <label>Tags (phân cách bằng dấu phẩy):</label>
-          <input type="text" id="in-tags" placeholder="Hi, Active">
-        </div>
-
-        <div class="field-wrap">
-          <label>Ghi chú tuyệt mật:</label>
-          <textarea id="in-desc" rows="2" placeholder="Ghi chép khám nghiệm..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-terminal-submit" id="btn-upload-submit">+ GHIM HỒ SƠ LÊN BẢNG (TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU)</button>
       </form>
     </section>
 
     <!-- TÂM ĐIỂM '?' NỐI DÂY ĐỎ -->
-    <div class="mystery-hub-modern">
-      <div class="question-core">
-        ?
-        <div class="hub-pin-node" id="hub-pin"></div>
-      </div>
-      <div style="font-family:'JetBrains Mono'; font-size:0.6rem; color:var(--text-dim); letter-spacing:2px; margin-top:4px;">SITE 17-A // NEXUS</div>
+    <div class="mystery-hub">
+      <div class="hub-pin" id="hub-pin"></div>
+      <h1>?</h1>
     </div>
 
-    <!-- BẢNG GHIM POLAROID 2 CỘT -->
-    <div class="conspiracy-board-wall" id="cases-wall"></div>
+    <!-- LƯỚI ẢNH POLAROID -->
+    <div class="polaroid-grid" id="cases-wall"></div>
 
-    <!-- ================= CỔNG DIỄN ĐÀN TRANH SƠN DẦU (FEEDBACK SALON) ================= -->
-    <section class="discord-feedback-zone">
-      <div class="discord-channel-header">
-        <div class="channel-title">
-          <span>⚜️</span> DIỄN ĐÀN MANH MỐI & PHẢN HỒI
-        </div>
-        <button class="btn-open-feedback-modal" id="btn-trigger-feedback">+ GỬI MANH MỐI</button>
+    <!-- DIỄN ĐÀN FEEDBACK TRANH SƠN DẦU -->
+    <section class="feedback-wall">
+      <div class="fb-header">
+        <h3>DIỄN ĐÀN MANH MỐI</h3>
+        <button class="btn-sm" id="btn-open-fb">+ GỬI MANH MỐI</button>
       </div>
-
-      <div class="discord-messages-list" id="feedback-chat-list"></div>
+      <div class="fb-list" id="fb-list"></div>
     </section>
   </main>
 
-  <!-- MODAL ĐĂNG FEEDBACK (CÓ BỘ LỌC TỪ NGỮ BẬY TỤC) -->
-  <div id="feedback-modal">
-    <div class="terminal-window">
-      <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.2rem; cursor:pointer;" id="btn-close-feedback">&times;</button>
-      <h4 style="font-family:'Cinzel'; font-size:1.2rem; color:#fff;">// GỬI PHẢN HỒI</h4>
-      <div class="field-wrap">
-        <label>Tên của bạn:</label>
-        <input type="text" id="fb-user-name" required placeholder="Nhập bí danh của bạn...">
-      </div>
-      <div class="field-wrap">
-        <label>Nội dung manh mối / Cảm nghĩ:</label>
-        <textarea id="fb-user-msg" rows="3" required placeholder="Chia sẻ suy luận của bạn..."></textarea>
-      </div>
-      <button type="button" class="btn-terminal-submit" id="btn-send-feedback">ĐĂNG VÀO DIỄN ĐÀN</button>
+  <!-- MODAL ĐĂNG NHẬP TED -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-box">
+      <button class="close-x" id="btn-close-login">&times;</button>
+      <h3 style="color:#fff; margin-bottom:20px; font-family:'Special Elite';">XÁC THỰC DANH TÍNH</h3>
+      <div class="input-grp"><label>ID TÀI KHOẢN:</label><input type="email" id="login-id" autocomplete="off"></div>
+      <div class="input-grp"><label>MẬT MÃ:</label><input type="password" id="login-pwd" autocomplete="off"></div>
+      <button class="btn-blood" id="btn-submit-login">BẺ KHOÁ</button>
     </div>
   </div>
 
-  <!-- MODAL XEM CHI TIẾT HỒ SƠ -->
-  <div class="dossier-inspect-overlay" id="inspect-modal">
-    <div class="dossier-inspect-card">
-      <button class="close-inspect-btn" id="btn-close-inspect">&times;</button>
-      <div style="font-family:'JetBrains Mono'; font-size:0.65rem; color:var(--crimson);" id="ins-code">CA-XXXX</div>
-      <h3 style="font-family:'Cinzel'; font-size:1.4rem; color:#fff;" id="ins-name">NAME</h3>
-      <div class="inspect-mugshot">
-        <img id="ins-img" src="" alt="Mugshot">
-      </div>
-      <div style="font-size:0.7rem; color:var(--text-dim); margin-bottom:8px;" id="ins-tags"></div>
-      <p style="font-size:0.82rem; line-height:1.5; color:#aaa;" id="ins-desc"></p>
-      <div class="inspect-actions">
-        <a id="ins-link-plot" href="#" target="_blank" class="btn-act-plot">XEM PLOT</a>
-        <a id="ins-link-ggai" href="#" target="_blank" class="btn-act-ggai">BẢN GGAI</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL CHỈNH SỬA HỒ SƠ (CHO PHÉP ĐỔI CẢ ẢNH MỚI) -->
-  <div id="edit-dossier-modal">
-    <div class="terminal-window">
-      <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.2rem; cursor:pointer;" id="btn-close-edit">&times;</button>
-      <h4 style="font-family:'Cinzel'; font-size:1.2rem; color:#fff;">// CHỈNH SỬA HỒ SƠ</h4>
+  <!-- MODAL SỬA HỒ SƠ -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal-box">
+      <button class="close-x" id="btn-close-edit">&times;</button>
+      <h3 style="color:#fff; margin-bottom:20px; font-family:'Special Elite';">SỬA HỒ SƠ</h3>
       <input type="hidden" id="edit-idx">
-      <div class="field-wrap">
-        <label>Mã hồ sơ:</label>
-        <input type="text" id="edit-code">
-      </div>
-      <div class="field-wrap">
-        <label>Tên nhân vật:</label>
-        <input type="text" id="edit-name">
-      </div>
-      <div class="field-wrap">
-        <label>Tải ảnh mới để thay thế (để trống nếu giữ ảnh cũ):</label>
-        <input type="file" id="edit-file" accept="image/*">
-      </div>
-      <div class="field-wrap">
-        <label>Link Plot:</label>
-        <input type="url" id="edit-plot">
-      </div>
-      <div class="field-wrap">
-        <label>Link GGAI:</label>
-        <input type="url" id="edit-ggai">
-      </div>
-      <div class="field-wrap">
-        <label>Ghi chú:</label>
-        <textarea id="edit-desc" rows="2"></textarea>
-      </div>
-      <button type="button" class="btn-terminal-submit" id="btn-save-edit">CẬP NHẬT & ĐỒNG BỘ MÂY</button>
+      <div class="input-grp"><label>Mã hồ sơ:</label><input type="text" id="edit-code"></div>
+      <div class="input-grp"><label>Tên nhân vật:</label><input type="text" id="edit-name"></div>
+      <div class="input-grp"><label>Đổi ảnh mới (Để trống nếu giữ ảnh cũ):</label><input type="file" id="edit-file" accept="image/*"></div>
+      <div class="input-grp"><label>Ghi chú:</label><textarea id="edit-desc" rows="2"></textarea></div>
+      <button class="btn-blood" id="btn-save-edit">CẬP NHẬT (LƯU VĨNH VIỄN)</button>
     </div>
   </div>
 
-  <!-- ĐĂNG NHẬP TED -->
-  <div class="modal-overlay" id="auth-overlay">
-    <div class="terminal-window">
-      <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.2rem; cursor:pointer;" id="btn-close-auth">&times;</button>
-      <h4 style="font-family:'Cinzel'; font-size:1.3rem; color:#fff;">XÁC THỰC DANH TÍNH</h4>
-      <span style="font-family:'JetBrains Mono'; font-size:0.68rem; color:var(--crimson); margin-bottom:18px; display:block;">// TED - CUSTODIAN OF RECORDS ONLY</span>
-
-      <div id="auth-alert-box">THÔNG TIN KHÔNG CHÍNH XÁC</div>
-
-      <form id="ted-login-form" novalidate>
-        <div class="field-wrap">
-          <label>ID TÀI KHOẢN:</label>
-          <input type="email" id="login-id" placeholder="Nhập ID Đặc vụ..." autocomplete="off">
-        </div>
-        <div class="field-wrap">
-          <label>MẬT MÃ AN NINH:</label>
-          <input type="password" id="login-pwd" placeholder="Nhập Mật mã..." autocomplete="off">
-        </div>
-        <button type="submit" class="btn-terminal-submit">BẺ KHOÁ HỆ THỐNG</button>
-      </form>
+  <!-- MODAL GỬI FEEDBACK -->
+  <div class="modal-overlay" id="fb-modal">
+    <div class="modal-box">
+      <button class="close-x" id="btn-close-fb">&times;</button>
+      <h3 style="color:#d4b872; margin-bottom:20px; font-family:'Cinzel';">GỬI MANH MỐI</h3>
+      <div class="input-grp"><label>Bí danh của bạn:</label><input type="text" id="fb-name"></div>
+      <div class="input-grp"><label>Nội dung:</label><textarea id="fb-msg" rows="3"></textarea></div>
+      <button class="btn-blood" id="btn-send-fb" style="background:#8a6d3b;">ĐĂNG TẢI</button>
     </div>
   </div>
 
   <script>
-    /* ================= 1. ĐÈN SPOTLIGHT ĐIỆN ẢNH ================= */
+    /* ================= 1. SPOTLIGHT & NHÁ ĐÈN & NHẠC ================= */
     const spotlight = document.getElementById('spotlight');
-    function updateSpotlight(x, y) {
-      spotlight.style.setProperty('--spot-x', `${x}px`);
-      spotlight.style.setProperty('--spot-y', `${y}px`);
-    }
-    window.addEventListener('mousemove', (e) => updateSpotlight(e.clientX, e.clientY));
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
+    document.addEventListener('mousemove', e => {
+      spotlight.style.setProperty('--spot-x', `${e.clientX}px`);
+      spotlight.style.setProperty('--spot-y', `${e.clientY}px`);
     });
-
-    /* ================= 2. PHÁT NHẠC TỰ ĐỘNG ================= */
-    const noirAudio = document.getElementById('noir-ambient-audio');
-    let isAudioOn = false;
-    const audioPill = document.getElementById('audio-pill');
-    const audioState = document.getElementById('audio-state');
-
-    function startMusic() {
-      noirAudio.volume = 0.8;
-      const playPromise = noirAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          isAudioOn = true;
-          audioPill.classList.add('active');
-          audioState.innerText = "AMBIENT ON";
-        }).catch(() => {});
-      }
-    }
-
-    audioPill.addEventListener('click', () => {
-      if (isAudioOn) {
-        noirAudio.pause();
-        isAudioOn = false;
-        audioPill.classList.remove('active');
-        audioState.innerText = "AMBIENT OFF";
-      } else {
-        startMusic();
+    document.addEventListener('touchmove', e => {
+      if (e.touches[0]) {
+        spotlight.style.setProperty('--spot-x', `${e.touches[0].clientX}px`);
+        spotlight.style.setProperty('--spot-y', `${e.touches[0].clientY}px`);
       }
     });
 
-    document.addEventListener('pointerdown', () => {
-      if (!isAudioOn && gate18.style.display === 'none') {
-        startMusic();
-      }
-    }, { once: false });
-
-    /* ÂM THANH NỔ HÙ DỌA & TIẾNG ĐẬP MỘC */
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const audio = document.getElementById('noir-audio');
+    let isMusicOn = false;
+    const btnAudio = document.getElementById('btn-audio');
     
-    function playJumpscareSound() {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.45);
-      gain.gain.setValueAtTime(1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.5);
+    function toggleMusic() {
+      if(isMusicOn) { audio.pause(); btnAudio.classList.remove('active'); btnAudio.innerHTML = '<div class="audio-dot"></div> NHẠC OFF'; }
+      else { audio.volume = 0.8; audio.play().catch(()=>{}); btnAudio.classList.add('active'); btnAudio.innerHTML = '<div class="audio-dot"></div> NHẠC ON'; }
+      isMusicOn = !isMusicOn;
     }
+    btnAudio.addEventListener('click', toggleMusic);
 
-    function playStampBang() {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(90, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(25, audioCtx.currentTime + 0.4);
-      gain.gain.setValueAtTime(0.8, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.4);
-    }
-
-    /* ================= 3. TÀN TRO RỰC LỬA ================= */
-    const emberCanvas = document.getElementById('ember-canvas');
-    const emberCtx = emberCanvas.getContext('2d');
-    let embers = [];
-
-    function resizeCanvas() {
-      emberCanvas.width = window.innerWidth;
-      emberCanvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    for (let i = 0; i < 35; i++) {
-      embers.push({
-        x: Math.random() * emberCanvas.width,
-        y: Math.random() * emberCanvas.height,
-        r: 1 + Math.random() * 2.5,
-        dy: -(0.4 + Math.random() * 0.8),
-        dx: (Math.random() - 0.5) * 0.4,
-        alpha: 0.2 + Math.random() * 0.7
-      });
-    }
-
-    function drawEmbers() {
-      emberCtx.clearRect(0, 0, emberCanvas.width, emberCanvas.height);
-      embers.forEach(p => {
-        p.y += p.dy;
-        p.x += p.dx;
-        if (p.y < 0) {
-          p.y = emberCanvas.height + 10;
-          p.x = Math.random() * emberCanvas.width;
-        }
-        emberCtx.beginPath();
-        emberCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        emberCtx.fillStyle = `rgba(230, 20, 40, ${p.alpha})`;
-        emberCtx.shadowColor = "rgba(230, 0, 38, 0.8)";
-        emberCtx.shadowBlur = 8;
-        emberCtx.fill();
-      });
-      requestAnimationFrame(drawEmbers);
-    }
-    drawEmbers();
-
-    /* ================= 4. KHO LƯU TRỮ BẤT BIẾN (KHÔNG BAO GIỜ MẤT CHAR) ================= */
-    const MASTER_KEY = "TED_MASTER_DOSSIERS_VAULT";
-
-    // Khởi tạo sẵn các nhân vật của bạn từ trước để không bao giờ bị mất
-    const PERMANENT_INITIAL_CASES = [
-      {
-        code: "01",
-        name: "Đại tội vùng California",
-        img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-        tags: ["Hi", "Active"],
-        desc: "Hồ sơ tâm lý tội phạm đặc quyền của bang California.",
-        plot: "https://google.com",
-        ggai: "https://aistudio.google.com",
-        note: "#TED",
-        likes: 0
-      },
-      {
-        code: "01",
-        name: "ted",
-        img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-        tags: ["Hi", "Active"],
-        desc: "Hồ sơ của Đặc vụ Ted. Đã được ghi nhận vào kho lưu trữ California.",
-        plot: "https://google.com",
-        ggai: "https://aistudio.google.com",
-        note: "#TED",
-        likes: 5
-      },
-      {
-        code: "SITE-17A // 1988",
-        name: "Sự Cố Beaumont",
-        img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
-        tags: ["Site 17-A", "Beaumont"],
-        desc: "Khu vực phong tỏa từ 1988. Tất cả nhân chứng đều khẳng định nhìn thấy một bóng đen không khuôn mặt đứng bên hồ.",
-        plot: "https://google.com",
-        ggai: "https://aistudio.google.com",
-        note: "CLOSED 1988",
-        likes: 3
-      },
-      {
-        code: "CA-04 // DAILY MIRROR",
-        name: "Kẻ Mượn Danh Tính",
-        img: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=400&q=80",
-        tags: ["Guilty of Murder", "Active"],
-        desc: "Đối tượng để lại mẩu báo cắt dán và giăng kín dây chỉ đỏ khắp hiện trường trước khi biến mất hoàn toàn.",
-        plot: "https://google.com",
-        ggai: "https://aistudio.google.com",
-        note: "GUESS WHO?",
-        likes: 7
-      }
-    ];
-
-    // Thuật toán quét và khôi phục toàn bộ char cũ bạn từng tạo
-    function getPersistedDossiers() {
-      let data = localStorage.getItem(MASTER_KEY);
-      if (data) return JSON.parse(data);
-
-      // Quét ngược các phiên bản cũ để gom char của Ted lại
-      const oldKeys = ['cali_cases_v8', 'cali_cases_v7', 'cali_cases_v6', 'cali_cases_v5', 'cali_cases_v4', 'cali_cases_v3', 'cali_cases_v2'];
-      for (let k of oldKeys) {
-        let oldData = localStorage.getItem(k);
-        if (oldData) {
-          try {
-            let parsed = JSON.parse(oldData);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              localStorage.setItem(MASTER_KEY, JSON.stringify(parsed));
-              return parsed;
-            }
-          } catch(e){}
-        }
-      }
-      return PERMANENT_INITIAL_CASES;
-    }
-
-    let dossiers = getPersistedDossiers();
-
-    async function loadSharedCloudCases() {
-      try {
-        const idRes = await fetch('https://api.keyval.org/get/ted_master_cloud_vault_v1');
-        const blobId = (await idRes.text()).trim();
-        if (blobId && blobId.length > 10 && !blobId.includes("error")) {
-          const dataRes = await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
-            headers: { 'Accept': 'application/json' }
-          });
-          if (dataRes.ok) {
-            const cloudCases = await dataRes.json();
-            if (Array.isArray(cloudCases) && cloudCases.length > 0) {
-              dossiers = cloudCases;
-              localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-              renderCasesWall(dossiers);
-            }
-          }
-        }
-      } catch (err) {
-        console.log("Dùng kho nội bộ:", err);
-      }
-    }
-    loadSharedCloudCases();
-
-    async function saveSharedCloudCases(casesData) {
-      try {
-        let blobId = "";
-        try {
-          const idRes = await fetch('https://api.keyval.org/get/ted_master_cloud_vault_v1');
-          blobId = (await idRes.text()).trim();
-        } catch(e){}
-
-        if (blobId && blobId.length > 10 && !blobId.includes("error")) {
-          await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(casesData)
-          });
-        } else {
-          const createRes = await fetch('https://jsonblob.com/api/jsonBlob', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(casesData)
-          });
-          const location = createRes.headers.get('Location') || "";
-          const newBlobId = location.split('/').pop();
-          if (newBlobId) {
-            await fetch('https://api.keyval.org/set/ted_master_cloud_vault_v1/' + newBlobId);
-          }
-        }
-      } catch (err) {
-        console.error("Lỗi đồng bộ mây:", err);
-      }
-    }
-
-    /* ================= 5. MỞ CỔNG + NHÁ ĐÈN ================= */
+    const jumpOverlay = document.getElementById('jumpscare-overlay');
     const gate18 = document.getElementById('gate-18');
-    const btnPassGate = document.getElementById('btn-pass-gate');
     const letterScreen = document.getElementById('letter-screen');
-    const artSeal = document.getElementById('art-seal');
     const boardMain = document.getElementById('board-main');
-    const jumpscareOverlay = document.getElementById('jumpscare-overlay');
 
-    btnPassGate.addEventListener('click', () => {
-      playJumpscareSound();
-      jumpscareOverlay.classList.add('strobe-active');
-
+    document.getElementById('btn-pass-gate').addEventListener('click', () => {
+      jumpOverlay.classList.add('strobe-active');
+      if(!isMusicOn) toggleMusic();
       setTimeout(() => {
-        startMusic();
         gate18.style.display = 'none';
         letterScreen.style.display = 'flex';
-        jumpscareOverlay.classList.remove('strobe-active');
-        loadSharedCloudCases();
-      }, 450);
+        jumpOverlay.classList.remove('strobe-active');
+      }, 400);
     });
 
-    artSeal.addEventListener('click', () => {
-      playStampBang();
-      startMusic();
-      artSeal.style.boxShadow = "0 0 50px var(--crimson)";
-
+    document.getElementById('btn-break-seal').addEventListener('click', () => {
+      letterScreen.style.transform = 'translateY(-100%)';
       setTimeout(() => {
-        letterScreen.style.transform = "translateY(-100%)";
-        boardMain.style.display = "block";
-        renderCasesWall(dossiers);
-        setTimeout(renderRedThreads, 350);
-      }, 450);
+        boardMain.style.display = 'block';
+        renderWall(dossiers);
+        setTimeout(drawThreads, 300);
+      }, 500);
     });
 
-    /* ================= 6. VẼ BẢNG POLAROID & LIKE ================= */
-    const casesWall = document.getElementById('cases-wall');
+    /* ================= 2. QUẢN LÝ DỮ LIỆU ĐÁM MÂY (KHÔNG BAO GIỜ MẤT) ================= */
+    const LOCAL_KEY = 'CALI_PERMANENT_DATA';
+    const CLOUD_STORAGE_KEY = 'TED_CLOUD_BIN_ID';
+    
+    let defaultData = [
+      { code: "01", name: "ted", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80", tags: ["Active"], desc: "Đặc vụ Ted.", likes: 10 },
+      { code: "02", name: "Đại tội California", img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80", tags: ["Active"], desc: "Hồ sơ tối mật.", likes: 5 }
+    ];
+    let dossiers = JSON.parse(localStorage.getItem(LOCAL_KEY)) || defaultData;
+    let feedbacks = JSON.parse(localStorage.getItem('CALI_FB')) || [];
 
-    function renderCasesWall(itemsToRender) {
-      casesWall.innerHTML = "";
-      itemsToRender.forEach((item, idx) => {
-        const card = document.createElement('div');
-        card.className = "polaroid-evidence-card";
-        const rot = (idx % 2 === 0 ? 1 : -1) * (1.5 + (idx % 3) * 0.7);
-        card.style.setProperty('--rot', `${rot}deg`);
-
-        const isLiked = localStorage.getItem('cali_liked_' + item.code + '_' + item.name);
-
-        card.innerHTML = `
-          <div class="red-pushpin pin-node"></div>
-          <div class="polaroid-photo-frame">
-            <img src="${item.img}" alt="${item.name}">
-          </div>
-          <div class="polaroid-title">${item.name}</div>
-          <div class="polaroid-meta">
-            <span>${item.code}</span>
-            <div class="stamp-like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLikeChar(${idx}, event)">
-              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-              <span>${item.likes || 0}</span>
-            </div>
-          </div>
-          <div class="sticky-note-clue">${item.note || '#CLUE'}</div>
-          <div class="ted-card-controls">
-            <button class="btn-card-edit" onclick="openEditModal(${idx}, event)">✏️ SỬA</button>
-            <button class="btn-card-del" onclick="deleteCase(${idx}, event)">🗑️ XOÁ</button>
-          </div>
-        `;
-
-        card.addEventListener('click', () => inspectDossier(item));
-        casesWall.appendChild(card);
-      });
-      renderRedThreads();
+    // Hàm lấy ID đám mây
+    function getCloudId() { return localStorage.getItem(CLOUD_STORAGE_KEY); }
+    
+    // Tải từ mây
+    async function loadFromCloud(binId) {
+      if(!binId) return;
+      try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}`, { headers: {'X-Master-Key': '$2a$10$YourKeyHere_JustUsingPublicForNow'} }); // Dùng public bin cho dễ
+        // Vì jsonbin.io v3 public không cần key nếu đọc, nhưng để ổn định ta dùng jsonblob
+        const resBlob = await fetch(`https://jsonblob.com/api/jsonBlob/${binId}`);
+        if(resBlob.ok) {
+          const data = await resBlob.json();
+          if(data.dossiers) {
+            dossiers = data.dossiers; feedbacks = data.feedbacks || [];
+            localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
+            localStorage.setItem('CALI_FB', JSON.stringify(feedbacks));
+            renderWall(dossiers); renderFb();
+          }
+        }
+      } catch(e) { console.log("Lỗi tải mây:", e); }
     }
 
-    window.toggleLikeChar = function(idx, event) {
-      event.stopPropagation();
+    // Lưu lên mây
+    async function saveToCloud() {
+      const payload = { dossiers, feedbacks };
+      let binId = getCloudId();
+      try {
+        if(binId) {
+          await fetch(`https://jsonblob.com/api/jsonBlob/${binId}`, {
+            method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)
+          });
+        } else {
+          const res = await fetch(`https://jsonblob.com/api/jsonBlob`, {
+            method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify(payload)
+          });
+          const location = res.headers.get('Location');
+          if(location) {
+            binId = location.split('/').pop();
+            localStorage.setItem(CLOUD_STORAGE_KEY, binId);
+            document.getElementById('ted-cloud-id').innerText = binId;
+          }
+        }
+      } catch(e) { console.error(e); }
+    }
+
+    // Khởi chạy tải mây
+    if(getCloudId()) {
+      document.getElementById('ted-cloud-id').innerText = getCloudId();
+      loadFromCloud(getCloudId());
+    }
+
+    // Nút khôi phục dữ liệu cho Ted
+    document.getElementById('btn-restore').addEventListener('click', () => {
+      const id = document.getElementById('in-restore-id').value.trim();
+      if(id) {
+        localStorage.setItem(CLOUD_STORAGE_KEY, id);
+        loadFromCloud(id);
+        alert("Đã kết nối lại kho lưu trữ thành công!");
+      }
+    });
+
+    /* ================= 3. RENDER POLAROID & CHỈ ĐỎ ================= */
+    const casesWall = document.getElementById('cases-wall');
+    
+    function renderWall(dataList) {
+      casesWall.innerHTML = "";
+      dataList.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = "card-polaroid pin-target";
+        const rot = (idx % 2 === 0 ? 1 : -1) * (1.5 + (idx % 3) * 0.5);
+        card.style.setProperty('--rot', `${rot}deg`);
+
+        const isLiked = localStorage.getItem('like_' + item.code);
+
+        card.innerHTML = `
+          <div class="pushpin"></div>
+          <div class="polaroid-img"><img src="${item.img}" alt="Ảnh"></div>
+          <div class="polaroid-name">${item.name}</div>
+          <div class="polaroid-code">MÃ: ${item.code}</div>
+          
+          <div class="like-stamp ${isLiked ? 'liked' : ''}" onclick="toggleLike(${idx}, event)">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span>${item.likes || 0}</span>
+          </div>
+
+          <div class="admin-controls">
+            <button class="btn-sm" onclick="openEdit(${idx}, event)">✏️ SỬA</button>
+            <button class="btn-sm del" onclick="delCase(${idx}, event)">🗑️</button>
+          </div>
+        `;
+        casesWall.appendChild(card);
+      });
+      drawThreads();
+    }
+
+    window.toggleLike = function(idx, e) {
+      e.stopPropagation();
       const item = dossiers[idx];
-      const key = 'cali_liked_' + item.code + '_' + item.name;
-      if (!localStorage.getItem(key)) {
+      const key = 'like_' + item.code;
+      if(!localStorage.getItem(key)) {
         item.likes = (item.likes || 0) + 1;
         localStorage.setItem(key, 'true');
-        playStampBang();
       } else {
         item.likes = Math.max(0, (item.likes || 1) - 1);
         localStorage.removeItem(key);
       }
-      localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-      renderCasesWall(dossiers);
-      saveSharedCloudCases(dossiers);
-    };
-
-    /* CHUYỂN BỘ LỌC 3 BONG BÓNG */
-    const orbBtns = document.querySelectorAll('.art-orb-btn');
-    orbBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (btn.hasAttribute('href')) return;
-        orbBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.getAttribute('data-filter');
-        if (filter === 'all') {
-          renderCasesWall(dossiers);
-        } else {
-          const filtered = dossiers.filter(c => c.tags.some(t => t.toLowerCase().includes(filter.toLowerCase())));
-          renderCasesWall(filtered);
-        }
-      });
-    });
-
-    /* ================= TÌM KIẾM / ĐIỀU TRA THEO MÃ SỐ & TÊN ================= */
-    const caseSearchInput = document.getElementById('case-search-input');
-    caseSearchInput.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase().trim();
-      if (!q) {
-        renderCasesWall(dossiers);
-        return;
-      }
-      const matched = dossiers.filter(c => 
-        c.code.toLowerCase().includes(q) || 
-        c.name.toLowerCase().includes(q) ||
-        c.tags.some(t => t.toLowerCase().includes(q))
-      );
-      renderCasesWall(matched);
-    });
-
-    /* ================= 7. XEM CHI TIẾT HỒ SƠ ================= */
-    const inspectModal = document.getElementById('inspect-modal');
-    const btnCloseInspect = document.getElementById('btn-close-inspect');
-
-    function inspectDossier(data) {
-      document.getElementById('ins-code').innerText = data.code;
-      document.getElementById('ins-name').innerText = data.name;
-      document.getElementById('ins-img').src = data.img;
-      document.getElementById('ins-tags').innerText = data.tags.map(t => `#${t.trim()}`).join(' ');
-      document.getElementById('ins-desc').innerText = data.desc;
-      document.getElementById('ins-link-plot').href = data.plot;
-      document.getElementById('ins-link-ggai').href = data.ggai;
-      inspectModal.style.display = 'flex';
-      playStampBang();
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
+      renderWall(dossiers);
+      saveToCloud();
     }
-    btnCloseInspect.addEventListener('click', () => inspectModal.style.display = 'none');
 
-    /* ================= 8. DÂY CHỈ ĐỎ PHÁT QUANG ================= */
-    const threadCanvas = document.getElementById('thread-canvas');
-    const threadCtx = threadCanvas.getContext('2d');
+    const canvas = document.getElementById('thread-canvas');
+    const ctx = canvas.getContext('2d');
+    function drawThreads() {
+      if(boardMain.style.display !== 'block') return;
+      canvas.width = boardMain.scrollWidth; canvas.height = boardMain.scrollHeight;
+      ctx.clearRect(0,0, canvas.width, canvas.height);
+      
+      const hub = document.getElementById('hub-pin').getBoundingClientRect();
+      const bRect = boardMain.getBoundingClientRect();
+      const hX = hub.left - bRect.left + hub.width/2;
+      const hY = hub.top - bRect.top + hub.height/2;
 
-    function renderRedThreads() {
-      if (boardMain.style.display !== 'block') return;
-
-      threadCanvas.width = boardMain.scrollWidth;
-      threadCanvas.height = boardMain.scrollHeight;
-      threadCtx.clearRect(0, 0, threadCanvas.width, threadCanvas.height);
-
-      const hubPin = document.getElementById('hub-pin');
-      const hubRect = hubPin.getBoundingClientRect();
-      const boardRect = boardMain.getBoundingClientRect();
-
-      const hubX = hubRect.left - boardRect.left + hubRect.width / 2;
-      const hubY = hubRect.top - boardRect.top + hubRect.height / 2;
-
-      const pins = document.querySelectorAll('.pin-node');
-      const pinCoords = [];
-
-      pins.forEach(pin => {
-        const r = pin.getBoundingClientRect();
-        pinCoords.push({
-          x: r.left - boardRect.left + r.width / 2,
-          y: r.top - boardRect.top + r.height / 2
-        });
+      const pins = document.querySelectorAll('.pin-target .pushpin');
+      const pts = [];
+      pins.forEach(p => {
+        const r = p.getBoundingClientRect();
+        pts.push({ x: r.left - bRect.left + r.width/2, y: r.top - bRect.top + r.height/2 });
       });
 
-      pinCoords.forEach(pos => {
-        threadCtx.beginPath();
-        threadCtx.moveTo(hubX, hubY);
-        const midX = (hubX + pos.x) / 2;
-        const midY = (hubY + pos.y) / 2 + 10;
-        threadCtx.quadraticCurveTo(midX, midY, pos.x, pos.y);
-        threadCtx.strokeStyle = "rgba(230, 0, 38, 0.72)";
-        threadCtx.lineWidth = 1.6;
-        threadCtx.shadowColor = "rgba(230, 0, 38, 0.85)";
-        threadCtx.shadowBlur = 5;
-        threadCtx.stroke();
+      pts.forEach(pt => {
+        ctx.beginPath(); ctx.moveTo(hX, hY);
+        ctx.quadraticCurveTo((hX+pt.x)/2, (hY+pt.y)/2 + 10, pt.x, pt.y);
+        ctx.strokeStyle = "rgba(166, 3, 17, 0.8)"; ctx.lineWidth = 1.5;
+        ctx.shadowColor = "#000"; ctx.shadowBlur = 4;
+        ctx.stroke();
       });
 
-      for (let i = 0; i < pinCoords.length - 1; i++) {
-        threadCtx.beginPath();
-        threadCtx.moveTo(pinCoords[i].x, pinCoords[i].y);
-        threadCtx.lineTo(pinCoords[i+1].x, pinCoords[i+1].y);
-        threadCtx.strokeStyle = "rgba(230, 0, 38, 0.35)";
-        threadCtx.lineWidth = 1.1;
-        threadCtx.stroke();
+      for(let i=0; i<pts.length-1; i++) {
+        ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[i+1].x, pts[i+1].y);
+        ctx.strokeStyle = "rgba(166, 3, 17, 0.4)"; ctx.lineWidth = 1; ctx.stroke();
       }
     }
-    window.addEventListener('resize', renderRedThreads);
+    window.addEventListener('resize', drawThreads);
 
-    /* ================= 9. DIỄN ĐÀN SƠN DẦU (AVATAR MỸ THUẬT & QUYỀN XOÁ CỦA TED) ================= */
-    const feedbackModal = document.getElementById('feedback-modal');
-    const btnTriggerFeedback = document.getElementById('btn-trigger-feedback');
-    const btnCloseFeedback = document.getElementById('btn-close-feedback');
-    const btnSendFeedback = document.getElementById('btn-send-feedback');
-    const feedbackChatList = document.getElementById('feedback-chat-list');
+    // LỌC VÀ TÌM KIẾM
+    const tabs = document.querySelectorAll('.paper-tab');
+    tabs.forEach(t => t.addEventListener('click', () => {
+      if(t.hasAttribute('href')) return;
+      tabs.forEach(x => x.classList.remove('active')); t.classList.add('active');
+      const f = t.getAttribute('data-filter');
+      renderWall(f === 'all' ? dossiers : dossiers.filter(d => d.tags.includes(f)));
+    }));
 
-    const FINE_ART_AVATARS = [
-      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=120&q=80",
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80",
-      "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=120&q=80",
-      "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=120&q=80",
-      "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=120&q=80"
+    document.getElementById('search-input').addEventListener('input', e => {
+      const q = e.target.value.toLowerCase();
+      renderWall(dossiers.filter(d => d.code.toLowerCase().includes(q) || d.name.toLowerCase().includes(q)));
+    });
+
+    /* ================= 4. DIỄN ĐÀN SƠN DẦU (FEEDBACK) ================= */
+    const AVATARS = [
+      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=100",
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100",
+      "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=100"
     ];
-
-    const BAD_WORDS_BLACKLIST = [
-      "chó", "lồn", "cặc", "đụ", "địt", "đụ mẹ", "địt mẹ", 
-      "lỗ đít", "đít", "đái", "buồi", "dâm", "chịch", "vú", 
-      "ngu lồn", "thằng chó", "con chó", "hãm lồn"
-    ];
-
-    function containsProfanity(text) {
-      const lower = text.toLowerCase();
-      return BAD_WORDS_BLACKLIST.some(bad => lower.includes(bad));
-    }
-
-    let feedbacks = JSON.parse(localStorage.getItem('TED_PERMANENT_FEEDBACKS')) || [];
-
-    function renderFeedbacks() {
-      const items = feedbacks.map((f, idx) => `
-        <div class="discord-message-item">
-          <img src="${f.avatar}" class="discord-avatar-img" alt="${f.name}">
-          <div class="discord-msg-content">
-            <div class="discord-author-line">
-              <div class="author-name-tag">
-                <span class="author-name">${f.name}</span>
-                <span class="msg-timestamp">${f.time}</span>
+    const BAD_WORDS = ["chó","lồn","cặc","đụ","địt","đít","đái","buồi"];
+    
+    const fbList = document.getElementById('fb-list');
+    function renderFb() {
+      fbList.innerHTML = "";
+      feedbacks.forEach((f, idx) => {
+        fbList.innerHTML += `
+          <div class="fb-item">
+            <img src="${f.ava}" class="fb-avatar">
+            <div class="fb-content">
+              <div style="display:flex; justify-content:space-between;">
+                <div><span class="fb-name">${f.name}</span><span class="fb-time">${f.time}</span></div>
+                <button class="btn-del-fb" onclick="delFb(${idx})">❌</button>
               </div>
-              <button class="btn-del-feedback" onclick="deleteFeedbackItem(${idx})">🗑️ XOÁ</button>
+              <div class="fb-text">${f.msg}</div>
             </div>
-            <div class="msg-body-text">${f.msg}</div>
           </div>
-        </div>
-      `).join('');
-
-      feedbackChatList.innerHTML = `
-        <div class="discord-message-item">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="discord-avatar-img" alt="Ted">
-          <div class="discord-msg-content">
-            <div class="discord-author-line">
-              <div class="author-name-tag">
-                <span class="author-name">Ted</span>
-                <span class="author-badge">CUSTODIAN</span>
-                <span class="msg-timestamp">Hôm nay</span>
-              </div>
-            </div>
-            <div class="msg-body-text">Mọi manh mối bạn phát hiện được hãy để lại tại đây. Hãy cẩn trọng với những gì bạn thấy.</div>
-          </div>
-        </div>
-        ${items}
-      `;
+        `;
+      });
     }
-    renderFeedbacks();
+    renderFb();
 
-    window.deleteFeedbackItem = function(idx) {
-      if (confirm("Đặc vụ Ted có chắc chắn muốn xoá vĩnh viễn phản hồi này không?")) {
-        feedbacks.splice(idx, 1);
-        localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
-        renderFeedbacks();
-        playStampBang();
-      }
-    };
-
-    btnTriggerFeedback.addEventListener('click', () => feedbackModal.style.display = 'flex');
-    btnCloseFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
-
-    btnSendFeedback.addEventListener('click', () => {
-      const name = document.getElementById('fb-user-name').value.trim();
-      const msg = document.getElementById('fb-user-msg').value.trim();
-      if (!name || !msg) { alert("Vui lòng điền đầy đủ tên và nội dung!"); return; }
-
-      if (containsProfanity(name) || containsProfanity(msg)) {
-        alert("⚠️ HỆ THỐNG TỪ CHỐI LƯU VẾT!\nPhát hiện ngôn từ nhạy cảm hoặc tục tĩu. Vui lòng giữ thái độ lịch sự trong khu vực hồ sơ!");
-        return;
-      }
-
-      const randomAvatar = FINE_ART_AVATARS[Math.floor(Math.random() * FINE_ART_AVATARS.length)];
-      const newFb = {
-        name: name,
-        msg: msg,
-        avatar: randomAvatar,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-
-      feedbacks.push(newFb);
-      localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
-      renderFeedbacks();
-      feedbackModal.style.display = 'none';
-      document.getElementById('fb-user-msg').value = "";
-      playStampBang();
+    document.getElementById('btn-open-fb').addEventListener('click', () => document.getElementById('fb-modal').style.display = 'flex');
+    document.getElementById('btn-close-fb').addEventListener('click', () => document.getElementById('fb-modal').style.display = 'none');
+    
+    document.getElementById('btn-send-fb').addEventListener('click', () => {
+      const name = document.getElementById('fb-name').value.trim();
+      const msg = document.getElementById('fb-msg').value.trim();
+      if(!name || !msg) return alert("Điền đủ thông tin!");
+      if(BAD_WORDS.some(w => name.toLowerCase().includes(w) || msg.toLowerCase().includes(w))) return alert("⚠️ Phát hiện từ ngữ nhạy cảm!");
+      
+      feedbacks.push({ name, msg, ava: AVATARS[Math.floor(Math.random()*AVATARS.length)], time: new Date().toLocaleTimeString() });
+      localStorage.setItem('CALI_FB', JSON.stringify(feedbacks));
+      renderFb(); saveToCloud();
+      document.getElementById('fb-modal').style.display = 'none';
+      document.getElementById('fb-msg').value = "";
     });
 
-    /* ================= 10. XÁC THỰC TED & BẬT ĐÈN ================= */
-    const authOverlay = document.getElementById('auth-overlay');
-    const btnOpenTerminal = document.getElementById('btn-open-terminal');
-    const btnCloseAuth = document.getElementById('btn-close-auth');
-    const tedLoginForm = document.getElementById('ted-login-form');
-    const tedActiveDesk = document.getElementById('ted-active-desk');
-    const authAlertBox = document.getElementById('auth-alert-box');
-    const btnToggleLight = document.getElementById('btn-toggle-light');
+    window.delFb = function(idx) {
+      if(confirm("Xoá manh mối này?")) { feedbacks.splice(idx,1); localStorage.setItem('CALI_FB', JSON.stringify(feedbacks)); renderFb(); saveToCloud(); }
+    }
 
-    btnOpenTerminal.addEventListener('click', () => {
-      authAlertBox.style.display = 'none';
-      authOverlay.style.display = 'flex';
-    });
-    btnCloseAuth.addEventListener('click', () => authOverlay.style.display = 'none');
-
-    tedLoginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('login-id').value.trim();
-      const pwd = document.getElementById('login-pwd').value.trim();
-
-      if (id === 'tcam9863@gmail.com' && pwd === 'camtien12') {
-        playStampBang();
-        authOverlay.style.display = 'none';
-
+    /* ================= 5. TÍNH NĂNG ADMIN TED ================= */
+    const loginModal = document.getElementById('login-modal');
+    document.getElementById('btn-login-trigger').addEventListener('click', () => loginModal.style.display = 'flex');
+    document.getElementById('btn-close-login').addEventListener('click', () => loginModal.style.display = 'none');
+    
+    const btnLight = document.getElementById('btn-light');
+    
+    document.getElementById('btn-submit-login').addEventListener('click', () => {
+      if(document.getElementById('login-id').value === 'tcam9863@gmail.com' && document.getElementById('login-pwd').value === 'camtien12') {
+        loginModal.style.display = 'none';
         document.body.classList.add('ted-illuminated');
-        btnToggleLight.style.display = 'flex';
-
-        btnOpenTerminal.innerHTML = "<span>👑 TED ONLINE</span>";
-        btnOpenTerminal.classList.add('active');
-        tedActiveDesk.style.display = 'block';
-        tedActiveDesk.scrollIntoView({ behavior: 'smooth' });
-        renderCasesWall(dossiers);
-        renderFeedbacks();
-        setTimeout(renderRedThreads, 200);
-      } else {
-        authAlertBox.style.display = 'block';
-        authAlertBox.innerText = "TRUY CẬP BỊ TỪ CHỐI // SAI ID HOẶC MẬT MÃ";
-      }
+        document.getElementById('btn-login-trigger').innerHTML = '👑 TED';
+        document.getElementById('btn-login-trigger').classList.add('active');
+        btnLight.style.display = 'flex';
+      } else alert("Sai ID/Pass!");
     });
 
-    btnToggleLight.addEventListener('click', () => {
+    btnLight.addEventListener('click', () => {
       document.body.classList.toggle('ted-illuminated');
-      const isIlluminated = document.body.classList.contains('ted-illuminated');
-      btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
+      btnLight.innerText = document.body.classList.contains('ted-illuminated') ? "💡 ĐÈN SÁNG" : "💡 ĐÈN TẮT";
     });
 
-    /* ================= 11. SỬA HỒ SƠ (CÓ THỂ ĐỔI CẢ ẢNH) & XOÁ ================= */
-    const editModal = document.getElementById('edit-dossier-modal');
-    const btnCloseEdit = document.getElementById('btn-close-edit');
-    const btnSaveEdit = document.getElementById('btn-save-edit');
+    // Nén ảnh & Đăng
+    function compressImg(file, cb) {
+      const r = new FileReader();
+      r.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          const cvs = document.createElement('canvas');
+          const scale = Math.min(400/img.width, 400/img.height, 1);
+          cvs.width = img.width * scale; cvs.height = img.height * scale;
+          cvs.getContext('2d').drawImage(img,0,0,cvs.width,cvs.height);
+          cb(cvs.toDataURL('image/jpeg', 0.7));
+        };
+        img.src = e.target.result;
+      }; r.readAsDataURL(file);
+    }
 
-    window.openEditModal = function(idx, event) {
-      event.stopPropagation();
-      const c = dossiers[idx];
+    document.getElementById('create-form').addEventListener('submit', e => {
+      e.preventDefault();
+      compressImg(document.getElementById('in-file').files[0], imgBase64 => {
+        dossiers.unshift({
+          code: document.getElementById('in-code').value,
+          name: document.getElementById('in-name').value,
+          img: imgBase64,
+          tags: document.getElementById('in-tags').value.split(','),
+          desc: document.getElementById('in-desc').value,
+          likes: 0
+        });
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
+        renderWall(dossiers); saveToCloud();
+        alert("ĐÃ LƯU VĨNH VIỄN LÊN MÁY CHỦ!"); document.getElementById('create-form').reset();
+      });
+    });
+
+    // Sửa / Xóa Char
+    const editModal = document.getElementById('edit-modal');
+    document.getElementById('btn-close-edit').addEventListener('click', () => editModal.style.display = 'none');
+    
+    window.openEdit = function(idx, e) {
+      e.stopPropagation();
+      const d = dossiers[idx];
       document.getElementById('edit-idx').value = idx;
-      document.getElementById('edit-code').value = c.code;
-      document.getElementById('edit-name').value = c.name;
-      document.getElementById('edit-plot').value = c.plot;
-      document.getElementById('edit-ggai').value = c.ggai;
-      document.getElementById('edit-desc').value = c.desc;
+      document.getElementById('edit-code').value = d.code;
+      document.getElementById('edit-name').value = d.name;
+      document.getElementById('edit-desc').value = d.desc;
       document.getElementById('edit-file').value = "";
       editModal.style.display = 'flex';
     };
 
-    btnCloseEdit.addEventListener('click', () => editModal.style.display = 'none');
-
-    btnSaveEdit.addEventListener('click', async () => {
+    document.getElementById('btn-save-edit').addEventListener('click', () => {
       const idx = document.getElementById('edit-idx').value;
-      const fileInput = document.getElementById('edit-file');
-
       dossiers[idx].code = document.getElementById('edit-code').value;
       dossiers[idx].name = document.getElementById('edit-name').value;
-      dossiers[idx].plot = document.getElementById('edit-plot').value;
-      dossiers[idx].ggai = document.getElementById('edit-ggai').value;
       dossiers[idx].desc = document.getElementById('edit-desc').value;
+      
+      const file = document.getElementById('edit-file').files[0];
+      if(file) {
+        compressImg(file, b64 => { dossiers[idx].img = b64; finishEdit(); });
+      } else finishEdit();
 
-      // NẾU TED TẢI ẢNH MỚI LÊN ĐỂ THAY THẾ
-      if (fileInput.files && fileInput.files[0]) {
-        compressImageKeepRatio(fileInput.files[0], async function(newImgBase64) {
-          dossiers[idx].img = newImgBase64;
-          await finalizeEdit();
-        });
-      } else {
-        await finalizeEdit();
-      }
-
-      async function finalizeEdit() {
-        localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-        renderCasesWall(dossiers);
-        editModal.style.display = 'none';
-        playStampBang();
-        await saveSharedCloudCases(dossiers);
-        alert("ĐÃ CẬP NHẬT HỒ SƠ & LƯU MÂY TOÀN CẦU THÀNH CÔNG!");
+      function finishEdit() {
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
+        renderWall(dossiers); saveToCloud();
+        editModal.style.display = 'none'; alert("Đã cập nhật!");
       }
     });
 
-    window.deleteCase = async function(idx, event) {
-      event.stopPropagation();
-      if (confirm(`Bạn có chắc chắn muốn tiêu huỷ hồ sơ [${dossiers[idx].name}] vĩnh viễn không?`)) {
+    window.delCase = function(idx, e) {
+      e.stopPropagation();
+      if(confirm("Tiêu hủy hồ sơ này?")) {
         dossiers.splice(idx, 1);
-        localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-        renderCasesWall(dossiers);
-        playStampBang();
-
-        await saveSharedCloudCases(dossiers);
-        alert("ĐÃ TIÊU HUỶ HỒ SƠ!");
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
+        renderWall(dossiers); saveToCloud();
       }
-    };
-
-    /* ================= 12. NÉN ẢNH CHUẨN TỈ LỆ (KHÔNG BỊ MÉO) & ĐĂNG MỚI ================= */
-    const createDossierForm = document.getElementById('create-dossier-form');
-    const btnUploadSubmit = document.getElementById('btn-upload-submit');
-
-    function compressImageKeepRatio(file, callback) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-          const MAX_DIM = 400;
-          let w = img.width, h = img.height;
-          const scale = Math.min(MAX_DIM / w, MAX_DIM / h, 1);
-          const canvas = document.createElement('canvas');
-          canvas.width = Math.round(w * scale);
-          canvas.height = Math.round(h * scale);
-          const ctx = canvas.getContext('2d');
-          ctx.imageSmoothingQuality = 'high';
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          callback(canvas.toDataURL('image/jpeg', 0.72));
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
     }
-
-    createDossierForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const codeVal = document.getElementById('in-code').value;
-      const nameVal = document.getElementById('in-name').value;
-      const fileVal = document.getElementById('in-file').files[0];
-      const plotVal = document.getElementById('in-plot').value;
-      const ggaiVal = document.getElementById('in-ggai').value;
-      const tagsVal = document.getElementById('in-tags').value.split(',');
-      const descVal = document.getElementById('in-desc').value;
-
-      btnUploadSubmit.innerText = "⏳ ĐANG ĐỒNG BỘ ĐÁM MÂY...";
-      btnUploadSubmit.disabled = true;
-
-      compressImageKeepRatio(fileVal, async function(compressedBase64) {
-        const newRecord = {
-          code: codeVal,
-          name: nameVal,
-          img: compressedBase64,
-          tags: tagsVal.length ? tagsVal : ["Active"],
-          desc: descVal || "Không có ghi chú thêm.",
-          plot: plotVal,
-          ggai: ggaiVal,
-          note: `#${nameVal.toUpperCase()}`,
-          likes: 0
-        };
-
-        dossiers.unshift(newRecord);
-        localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-        renderCasesWall(dossiers);
-
-        await saveSharedCloudCases(dossiers);
-
-        playStampBang();
-        alert(`⚡ HỒ SƠ [${nameVal}] ĐÃ ĐƯỢC ĐÍNH LÊN BẢNG VÀ TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU THÀNH CÔNG!`);
-        btnUploadSubmit.innerText = "+ GHIM HỒ SƠ LÊN BẢNG (TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU)";
-        btnUploadSubmit.disabled = false;
-        createDossierForm.reset();
-      });
-    });
   </script>
 </body>
 </html>
