@@ -6,333 +6,154 @@
   <title>ĐẠI TỘI VÙNG CALIFORNIA</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nosifer&family=Special+Elite&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #020101;
-      --crimson: #a80010;
-      --crimson-glow: rgba(168, 0, 16, 0.7);
-      --paper: #dbd2be;
-      --paper-dark: #c4b9a3;
-      --tape: rgba(230, 225, 200, 0.6);
-      --text-type: #1a1616;
-      --blood: #660000;
+      --crimson: #9e0013;
+      --paper: #e6ddc5;
+      --bg-dark: #050404;
+      --text-dim: #888;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
 
-    /* BACKGROUND SƠN DẦU CHÍNH THỨC CỦA BẠN */
+    /* NỀN VÀ FONT CHUẨN TIẾNG VIỆT */
     body {
       background: 
-        radial-gradient(circle at 50% 50%, rgba(10,5,5,0.3) 0%, rgba(2,1,1,0.95) 100%),
+        radial-gradient(circle at 50% 50%, rgba(10,5,5,0.4) 0%, rgba(2,1,1,0.98) 100%),
         url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
-        var(--bg);
-      color: #ccc;
-      font-family: 'Courier Prime', monospace;
+        var(--bg-dark);
+      color: #dfdfdf;
+      font-family: 'Space Grotesk', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* ĐÈN RỌI SPOTLIGHT NHÁY NHẸ MỜ ẢO */
+    body.ted-illuminated {
+      background: url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed;
+    }
+    body.ted-illuminated .spotlight-layer { display: none; }
+    body.ted-illuminated #fog-canvas { opacity: 0.1; }
+
+    /* ================= HIỆU ỨNG SPOTLIGHT & KHÓI ================= */
     .spotlight-layer {
       position: fixed; inset: 0; pointer-events: none; z-index: 35;
-      background: radial-gradient(circle 350px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(2, 1, 1, 0.65) 50%, rgba(0, 0, 0, 0.95) 100%);
-      transition: background 0.1s ease-out;
-      animation: flickerSpotlight 4s infinite alternate;
-    }
-    @keyframes flickerSpotlight {
-      0%, 100% { opacity: 1; }
-      10%, 30% { opacity: 0.95; }
-      20% { opacity: 0.85; }
-    }
-    body.ted-illuminated .spotlight-layer {
-      background: radial-gradient(circle 900px at 50% 30%, rgba(180, 50, 50, 0.1) 0%, rgba(10, 5, 5, 0.6) 60%, rgba(0, 0, 0, 0.9) 100%) !important;
-      animation: none;
+      background: radial-gradient(circle 350px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5,3,3,0.7) 50%, rgba(0,0,0,0.96) 100%);
     }
 
-    /* HIỆU ỨNG NHÁ ĐÈN JUMPSCARE CỰC MẠNH */
+    #fog-canvas {
+      position: fixed; inset: 0; width: 100vw; height: 100vh;
+      pointer-events: none; z-index: 30; mix-blend-mode: screen; opacity: 0.45;
+    }
+
+    /* ================= HIỆU ỨNG JUMPSCARE CÓ BÓNG ĐEN ================= */
     #jumpscare-overlay {
-      position: fixed; inset: 0; z-index: 999; pointer-events: none; display: none; background: #fff;
+      position: fixed; inset: 0; z-index: 999; pointer-events: none; display: none;
+      background-color: #fff;
+      background-position: center; background-size: cover; background-repeat: no-repeat;
     }
     .strobe-active {
       display: block !important;
-      animation: horrorStrobe 0.3s steps(2, start) forwards;
+      animation: horrorStrobe 0.4s steps(2, start) forwards;
     }
     @keyframes horrorStrobe {
-      0% { background: #fff; opacity: 1; }
-      25% { background: var(--crimson); opacity: 0.9; filter: invert(1); }
-      50% { background: #000; opacity: 1; }
-      75% { background: #fff; opacity: 0.8; }
-      100% { background: transparent; opacity: 0; }
+      0% { background-color: #fff; opacity: 1; filter: invert(0); }
+      25% { background-color: var(--crimson); opacity: 0.9; filter: invert(1); }
+      50% { background-color: #000; opacity: 1; filter: invert(0); }
+      75% { background-color: #fff; opacity: 0.8; }
+      100% { background-color: transparent; opacity: 0; }
     }
 
-    /* THANH NÚT TRÊN CÙNG KÍN ĐÁO - NGHỆ THUẬT */
-    .top-bar-controls {
-      position: fixed; top: 15px; right: 15px; z-index: 100; display: flex; gap: 10px; align-items: center;
+    /* THANH CÔNG CỤ TED & NHẠC (THU GỌN) */
+    .top-controls {
+      position: fixed; top: 15px; right: 15px; z-index: 100; display: flex; gap: 8px;
     }
-    .ctrl-pill {
-      background: rgba(5, 5, 5, 0.85);
-      border: 1px solid #333; padding: 6px 12px;
-      font-size: 0.75rem; font-family: 'Courier Prime', monospace; color: #888;
-      cursor: pointer; display: flex; align-items: center; gap: 6px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.9); transition: all 0.3s;
-      border-radius: 2px;
+    .ctrl-btn {
+      background: rgba(10, 10, 10, 0.9); border: 1px solid #444; padding: 6px 12px;
+      font-size: 0.7rem; font-family: 'Courier Prime', monospace; color: #aaa;
+      cursor: pointer; display: flex; align-items: center; gap: 6px; border-radius: 3px;
     }
-    .ctrl-pill:hover, .ctrl-pill.active { border-color: var(--crimson); color: #fff; text-shadow: 0 0 5px var(--crimson); }
+    .ctrl-btn.active { border-color: var(--crimson); color: #fff; }
     .audio-dot { width: 6px; height: 6px; border-radius: 50%; background: #555; }
-    .ctrl-pill.active .audio-dot { background: var(--crimson); box-shadow: 0 0 10px var(--crimson); animation: heartbeat 1s infinite; }
-    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
-    
-    .admin-pill { border-color: #550000; color: #a80010; font-weight: bold; }
-    .admin-pill:hover, .admin-pill.active { background: #a80010; color: #fff; border-color: #fff; box-shadow: 0 0 20px #a80010; }
+    .ctrl-btn.active .audio-dot { background: var(--crimson); box-shadow: 0 0 8px var(--crimson); }
+    .admin-btn { border-color: #500; color: var(--crimson); font-weight: bold; }
+    .admin-btn:hover, .admin-btn.active { background: var(--crimson); color: #fff; border-color: #fff; }
 
-    /* ================= 1. CỔNG 18+ (ĐẠI TỘI VÙNG CALIFORNIA) ================= */
+    /* ================= CỔNG 18+ (ĐẠI TỘI VÙNG CALIFORNIA) ================= */
     #gate-18 {
-      position: fixed; inset: 0; background: #000; z-index: 200; display: flex; justify-content: center; align-items: center; padding: 20px;
+      position: fixed; inset: 0; background: #020101; z-index: 200; display: flex; justify-content: center; align-items: center; padding: 20px;
     }
     .gate-card {
-      background: #080505; border: 1px solid var(--crimson); padding: 35px 25px;
-      max-width: 420px; text-align: center; box-shadow: 0 0 40px rgba(168, 0, 16, 0.3);
-      position: relative;
-    }
-    .gate-card::before {
-      content: ""; position: absolute; inset: 2px; border: 1px dashed #330000; pointer-events: none;
+      background: #0a0505; border: 1px solid var(--crimson); padding: 40px 25px;
+      max-width: 420px; text-align: center; box-shadow: 0 0 50px rgba(158, 0, 19, 0.4);
     }
     .gate-card h1 {
-      font-family: 'Nosifer', display; font-size: 1.6rem; color: #d40015; margin-bottom: 15px;
-      text-shadow: 2px 2px 0px #000, 0 0 15px #d40015; line-height: 1.4;
+      font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700;
+      color: #ff1a1a; margin-bottom: 15px; text-shadow: 0 0 15px var(--crimson);
     }
-    .gate-card p { font-size: 0.85rem; line-height: 1.6; color: #999; margin-bottom: 30px; font-family: 'Special Elite', cursive; }
+    .gate-card p { font-size: 0.85rem; line-height: 1.6; color: #aaa; margin-bottom: 30px; font-family: 'Courier Prime', monospace; }
     
     .btn-blood {
-      background: linear-gradient(180deg, #660000 0%, #220000 100%);
-      color: #fff; border: 1px solid #ff0000; padding: 12px 20px;
-      font-family: 'Special Elite', cursive; font-size: 1rem; cursor: pointer; width: 100%;
-      text-shadow: 1px 1px 3px #000; transition: 0.3s;
+      background: var(--crimson); color: #fff; border: 1px solid #ff4d4d; padding: 12px 20px;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; width: 100%; transition: 0.3s;
     }
-    .btn-blood:hover { background: #a80010; box-shadow: 0 0 20px var(--crimson); transform: scale(1.02); }
+    .btn-blood:hover { background: #d00018; box-shadow: 0 0 20px var(--crimson); }
 
-    /* ================= 2. BỨC THƯ & MỘC CẤP PHÉP SIÊU PHỨC TẠP ================= */
+    /* ================= THƯ & MỘC CHUẨN PHÁP Y ================= */
     #letter-screen {
       position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 150;
-      display: none; justify-content: center; align-items: center; padding: 20px;
-      transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
+      display: none; justify-content: center; align-items: center; padding: 20px; transition: transform 0.8s ease-in;
     }
     .letter-paper {
-      background: var(--paper); color: var(--text-type); padding: 40px 30px;
-      max-width: 520px; box-shadow: 0 20px 60px rgba(0,0,0,1); position: relative;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(102, 0, 0, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 80% 90%, rgba(0, 0, 0, 0.1) 0%, transparent 40%);
-    }
-    /* Kẹp giấy đính kèm bức thư */
-    .letter-paper::before {
-      content: ""; position: absolute; top: -15px; left: 30px; width: 18px; height: 50px;
-      border: 3px solid #777; border-radius: 10px; background: transparent;
-      box-shadow: 2px 2px 3px rgba(0,0,0,0.5), inset 1px 1px 2px rgba(255,255,255,0.4);
-      transform: rotate(-10deg);
+      background: var(--paper); color: #111; padding: 40px 30px; max-width: 500px;
+      box-shadow: 0 10px 40px rgba(0,0,0,1); position: relative;
     }
     .letter-paper h2 {
-      font-family: 'Cinzel Decorative', serif; font-size: 1.8rem; font-weight: 900;
-      border-bottom: 2px solid #330000; padding-bottom: 10px; margin-bottom: 20px; color: #111;
+      font-family: 'Special Elite', cursive; font-size: 2rem; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px;
     }
-    .letter-paper p { font-size: 0.95rem; line-height: 1.7; margin-bottom: 20px; font-family: 'Special Elite', cursive; text-align: justify; }
+    .letter-paper p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; font-family: 'Courier Prime', monospace; font-weight: 700;}
+    
+    /* Mộc Cấp Phép Pháp Y - Vẽ bằng CSS chuẩn */
+    .forensic-seal-btn {
+      width: 130px; height: 130px; border-radius: 50%; margin: 0 auto; cursor: pointer;
+      border: 4px double var(--crimson); display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative; transform: rotate(-8deg); transition: 0.3s;
+      background: radial-gradient(circle, rgba(158, 0, 19, 0.05) 0%, transparent 80%);
+    }
+    .forensic-seal-btn:hover { transform: scale(1.05) rotate(0deg); border-color: #ff1a1a; box-shadow: 0 0 25px var(--crimson-glow); }
+    .seal-text-circle {
+      position: absolute; width: 100%; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path id="curve" d="M 15 50 A 35 35 0 1 1 85 50 A 35 35 0 1 1 15 50" fill="none" stroke="none"/><text fill="%239e0013" font-size="9" font-family="Courier Prime" font-weight="bold" letter-spacing="3"><textPath href="%23curve">DEPT. OF JUSTICE * CLASSIFIED *</textPath></text></svg>') center/contain no-repeat;
+      animation: rotateSeal 20s linear infinite;
+    }
+    @keyframes rotateSeal { 100% { transform: rotate(360deg); } }
+    .seal-center {
+      font-family: 'Special Elite', cursive; font-size: 1.2rem; color: var(--crimson); font-weight: bold; z-index: 2;
+      border-top: 2px solid var(--crimson); border-bottom: 2px solid var(--crimson); padding: 2px 0;
+    }
 
-    /* MỘC PHÁP Y HUYẾT ẤN (ARTWORK SEAL) */
-    .complex-seal-wrapper {
-      display: flex; flex-direction: column; align-items: center; margin-top: 30px;
-    }
-    .blood-sigil-btn {
-      width: 140px; height: 140px; border-radius: 50%; cursor: pointer;
-      display: flex; justify-content: center; align-items: center; position: relative;
-      background: radial-gradient(circle, rgba(168, 0, 16, 0.1) 0%, transparent 70%);
-      transition: all 0.3s; transform: rotate(-5deg);
-    }
-    .blood-sigil-btn svg {
-      width: 100%; height: 100%; position: absolute; inset: 0;
-      stroke: var(--crimson); fill: none; stroke-width: 1.5;
-      filter: drop-shadow(0 0 5px rgba(168, 0, 16, 0.8));
-      animation: spinSigil 30s linear infinite;
-    }
-    @keyframes spinSigil { 100% { transform: rotate(360deg); } }
-    
-    .blood-sigil-btn .seal-core {
-      position: absolute; text-align: center; color: var(--crimson);
-      font-family: 'Cinzel Decorative', serif; font-weight: 900; font-size: 0.85rem;
-      text-shadow: 0 0 10px var(--crimson); z-index: 2;
-    }
-    .blood-sigil-btn:hover { transform: scale(1.05) rotate(0deg); }
-    .blood-sigil-btn:hover svg { stroke: #ff0000; filter: drop-shadow(0 0 12px #ff0000); animation-duration: 10s; }
-    
-    /* ================= 3. BẢNG ÁN MẠNG CHÍNH ================= */
+    /* ================= BẢNG ÁN MẠNG ================= */
     #board-main {
-      display: none; min-height: 100vh; padding: 30px 15px 100px;
-      max-width: 1300px; margin: 0 auto; position: relative; z-index: 20;
+      display: none; min-height: 100vh; padding: 40px 15px 100px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 20;
     }
     #thread-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
     .main-title {
-      font-family: 'Cinzel Decorative', serif; font-size: 2.2rem; text-align: center;
-      color: #fff; text-shadow: 0 5px 15px #000, 0 0 10px var(--crimson); margin-bottom: 5px;
+      font-family: 'Special Elite', cursive; font-size: 2.2rem; text-align: center; color: #fff; margin-bottom: 5px; text-shadow: 2px 2px 4px #000;
     }
-    .sub-title { text-align: center; font-size: 0.8rem; color: #888; margin-bottom: 30px; letter-spacing: 2px; }
+    .sub-title { text-align: center; font-size: 0.8rem; color: #888; font-family: 'Courier Prime', monospace; margin-bottom: 40px;}
 
-    /* MENU BA LOGO (NHƯNG BẰNG HÌNH VẼ MỸ THUẬT) */
-    .art-sigils-rack {
-      display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; position: relative; z-index: 10;
+    /* KÍNH LÚP TÌM KIẾM */
+    .search-box { max-width: 450px; margin: 0 auto 40px; position: relative; z-index: 10; }
+    .search-box input {
+      width: 100%; background: rgba(10, 5, 5, 0.8); border: 1px solid #440000; padding: 12px 20px 12px 40px;
+      color: #fff; font-family: 'Courier Prime', monospace; font-size: 0.85rem; outline: none; box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
     }
-    .sigil-tab {
-      display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; text-decoration: none;
-      opacity: 0.6; transition: 0.3s;
-    }
-    .sigil-tab:hover, .sigil-tab.active { opacity: 1; transform: translateY(-5px); }
-    .sigil-icon {
-      width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-      background: radial-gradient(circle, rgba(168,0,16,0.2) 0%, transparent 70%);
-      border: 1px dashed rgba(255,255,255,0.2);
-    }
-    .sigil-icon svg { width: 40px; height: 40px; stroke: #ccc; stroke-width: 1.5; fill: none; transition: 0.3s; }
-    .sigil-tab:hover .sigil-icon svg, .sigil-tab.active .sigil-icon svg { stroke: var(--crimson); filter: drop-shadow(0 0 8px var(--crimson)); }
-    .sigil-text { font-family: 'Special Elite', cursive; font-size: 0.75rem; color: #999; }
-    .sigil-tab:hover .sigil-text, .sigil-tab.active .sigil-text { color: #fff; text-shadow: 0 0 5px var(--crimson); }
-    
-    /* Huy hiệu Ted dẫn FB */
-    .ted-fb-sigil .sigil-icon { border: 1px solid #a80010; }
-    .ted-fb-sigil .sigil-icon svg { stroke: #ff3344; animation: flap 3s infinite alternate; }
-    .ted-fb-sigil .sigil-text { color: #ff3344; font-weight: bold; }
-    @keyframes flap { 0% { transform: scaleY(1); } 100% { transform: scaleY(1.1); } }
+    .search-box input:focus { border-color: var(--crimson); box-shadow: 0 0 15px rgba(158, 0, 19, 0.5); }
+    .search-box::before { content: "🔍"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; opacity: 0.7; }
 
-    /* Ô KÍNH LÚP TÌM KIẾM ĐIỀU TRA */
-    .investigation-bar {
-      max-width: 450px; margin: 0 auto 40px; position: relative; z-index: 10;
-    }
-    .investigation-bar input {
-      width: 100%; background: rgba(10, 5, 5, 0.8); border: 1px solid #440000;
-      padding: 12px 20px 12px 40px; color: #fff; font-family: 'Special Elite', cursive; font-size: 0.85rem; outline: none;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-    }
-    .investigation-bar input:focus { border-color: var(--crimson); box-shadow: 0 0 15px rgba(168,0,16,0.4); }
-    .investigation-bar::before {
-      content: "🔍"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; opacity: 0.7;
-    }
-
-    /* ================= KHU VỰC THẺ ẢNH POLAROID CẦU KỲ ================= */
-    .polaroid-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 25px; position: relative; z-index: 10; padding-bottom: 50px;
-    }
-    @media (min-width: 768px) { .polaroid-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; } }
-
-    /* Hiệu ứng lơ lửng thở đều (Breathing effect) */
-    .card-polaroid {
-      background: var(--polaroid);
-      padding: 12px 12px 20px 12px;
-      box-shadow: 4px 10px 25px rgba(0,0,0,0.9), inset 0 0 30px rgba(100,50,0,0.1);
-      position: relative; cursor: pointer;
-      transform: rotate(var(--rot, 0deg));
-      animation: floatCard 6s ease-in-out infinite alternate;
-      animation-delay: calc(var(--rand) * -5s);
-      transition: z-index 0s;
-      border: 1px solid #d4cbb8;
-    }
-    @keyframes floatCard {
-      0% { transform: translateY(0) rotate(var(--rot)); }
-      100% { transform: translateY(-8px) rotate(calc(var(--rot) + 1deg)); }
-    }
-
-    /* Hiệu ứng Glitch kinh dị khi Hover */
-    .card-polaroid:hover {
-      animation: horrorGlitch 0.2s infinite !important;
-      z-index: 50 !important;
-      box-shadow: 0 20px 50px rgba(168, 0, 16, 0.6);
-    }
-    @keyframes horrorGlitch {
-      0% { transform: translate(0, 0) scale(1.05) rotate(0deg); filter: contrast(1); }
-      33% { transform: translate(-3px, 2px) scale(1.05) rotate(-1deg); filter: contrast(1.4) hue-rotate(-10deg); }
-      66% { transform: translate(3px, -2px) scale(1.05) rotate(1deg); filter: contrast(0.8) invert(0.1); }
-      100% { transform: translate(0, 0) scale(1.05) rotate(0deg); }
-    }
-
-    /* Băng dán đục ở góc ảnh */
-    .card-polaroid::before {
-      content: ""; position: absolute; top: -10px; right: 10px; width: 45px; height: 18px;
-      background: var(--tape); border-left: 1px dashed rgba(0,0,0,0.1); border-right: 1px dashed rgba(0,0,0,0.1);
-      transform: rotate(15deg); pointer-events: none; z-index: 6; box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-    
-    /* Ghim đỏ 3D */
-    .pushpin {
-      position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
-      width: 14px; height: 14px; background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000);
-      border-radius: 50%; box-shadow: -2px 4px 6px rgba(0,0,0,0.8), inset -1px -1px 3px rgba(0,0,0,0.6); z-index: 6;
-      border: 1px solid #4a0000;
-    }
-
-    .polaroid-img {
-      width: 100%; height: 220px; background: #000; margin-bottom: 10px; overflow: hidden;
-      border: 1px solid #a39b8a; position: relative;
-    }
-    .polaroid-img img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center;
-      filter: grayscale(90%) contrast(1.3) sepia(20%); transition: filter 0.3s;
-    }
-    .card-polaroid:hover .polaroid-img img { filter: grayscale(10%) contrast(1.4); }
-    
-    /* Vệt máu loang trên giấy */
-    .blood-stain {
-      position: absolute; bottom: 40px; right: -10px; width: 50px; height: 50px;
-      background: radial-gradient(circle, rgba(138, 0, 0, 0.4) 0%, transparent 60%);
-      pointer-events: none; mix-blend-mode: multiply;
-    }
-
-    .polaroid-name { font-family: 'Special Elite', cursive; font-size: 1.15rem; color: var(--text-type); font-weight: bold; line-height: 1.2; margin-bottom: 2px;}
-    .polaroid-meta { display: flex; justify-content: space-between; align-items: center; font-family: 'Courier Prime', monospace; font-size: 0.65rem; color: #555; }
-
-    /* MỘC THẢ TIM GÓC POLAROID DẠNG KÝ HIỆU NHỎ */
-    .like-stamp {
-      display: flex; align-items: center; gap: 4px; cursor: pointer; color: #888; font-weight: bold; font-size: 0.7rem;
-    }
-    .like-stamp svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.5; transition: 0.2s; }
-    .like-stamp.liked { color: var(--crimson); }
-    .like-stamp.liked svg { fill: var(--crimson); stroke: var(--crimson); filter: drop-shadow(0 0 3px var(--crimson)); transform: scale(1.2); }
-
-    /* HAI NÚT LINK (PLOT & GGAI) DẠNG MẨU GIẤY MÁY ĐÁNH CHỮ */
-    .card-links {
-      display: flex; gap: 8px; margin-top: 15px; border-top: 1px solid #ccc; padding-top: 10px;
-    }
-    .link-tag {
-      flex: 1; text-align: center; background: #fff; border: 1px solid #999;
-      color: #111; font-family: 'Courier Prime', monospace; font-size: 0.65rem; font-weight: bold;
-      padding: 4px 0; text-decoration: none; box-shadow: 1px 2px 4px rgba(0,0,0,0.2); transition: 0.2s;
-    }
-    .link-tag:hover { background: #111; color: #fff; }
-    .link-tag.ggai { border-color: var(--crimson); color: var(--crimson); }
-    .link-tag.ggai:hover { background: var(--crimson); color: #fff; }
-
-    /* QUYỀN SỬA XOÁ CỦA TED (NẰM ĐÈ TRÊN ẢNH KHI HOVER) */
-    .admin-controls {
-      display: none; position: absolute; top: 10px; left: 10px; gap: 5px; z-index: 50;
-    }
-    body.ted-illuminated .admin-controls { display: flex; }
-    .btn-admin-act {
-      background: #000; color: #fff; border: 1px solid #fff; padding: 4px 8px;
-      font-family: 'Courier Prime', monospace; font-size: 0.6rem; cursor: pointer;
-    }
-    .btn-admin-act.del { background: #660000; border-color: #ff0000; }
-
-    /* TÂM ĐIỂM DẤU CHẤM HỎI ĐỎ MÁU */
-    .mystery-hub { text-align: center; position: relative; z-index: 10; margin-bottom: 40px; }
-    .mystery-hub h1 {
-      font-family: 'Cinzel Decorative', serif; font-size: 4.5rem; color: var(--crimson);
-      text-shadow: 0 0 30px rgba(168, 0, 16, 0.9); line-height: 1;
-    }
-    .hub-pin {
-      position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%);
-      width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 15px #fff, 0 0 25px var(--crimson);
-    }
-
-    /* ================= BẢN ĐĂNG KÝ HỒ SƠ TED ================= */
+    /* ================= BẢNG ĐĂNG KÝ TED ================= */
     #admin-desk {
       display: none; background: rgba(10, 5, 5, 0.95); border: 1px dashed var(--crimson);
       padding: 25px; margin-bottom: 40px; position: relative; z-index: 10; box-shadow: 0 0 30px rgba(0,0,0,0.8);
@@ -343,75 +164,117 @@
     .input-grp input, .input-grp textarea {
       width: 100%; background: #000; border: 1px solid #330000; color: #fff; padding: 10px; font-family: 'Courier Prime', monospace; outline: none;
     }
-    .input-grp input:focus, .input-grp textarea:focus { border-color: var(--crimson); }
 
-    /* ================= DIỄN ĐÀN SƠN DẦU (FEEDBACK ART SALON) ================= */
+    /* ================= THẺ POLAROID NGHỆ THUẬT ================= */
+    .polaroid-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; position: relative; z-index: 10; padding-bottom: 50px;
+    }
+    @media (min-width: 768px) { .polaroid-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; } }
+
+    .card-polaroid {
+      background: var(--paper); padding: 10px 10px 20px 10px; box-shadow: 2px 8px 20px rgba(0,0,0,0.9);
+      position: relative; cursor: pointer; transform: rotate(var(--rot, 0deg));
+      transition: transform 0.3s, box-shadow 0.3s;
+      /* Hiệu ứng lơ lửng nhẹ, ko giật */
+      animation: floatCard 5s ease-in-out infinite alternate;
+      animation-delay: calc(var(--rand) * -4s);
+    }
+    @keyframes floatCard { 0% { transform: translateY(0) rotate(var(--rot)); } 100% { transform: translateY(-6px) rotate(calc(var(--rot) + 1deg)); } }
+
+    .card-polaroid:hover { transform: scale(1.05) rotate(0deg) !important; z-index: 40 !important; box-shadow: 0 15px 35px rgba(158,0,19,0.4); animation: none; }
+
+    /* Băng keo & Ghim */
+    .card-polaroid::before {
+      content: ""; position: absolute; top: -10px; right: 10px; width: 45px; height: 18px;
+      background: rgba(220, 215, 190, 0.7); transform: rotate(15deg); pointer-events: none; z-index: 6;
+      border-left: 1px dashed rgba(0,0,0,0.2); border-right: 1px dashed rgba(0,0,0,0.2);
+    }
+    .pushpin {
+      position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px;
+      background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000); border-radius: 50%;
+      box-shadow: -2px 4px 6px rgba(0,0,0,0.8); z-index: 6; border: 1px solid #4a0000;
+    }
+
+    .polaroid-img { width: 100%; height: 210px; background: #000; margin-bottom: 8px; overflow: hidden; border: 1px solid #a39b8a; }
+    .polaroid-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(80%) contrast(1.2); transition: 0.3s; }
+    .card-polaroid:hover .polaroid-img img { filter: grayscale(10%) contrast(1.3); }
+
+    .polaroid-name { font-family: 'Special Elite', cursive; font-size: 1.15rem; color: #111; font-weight: bold; }
+    .polaroid-meta { display: flex; justify-content: space-between; align-items: center; font-family: 'Courier Prime', monospace; font-size: 0.65rem; color: #555; }
+
+    /* Icon Thả tim */
+    .like-stamp { display: flex; align-items: center; gap: 4px; cursor: pointer; color: #888; font-weight: bold; font-size: 0.7rem; }
+    .like-stamp svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; transition: 0.2s; }
+    .like-stamp.liked { color: var(--crimson); }
+    .like-stamp.liked svg { fill: var(--crimson); stroke: var(--crimson); }
+
+    /* 2 Nút Link Plot & GGAI kiểu giấy đánh chữ */
+    .card-links { display: flex; gap: 8px; margin-top: 12px; }
+    .link-tag {
+      flex: 1; text-align: center; background: #fdfbf7; border: 1px solid #999; color: #111;
+      font-family: 'Courier Prime', monospace; font-size: 0.65rem; font-weight: bold; padding: 4px 0; text-decoration: none;
+      box-shadow: 1px 2px 4px rgba(0,0,0,0.2); transition: 0.2s;
+    }
+    .link-tag:hover { background: #111; color: #fff; }
+
+    /* Quyền Admin của Ted */
+    .admin-controls { display: none; position: absolute; top: 10px; left: 10px; gap: 5px; z-index: 50; }
+    body.ted-illuminated .admin-controls { display: flex; }
+    .btn-admin-act { background: #000; color: #fff; border: 1px solid #fff; padding: 4px 8px; font-family: 'Space Grotesk'; font-size: 0.6rem; font-weight: bold; cursor: pointer; }
+    .btn-admin-act.del { background: #800000; border-color: #ff0000; }
+
+    /* TÂM ĐIỂM DẤU CHẤM HỎI ĐỎ MÁU */
+    .mystery-hub { text-align: center; position: relative; z-index: 10; margin-bottom: 40px; }
+    .mystery-hub h1 { font-family: 'Special Elite', cursive; font-size: 4rem; color: var(--crimson); text-shadow: 0 0 25px rgba(168, 0, 16, 0.9); line-height: 1; }
+    .hub-pin { position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; border-radius: 50%; background: #fff; box-shadow: 0 0 15px #fff, 0 0 20px var(--crimson); }
+
+    /* ================= DIỄN ĐÀN ================= */
     .feedback-wall {
-      background: radial-gradient(circle at 50% 20%, rgba(30, 15, 15, 0.9) 0%, rgba(10, 5, 5, 0.98) 100%);
-      border: 4px solid var(--gold-baroque);
-      box-shadow: inset 0 0 60px rgba(0,0,0,1), 0 15px 40px rgba(0,0,0,0.9);
-      padding: 25px 20px; position: relative; z-index: 10; border-radius: 2px;
+      background: rgba(10, 5, 5, 0.9); border: 2px solid #500;
+      padding: 25px; position: relative; z-index: 10; border-radius: 2px;
     }
-    .fb-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #5a4b31; padding-bottom: 15px; margin-bottom: 20px;}
-    .fb-header h3 { font-family: 'Cinzel Decorative', serif; color: var(--gold-baroque); font-size: 1.2rem; }
-    
-    .fb-list { display: flex; flex-direction: column; gap: 16px; max-height: 350px; overflow-y: auto; padding-right: 8px; }
-    .fb-list::-webkit-scrollbar { width: 5px; }
-    .fb-list::-webkit-scrollbar-thumb { background: var(--gold-baroque); }
-
-    .fb-item {
-      display: flex; gap: 15px; background: rgba(0,0,0,0.6); padding: 15px; border-left: 2px solid var(--gold-baroque); position: relative;
-    }
-    .fb-avatar {
-      width: 45px; height: 45px; border-radius: 50%; border: 1.5px solid var(--gold-baroque); object-fit: cover;
-    }
+    .fb-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #400; padding-bottom: 10px; margin-bottom: 20px;}
+    .fb-header h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--crimson); font-size: 1.1rem; }
+    .fb-list { display: flex; flex-direction: column; gap: 15px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
+    .fb-item { display: flex; gap: 12px; background: rgba(0,0,0,0.6); padding: 12px; border-left: 2px solid var(--crimson); position: relative; }
+    .fb-avatar { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--crimson); object-fit: cover; }
     .fb-content { flex: 1; }
-    .fb-name { font-family: 'Cinzel', serif; color: var(--gold-baroque); font-weight: bold; font-size: 0.95rem; }
-    .fb-time { font-size: 0.6rem; color: #777; margin-left: 10px; font-family: 'Courier Prime'; }
-    .fb-text { font-size: 0.85rem; color: #ddd; margin-top: 6px; line-height: 1.5; font-family: 'Space Grotesk', sans-serif;}
+    .fb-name { font-family: 'Space Grotesk', sans-serif; font-weight: bold; color: #fff; font-size: 0.9rem; }
+    .fb-time { font-size: 0.6rem; color: #777; margin-left: 8px; font-family: 'Courier Prime'; }
+    .fb-text { font-size: 0.85rem; color: #ccc; margin-top: 4px; line-height: 1.4; }
     
-    /* Nút xoá comment của Ted */
-    .btn-del-fb {
-      position: absolute; right: 10px; top: 10px;
-      background: transparent; color: var(--crimson); border: none; cursor: pointer; font-size: 0.9rem; display: none;
-    }
+    .btn-del-fb { position: absolute; right: 10px; top: 10px; background: transparent; color: var(--crimson); border: none; cursor: pointer; font-size: 0.8rem; display: none; }
     body.ted-illuminated .btn-del-fb { display: block; }
 
     /* ================= MODAL CHUNG ================= */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 400;
-      display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(10px);
-    }
-    .modal-box {
-      background: #080404; border: 1px solid var(--crimson); padding: 30px; width: 100%; max-width: 420px; position: relative;
-      box-shadow: 0 0 50px rgba(168, 0, 16, 0.4);
-    }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 400; display: none; justify-content: center; align-items: center; padding: 20px; }
+    .modal-box { background: #0a0505; border: 1px solid var(--crimson); padding: 30px; width: 100%; max-width: 420px; position: relative; box-shadow: 0 0 30px rgba(168,0,16,0.3); }
     .close-x { position: absolute; top: 10px; right: 15px; color: #777; cursor: pointer; font-size: 1.5rem; border: none; background: none; }
-    .modal-box h3 { color: #fff; font-family: 'Cinzel Decorative', serif; margin-bottom: 20px; font-size: 1.3rem; }
+    .modal-box h3 { color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin-bottom: 20px; font-size: 1.3rem; }
   </style>
 </head>
 <body>
 
-  <!-- JUMPSCARE ĐÈN -->
+  <!-- BÓNG ĐEN JUMPSCARE & FLASH -->
   <div id="jumpscare-overlay"></div>
 
-  <!-- NHẠC WHO IS SHE -->
+  <!-- NHẠC WHO IS SHE CHUẨN TÊN FILE -->
   <audio id="noir-audio" loop preload="auto">
     <source src="I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3" type="audio/mpeg">
     <source src="I%20Monster%20-%20Who%20Is%20She%20%28Lyrics%29%20Immortal%20She%20Return%20To%20Me%20%5BTikTok%20Song%5D.mp3" type="audio/mpeg">
   </audio>
 
   <div class="spotlight-layer" id="spotlight"></div>
+  <canvas id="fog-canvas"></canvas>
 
-  <!-- THANH NÚT TRÊN CÙNG -->
+  <!-- THANH NÚT KÍN ĐÁO -->
   <div class="top-bar-controls">
-    <div class="ctrl-pill" id="btn-light" style="display:none;">💡 ĐÈN TẮT</div>
-    <div class="ctrl-pill" id="btn-audio"><div class="audio-dot"></div> NHẠC OFF</div>
-    <!-- NÚT TED THU NHỎ NGHỆ THUẬT -->
-    <div class="ctrl-pill admin-pill" id="btn-login-trigger">👁️‍🗨️ TED</div>
+    <div class="ctrl-btn" id="btn-light" style="display:none;">💡 ĐÈN TẮT</div>
+    <div class="ctrl-btn" id="btn-audio"><div class="audio-dot"></div> NHẠC OFF</div>
+    <div class="ctrl-btn admin-btn" id="btn-login-trigger">👁️‍🗨️ TED</div>
   </div>
 
-  <!-- 1. CỔNG 18+ -->
+  <!-- CỔNG 18+ -->
   <section id="gate-18">
     <div class="gate-card">
       <h1>ĐẠI TỘI VÙNG CALIFORNIA</h1>
@@ -420,31 +283,24 @@
     </div>
   </section>
 
-  <!-- 2. BỨC THƯ & MỘC HUYẾT ẤN -->
+  <!-- BỨC THƯ & MỘC PHÁP Y -->
   <section id="letter-screen">
     <div class="letter-paper">
       <h2>Welcome to California</h2>
       <p>Chào mừng bạn đã bước vào hệ thống điều tra đen của California. Mọi bức ảnh, vết nứt tâm thần và chuỗi sự kiện tại đây đều là <em>những manh mối còn sót lại từ bóng tối</em>. Mỗi nạn nhân và kẻ thủ ác đều được nối với nhau qua một sợi chỉ định mệnh.</p>
-      <p style="font-style: italic; color: #550000; font-weight:bold;">"Trust the facts, not the rumors. Not every story has a happy ending."</p>
+      <p style="font-weight: bold; color: #500;">"Trust the facts, not the rumors. Not every story has a happy ending."</p>
       
       <div class="complex-seal-wrapper">
-        <div class="blood-sigil-btn" id="btn-break-seal">
-          <svg viewBox="0 0 100 100">
-            <!-- Đa tầng vòng tròn và ấn ký -->
-            <circle cx="50" cy="50" r="48" stroke-dasharray="6 4" stroke-width="2" />
-            <circle cx="50" cy="50" r="42" stroke-width="1" />
-            <polygon points="50,10 85,75 15,75" stroke-width="1.5" />
-            <polygon points="50,90 85,25 15,25" stroke-width="1.5" />
-            <circle cx="50" cy="50" r="25" stroke-dasharray="2 2" />
-          </svg>
-          <div class="seal-core">AUTHORIZE</div>
+        <div class="forensic-seal-btn" id="btn-break-seal">
+          <div class="seal-text-circle"></div>
+          <div class="seal-center">AUTHORIZE</div>
         </div>
-        <div style="font-size:0.6rem; color:#777; margin-top:10px; letter-spacing: 2px;">[ CHẠM HỒNG TÂM ĐỂ MỞ TÀI LIỆU ]</div>
+        <div style="font-family: 'Courier Prime'; font-size: 0.65rem; color:#888; margin-top: 15px; letter-spacing: 1px;">[ CHẠM MỘC ĐỂ MỞ HỒ SƠ ]</div>
       </div>
     </div>
   </section>
 
-  <!-- 3. BẢNG ÁN MẠNG CHÍNH -->
+  <!-- BẢNG ÁN MẠNG CHÍNH -->
   <main id="board-main">
     <canvas id="thread-canvas"></canvas>
 
@@ -453,52 +309,26 @@
       <div class="sub-title">CUSTODIAN OF RECORDS: TED</div>
     </div>
 
-    <!-- MENU 3 BONG BÓNG MỸ THUẬT -->
-    <div class="art-sigils-rack">
-      <!-- 1. TẤT CẢ -->
-      <div class="sigil-tab active" data-filter="all">
-        <div class="sigil-icon">
-          <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" stroke-dasharray="3 2" /><circle cx="20" cy="20" r="8" /><path d="M20 6 L20 12 M20 28 L20 34 M6 20 L12 20 M28 20 L34 20" /></svg>
-        </div>
-        <div class="sigil-text">TẤT CẢ HỒ SƠ</div>
-      </div>
-      <!-- 2. TRUY NÃ -->
-      <div class="sigil-tab" data-filter="Active">
-        <div class="sigil-icon">
-          <svg viewBox="0 0 40 40"><path d="M20 7 L23 16 L33 20 L23 24 L20 33 L17 24 L7 20 L17 16 Z" /><circle cx="20" cy="20" r="3" fill="var(--crimson)" stroke="none" /></svg>
-        </div>
-        <div class="sigil-text">LỆNH TRUY NÃ</div>
-      </div>
-      <!-- 3. TED FB -->
-      <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="sigil-tab ted-fb-sigil">
-        <div class="sigil-icon">
-          <svg viewBox="0 0 40 40"><path d="M20 14 C14 4 6 14 10 26 C14 24 18 20 20 22 C22 20 26 24 30 26 C34 14 26 4 20 14 Z" /><circle cx="20" cy="22" r="2.5" fill="#fff" stroke="none" /></svg>
-        </div>
-        <div class="sigil-text">TRẠM CHỦ TED ↗</div>
-      </a>
-    </div>
-
-    <!-- KÍNH LÚP ĐIỀU TRA -->
-    <div class="investigation-bar">
-      <input type="text" id="search-input" placeholder="TÌM MÃ SỐ (VD: 01) HOẶC TÊN HỒ SƠ...">
+    <!-- TÌM KIẾM -->
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="TÌM MÃ SỐ HOẶC TÊN HỒ SƠ...">
     </div>
 
     <!-- KHU VỰC TED ĐĂNG HỒ SƠ -->
     <section id="admin-desk">
-      <h3 style="color:var(--crimson); margin-bottom:15px; font-family:'Cinzel Decorative';">// ĐÍNH HỒ SƠ MỚI</h3>
+      <h3 style="color:var(--crimson); margin-bottom:15px; font-family:'Space Grotesk'; font-weight:700;">// ĐÍNH HỒ SƠ MỚI</h3>
       <form id="create-form">
         <div style="display:flex; gap:10px;">
-          <div class="input-grp" style="flex:1;"><label>Mã hồ sơ:</label><input type="text" id="in-code" required placeholder="CA-01"></div>
-          <div class="input-grp" style="flex:2;"><label>Tên nhân vật:</label><input type="text" id="in-name" required placeholder="Tên nhân vật"></div>
+          <div class="input-grp" style="flex:1;"><label>Mã hồ sơ:</label><input type="text" id="in-code" required></div>
+          <div class="input-grp" style="flex:2;"><label>Tên nhân vật:</label><input type="text" id="in-name" required></div>
         </div>
-        <div class="input-grp"><label>Tải ảnh Chân dung (Tự nén chuẩn):</label><input type="file" id="in-file" accept="image/*" required></div>
+        <div class="input-grp"><label>Tải ảnh Chân dung:</label><input type="file" id="in-file" accept="image/*" required></div>
         <div style="display:flex; gap:10px;">
-          <div class="input-grp" style="flex:1;"><label>Link Plot:</label><input type="url" id="in-plot" required placeholder="https://..."></div>
-          <div class="input-grp" style="flex:1;"><label>Link GGAI:</label><input type="url" id="in-ggai" required placeholder="https://aistudio..."></div>
+          <div class="input-grp" style="flex:1;"><label>Link Plot:</label><input type="url" id="in-plot" required></div>
+          <div class="input-grp" style="flex:1;"><label>Link GGAI:</label><input type="url" id="in-ggai" required></div>
         </div>
-        <div class="input-grp"><label>Tags (cách nhau dấu phẩy):</label><input type="text" id="in-tags" placeholder="Hi, Active"></div>
         <div class="input-grp"><label>Ghi chú án mạng:</label><textarea id="in-desc" rows="2"></textarea></div>
-        <button type="submit" class="btn-blood">+ GHIM LÊN BẢNG (LƯU ĐÁM MÂY VĨNH VIỄN)</button>
+        <button type="submit" class="btn-blood">+ GHIM LÊN BẢNG (LƯU VĨNH VIỄN)</button>
       </form>
     </section>
 
@@ -508,14 +338,14 @@
       <h1>?</h1>
     </div>
 
-    <!-- LƯỚI ẢNH POLAROID CẦU KỲ -->
+    <!-- LƯỚI ẢNH POLAROID -->
     <div class="polaroid-grid" id="cases-wall"></div>
 
-    <!-- DIỄN ĐÀN SƠN DẦU (FEEDBACK) -->
+    <!-- DIỄN ĐÀN FEEDBACK -->
     <section class="feedback-wall">
       <div class="fb-header">
         <h3>DIỄN ĐÀN MANH MỐI</h3>
-        <button class="btn-blood" id="btn-open-fb" style="width:auto; padding: 6px 14px; font-size: 0.8rem;">+ GỬI MANH MỐI</button>
+        <button class="btn-blood" id="btn-open-fb" style="width: auto; padding: 6px 14px; font-size: 0.8rem;">+ GỬI MANH MỐI</button>
       </div>
       <div class="fb-list" id="fb-list"></div>
     </section>
@@ -528,11 +358,11 @@
       <h3>XÁC THỰC DANH TÍNH</h3>
       <div class="input-grp"><label>ID TÀI KHOẢN:</label><input type="email" id="login-id" autocomplete="off"></div>
       <div class="input-grp"><label>MẬT MÃ:</label><input type="password" id="login-pwd" autocomplete="off"></div>
-      <button class="btn-blood" id="btn-submit-login">BẺ KHOÁ HỆ THỐNG</button>
+      <button class="btn-blood" id="btn-submit-login">BẺ KHOÁ</button>
     </div>
   </div>
 
-  <!-- MODAL SỬA HỒ SƠ CỦA TED (CÓ THỂ ĐỔI ẢNH MỚI) -->
+  <!-- MODAL SỬA HỒ SƠ -->
   <div class="modal-overlay" id="edit-modal">
     <div class="modal-box">
       <button class="close-x" id="btn-close-edit">&times;</button>
@@ -540,39 +370,52 @@
       <input type="hidden" id="edit-idx">
       <div class="input-grp"><label>Mã hồ sơ:</label><input type="text" id="edit-code"></div>
       <div class="input-grp"><label>Tên nhân vật:</label><input type="text" id="edit-name"></div>
-      <div class="input-grp"><label>Tải ảnh mới (Để trống nếu giữ ảnh cũ):</label><input type="file" id="edit-file" accept="image/*"></div>
+      <div class="input-grp"><label>Đổi ảnh mới (Để trống nếu giữ nguyên):</label><input type="file" id="edit-file" accept="image/*"></div>
       <div class="input-grp"><label>Link Plot:</label><input type="url" id="edit-plot"></div>
       <div class="input-grp"><label>Link GGAI:</label><input type="url" id="edit-ggai"></div>
       <div class="input-grp"><label>Ghi chú:</label><textarea id="edit-desc" rows="2"></textarea></div>
-      <button class="btn-blood" id="btn-save-edit">CẬP NHẬT VÀ LƯU VĨNH VIỄN</button>
+      <button class="btn-blood" id="btn-save-edit">CẬP NHẬT (LƯU VĨNH VIỄN)</button>
     </div>
   </div>
 
-  <!-- MODAL GỬI FEEDBACK (CÓ CHẶN TỪ BẬY) -->
+  <!-- MODAL GỬI FEEDBACK -->
   <div class="modal-overlay" id="fb-modal">
     <div class="modal-box">
       <button class="close-x" id="btn-close-fb">&times;</button>
-      <h3 style="color:var(--gold-baroque);">GỬI MANH MỐI</h3>
+      <h3 style="color:#fff;">GỬI MANH MỐI</h3>
       <div class="input-grp"><label>Bí danh của bạn:</label><input type="text" id="fb-name"></div>
-      <div class="input-grp"><label>Nội dung suy luận:</label><textarea id="fb-msg" rows="3"></textarea></div>
-      <button class="btn-blood" id="btn-send-fb" style="background: linear-gradient(180deg, #a88432 0%, #5a420b 100%); border-color: #ffd700;">ĐĂNG TẢI</button>
+      <div class="input-grp"><label>Nội dung:</label><textarea id="fb-msg" rows="3"></textarea></div>
+      <button class="btn-blood" id="btn-send-fb">ĐĂNG TẢI</button>
     </div>
   </div>
 
   <script>
-    /* ================= 1. SPOTLIGHT, JUMPSCARE & AUDIO ================= */
-    const spotlight = document.getElementById('spotlight');
-    document.addEventListener('mousemove', e => {
-      spotlight.style.setProperty('--spot-x', `${e.clientX}px`);
-      spotlight.style.setProperty('--spot-y', `${e.clientY}px`);
-    });
-    document.addEventListener('touchmove', e => {
-      if (e.touches[0]) {
-        spotlight.style.setProperty('--spot-x', `${e.touches[0].clientX}px`);
-        spotlight.style.setProperty('--spot-y', `${e.touches[0].clientY}px`);
-      }
-    });
+    /* ================= 1. KHÓI & SPOTLIGHT ================= */
+    const fog = document.getElementById('fog-canvas');
+    const ctxFog = fog.getContext('2d');
+    let particles = [];
+    function resizeFog() { fog.width = window.innerWidth; fog.height = window.innerHeight; }
+    window.addEventListener('resize', resizeFog); resizeFog();
+    for(let i=0; i<30; i++) particles.push({ x: Math.random()*fog.width, y: Math.random()*fog.height, r: 50+Math.random()*80, dx: (Math.random()-0.5)*0.3, dy: (Math.random()-0.5)*0.3, alpha: 0.05+Math.random()*0.05 });
+    function drawFog() {
+      ctxFog.clearRect(0,0,fog.width,fog.height);
+      particles.forEach(p => {
+        p.x+=p.dx; p.y+=p.dy;
+        if(p.x < -p.r) p.x = fog.width+p.r; if(p.x > fog.width+p.r) p.x = -p.r;
+        if(p.y < -p.r) p.y = fog.height+p.r; if(p.y > fog.height+p.r) p.y = -p.r;
+        const g = ctxFog.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+        g.addColorStop(0, `rgba(200,200,220,${p.alpha})`); g.addColorStop(1, 'rgba(200,200,220,0)');
+        ctxFog.fillStyle = g; ctxFog.beginPath(); ctxFog.arc(p.x,p.y,p.r,0,Math.PI*2); ctxFog.fill();
+      });
+      requestAnimationFrame(drawFog);
+    }
+    drawFog();
 
+    const spotlight = document.getElementById('spotlight');
+    document.addEventListener('mousemove', e => { spotlight.style.setProperty('--spot-x', `${e.clientX}px`); spotlight.style.setProperty('--spot-y', `${e.clientY}px`); });
+    document.addEventListener('touchmove', e => { if (e.touches[0]) { spotlight.style.setProperty('--spot-x', `${e.touches[0].clientX}px`); spotlight.style.setProperty('--spot-y', `${e.touches[0].clientY}px`); }});
+
+    /* ================= 2. NHẠC VÀ JUMPSCARE CÓ BÓNG MA ================= */
     const audio = document.getElementById('noir-audio');
     let isMusicOn = false;
     const btnAudio = document.getElementById('btn-audio');
@@ -585,47 +428,52 @@
     btnAudio.addEventListener('click', toggleMusic);
 
     const jumpOverlay = document.getElementById('jumpscare-overlay');
-    const gate18 = document.getElementById('gate-18');
-    const letterScreen = document.getElementById('letter-screen');
-    const boardMain = document.getElementById('board-main');
+    const SCARY_FACES = [
+      "https://images.unsplash.com/photo-1605786657930-b37996c56787?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1510255395725-780133c94474?auto=format&fit=crop&w=800&q=80"
+    ];
 
-    // Chạm 18+ giật jumpscare & chạy nhạc
     document.getElementById('btn-pass-gate').addEventListener('click', () => {
+      // Chọn 1 ảnh bóng đen ma quái random
+      jumpOverlay.style.backgroundImage = `url('${SCARY_FACES[Math.floor(Math.random()*SCARY_FACES.length)]}')`;
       jumpOverlay.classList.add('strobe-active');
       if(!isMusicOn) toggleMusic();
+
+      // Tiếng nổ rít khi jumpscare
+      const aCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = aCtx.createOscillator(); const gain = aCtx.createGain();
+      osc.type = 'sawtooth'; osc.frequency.setValueAtTime(800, aCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(40, aCtx.currentTime + 0.4);
+      gain.gain.setValueAtTime(1, aCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, aCtx.currentTime + 0.4);
+      osc.connect(gain); gain.connect(aCtx.destination); osc.start(); osc.stop(aCtx.currentTime + 0.4);
+
       setTimeout(() => {
-        gate18.style.display = 'none';
-        letterScreen.style.display = 'flex';
+        document.getElementById('gate-18').style.display = 'none';
+        document.getElementById('letter-screen').style.display = 'flex';
         jumpOverlay.classList.remove('strobe-active');
-      }, 350);
+      }, 400);
     });
 
     document.getElementById('btn-break-seal').addEventListener('click', () => {
-      letterScreen.style.transform = 'translateY(-100%)';
+      document.getElementById('letter-screen').style.transform = 'translateY(-100%)';
       setTimeout(() => {
-        boardMain.style.display = 'block';
+        document.getElementById('board-main').style.display = 'block';
         renderWall(dossiers);
         setTimeout(drawThreads, 300);
       }, 500);
     });
 
-    /* ================= 2. LƯU TRỮ VĨNH VIỄN (CƠ CHẾ MASTER VAULT) ================= */
-    const LOCAL_KEY = 'CALI_FINAL_VAULT';
-    // ID Cố định cực mạnh để mọi thiết bị đều đọc được
-    const CLOUD_MASTER_KEY = 'ted_master_vault_final_v1';
+    /* ================= 3. ĐỒNG BỘ DỮ LIỆU ĐÁM MÂY (MASTER) ================= */
+    const LOCAL_KEY = 'CALI_FINAL_VAULT_V2';
+    const CLOUD_MASTER_KEY = 'ted_master_vault_final_v2';
     
     let defaultData = [
-      { code: "01", name: "Đại tội vùng California", img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80", tags: ["Active"], desc: "Hồ sơ tối mật.", plot: "https://google.com", ggai: "https://aistudio.google.com", likes: 5 },
-      { code: "01", name: "ted", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80", tags: ["Active"], desc: "Đặc vụ Ted.", plot: "https://google.com", ggai: "https://aistudio.google.com", likes: 10 }
+      { code: "CA-01", name: "Đại tội vùng California", img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80", desc: "Hồ sơ tối mật.", plot: "#", ggai: "#", likes: 12 },
+      { code: "CA-02", name: "Đặc vụ Ted", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80", desc: "Giám sát viên hệ thống.", plot: "#", ggai: "#", likes: 35 }
     ];
-    
-    let dossiers = JSON.parse(localStorage.getItem(LOCAL_KEY));
-    if(!dossiers || dossiers.length === 0) dossiers = defaultData; // Nếu trống thì nạp default
+    let dossiers = JSON.parse(localStorage.getItem(LOCAL_KEY)) || defaultData;
+    let feedbacks = JSON.parse(localStorage.getItem('CALI_FB_V2')) || [];
 
-    let feedbacks = JSON.parse(localStorage.getItem('CALI_FINAL_FB')) || [];
-
-    // Tự động tải từ Mây Global
-    async function loadGlobalCloud() {
+    async function loadCloud() {
       try {
         const idRes = await fetch(`https://api.keyval.org/get/${CLOUD_MASTER_KEY}`);
         const blobId = (await idRes.text()).trim();
@@ -634,67 +482,50 @@
           if(dataRes.ok) {
             const data = await dataRes.json();
             if(data.dossiers && data.dossiers.length > 0) {
-              dossiers = data.dossiers;
-              feedbacks = data.feedbacks || [];
+              dossiers = data.dossiers; feedbacks = data.feedbacks || [];
               localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-              localStorage.setItem('CALI_FINAL_FB', JSON.stringify(feedbacks));
-              renderWall(dossiers);
-              renderFb();
+              localStorage.setItem('CALI_FB_V2', JSON.stringify(feedbacks));
+              renderWall(dossiers); renderFb();
             }
           }
         }
-      } catch(e) { console.log("Dùng Local:", e); }
+      } catch(e) {}
     }
-    loadGlobalCloud(); // Chạy ngay lập tức
+    loadCloud();
 
-    // Tự động Lưu lên Mây Global
-    async function saveGlobalCloud() {
+    async function saveCloud() {
       const payload = { dossiers, feedbacks };
       try {
         let blobId = "";
-        try {
-          const idRes = await fetch(`https://api.keyval.org/get/${CLOUD_MASTER_KEY}`);
-          blobId = (await idRes.text()).trim();
-        } catch(e){}
-
+        try { blobId = (await (await fetch(`https://api.keyval.org/get/${CLOUD_MASTER_KEY}`)).text()).trim(); } catch(e){}
         if(blobId && blobId.length > 5 && !blobId.includes("error")) {
-          await fetch(`https://jsonblob.com/api/jsonBlob/${blobId}`, {
-            method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)
-          });
+          await fetch(`https://jsonblob.com/api/jsonBlob/${blobId}`, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
         } else {
-          const res = await fetch(`https://jsonblob.com/api/jsonBlob`, {
-            method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)
-          });
+          const res = await fetch(`https://jsonblob.com/api/jsonBlob`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
           const location = res.headers.get('Location');
-          if(location) {
-            blobId = location.split('/').pop();
-            await fetch(`https://api.keyval.org/set/${CLOUD_MASTER_KEY}/${blobId}`);
-          }
+          if(location) await fetch(`https://api.keyval.org/set/${CLOUD_MASTER_KEY}/${location.split('/').pop()}`);
         }
-      } catch(e) { console.error(e); }
+      } catch(e) {}
     }
 
-    /* ================= 3. RENDER POLAROID CẦU KỲ & CHỈ ĐỎ ================= */
+    /* ================= 4. RENDER BẢNG HỒ SƠ & DÂY CHỈ ================= */
     const casesWall = document.getElementById('cases-wall');
-    
     function renderWall(dataList) {
       casesWall.innerHTML = "";
       dataList.forEach((item, idx) => {
         const card = document.createElement('div');
         card.className = "card-polaroid pin-target";
-        // Tính toán góc nghiêng ngẫu nhiên và hiệu ứng lơ lửng lệch pha
         const rot = (idx % 2 === 0 ? 1 : -1) * (1.5 + (idx % 3) * 0.5);
-        const randDelay = (idx % 4) * 0.5;
+        const rand = (idx % 5) * 0.4;
         card.style.setProperty('--rot', `${rot}deg`);
-        card.style.setProperty('--rand', `${randDelay}`);
+        card.style.setProperty('--rand', `${rand}`);
 
-        const isLiked = localStorage.getItem('like_final_' + item.code + '_' + item.name);
+        const isLiked = localStorage.getItem('like_v2_' + item.code);
 
         card.innerHTML = `
           <div class="pushpin"></div>
           <div class="polaroid-img"><img src="${item.img}" alt="Ảnh"></div>
           <div class="polaroid-name">${item.name}</div>
-          
           <div class="polaroid-meta">
             <span>MÃ: ${item.code}</span>
             <div class="like-stamp ${isLiked ? 'liked' : ''}" onclick="toggleLike(${idx}, event)">
@@ -703,14 +534,12 @@
             </div>
           </div>
           <div class="blood-stain"></div>
-
-          <!-- HAI NÚT LINK (PLOT VÀ GGAI) MẪU MÁY ĐÁNH CHỮ -->
+          
           <div class="card-links">
             <a href="${item.plot}" target="_blank" class="link-tag" onclick="event.stopPropagation()">[ PLOT ]</a>
             <a href="${item.ggai}" target="_blank" class="link-tag ggai" onclick="event.stopPropagation()">[ GGAI ]</a>
           </div>
 
-          <!-- QUYỀN TED SỬA/XOÁ -->
           <div class="admin-controls">
             <button class="btn-admin-act" onclick="openEdit(${idx}, event)">✏️ SỬA</button>
             <button class="btn-admin-act del" onclick="delCase(${idx}, event)">🗑️ XOÁ</button>
@@ -721,98 +550,57 @@
       drawThreads();
     }
 
-    // ĐÓNG DẤU YÊU THÍCH (THẢ TIM)
     window.toggleLike = function(idx, e) {
       e.stopPropagation();
       const item = dossiers[idx];
-      const key = 'like_final_' + item.code + '_' + item.name;
-      if(!localStorage.getItem(key)) {
-        item.likes = (item.likes || 0) + 1;
-        localStorage.setItem(key, 'true');
-      } else {
-        item.likes = Math.max(0, (item.likes || 1) - 1);
-        localStorage.removeItem(key);
-      }
+      const key = 'like_v2_' + item.code;
+      if(!localStorage.getItem(key)) { item.likes = (item.likes || 0) + 1; localStorage.setItem(key, 'true'); }
+      else { item.likes = Math.max(0, (item.likes || 1) - 1); localStorage.removeItem(key); }
       localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-      renderWall(dossiers);
-      saveGlobalCloud();
+      renderWall(dossiers); saveCloud();
     }
 
-    // VẼ DÂY CHỈ ĐỎ MẠCH MÁU
-    const canvas = document.getElementById('thread-canvas');
-    const ctx = canvas.getContext('2d');
-    function drawThreads() {
-      if(boardMain.style.display !== 'block') return;
-      canvas.width = boardMain.scrollWidth; canvas.height = boardMain.scrollHeight;
-      ctx.clearRect(0,0, canvas.width, canvas.height);
-      
-      const hub = document.getElementById('hub-pin').getBoundingClientRect();
-      const bRect = boardMain.getBoundingClientRect();
-      const hX = hub.left - bRect.left + hub.width/2;
-      const hY = hub.top - bRect.top + hub.height/2;
-
-      const pins = document.querySelectorAll('.pin-target .pushpin');
-      const pts = [];
-      pins.forEach(p => {
-        const r = p.getBoundingClientRect();
-        pts.push({ x: r.left - bRect.left + r.width/2, y: r.top - bRect.top + r.height/2 });
-      });
-
-      pts.forEach(pt => {
-        ctx.beginPath(); ctx.moveTo(hX, hY);
-        ctx.quadraticCurveTo((hX+pt.x)/2, (hY+pt.y)/2 + 15, pt.x, pt.y);
-        ctx.strokeStyle = "rgba(166, 0, 17, 0.75)"; ctx.lineWidth = 1.8;
-        ctx.shadowColor = "#a80010"; ctx.shadowBlur = 5;
-        ctx.stroke();
-      });
-
-      for(let i=0; i<pts.length-1; i++) {
-        ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[i+1].x, pts[i+1].y);
-        ctx.strokeStyle = "rgba(166, 0, 17, 0.35)"; ctx.lineWidth = 1.2; ctx.stroke();
-      }
-    }
-    window.addEventListener('resize', drawThreads);
-
-    // KÍNH LÚP TÌM KIẾM THEO MÃ HOẶC TÊN
     document.getElementById('search-input').addEventListener('input', e => {
       const q = e.target.value.toLowerCase().trim();
       if(!q) { renderWall(dossiers); return; }
       renderWall(dossiers.filter(d => d.code.toLowerCase().includes(q) || d.name.toLowerCase().includes(q)));
     });
 
-    // LỌC THEO BONG BÓNG MỸ THUẬT
-    const tabs = document.querySelectorAll('.sigil-tab');
-    tabs.forEach(t => t.addEventListener('click', () => {
-      if(t.hasAttribute('href')) return;
-      tabs.forEach(x => x.classList.remove('active')); t.classList.add('active');
-      const f = t.getAttribute('data-filter');
-      renderWall(f === 'all' ? dossiers : dossiers.filter(d => d.tags.includes(f)));
-    }));
+    const canvas = document.getElementById('thread-canvas');
+    const ctx = canvas.getContext('2d');
+    function drawThreads() {
+      if(document.getElementById('board-main').style.display !== 'block') return;
+      canvas.width = document.getElementById('board-main').scrollWidth; canvas.height = document.getElementById('board-main').scrollHeight;
+      ctx.clearRect(0,0, canvas.width, canvas.height);
+      
+      const hub = document.getElementById('hub-pin').getBoundingClientRect();
+      const bRect = document.getElementById('board-main').getBoundingClientRect();
+      const hX = hub.left - bRect.left + hub.width/2;
+      const hY = hub.top - bRect.top + hub.height/2;
 
-    /* ================= 4. DIỄN ĐÀN SƠN DẦU (FEEDBACK ART SALON) ================= */
-    // Bộ Avatar Tranh Phục Hưng
+      const pins = document.querySelectorAll('.pin-target .pushpin');
+      const pts = [];
+      pins.forEach(p => { const r = p.getBoundingClientRect(); pts.push({ x: r.left - bRect.left + r.width/2, y: r.top - bRect.top + r.height/2 }); });
+
+      pts.forEach(pt => {
+        ctx.beginPath(); ctx.moveTo(hX, hY);
+        ctx.quadraticCurveTo((hX+pt.x)/2, (hY+pt.y)/2 + 15, pt.x, pt.y);
+        ctx.strokeStyle = "rgba(166, 0, 16, 0.75)"; ctx.lineWidth = 1.8;
+        ctx.shadowColor = "#a60311"; ctx.shadowBlur = 5; ctx.stroke();
+      });
+    }
+    window.addEventListener('resize', drawThreads);
+
+    /* ================= 5. DIỄN ĐÀN FEEDBACK (CHẶN TỪ BẬY) ================= */
     const AVATARS = [
       "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=100",
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100",
-      "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=100",
       "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?w=100"
     ];
-    // Bộ Lọc Từ Tục Tĩu
-    const BAD_WORDS = ["chó","lồn","cặc","đụ","địt","đít","đái","buồi","đụ mẹ","địt mẹ"];
+    const BAD_WORDS = ["chó","lồn","cặc","đụ","địt","đít","đái","buồi"];
     
     const fbList = document.getElementById('fb-list');
     function renderFb() {
-      fbList.innerHTML = `
-        <div class="fb-item">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="fb-avatar">
-          <div class="fb-content">
-            <div style="display:flex; justify-content:space-between;">
-              <div><span class="fb-name">Đặc vụ Ted 👑</span><span class="fb-time">Ghim</span></div>
-            </div>
-            <div class="fb-text">Mọi manh mối bạn phát hiện được hãy để lại tại đây. Vui lòng giữ văn minh.</div>
-          </div>
-        </div>
-      `;
+      fbList.innerHTML = "";
       feedbacks.forEach((f, idx) => {
         fbList.innerHTML += `
           <div class="fb-item">
@@ -836,28 +624,20 @@
     document.getElementById('btn-send-fb').addEventListener('click', () => {
       const name = document.getElementById('fb-name').value.trim();
       const msg = document.getElementById('fb-msg').value.trim();
-      if(!name || !msg) return alert("Điền đủ thông tin!");
+      if(!name || !msg) return alert("Vui lòng điền đủ!");
+      if(BAD_WORDS.some(w => name.toLowerCase().includes(w) || msg.toLowerCase().includes(w))) return alert("⚠️ Phát hiện ngôn từ tục tĩu!");
       
-      const lowerName = name.toLowerCase(); const lowerMsg = msg.toLowerCase();
-      if(BAD_WORDS.some(w => lowerName.includes(w) || lowerMsg.includes(w))) {
-        return alert("⚠️ PHÁT HIỆN TỪ NGỮ BẬY TỤC!\nHệ thống từ chối lưu vết. Vui lòng lịch sự!");
-      }
-      
-      feedbacks.push({ name, msg, ava: AVATARS[Math.floor(Math.random()*AVATARS.length)], time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-      localStorage.setItem('CALI_FINAL_FB', JSON.stringify(feedbacks));
-      renderFb(); saveGlobalCloud();
-      document.getElementById('fb-modal').style.display = 'none';
-      document.getElementById('fb-msg').value = "";
+      feedbacks.push({ name, msg, ava: AVATARS[Math.floor(Math.random()*AVATARS.length)], time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
+      localStorage.setItem('CALI_FB_V2', JSON.stringify(feedbacks));
+      renderFb(); saveCloud();
+      document.getElementById('fb-modal').style.display = 'none'; document.getElementById('fb-msg').value = "";
     });
 
-    // TED CÓ QUYỀN XOÁ COMMENT NGƯỜI KHÁC
     window.delFb = function(idx) {
-      if(confirm("Ted muốn xoá vĩnh viễn manh mối này?")) { 
-        feedbacks.splice(idx,1); localStorage.setItem('CALI_FINAL_FB', JSON.stringify(feedbacks)); renderFb(); saveGlobalCloud(); 
-      }
+      if(confirm("Ted muốn xoá vĩnh viễn bình luận này?")) { feedbacks.splice(idx,1); localStorage.setItem('CALI_FB_V2', JSON.stringify(feedbacks)); renderFb(); saveCloud(); }
     }
 
-    /* ================= 5. TÍNH NĂNG ADMIN TED (ĐĂNG / SỬA / XOÁ BẤT TỬ) ================= */
+    /* ================= 6. TÍNH NĂNG ADMIN TED (SỬA CÓ ĐỔI ẢNH) ================= */
     const loginModal = document.getElementById('login-modal');
     document.getElementById('btn-login-trigger').addEventListener('click', () => loginModal.style.display = 'flex');
     document.getElementById('btn-close-login').addEventListener('click', () => loginModal.style.display = 'none');
@@ -866,12 +646,11 @@
     
     document.getElementById('btn-submit-login').addEventListener('click', () => {
       if(document.getElementById('login-id').value === 'tcam9863@gmail.com' && document.getElementById('login-pwd').value === 'camtien12') {
-        loginModal.style.display = 'none';
-        document.body.classList.add('ted-illuminated');
-        document.getElementById('btn-login-trigger').innerHTML = '👑 TED ONLINE';
+        loginModal.style.display = 'none'; document.body.classList.add('ted-illuminated');
+        document.getElementById('btn-login-trigger').innerHTML = '👁️‍🗨️ TED ONLINE';
         document.getElementById('btn-login-trigger').classList.add('active');
         btnLight.style.display = 'flex';
-      } else alert("TRUY CẬP BỊ TỪ CHỐI!");
+      } else alert("SAI THÔNG TIN!");
     });
 
     btnLight.addEventListener('click', () => {
@@ -879,27 +658,22 @@
       btnLight.innerText = document.body.classList.contains('ted-illuminated') ? "💡 ĐÈN SÁNG" : "💡 ĐÈN TẮT";
     });
 
-    // NÉN ẢNH CHUẨN TỈ LỆ KHÔNG BỊ MÉO
     function compressImg(file, cb) {
       const r = new FileReader();
       r.onload = e => {
         const img = new Image();
         img.onload = () => {
           const cvs = document.createElement('canvas');
-          const maxDim = 400;
-          const scale = Math.min(maxDim/img.width, maxDim/img.height, 1);
-          cvs.width = Math.round(img.width * scale); 
-          cvs.height = Math.round(img.height * scale);
-          const ctx = cvs.getContext('2d');
-          ctx.imageSmoothingQuality = 'high';
+          const scale = Math.min(400/img.width, 400/img.height, 1);
+          cvs.width = img.width * scale; cvs.height = img.height * scale;
+          const ctx = cvs.getContext('2d'); ctx.imageSmoothingQuality = 'high';
           ctx.drawImage(img,0,0,cvs.width,cvs.height);
-          cb(cvs.toDataURL('image/jpeg', 0.75));
+          cb(cvs.toDataURL('image/jpeg', 0.7));
         };
         img.src = e.target.result;
       }; r.readAsDataURL(file);
     }
 
-    // ĐĂNG HỒ SƠ MỚI
     document.getElementById('create-form').addEventListener('submit', e => {
       e.preventDefault();
       compressImg(document.getElementById('in-file').files[0], imgBase64 => {
@@ -907,30 +681,27 @@
           code: document.getElementById('in-code').value,
           name: document.getElementById('in-name').value,
           img: imgBase64,
-          tags: document.getElementById('in-tags').value.split(','),
           desc: document.getElementById('in-desc').value,
           plot: document.getElementById('in-plot').value,
           ggai: document.getElementById('in-ggai').value,
           likes: 0
         });
         localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-        renderWall(dossiers); saveGlobalCloud();
-        alert("ĐÃ GHIM LÊN BẢNG VÀ LƯU VĨNH VIỄN TOÀN CẦU!"); document.getElementById('create-form').reset();
+        renderWall(dossiers); saveCloud();
+        alert("ĐÃ LƯU VĨNH VIỄN LÊN ĐÁM MÂY!"); document.getElementById('create-form').reset();
       });
     });
 
-    // SỬA HỒ SƠ (CHO PHÉP THAY ĐỔI CẢ ẢNH)
     const editModal = document.getElementById('edit-modal');
     document.getElementById('btn-close-edit').addEventListener('click', () => editModal.style.display = 'none');
     
     window.openEdit = function(idx, e) {
-      e.stopPropagation();
-      const d = dossiers[idx];
+      e.stopPropagation(); const d = dossiers[idx];
       document.getElementById('edit-idx').value = idx;
       document.getElementById('edit-code').value = d.code;
       document.getElementById('edit-name').value = d.name;
-      document.getElementById('edit-plot').value = d.plot;
-      document.getElementById('edit-ggai').value = d.ggai;
+      document.getElementById('edit-plot').value = d.plot || "#";
+      document.getElementById('edit-ggai').value = d.ggai || "#";
       document.getElementById('edit-desc').value = d.desc;
       document.getElementById('edit-file').value = "";
       editModal.style.display = 'flex';
@@ -951,18 +722,17 @@
 
       function finishEdit() {
         localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-        renderWall(dossiers); saveGlobalCloud();
-        editModal.style.display = 'none'; alert("ĐÃ CẬP NHẬT VÀ LƯU VĨNH VIỄN!");
+        renderWall(dossiers); saveCloud();
+        editModal.style.display = 'none'; alert("ĐÃ CẬP NHẬT HỒ SƠ!");
       }
     });
 
-    // XOÁ HỒ SƠ VĨNH VIỄN
     window.delCase = function(idx, e) {
       e.stopPropagation();
-      if(confirm(`Tiêu hủy vĩnh viễn hồ sơ [${dossiers[idx].name}] khỏi hệ thống toàn cầu?`)) {
+      if(confirm("Tiêu hủy vĩnh viễn hồ sơ này?")) {
         dossiers.splice(idx, 1);
         localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-        renderWall(dossiers); saveGlobalCloud();
+        renderWall(dossiers); saveCloud();
       }
     }
   </script>
