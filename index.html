@@ -6,7 +6,7 @@
   <title>CALIFORNIA EVIDENCE // ARCHIVE</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;700&family=Reenie+Beanie&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;600;700&family=Reenie+Beanie&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -19,6 +19,8 @@
       --text-main: #f0eef5;
       --text-dim: #8b889a;
       --border-subtle: rgba(255, 255, 255, 0.08);
+      --discord-bg: #110e14;
+      --discord-card: #18141c;
     }
 
     body.ted-illuminated {
@@ -36,10 +38,9 @@
       user-select: none;
     }
 
-    /* BACKGROUND CHÍNH CỦA BẠN ĐƯỢC GIỮ NGUYÊN */
     body {
       background: 
-        radial-gradient(circle at 50% 30%, transparent 20%, rgba(5, 4, 6, 0.82) 80%),
+        radial-gradient(circle at 50% 30%, transparent 20%, rgba(5, 4, 6, 0.85) 80%),
         url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
         var(--bg);
       color: var(--text-main);
@@ -62,7 +63,7 @@
 
     .strobe-active {
       display: block !important;
-      animation: horrorStrobe 0.5s steps(2, start) forwards;
+      animation: horrorStrobe 0.45s steps(2, start) forwards;
     }
 
     @keyframes horrorStrobe {
@@ -93,7 +94,7 @@
       mix-blend-mode: screen;
     }
 
-    /* THANH NÚT ĐIỀU KHIỂN TRÊN CÙNG */
+    /* THANH NÚT TRÊN CÙNG */
     .top-bar-controls {
       position: fixed;
       top: 14px;
@@ -137,7 +138,7 @@
     }
     @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ================= 1. CỔNG 18+ ================= */
+    /* ================= 1. CỔNG 18+ (ĐÃ ĐỔI THÀNH BẠN) ================= */
     #gate-18 {
       position: fixed;
       inset: 0;
@@ -193,7 +194,7 @@
       box-shadow: 0 0 30px var(--crimson-glow);
     }
 
-    /* ================= 2. THƯ CỦA TED ================= */
+    /* ================= 2. THƯ CỦA TED (ĐÃ ĐỔI THÀNH BẠN) ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
@@ -326,7 +327,7 @@
     #board-main {
       display: none;
       min-height: 100vh;
-      padding: 35px 12px 100px;
+      padding: 30px 12px 100px;
       max-width: 1200px;
       margin: 0 auto;
       position: relative;
@@ -343,133 +344,133 @@
       z-index: 1;
     }
 
-    .board-header {
+    /* BỐ CỤC ĐẦU TRANG ĐÃ ĐƯỢC TÁI THIẾT KẾ GỌN GÀNG */
+    .redesigned-header {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: 16px;
+      align-items: center;
+      text-align: center;
       margin-bottom: 25px;
       position: relative;
       z-index: 10;
     }
-    @media (min-width: 650px) {
-      .board-header { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+
+    .brand-headline {
+      font-family: 'Cinzel', serif;
+      font-size: 1.55rem;
+      letter-spacing: 2.5px;
+      color: #fff;
+      margin-bottom: 4px;
     }
 
-    .board-header h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
-      letter-spacing: 2px;
-      color: #fff;
-    }
-    .board-header .sub-desc {
+    .brand-sub {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       color: var(--text-dim);
+      letter-spacing: 1px;
+      margin-bottom: 14px;
     }
 
-    .btn-agent-terminal {
-      background: #15090e;
-      border: 1px solid var(--crimson);
+    .btn-ted-terminal-access {
+      background: rgba(230, 0, 38, 0.08);
+      border: 1px solid rgba(230, 0, 38, 0.45);
       color: #fff;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
-      padding: 8px 14px;
-      border-radius: 2px;
+      padding: 8px 18px;
+      letter-spacing: 1.5px;
       cursor: pointer;
       box-shadow: 0 0 15px rgba(230,0,38,0.25);
+      transition: all 0.3s;
+    }
+    .btn-ted-terminal-access:hover {
+      background: var(--crimson);
+      box-shadow: 0 0 25px var(--crimson-glow);
     }
 
-    /* ================= 3 BIỂU TƯỢNG VECTOR VẼ TAY THAY THẾ TOÀN BỘ LOGO FILE ================= */
-    .art-sigils-container {
+    /* ================= 3 MỘC ĐÓNG DẤU PHỨC TẠP: CALIFORNIA - CHICAGO - OHIO ================= */
+    .bureau-stamps-rack {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 30px;
-      padding: 10px 0 25px;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 15;
+      gap: 18px;
+      margin-top: 18px;
+      flex-wrap: wrap;
     }
 
-    .sigil-artwork-node {
+    .complex-bureau-stamp {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      opacity: 0.7;
+      transition: transform 0.25s, filter 0.25s;
     }
-    .sigil-artwork-node:hover, .sigil-artwork-node.active {
-      opacity: 1;
-      transform: translateY(-5px) scale(1.1);
+    .complex-bureau-stamp:hover, .complex-bureau-stamp.active {
+      transform: scale(1.08) translateY(-4px);
     }
 
-    .sigil-canvas-wrapper {
-      width: 64px;
-      height: 64px;
+    /* HÌNH MỘC ĐÓNG DẤU MỰC ĐỎ PHÁP Y ĐA TẦNG */
+    .stamp-svg-artwork {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(230, 0, 38, 0.2) 0%, transparent 75%);
+      border: 2px dashed rgba(230, 0, 38, 0.7);
+      background: radial-gradient(circle, rgba(230, 0, 38, 0.12) 0%, rgba(10, 5, 8, 0.9) 100%);
+      box-shadow: 0 0 15px rgba(230, 0, 38, 0.25);
+      transform: rotate(var(--stamp-angle, 0deg));
     }
 
-    .sigil-canvas-wrapper svg {
+    .complex-bureau-stamp.active .stamp-svg-artwork,
+    .complex-bureau-stamp:hover .stamp-svg-artwork {
+      border-color: #fff;
+      box-shadow: 0 0 25px var(--crimson-glow);
+    }
+
+    .stamp-svg-artwork svg {
       width: 100%;
       height: 100%;
-      stroke: #a09cb0;
       fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: all 0.3s;
-    }
-
-    .sigil-artwork-node.active .sigil-canvas-wrapper svg,
-    .sigil-artwork-node:hover .sigil-canvas-wrapper svg {
       stroke: var(--crimson);
-      filter: drop-shadow(0 0 10px var(--crimson));
+      stroke-width: 1.2;
     }
 
-    /* HUY HIỆU THIÊN THẦN CỦA TED (PHÙ HIỆU BẢN DOANH FB) */
-    .ted-angelic-sigil .sigil-canvas-wrapper svg {
-      stroke: #ff2a4b;
-      filter: drop-shadow(0 0 8px rgba(230,0,38,0.6));
-      animation: angelWingBeat 3s infinite ease-in-out;
-    }
-    @keyframes angelWingBeat {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(230,0,38,0.5)); }
-      50% { transform: scale(1.08); filter: drop-shadow(0 0 18px rgba(230,0,38,0.95)); }
-    }
-
-    .sigil-title-label {
+    .stamp-city-name {
       font-family: 'Cinzel', serif;
+      font-weight: 700;
       font-size: 0.65rem;
       letter-spacing: 1.5px;
-      color: #9f9dae;
+      color: #b5b2c4;
+      margin-top: 6px;
       text-transform: uppercase;
-      transition: color 0.3s;
     }
-    .sigil-artwork-node.active .sigil-title-label,
-    .sigil-artwork-node:hover .sigil-title-label {
+    .complex-bureau-stamp.active .stamp-city-name,
+    .complex-bureau-stamp:hover .stamp-city-name {
       color: #fff;
       text-shadow: 0 0 8px var(--crimson);
     }
-    .ted-angelic-sigil .sigil-title-label {
+
+    /* MỘC CALIFORNIA ĐẶC QUYỀN (DẪN THẲNG ĐẾN FACEBOOK TED) */
+    .california-main-stamp .stamp-svg-artwork {
+      border-style: double;
+      border-width: 3px;
+      border-color: #ff2a4b;
+      box-shadow: 0 0 20px rgba(230, 0, 38, 0.45);
+    }
+    .california-main-stamp .stamp-city-name {
       color: #ff3355;
-      font-weight: 700;
+      font-weight: 900;
       text-shadow: 0 0 10px var(--crimson);
     }
 
     /* TÂM ĐIỂM '?' NỐI CHỈ ĐỎ */
     .mystery-hub-modern {
       text-align: center;
-      margin: 5px auto 30px;
+      margin: 15px auto 25px;
       position: relative;
       z-index: 10;
       width: fit-content;
@@ -477,7 +478,7 @@
 
     .question-core {
       font-family: 'Cinzel', serif;
-      font-size: 4.2rem;
+      font-size: 4rem;
       line-height: 1;
       color: var(--crimson);
       text-shadow: 0 0 30px var(--crimson-glow);
@@ -502,6 +503,7 @@
       gap: 18px;
       position: relative;
       z-index: 10;
+      margin-bottom: 45px;
     }
 
     @media (min-width: 768px) {
@@ -595,6 +597,37 @@
       letter-spacing: 0.5px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ICON CON DẤU YÊU THÍCH (THẢ TIM) NHỎ TỐI GIẢN */
+    .stamp-like-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      color: #777;
+      font-size: 0.68rem;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.2s;
+      padding: 2px 4px;
+      border-radius: 2px;
+    }
+    .stamp-like-btn.liked {
+      color: var(--crimson);
+      font-weight: bold;
+    }
+    .stamp-like-btn svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .stamp-like-btn.liked svg {
+      fill: var(--crimson);
+      stroke: var(--crimson);
+      filter: drop-shadow(0 0 4px var(--crimson));
     }
 
     .sticky-note-clue {
@@ -612,7 +645,7 @@
       pointer-events: none;
     }
 
-    /* NÚT SỬA & XÓA TRÊN CARD KHI TED ONLINE */
+    /* NÚT SỬA & XÓA CỦA TED */
     .ted-card-controls {
       display: none;
       margin-top: 8px;
@@ -640,7 +673,135 @@
       border-color: #55000c;
     }
 
-    /* ================= 4. TẬP HỒ SƠ CHI TIẾT ================= */
+    /* ================= 4. DIỄN ĐÀN THẢO LUẬN & FEEDBACK KIỂU DISCORD ================= */
+    .discord-feedback-zone {
+      background: var(--discord-bg);
+      border: 1px solid rgba(230, 0, 38, 0.3);
+      padding: 20px 16px;
+      border-radius: 4px;
+      position: relative;
+      z-index: 15;
+      margin-top: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+    }
+
+    .discord-channel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .channel-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .channel-title span { color: var(--crimson); font-weight: bold; font-size: 1rem; }
+
+    .btn-open-feedback-modal {
+      background: var(--crimson);
+      border: none;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 2px;
+      letter-spacing: 1px;
+    }
+
+    .discord-messages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .discord-message-item {
+      display: flex;
+      gap: 10px;
+      background: var(--discord-card);
+      padding: 10px 12px;
+      border-radius: 3px;
+      border-left: 2px solid var(--crimson);
+    }
+
+    .discord-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #2a222e;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: bold;
+      flex-shrink: 0;
+      border: 1px solid rgba(230,0,38,0.4);
+    }
+
+    .discord-msg-content {
+      flex: 1;
+    }
+
+    .discord-author-line {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .author-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: #fff;
+    }
+
+    .author-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      background: rgba(230,0,38,0.2);
+      color: var(--crimson);
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    .msg-timestamp {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--text-dim);
+    }
+
+    .msg-body-text {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: #c9c7d4;
+    }
+
+    /* MODAL ĐĂNG FEEDBACK */
+    #feedback-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,4,6,0.96);
+      z-index: 320;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* ================= 5. TẬP HỒ SƠ CHI TIẾT ================= */
     .dossier-inspect-overlay {
       position: fixed;
       inset: 0;
@@ -714,7 +875,7 @@
       box-shadow: 0 0 15px var(--crimson-glow);
     }
 
-    /* ================= 5. ĐĂNG NHẬP TED & BÀN HỒ SƠ ================= */
+    /* ================= 6. ĐĂNG NHẬP TED & BÀN HỒ SƠ ================= */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -809,10 +970,9 @@
 </head>
 <body>
 
-  <!-- MÀN HÌNH NHÁ ĐÈN HÙ DỌA (JUMPSCARE STROBE) -->
   <div id="jumpscare-overlay"></div>
 
-  <!-- BÀI HÁT WHO IS SHE (ĐÃ CHẠY HOÀN HẢO) -->
+  <!-- NHẠC WHO IS SHE -->
   <audio id="noir-ambient-audio" loop preload="auto">
     <source src="I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3" type="audio/mpeg">
     <source src="I%20Monster%20-%20Who%20Is%20She%20%28Lyrics%29%20Immortal%20She%20Return%20To%20Me%20%5BTikTok%20Song%5D.mp3" type="audio/mpeg">
@@ -832,17 +992,17 @@
     </div>
   </div>
 
-  <!-- 1. CỔNG 18+ -->
+  <!-- 1. CỔNG 18+ (ĐÃ ĐỔI THÀNH BẠN) -->
   <section id="gate-18">
     <div class="gate-card">
       <span style="font-family:'JetBrains Mono'; font-size:0.65rem; color:var(--crimson); letter-spacing:2px;">// PROTOCOL 18+</span>
       <h1>VÙNG TỐI CALIFORNIA</h1>
-      <p>Kho lưu trữ chứa các tư liệu hiện trường án mạng và thực thể dị thường. Yêu cầu xác nhận độ tuổi trước khi giải mã.</p>
+      <p>Kho lưu trữ chứa các tư liệu hiện trường án mạng và thực thể dị thường. Yêu cầu bạn xác nhận độ tuổi trước khi giải mã dữ liệu.</p>
       <button class="btn-action-glow" id="btn-pass-gate">[ XÁC NHẬN TRÊN 18 TUỔI ]</button>
     </div>
   </section>
 
-  <!-- 2. THƯ CỦA TED -->
+  <!-- 2. THƯ CỦA TED (ĐÃ ĐỔI THÀNH BẠN) -->
   <section id="letter-screen">
     <div class="forensic-dossier-letter">
       <div class="dossier-barcode">
@@ -856,7 +1016,7 @@
       </div>
 
       <div class="dossier-body">
-        Quan khách đang truy cập vào hệ thống điều tra đen của bang California. Mọi bức ảnh, vết nứt tâm thần và chuỗi sự kiện tại đây đều là <em>những manh mối còn sót lại từ bóng tối</em>. Mỗi nạn nhân và kẻ thủ ác đều được nối với nhau qua một sợi chỉ định mệnh.
+        Chào mừng bạn đã bước vào hệ thống điều tra đen của California. Mọi bức ảnh, vết nứt tâm thần và chuỗi sự kiện tại đây đều là <em>những manh mối còn sót lại từ bóng tối</em>. Mỗi nạn nhân và kẻ thủ ác đều được nối với nhau qua một sợi chỉ định mệnh.
         <br><br>
         <em>"Trust the facts, not the rumors. Not every story has a happy ending."</em>
       </div>
@@ -882,52 +1042,59 @@
   <main id="board-main">
     <canvas id="thread-canvas"></canvas>
 
-    <div class="board-header">
-      <div>
-        <h3>CALIFORNIA FORENSIC ARCHIVE</h3>
-        <div class="sub-desc">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
-      </div>
-      <button class="btn-agent-terminal" id="btn-open-terminal">ACCESS TERMINAL: TED</button>
-    </div>
+    <!-- BỐ CỤC ĐẦU TRANG ĐÃ ĐƯỢC THIẾT KẾ LẠI GỌN GÀNG -->
+    <div class="redesigned-header">
+      <h2 class="brand-headline">CALIFORNIA FORENSIC ARCHIVE</h2>
+      <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
+      <button class="btn-ted-terminal-access" id="btn-open-terminal">[ ACCESS TERMINAL: TED ]</button>
 
-    <!-- 3 BIỂU TƯỢNG VECTOR VẼ TAY THAY THẾ TOÀN BỘ CÁC NÚT ĐÓNG KHUNG -->
-    <div class="art-sigils-container">
-      <!-- 1. TẤT CẢ HỒ SƠ: BIỂU TƯỢNG VÒNG TRÒN LA BÀN GIẢ KIM -->
-      <div class="sigil-artwork-node active" data-filter="all">
-        <div class="sigil-canvas-wrapper">
-          <svg viewBox="0 0 60 60">
-            <circle cx="30" cy="30" r="26" stroke-dasharray="4 3" />
-            <circle cx="30" cy="30" r="18" />
-            <polygon points="30,8 48,39 12,39" />
-            <circle cx="30" cy="30" r="4" fill="var(--crimson)" />
-          </svg>
-        </div>
-        <span class="sigil-title-label">TỔNG HỒ SƠ</span>
-      </div>
+      <!-- 3 MỘC ĐÓNG DẤU PHỨC TẠP: CALIFORNIA - CHICAGO - OHIO -->
+      <div class="bureau-stamps-rack">
+        
+        <!-- MỘC 1: CALIFORNIA (BẢN DOANH CHÍNH - LIÊN KẾT FACEBOOK CỦA BẠN) -->
+        <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="complex-bureau-stamp california-main-stamp" style="--stamp-angle: -3deg;">
+          <div class="stamp-svg-artwork">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="46" stroke-width="1.5" stroke-dasharray="3 2" />
+              <circle cx="50" cy="50" r="38" stroke-width="0.8" />
+              <!-- Cánh đại bàng & Ngôi sao trung tâm -->
+              <path d="M50 24 L53 35 L64 35 L55 42 L58 53 L50 46 L42 53 L45 42 L36 35 L47 35 Z" fill="var(--crimson)" />
+              <circle cx="50" cy="50" r="28" stroke-width="0.6" stroke-dasharray="2 2" />
+              <text x="50" y="80" text-anchor="middle" font-family="'Cinzel'" font-size="7" fill="var(--crimson)">★ TED HQ ★</text>
+            </svg>
+          </div>
+          <span class="stamp-city-name">CALIFORNIA ↗</span>
+        </a>
 
-      <!-- 2. LỆNH TRUY NÃ: DAO GĂM GOTHIC VÀ SAO 8 CÁNH -->
-      <div class="sigil-artwork-node" data-filter="Active">
-        <div class="sigil-canvas-wrapper">
-          <svg viewBox="0 0 60 60">
-            <path d="M30 6 L34 24 L52 28 L36 34 L32 52 L26 34 L8 28 L26 24 Z" />
-            <path d="M30 14 L30 46 M22 22 L38 22" stroke="var(--crimson)" stroke-width="2" />
-          </svg>
+        <!-- MỘC 2: CHICAGO (PHÂN KHU ÁN MẠNG) -->
+        <div class="complex-bureau-stamp active" data-filter="all" style="--stamp-angle: 2deg;">
+          <div class="stamp-svg-artwork">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="46" stroke-width="1.5" />
+              <circle cx="50" cy="50" r="39" stroke-width="0.8" stroke-dasharray="4 2" />
+              <polygon points="50,14 80,66 20,66" stroke-width="1" />
+              <circle cx="50" cy="48" r="8" fill="var(--crimson)" />
+              <text x="50" y="84" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#aaa">DIV-02</text>
+            </svg>
+          </div>
+          <span class="stamp-city-name">CHICAGO</span>
         </div>
-        <span class="sigil-title-label">LỆNH TRUY NÃ</span>
-      </div>
 
-      <!-- 3. BẢN DOANH ĐẶC VỤ TED: ĐÔI CÁNH THIÊN THẦN VÀ VƯƠNG MIỆN (DẪN FACEBOOK) -->
-      <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="sigil-artwork-node ted-angelic-sigil">
-        <div class="sigil-canvas-wrapper">
-          <svg viewBox="0 0 60 60">
-            <!-- Đôi cánh thiên thần tinh xảo vươn cao -->
-            <path d="M30 20 C18 4 6 18 10 36 C16 32 24 26 30 30 C36 26 44 32 50 36 C54 18 42 4 30 20 Z" />
-            <circle cx="30" cy="32" r="3.5" fill="#fff" />
-            <path d="M22 46 C30 52 38 46 38 46" stroke="var(--crimson)" />
-          </svg>
+        <!-- MỘC 3: OHIO (PHÂN KHU SITE 17-A) -->
+        <div class="complex-bureau-stamp" data-filter="Beaumont" style="--stamp-angle: -2deg;">
+          <div class="stamp-svg-artwork">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="46" stroke-width="1.2" stroke-dasharray="5 3" />
+              <circle cx="50" cy="50" r="38" stroke-width="1" />
+              <path d="M32 30 L68 70 M68 30 L32 70" stroke-width="1.5" />
+              <circle cx="50" cy="50" r="16" fill="rgba(230,0,38,0.2)" stroke-width="1" />
+              <text x="50" y="83" text-anchor="middle" font-family="'Cinzel'" font-size="6.5" fill="#aaa">SEC-17A</text>
+            </svg>
+          </div>
+          <span class="stamp-city-name">OHIO</span>
         </div>
-        <span class="sigil-title-label">TRẠM CHỦ TED ↗</span>
-      </a>
+
+      </div>
     </div>
 
     <!-- KHU VỰC ĐĂNG HỒ SƠ TED -->
@@ -986,9 +1153,51 @@
 
     <!-- BẢNG GHIM POLAROID 2 CỘT -->
     <div class="conspiracy-board-wall" id="cases-wall"></div>
+
+    <!-- ================= DIỄN ĐÀN THẢO LUẬN & FEEDBACK KIỂU DISCORD ================= -->
+    <section class="discord-feedback-zone">
+      <div class="discord-channel-header">
+        <div class="channel-title">
+          <span>#</span> manh-moi-va-feedback
+        </div>
+        <button class="btn-open-feedback-modal" id="btn-trigger-feedback">+ ĐĂNG FEEDBACK</button>
+      </div>
+
+      <div class="discord-messages-list" id="feedback-chat-list">
+        <!-- Tin nhắn mẫu của Ted -->
+        <div class="discord-message-item">
+          <div class="discord-avatar">T</div>
+          <div class="discord-msg-content">
+            <div class="discord-author-line">
+              <span class="author-name">Ted</span>
+              <span class="author-badge">ADMIN</span>
+              <span class="msg-timestamp">Hôm nay</span>
+            </div>
+            <div class="msg-body-text">Mọi manh mối bạn phát hiện được hãy để lại tại đây. Hãy cẩn trọng với những gì bạn thấy.</div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- 4. MODAL XEM CHI TIẾT HỒ SƠ -->
+  <!-- MODAL ĐĂNG FEEDBACK -->
+  <div id="feedback-modal">
+    <div class="terminal-window">
+      <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.2rem; cursor:pointer;" id="btn-close-feedback">&times;</button>
+      <h4 style="font-family:'Cinzel'; font-size:1.2rem; color:#fff;">// GỬI PHẢN HỒI</h4>
+      <div class="field-wrap">
+        <label>Tên của bạn:</label>
+        <input type="text" id="fb-user-name" required placeholder="Nhập bí danh...">
+      </div>
+      <div class="field-wrap">
+        <label>Nội dung manh mối / Feedback:</label>
+        <textarea id="fb-user-msg" rows="3" required placeholder="Chia sẻ cảm nghĩ hoặc suy luận..."></textarea>
+      </div>
+      <button type="button" class="btn-terminal-submit" id="btn-send-feedback">ĐĂNG VÀO DIỄN ĐÀN</button>
+    </div>
+  </div>
+
+  <!-- MODAL XEM CHI TIẾT HỒ SƠ -->
   <div class="dossier-inspect-overlay" id="inspect-modal">
     <div class="dossier-inspect-card">
       <button class="close-inspect-btn" id="btn-close-inspect">&times;</button>
@@ -1006,7 +1215,7 @@
     </div>
   </div>
 
-  <!-- 5. MODAL CHỈNH SỬA HỒ SƠ DÀNH CHO TED -->
+  <!-- MODAL CHỈNH SỬA HỒ SƠ DÀNH CHO TED -->
   <div id="edit-dossier-modal">
     <div class="terminal-window">
       <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.2rem; cursor:pointer;" id="btn-close-edit">&times;</button>
@@ -1036,7 +1245,7 @@
     </div>
   </div>
 
-  <!-- 6. ĐĂNG NHẬP TED -->
+  <!-- ĐĂNG NHẬP TED -->
   <div class="modal-overlay" id="auth-overlay">
     <div class="terminal-window">
       <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.2rem; cursor:pointer;" id="btn-close-auth">&times;</button>
@@ -1071,7 +1280,7 @@
       if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    /* ================= 2. HỆ THỐNG PHÁT NHẠC WHO IS SHE ================= */
+    /* ================= 2. PHÁT NHẠC TỰ ĐỘNG ================= */
     const noirAudio = document.getElementById('noir-ambient-audio');
     let isAudioOn = false;
     const audioPill = document.getElementById('audio-pill');
@@ -1085,9 +1294,7 @@
           isAudioOn = true;
           audioPill.classList.add('active');
           audioState.innerText = "AMBIENT ON";
-        }).catch(err => {
-          console.log("Audio waiting for user tap:", err);
-        });
+        }).catch(() => {});
       }
     }
 
@@ -1102,7 +1309,6 @@
       }
     });
 
-    // Chạm bất kỳ đâu trên màn hình lần đầu cũng kích hoạt nhạc
     document.addEventListener('pointerdown', () => {
       if (!isAudioOn && gate18.style.display === 'none') {
         startMusic();
@@ -1114,7 +1320,6 @@
     
     function playJumpscareSound() {
       if (audioCtx.state === 'suspended') audioCtx.resume();
-      // Âm thanh kim loại rít và tiếng nổ trầm hù dọa
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sawtooth';
@@ -1169,7 +1374,8 @@
     function drawEmbers() {
       emberCtx.clearRect(0, 0, emberCanvas.width, emberCanvas.height);
       embers.forEach(p => {
-        p.y += p.dy; p.x += p.dx;
+        p.y += p.dy;
+        p.x += p.dx;
         if (p.y < 0) {
           p.y = emberCanvas.height + 10;
           p.x = Math.random() * emberCanvas.width;
@@ -1196,7 +1402,8 @@
         desc: "Hồ sơ của Đặc vụ Ted. Đã được ghi nhận vào kho lưu trữ California.",
         plot: "https://google.com",
         ggai: "https://aistudio.google.com",
-        note: "#TED"
+        note: "#TED",
+        likes: 5
       },
       {
         code: "SITE-17A // 1988",
@@ -1206,7 +1413,8 @@
         desc: "Khu vực phong tỏa từ 1988. Tất cả nhân chứng đều khẳng định nhìn thấy một bóng đen không khuôn mặt đứng bên hồ.",
         plot: "https://google.com",
         ggai: "https://aistudio.google.com",
-        note: "CLOSED 1988"
+        note: "CLOSED 1988",
+        likes: 2
       },
       {
         code: "CA-04 // DAILY MIRROR",
@@ -1216,15 +1424,16 @@
         desc: "Đối tượng để lại mẩu báo cắt dán và giăng kín dây chỉ đỏ khắp hiện trường trước khi biến mất hoàn toàn.",
         plot: "https://google.com",
         ggai: "https://aistudio.google.com",
-        note: "GUESS WHO?"
+        note: "GUESS WHO?",
+        likes: 7
       }
     ];
 
-    let dossiers = JSON.parse(localStorage.getItem('cali_cases_v6')) || GLOBAL_DEFAULT_CASES;
+    let dossiers = JSON.parse(localStorage.getItem('cali_cases_v7')) || GLOBAL_DEFAULT_CASES;
 
     async function loadSharedCloudCases() {
       try {
-        const idRes = await fetch('https://api.keyval.org/get/ted_cali_blob_vault_v6');
+        const idRes = await fetch('https://api.keyval.org/get/ted_cali_vault_v7');
         const blobId = (await idRes.text()).trim();
         if (blobId && blobId.length > 10 && !blobId.includes("error")) {
           const dataRes = await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
@@ -1234,7 +1443,7 @@
             const cloudCases = await dataRes.json();
             if (Array.isArray(cloudCases) && cloudCases.length > 0) {
               dossiers = cloudCases;
-              localStorage.setItem('cali_cases_v6', JSON.stringify(dossiers));
+              localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
               renderCasesWall(dossiers);
             }
           }
@@ -1248,7 +1457,7 @@
       try {
         let blobId = "";
         try {
-          const idRes = await fetch('https://api.keyval.org/get/ted_cali_blob_vault_v6');
+          const idRes = await fetch('https://api.keyval.org/get/ted_cali_vault_v7');
           blobId = (await idRes.text()).trim();
         } catch(e){}
 
@@ -1267,7 +1476,7 @@
           const location = createRes.headers.get('Location') || "";
           const newBlobId = location.split('/').pop();
           if (newBlobId) {
-            await fetch('https://api.keyval.org/set/ted_cali_blob_vault_v6/' + newBlobId);
+            await fetch('https://api.keyval.org/set/ted_cali_vault_v7/' + newBlobId);
           }
         }
       } catch (err) {
@@ -1275,7 +1484,7 @@
       }
     }
 
-    /* ================= 5. MỞ CỔNG + HIỆU ỨNG NHÁ ĐÈN HÙ DỌA ================= */
+    /* ================= 5. MỞ CỔNG + HIỆU ỨNG NHÁ ĐÈN ================= */
     const gate18 = document.getElementById('gate-18');
     const btnPassGate = document.getElementById('btn-pass-gate');
     const letterScreen = document.getElementById('letter-screen');
@@ -1284,7 +1493,6 @@
     const jumpscareOverlay = document.getElementById('jumpscare-overlay');
 
     btnPassGate.addEventListener('click', () => {
-      // 🌟 KÍCH HOẠT NHÁ ĐÈN & ÂM THANH HÙ DỌA
       playJumpscareSound();
       jumpscareOverlay.classList.add('strobe-active');
 
@@ -1294,7 +1502,7 @@
         letterScreen.style.display = 'flex';
         jumpscareOverlay.classList.remove('strobe-active');
         loadSharedCloudCases();
-      }, 480);
+      }, 450);
     });
 
     artSeal.addEventListener('click', () => {
@@ -1310,7 +1518,7 @@
       }, 450);
     });
 
-    /* ================= 6. VẼ BẢNG POLAROID COLLAGE ================= */
+    /* ================= 6. VẼ BẢNG POLAROID & DẤU ẤN YÊU THÍCH ================= */
     const casesWall = document.getElementById('cases-wall');
 
     function renderCasesWall(itemsToRender) {
@@ -1321,6 +1529,8 @@
         const rot = (idx % 2 === 0 ? 1 : -1) * (1.5 + (idx % 3) * 0.7);
         card.style.setProperty('--rot', `${rot}deg`);
 
+        const isLiked = localStorage.getItem('cali_liked_' + item.code);
+
         card.innerHTML = `
           <div class="red-pushpin pin-node"></div>
           <div class="polaroid-photo-frame">
@@ -1329,10 +1539,12 @@
           <div class="polaroid-title">${item.name}</div>
           <div class="polaroid-meta">
             <span>${item.code}</span>
-            <span>#0${idx + 1}</span>
+            <div class="stamp-like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLikeChar(${idx}, event)">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              <span id="like-count-${idx}">${item.likes || 0}</span>
+            </div>
           </div>
           <div class="sticky-note-clue">${item.note || '#CLUE'}</div>
-          <!-- CÔNG CỤ ĐỘC QUYỀN CỦA TED -->
           <div class="ted-card-controls">
             <button class="btn-card-edit" onclick="openEditModal(${idx}, event)">✏️ SỬA</button>
             <button class="btn-card-del" onclick="deleteCase(${idx}, event)">🗑️ XOÁ</button>
@@ -1345,14 +1557,32 @@
       renderRedThreads();
     }
 
-    /* CHUYỂN DẤU ẤN BIỂU TƯỢNG PHÂN LOẠI */
-    const sigilTabs = document.querySelectorAll('.sigil-artwork-node');
-    sigilTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        if (tab.hasAttribute('href')) return;
-        sigilTabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const filter = tab.getAttribute('data-filter');
+    // ĐÓNG DẤU YÊU THÍCH (THẢ TIM)
+    window.toggleLikeChar = function(idx, event) {
+      event.stopPropagation();
+      const item = dossiers[idx];
+      const key = 'cali_liked_' + item.code;
+      if (!localStorage.getItem(key)) {
+        item.likes = (item.likes || 0) + 1;
+        localStorage.setItem(key, 'true');
+        playStampBang();
+      } else {
+        item.likes = Math.max(0, (item.likes || 1) - 1);
+        localStorage.removeItem(key);
+      }
+      localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
+      renderCasesWall(dossiers);
+      saveSharedCloudCases(dossiers);
+    };
+
+    /* CHUYỂN BỘ LỌC 3 MỘC BANG */
+    const bureauStamps = document.querySelectorAll('.complex-bureau-stamp');
+    bureauStamps.forEach(stamp => {
+      stamp.addEventListener('click', () => {
+        if (stamp.hasAttribute('href')) return;
+        bureauStamps.forEach(s => s.classList.remove('active'));
+        stamp.classList.add('active');
+        const filter = stamp.getAttribute('data-filter');
         if (filter === 'all') {
           renderCasesWall(dossiers);
         } else {
@@ -1433,7 +1663,70 @@
     }
     window.addEventListener('resize', renderRedThreads);
 
-    /* ================= 9. XÁC THỰC TED & BẬT ĐÈN ================= */
+    /* ================= 9. DIỄN ĐÀN FEEDBACK KIỂU DISCORD ================= */
+    const feedbackModal = document.getElementById('feedback-modal');
+    const btnTriggerFeedback = document.getElementById('btn-trigger-feedback');
+    const btnCloseFeedback = document.getElementById('btn-close-feedback');
+    const btnSendFeedback = document.getElementById('btn-send-feedback');
+    const feedbackChatList = document.getElementById('feedback-chat-list');
+
+    let feedbacks = JSON.parse(localStorage.getItem('cali_feedbacks')) || [];
+
+    function renderFeedbacks() {
+      const items = feedbacks.map(f => `
+        <div class="discord-message-item">
+          <div class="discord-avatar">${f.name.charAt(0).toUpperCase()}</div>
+          <div class="discord-msg-content">
+            <div class="discord-author-line">
+              <span class="author-name">${f.name}</span>
+              <span class="msg-timestamp">${f.time}</span>
+            </div>
+            <div class="msg-body-text">${f.msg}</div>
+          </div>
+        </div>
+      `).join('');
+
+      feedbackChatList.innerHTML = `
+        <div class="discord-message-item">
+          <div class="discord-avatar">T</div>
+          <div class="discord-msg-content">
+            <div class="discord-author-line">
+              <span class="author-name">Ted</span>
+              <span class="author-badge">ADMIN</span>
+              <span class="msg-timestamp">Hôm nay</span>
+            </div>
+            <div class="msg-body-text">Mọi manh mối bạn phát hiện được hãy để lại tại đây. Hãy cẩn trọng với những gì bạn thấy.</div>
+          </div>
+        </div>
+        ${items}
+      `;
+    }
+
+    renderFeedbacks();
+
+    btnTriggerFeedback.addEventListener('click', () => feedbackModal.style.display = 'flex');
+    btnCloseFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
+
+    btnSendFeedback.addEventListener('click', () => {
+      const name = document.getElementById('fb-user-name').value.trim();
+      const msg = document.getElementById('fb-user-msg').value.trim();
+      if (!name || !msg) { alert("Vui lòng điền tên và nội dung phản hồi!"); return; }
+
+      const newFb = {
+        name: name,
+        msg: msg,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
+      feedbacks.push(newFb);
+      localStorage.setItem('cali_feedbacks', JSON.stringify(feedbacks));
+      renderFeedbacks();
+      feedbackModal.style.display = 'none';
+      document.getElementById('fb-user-msg').value = "";
+      playStampBang();
+    });
+
+    /* ================= 10. XÁC THỰC TED & BẬT ĐÈN ================= */
     const authOverlay = document.getElementById('auth-overlay');
     const btnOpenTerminal = document.getElementById('btn-open-terminal');
     const btnCloseAuth = document.getElementById('btn-close-auth');
@@ -1460,7 +1753,7 @@
         document.body.classList.add('ted-illuminated');
         btnToggleLight.style.display = 'flex';
 
-        btnOpenTerminal.innerText = "TED // ONLINE";
+        btnOpenTerminal.innerText = "[ TED // ONLINE ]";
         btnOpenTerminal.style.borderColor = "var(--crimson)";
         tedActiveDesk.style.display = 'block';
         tedActiveDesk.scrollIntoView({ behavior: 'smooth' });
@@ -1478,7 +1771,7 @@
       btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
     });
 
-    /* ================= 10. TÍNH NĂNG SỬA & XÓA DÀNH RIÊNG CHO TED ================= */
+    /* ================= 11. SỬA & XÓA CỦA TED ================= */
     const editModal = document.getElementById('edit-dossier-modal');
     const btnCloseEdit = document.getElementById('btn-close-edit');
     const btnSaveEdit = document.getElementById('btn-save-edit');
@@ -1505,29 +1798,29 @@
       dossiers[idx].ggai = document.getElementById('edit-ggai').value;
       dossiers[idx].desc = document.getElementById('edit-desc').value;
 
-      localStorage.setItem('cali_cases_v6', JSON.stringify(dossiers));
+      localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
       renderCasesWall(dossiers);
       editModal.style.display = 'none';
       playStampBang();
 
       await saveSharedCloudCases(dossiers);
-      alert("ĐÃ CẬP NHẬT HỒ SƠ VÀ ĐỒNG BỘ TOÀN CẦU THÀNH CÔNG!");
+      alert("ĐÃ CẬP NHẬT HỒ SƠ THÀNH CÔNG!");
     });
 
     window.deleteCase = async function(idx, event) {
       event.stopPropagation();
       if (confirm(`Bạn có chắc chắn muốn tiêu huỷ hồ sơ [${dossiers[idx].name}] vĩnh viễn không?`)) {
         dossiers.splice(idx, 1);
-        localStorage.setItem('cali_cases_v6', JSON.stringify(dossiers));
+        localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
         renderCasesWall(dossiers);
         playStampBang();
 
         await saveSharedCloudCases(dossiers);
-        alert("ĐÃ TIÊU HUỶ HỒ SƠ KHỎI TOÀN BỘ HỆ THỐNG!");
+        alert("ĐÃ TIÊU HUỶ HỒ SƠ!");
       }
     };
 
-    /* ================= 11. NÉN ẢNH CHUẨN TỈ LỆ (KHÔNG BỊ MÉO ẢNH) ================= */
+    /* ================= 12. NÉN ẢNH CHUẨN TỈ LỆ & ĐĂNG MỚI ================= */
     const createDossierForm = document.getElementById('create-dossier-form');
     const btnUploadSubmit = document.getElementById('btn-upload-submit');
 
@@ -1575,11 +1868,12 @@
           desc: descVal || "Không có ghi chú thêm.",
           plot: plotVal,
           ggai: ggaiVal,
-          note: `#${nameVal.toUpperCase()}`
+          note: `#${nameVal.toUpperCase()}`,
+          likes: 0
         };
 
         dossiers.unshift(newRecord);
-        localStorage.setItem('cali_cases_v6', JSON.stringify(dossiers));
+        localStorage.setItem('cali_cases_v7', JSON.stringify(dossiers));
         renderCasesWall(dossiers);
 
         await saveSharedCloudCases(dossiers);
