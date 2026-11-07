@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>CALIFORNIA EVIDENCE // ARCHIVE</title>
   
-  <!-- Font chữ nghệ thuật hiện đại: Syne (Tiêu đề cao cấp) + Space Grotesk + JetBrains Mono -->
+  <!-- Font chữ nghệ thuật hiện đại -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Space+Grotesk:wght@300;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Space+Grotesk:wght@300;500;700&family=Syne:wght@700;800&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -19,7 +19,18 @@
       --text-main: #ececf1;
       --text-dim: #71717f;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --glass: rgba(14, 14, 20, 0.75);
+      --glass: rgba(14, 14, 20, 0.85);
+    }
+
+    /* KHI TED ĐĂNG NHẬP: BẬT ĐÈN PHÒNG ĐIỀU TRA (VIBE ẢNH 2 & 4) */
+    body.ted-illuminated {
+      --bg: #141110;
+      --card-bg: #1a1614;
+      --border-subtle: rgba(255, 80, 80, 0.2);
+    }
+
+    body.ted-illuminated .spotlight-layer {
+      background: radial-gradient(circle 850px at 50% 25%, rgba(255, 215, 160, 0.18) 0%, rgba(15, 12, 10, 0.7) 70%, rgba(5, 5, 7, 0.95) 100%) !important;
     }
 
     * {
@@ -37,19 +48,19 @@
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+      transition: background-color 0.8s ease;
     }
 
-    /* ================= 1. ÁNH ĐÈN SPOTLIGHT ĐIỆN ẢNH (TỪ ẢNH 1 & 2) ================= */
+    /* ================= 1. ÁNH ĐÈN SPOTLIGHT ĐIỆN ẢNH (ẢNH 1 & 2) ================= */
     .spotlight-layer {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 35;
-      background: radial-gradient(circle 280px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5,5,7,0.7) 60%, rgba(5,5,7,0.96) 100%);
+      background: radial-gradient(circle 280px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5,5,7,0.72) 60%, rgba(5,5,7,0.97) 100%);
       transition: background 0.08s ease-out;
     }
 
-    /* Hạt bụi lơ lửng / sương khói tối giản */
     #fog-canvas {
       position: fixed;
       inset: 0;
@@ -61,24 +72,29 @@
       mix-blend-mode: screen;
     }
 
-    /* Thanh Bar điều khiển âm thanh trên đỉnh */
-    .audio-pill {
+    /* THANH ĐIỀU KHIỂN ÂM THANH */
+    .top-bar-controls {
       position: fixed;
-      top: 18px;
-      right: 18px;
+      top: 16px;
+      right: 16px;
       z-index: 100;
+      display: flex;
+      gap: 10px;
+    }
+
+    .audio-pill, .light-pill {
       background: rgba(15, 15, 22, 0.85);
       border: 1px solid var(--border-subtle);
       backdrop-filter: blur(12px);
-      padding: 7px 15px;
+      padding: 7px 14px;
       border-radius: 30px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 1px;
       color: var(--text-dim);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
       transition: 0.3s;
     }
@@ -100,7 +116,7 @@
     }
     @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ================= 2. GATE 18+ HIỆN ĐẠI TỐI GIẢN (MODERN BRUTALIST) ================= */
+    /* ================= 2. GATE 18+ TỐI GIẢN ================= */
     #gate-18 {
       position: fixed;
       inset: 0;
@@ -168,8 +184,6 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
       transition: 0.3s;
     }
     .btn-action-glow:hover, .btn-action-glow:active {
@@ -177,7 +191,7 @@
       box-shadow: 0 0 30px var(--crimson-glow);
     }
 
-    /* ================= 3. THƯ CỦA TED & CON DẤU MỘC NGHỆ THUẬT RIÊNG ================= */
+    /* ================= 3. THƯ CỦA TED & MỘC CẤP PHÉP GIẢI MẬT CHUYÊN SÂU ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
@@ -196,7 +210,7 @@
       max-width: 580px;
       background: #0d0d12;
       border: 1px solid var(--border-subtle);
-      padding: 45px 32px 35px;
+      padding: 40px 30px 35px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.95);
       position: relative;
       margin: auto;
@@ -211,7 +225,7 @@
       justify-content: space-between;
       border-bottom: 1px solid var(--border-subtle);
       padding-bottom: 12px;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
     }
 
     .dossier-headline h2 {
@@ -228,7 +242,7 @@
       font-size: 0.72rem;
       color: var(--crimson);
       letter-spacing: 2px;
-      margin-bottom: 25px;
+      margin-bottom: 22px;
       display: block;
     }
 
@@ -236,7 +250,7 @@
       font-size: 0.92rem;
       line-height: 1.7;
       color: #b5b5c4;
-      margin-bottom: 35px;
+      margin-bottom: 30px;
       text-align: justify;
     }
 
@@ -246,72 +260,99 @@
       border-bottom: 1px dotted var(--crimson);
     }
 
-    /* KHU VỰC CON DẤU MỘC NGHỆ THUẬT (ARTISTIC CIPHER SEAL) */
-    .seal-trigger-box {
+    /* MỘC CẤP PHÉP GIẢI MẬT CHUYÊN SÂU (OFFICIAL DECLASSIFICATION PERMIT) */
+    .seal-permit-zone {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 15px;
       border-top: 1px solid var(--border-subtle);
-      padding-top: 30px;
+      padding-top: 25px;
     }
 
-    .art-seal-btn {
-      width: 110px;
-      height: 110px;
+    .declassification-stamp-btn {
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      background: #111118;
-      border: 1px solid rgba(255, 18, 61, 0.4);
+      background: radial-gradient(circle, rgba(255, 18, 61, 0.08) 0%, rgba(10, 10, 15, 0.8) 100%);
+      border: 3px double var(--crimson);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      position: relative;
       cursor: pointer;
-      box-shadow: 0 0 25px rgba(255, 18, 61, 0.15);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      transform: rotate(-6deg);
+      box-shadow: 0 0 25px rgba(255, 18, 61, 0.25), inset 0 0 15px rgba(255, 18, 61, 0.15);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .art-seal-btn:active {
+    .declassification-stamp-btn:hover {
+      transform: rotate(0deg) scale(1.05);
+      border-color: #fff;
+      box-shadow: 0 0 40px var(--crimson-glow);
+    }
+
+    .declassification-stamp-btn:active {
       transform: scale(0.92);
     }
 
-    .art-seal-btn:hover {
-      border-color: var(--crimson);
-      box-shadow: 0 0 35px var(--crimson-glow);
-    }
-
-    .seal-ring-svg {
+    .stamp-svg-ring {
       position: absolute;
       inset: 4px;
       width: calc(100% - 8px);
       height: calc(100% - 8px);
-      animation: rotateRings 20s linear infinite;
+      animation: rotateStamp 25s linear infinite;
       pointer-events: none;
     }
 
-    @keyframes rotateRings {
+    @keyframes rotateStamp {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
 
-    .seal-core-symbol {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      color: var(--crimson);
-      letter-spacing: -1px;
-      text-shadow: 0 0 10px var(--crimson);
+    .stamp-center-text {
+      text-align: center;
+      z-index: 2;
     }
 
-    .seal-guide-text {
+    .stamp-center-text .permit-tag {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 0 8px var(--crimson);
+      display: block;
+    }
+
+    .stamp-center-text .status-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 0.55rem;
+      color: var(--crimson);
+      letter-spacing: 1px;
+      border-top: 1px solid var(--crimson);
+      border-bottom: 1px solid var(--crimson);
+      padding: 1px 0;
+      margin: 3px 0;
+      display: block;
+    }
+
+    .stamp-center-text .auth-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      color: #aaa;
+    }
+
+    .seal-guide-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
       letter-spacing: 2px;
       color: var(--text-dim);
       text-transform: uppercase;
     }
 
-    /* ================= 4. BẢNG ÁN MẠNG HIỆN ĐẠI (DARK CONSPIRACY BOARD) ================= */
+    /* ================= 4. BẢNG DÂY CHỈ ĐỎ ĐIỆN ẢNH ================= */
     #board-main {
       display: none;
       min-height: 100vh;
@@ -375,7 +416,7 @@
       box-shadow: 0 0 15px var(--crimson-dim);
     }
 
-    /* TÂM ĐIỂM BÍ ẨN '?' (ĐỒNG TÂM CÁC SỢI CHỈ ĐỎ - ẢNH 2) */
+    /* TÂM ĐIỂM BÍ ẨN '?' (ẢNH 2) */
     .mystery-hub-modern {
       text-align: center;
       margin: 10px auto 40px;
@@ -411,7 +452,7 @@
       box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
     }
 
-    /* LƯỚI HỒ SƠ ÁN MẠNG DẠNG DARK POLAROID */
+    /* LƯỚI HỒ SƠ ÁN MẠNG */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -421,7 +462,7 @@
     }
 
     .art-case-card {
-      background: #0e0e14;
+      background: var(--card-bg);
       border: 1px solid var(--border-subtle);
       padding: 18px;
       position: relative;
@@ -556,7 +597,7 @@
       box-shadow: 0 0 15px var(--crimson-glow);
     }
 
-    /* ================= 5. TED FORENSIC TERMINAL (ADMIN) ================= */
+    /* ================= 5. KHUNG ĐĂNG NHẬP BẢO MẬT (ĐÃ FIX LỖI LỘ THÔNG TIN) ================= */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -571,11 +612,11 @@
 
     .terminal-window {
       width: 100%;
-      max-width: 460px;
-      background: #0e0e14;
+      max-width: 440px;
+      background: #0d0d12;
       border: 1px solid var(--crimson);
-      padding: 30px 24px;
-      box-shadow: 0 0 50px rgba(255, 18, 61, 0.25);
+      padding: 32px 24px;
+      box-shadow: 0 0 50px rgba(255, 18, 61, 0.3);
       position: relative;
     }
 
@@ -583,40 +624,54 @@
       font-family: 'Syne', sans-serif;
       font-size: 1.4rem;
       color: #fff;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .terminal-sub {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--crimson);
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       display: block;
     }
 
     .field-wrap {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     .field-wrap label {
       display: block;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       color: var(--text-dim);
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
     .field-wrap input, .field-wrap textarea {
       width: 100%;
       background: #060609;
       border: 1px solid var(--border-subtle);
       color: #fff;
-      padding: 10px 12px;
+      padding: 11px 14px;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       outline: none;
+      transition: border-color 0.2s;
     }
     .field-wrap input:focus, .field-wrap textarea:focus {
       border-color: var(--crimson);
-      box-shadow: 0 0 10px var(--crimson-dim);
+      box-shadow: 0 0 12px var(--crimson-dim);
+    }
+
+    /* ĐÈN CẢNH BÁO LỖI THAY CHO POPUP TRÌNH DUYỆT */
+    #auth-alert-box {
+      display: none;
+      background: rgba(255, 18, 61, 0.1);
+      border: 1px solid var(--crimson);
+      color: #ff6b81;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      text-align: center;
     }
 
     .btn-terminal-submit {
@@ -624,14 +679,14 @@
       background: var(--crimson);
       border: none;
       color: #fff;
-      padding: 12px;
+      padding: 13px;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .btn-terminal-close {
@@ -645,31 +700,37 @@
       cursor: pointer;
     }
 
-    /* KHU VỰC ĐĂNG HỒ SƠ SAU KHI TED ĐĂNG NHẬP */
+    /* BÀN LÀM VIỆC CỦA TED SAU KHI SÁNG ĐÈN */
     #ted-active-desk {
       display: none;
-      background: #0f0f17;
+      background: #1e1917;
       border: 1px solid var(--crimson);
       padding: 25px 20px;
       margin-bottom: 40px;
       position: relative;
       z-index: 15;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
     }
   </style>
 </head>
 <body>
 
-  <!-- ĐÈN RỌI SPOTLIGHT ĐIỆN ẢNH CHIẾU THEO TAY LƯỚT (ẢNH 1 & 2) -->
+  <!-- ĐÈN RỌI SPOTLIGHT ĐIỆN ẢNH CHIẾU THEO TAY LƯỚT -->
   <div class="spotlight-layer" id="spotlight"></div>
   <canvas id="fog-canvas"></canvas>
 
-  <!-- NÚT ÂM THANH HIỆN ĐẠI GÓC PHẢI -->
-  <div class="audio-pill" id="audio-pill">
-    <div class="audio-dot"></div>
-    <span id="audio-state">AMBIENT OFF</span>
+  <!-- THANH ĐIỀU KHIỂN ÂM THANH & ĐÈN PHÒNG -->
+  <div class="top-bar-controls">
+    <div class="light-pill" id="btn-toggle-light" style="display:none;">
+      <span>💡 ĐÈN: BẬT</span>
+    </div>
+    <div class="audio-pill" id="audio-pill">
+      <div class="audio-dot"></div>
+      <span id="audio-state">AMBIENT OFF</span>
+    </div>
   </div>
 
-  <!-- ================= 1. CỔNG 18+ TỐI GIẢN HIỆN ĐẠI ================= -->
+  <!-- ================= 1. CỔNG 18+ ================= -->
   <section id="gate-18">
     <div class="gate-card">
       <div class="gate-corner top-l"></div>
@@ -687,7 +748,7 @@
     </div>
   </section>
 
-  <!-- ================= 2. THƯ BẢN GHI PHÁP Y CỦA TED (LETTER) ================= -->
+  <!-- ================= 2. THƯ BẢN GHI PHÁP Y CỦA TED ================= -->
   <section id="letter-screen">
     <div class="forensic-dossier-letter">
       <div class="dossier-barcode">
@@ -706,24 +767,25 @@
         <em>"Trust the facts, not the rumors. Not every story has a happy ending."</em>
       </div>
 
-      <!-- CON DẤU MỘC NGHỆ THUẬT RIÊNG (ARTISTIC CIPHER SEAL) -->
-      <div class="seal-trigger-box">
-        <div class="art-seal-btn" id="art-seal">
-          <!-- Vòng quay hình học trừu tượng -->
-          <svg class="seal-ring-svg" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,18,61,0.4)" stroke-width="1" stroke-dasharray="4, 3" />
-            <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,18,61,0.2)" stroke-width="0.75" />
-            <polygon points="50,6 90,75 10,75" fill="none" stroke="rgba(255,18,61,0.3)" stroke-width="0.8"/>
-            <polygon points="50,94 90,25 10,25" fill="none" stroke="rgba(255,18,61,0.3)" stroke-width="0.8"/>
+      <!-- MỘC CẤP PHÉP GIẢI MẬT CHUYÊN SÂU -->
+      <div class="seal-permit-zone">
+        <div class="declassification-stamp-btn" id="art-seal">
+          <svg class="stamp-svg-ring" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="47" fill="none" stroke="rgba(255,18,61,0.6)" stroke-width="1.2" stroke-dasharray="3, 2.5"/>
+            <circle cx="50" cy="50" r="41" fill="none" stroke="rgba(255,18,61,0.3)" stroke-width="0.7"/>
           </svg>
-          <div class="seal-core-symbol">TED</div>
+          <div class="stamp-center-text">
+            <span class="permit-tag">AUTHORIZED</span>
+            <span class="status-tag">DECLASSIFIED // LV.5</span>
+            <span class="auth-code">DOC.CA-TED-098</span>
+          </div>
         </div>
-        <div class="seal-guide-text">[ CHẠM VÀO CON DẤU ĐỂ GIẢI MÃ ]</div>
+        <div class="seal-guide-sub">[ CHẠM MỘC ĐỂ CẤP PHÉP MỞ HỒ SƠ ]</div>
       </div>
     </div>
   </section>
 
-  <!-- ================= 3. BẢNG DÂY CHỈ ĐỎ ÁN MẠNG HIỆN ĐẠI ================= -->
+  <!-- ================= 3. BẢNG DÂY CHỈ ĐỎ ÁN MẠNG ================= -->
   <main id="board-main">
     <canvas id="thread-canvas"></canvas>
 
@@ -735,13 +797,13 @@
       <button class="btn-agent-terminal" id="btn-open-terminal">ACCESS TERMINAL: TED</button>
     </div>
 
-    <!-- KHU VỰC THÊM HỒ SƠ KHI ĐÃ ĐĂNG NHẬP -->
+    <!-- KHU VỰC ĐĂNG HỒ SƠ SAU KHI SÁNG ĐÈN -->
     <section id="ted-active-desk">
-      <h4 style="font-family:'Syne'; color:var(--crimson); font-size:1.2rem; margin-bottom:15px;">// ĐĂNG TẢI HỒ SƠ MỚI [QUYỀN CHỦ: TED]</h4>
+      <h4 style="font-family:'Syne'; color:var(--crimson); font-size:1.2rem; margin-bottom:15px;">// TRẠM ĐÍNH KÈM HỒ SƠ ÁN MẠNG [CUSTODIAN TED]</h4>
       <form id="create-dossier-form">
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
           <div class="field-wrap">
-            <label>Mã hồ sơ / Code:</label>
+            <label>Mã hồ sơ (Code):</label>
             <input type="text" id="in-code" required placeholder="CA-XXXX">
           </div>
           <div class="field-wrap">
@@ -751,7 +813,7 @@
         </div>
 
         <div class="field-wrap">
-          <label>Tải ảnh Chân dung / Tang chứng:</label>
+          <label>Tải ảnh Chân dung / Hiện trường từ máy:</label>
           <input type="file" id="in-file" accept="image/*" required>
         </div>
 
@@ -772,15 +834,15 @@
         </div>
 
         <div class="field-wrap">
-          <label>Ghi chú tuyệt mật:</label>
-          <textarea id="in-desc" rows="2" placeholder="Ghi chú khám nghiệm hiện trường..."></textarea>
+          <label>Ghi chú khám nghiệm hiện trường:</label>
+          <textarea id="in-desc" rows="2" placeholder="Ghi chép khám nghiệm..."></textarea>
         </div>
 
         <button type="submit" class="btn-terminal-submit">+ GHIM HỒ SƠ LÊN BẢNG VÀ NỐI DÂY CHỈ ĐỎ</button>
       </form>
     </section>
 
-    <!-- NÚT TRUNG TÂM BÍ ẨN '?' (TỪ ẢNH 2) -->
+    <!-- NÚT TRUNG TÂM BÍ ẨN '?' (ẢNH 2) -->
     <div class="mystery-hub-modern">
       <div class="question-core">
         ?
@@ -793,21 +855,24 @@
     <div class="cards-grid" id="cases-grid"></div>
   </main>
 
-  <!-- ================= 4. MODAL ĐĂNG NHẬP TED ================= -->
+  <!-- ================= 4. KHUNG ĐĂNG NHẬP TED BẢO MẬT ================= -->
   <div class="modal-overlay" id="auth-overlay">
     <div class="terminal-window">
       <button class="btn-terminal-close" id="btn-close-auth">&times;</button>
       <h4>XÁC THỰC DANH TÍNH</h4>
       <span class="terminal-sub">// TED - CUSTODIAN OF RECORDS ONLY</span>
 
-      <form id="ted-login-form">
+      <div id="auth-alert-box">THÔNG TIN KHÔNG CHÍNH XÁC</div>
+
+      <!-- ĐÃ FIX: novalidate ngăn popup trình duyệt & không để lộ tài khoản -->
+      <form id="ted-login-form" novalidate>
         <div class="field-wrap">
           <label>ID TÀI KHOẢN:</label>
-          <input type="email" id="login-id" required placeholder="tcam9863@gmail.com">
+          <input type="email" id="login-id" placeholder="Nhập ID Đặc vụ..." autocomplete="off">
         </div>
         <div class="field-wrap">
           <label>MẬT MÃ AN NINH:</label>
-          <input type="password" id="login-pwd" required placeholder="******">
+          <input type="password" id="login-pwd" placeholder="Nhập Mật mã..." autocomplete="off">
         </div>
         <button type="submit" class="btn-terminal-submit">BẺ KHOÁ HỆ THỐNG</button>
       </form>
@@ -815,7 +880,7 @@
   </div>
 
   <script>
-    /* ================= 1. THEO DÕI ÁNH ĐÈN SPOTLIGHT ĐIỆN ẢNH ================= */
+    /* ================= 1. ÁNH ĐÈN SPOTLIGHT ĐIỆN ẢNH ================= */
     const spotlight = document.getElementById('spotlight');
     function updateSpotlight(x, y) {
       spotlight.style.setProperty('--spot-x', `${x}px`);
@@ -827,55 +892,67 @@
       if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    /* ================= 2. ÂM THANH TỰ ĐỘNG BẰNG WEB AUDIO API (SUB-BASS & DRONE) ================= */
+    /* ================= 2. ÂM THANH ĐIỆN ẢNH RÙNG RỢN (XOÁ BỎ TIẾNG RÈ È) ================= */
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let ambientDrone = null;
+    let osc1 = null, osc2 = null, masterGain = null;
     let isAudioOn = false;
 
     function playCinematicStamp() {
       if (audioCtx.state === 'suspended') audioCtx.resume();
-      // Âm Sub-bass đầm chắc nặng trịch
+      // Âm dập mộc đầm chắc, có độ vang như trong hầm sắt
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(110, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.5);
+      osc.frequency.setValueAtTime(95, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.45);
       gain.gain.setValueAtTime(1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.5);
+      osc.stop(audioCtx.currentTime + 0.45);
     }
 
-    function startDrone() {
+    // ÂM THANH MỚI: Tần số sóng Sine ấm và sâu, nhấp nhô rùng rợn không gây nhức đầu
+    function startCinematicDrone() {
       if (audioCtx.state === 'suspended') audioCtx.resume();
-      ambientDrone = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      ambientDrone.type = 'sawtooth';
-      ambientDrone.frequency.setValueAtTime(45, audioCtx.currentTime); // Tần số cực trầm rùng rợn
-      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-      ambientDrone.connect(gain);
-      gain.connect(audioCtx.destination);
-      ambientDrone.start();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+
+      // Dao động trầm 55Hz (A1)
+      osc1 = audioCtx.createOscillator();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(55, audioCtx.currentTime);
+
+      // Dao động bè 82.4Hz (E2) tạo hợp âm căng thẳng
+      osc2 = audioCtx.createOscillator();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(82.4, audioCtx.currentTime);
+
+      osc1.connect(masterGain);
+      osc2.connect(masterGain);
+      masterGain.connect(audioCtx.destination);
+
+      osc1.start();
+      osc2.start();
       isAudioOn = true;
       document.getElementById('audio-pill').classList.add('active');
       document.getElementById('audio-state').innerText = "AMBIENT ON";
     }
 
     document.getElementById('audio-pill').addEventListener('click', () => {
-      if (isAudioOn && ambientDrone) {
-        ambientDrone.stop();
-        ambientDrone = null;
+      if (isAudioOn && osc1) {
+        osc1.stop(); osc2.stop();
+        osc1 = null; osc2 = null;
         isAudioOn = false;
         document.getElementById('audio-pill').classList.remove('active');
         document.getElementById('audio-state').innerText = "AMBIENT OFF";
       } else {
-        startDrone();
+        startCinematicDrone();
       }
     });
 
-    /* ================= 3. HẠT BỤI / KHÓI SƯƠNG CANVASS ================= */
+    /* ================= 3. KHÓI SƯƠNG CANVASS ================= */
     const fogCanvas = document.getElementById('fog-canvas');
     const fogCtx = fogCanvas.getContext('2d');
     let particles = [];
@@ -919,7 +996,7 @@
     }
     drawFog();
 
-    /* ================= 4. QUY TRÌNH: 18+ -> MỞ THƯ -> ĐÓNG DẤU MỘC ================= */
+    /* ================= 4. QUY TRÌNH MỞ CỔNG & ĐÓNG DẤU ================= */
     const gate18 = document.getElementById('gate-18');
     const btnPassGate = document.getElementById('btn-pass-gate');
     const letterScreen = document.getElementById('letter-screen');
@@ -928,7 +1005,7 @@
 
     btnPassGate.addEventListener('click', () => {
       playCinematicStamp();
-      startDrone();
+      startCinematicDrone();
       gate18.style.display = 'none';
       letterScreen.style.display = 'flex';
     });
@@ -943,10 +1020,10 @@
         boardMain.style.display = "block";
         renderDossiers();
         setTimeout(renderThreads, 300);
-      }, 500);
+      }, 450);
     });
 
-    /* ================= 5. DỮ LIỆU VỤ ÁN & VẼ HỒ SƠ ================= */
+    /* ================= 5. DỮ LIỆU VỤ ÁN ================= */
     const DEFAULT_CASES = [
       {
         code: "SITE-17A // 1988",
@@ -1004,7 +1081,7 @@
       renderThreads();
     }
 
-    /* ================= 6. VẼ DÂY CHỈ ĐỎ PHÁT QUANG (ẢNH 2 & 3) ================= */
+    /* ================= 6. MẠNG LƯỚI CHỈ ĐỎ PHÁT QUANG ================= */
     const threadCanvas = document.getElementById('thread-canvas');
     const threadCtx = threadCanvas.getContext('2d');
 
@@ -1033,7 +1110,6 @@
         });
       });
 
-      // Dây nối từ tâm bí ẩn '?' đến từng hồ sơ
       pinCoords.forEach(pos => {
         threadCtx.beginPath();
         threadCtx.moveTo(hubX, hubY);
@@ -1047,7 +1123,6 @@
         threadCtx.stroke();
       });
 
-      // Đan chéo các hồ sơ với nhau tạo mạng nhện dây chỉ đỏ
       for (let i = 0; i < pinCoords.length - 1; i++) {
         threadCtx.beginPath();
         threadCtx.moveTo(pinCoords[i].x, pinCoords[i].y);
@@ -1059,14 +1134,19 @@
     }
     window.addEventListener('resize', renderThreads);
 
-    /* ================= 7. XÁC THỰC TED ID ================= */
+    /* ================= 7. XÁC THỰC TED ID & BẬT ĐÈN PHÒNG ================= */
     const authOverlay = document.getElementById('auth-overlay');
     const btnOpenTerminal = document.getElementById('btn-open-terminal');
     const btnCloseAuth = document.getElementById('btn-close-auth');
     const tedLoginForm = document.getElementById('ted-login-form');
     const tedActiveDesk = document.getElementById('ted-active-desk');
+    const authAlertBox = document.getElementById('auth-alert-box');
+    const btnToggleLight = document.getElementById('btn-toggle-light');
 
-    btnOpenTerminal.addEventListener('click', () => authOverlay.style.display = 'flex');
+    btnOpenTerminal.addEventListener('click', () => {
+      authAlertBox.style.display = 'none';
+      authOverlay.style.display = 'flex';
+    });
     btnCloseAuth.addEventListener('click', () => authOverlay.style.display = 'none');
 
     tedLoginForm.addEventListener('submit', (e) => {
@@ -1076,8 +1156,12 @@
 
       if (id === 'tcam9863@gmail.com' && pwd === 'camtien12') {
         playCinematicStamp();
-        alert('ACCESS GRANTED // Chào mừng Đặc vụ Ted, Custodian of Records.');
         authOverlay.style.display = 'none';
+
+        // 🌟 BẬT SÁNG ĐÈN TOÀN CĂN PHÒNG ĐIỀU TRA
+        document.body.classList.add('ted-illuminated');
+        btnToggleLight.style.display = 'flex';
+
         btnOpenTerminal.innerText = "TED // ONLINE";
         btnOpenTerminal.style.borderColor = "var(--crimson)";
         btnOpenTerminal.style.color = "var(--crimson)";
@@ -1085,11 +1169,19 @@
         tedActiveDesk.scrollIntoView({ behavior: 'smooth' });
         setTimeout(renderThreads, 200);
       } else {
-        alert('SECURITY BREACH // Từ chối quyền truy cập.');
+        authAlertBox.style.display = 'block';
+        authAlertBox.innerText = "TRUY CẬP BỊ TỪ CHỐI // SAI ID HOẶC MẬT MÃ";
       }
     });
 
-    /* ================= 8. TED ĐĂNG TẢI HỒ SƠ ================= */
+    // Nút Bật/Tắt đèn phòng sau khi Ted đăng nhập
+    btnToggleLight.addEventListener('click', () => {
+      document.body.classList.toggle('ted-illuminated');
+      const isIlluminated = document.body.classList.contains('ted-illuminated');
+      btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
+    });
+
+    /* ================= 8. TED ĐĂNG HỒ SƠ ================= */
     const createDossierForm = document.getElementById('create-dossier-form');
 
     createDossierForm.addEventListener('submit', (e) => {
@@ -1126,4 +1218,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
