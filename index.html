@@ -1136,3 +1136,130 @@
             <span>#0${idx + 1}</span>
           </div>
           <div class="sticky-note-clue">${item.note || '#CLUE'}</div>
+        `;
+
+        card.addEventListener('click', () => inspectDossier(item));
+        casesWall.appendChild(card);
+      });
+      renderRedThreads();
+    }
+
+    /* LỌC THEO KỆ TANG CHỨNG */
+    const shelfTabs = document.querySelectorAll('.evidence-tag-tab');
+    shelfTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        shelfTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.getAttribute('data-filter');
+        if (filter === 'all') {
+          renderCasesWall(dossiers);
+        } else {
+          const filtered = dossiers.filter(c => c.tags.some(t => t.toLowerCase().includes(filter.toLowerCase())));
+          renderCasesWall(filtered);
+        }
+      });
+    });
+
+    /* ================= 7. XEM CHI TIẾT HỒ SƠ ================= */
+    const inspectModal = document.getElementById('inspect-modal');
+    const btnCloseInspect = document.getElementById('btn-close-inspect');
+
+    function inspectDossier(data) {
+      document.getElementById('ins-code').innerText = data.code;
+      document.getElementById('ins-name').innerText = data.name;
+      document.getElementById('ins-img').src = data.img;
+      document.getElementById('ins-tags').innerText = data.tags.map(t => `#${t.trim()}`).join(' ');
+      document.getElementById('ins-desc').innerText = data.desc;
+      document.getElementById('ins-link-plot').href = data.plot;
+      document.getElementById('ins-link-ggai').href = data.ggai;
+      inspectModal.style.display = 'flex';
+      playStampBang();
+    }
+
+    btnCloseInspect.addEventListener('click', () => inspectModal.style.display = 'none');
+
+    /* ================= 8. DÂY CHỈ ĐỎ PHÁT QUANG ================= */
+    const threadCanvas = document.getElementById('thread-canvas');
+    const threadCtx = threadCanvas.getContext('2d');
+
+    function renderRedThreads() {
+      if (boardMain.style.display !== 'block') return;
+
+      threadCanvas.width = boardMain.scrollWidth;
+      threadCanvas.height = boardMain.scrollHeight;
+      threadCtx.clearRect(0, 0, threadCanvas.width, threadCanvas.height);
+
+      const hubPin = document.getElementById('hub-pin');
+      const hubRect = hubPin.getBoundingClientRect();
+      const boardRect = boardMain.getBoundingClientRect();
+
+      const hubX = hubRect.left - boardRect.left + hubRect.width / 2;
+      const hubY = hubRect.top - boardRect.top + hubRect.height / 2;
+
+      const pins = document.querySelectorAll('.pin-node');
+      const pinCoords = [];
+
+      pins.forEach(pin => {
+        const r = pin.getBoundingClientRect();
+        pinCoords.push({
+          x: r.left - boardRect.left + r.width / 2,
+          y: r.top - boardRect.top + r.height / 2
+        });
+      });
+
+      pinCoords.forEach(pos => {
+        threadCtx.beginPath();
+        threadCtx.moveTo(hubX, hubY);
+        const midX = (hubX + pos.x) / 2;
+        const midY = (hubY + pos.y) / 2 + 10;
+        threadCtx.quadraticCurveTo(midX, midY, pos.x, pos.y);
+        threadCtx.strokeStyle = "rgba(230, 0, 38, 0.72)";
+        threadCtx.lineWidth = 1.6;
+        threadCtx.shadowColor = "rgba(230, 0, 38, 0.85)";
+        threadCtx.shadowBlur = 5;
+        threadCtx.stroke();
+      });
+
+      for (let i = 0; i < pinCoords.length - 1; i++) {
+        threadCtx.beginPath();
+        threadCtx.moveTo(pinCoords[i].x, pinCoords[i].y);
+        threadCtx.lineTo(pinCoords[i+1].x, pinCoords[i+1].y);
+        threadCtx.strokeStyle = "rgba(230, 0, 38, 0.35)";
+        threadCtx.lineWidth = 1.1;
+        threadCtx.stroke();
+      }
+    }
+    window.addEventListener('resize', renderRedThreads);
+
+    /* ================= 9. XÁC THỰC TED & BẬT ĐÈN ================= */
+    const authOverlay = document.getElementById('auth-overlay');
+    const btnOpenTerminal = document.getElementById('btn-open-terminal');
+    const btnCloseAuth = document.getElementById('btn-close-auth');
+    const tedLoginForm = document.getElementById('ted-login-form');
+    const tedActiveDesk = document.getElementById('ted-active-desk');
+    const authAlertBox = document.getElementById('auth-alert-box');
+    const btnToggleLight = document.getElementById('btn-toggle-light');
+
+    btnOpenTerminal.addEventListener('click', () => {
+      authAlertBox.style.display = 'none';
+      authOverlay.style.display = 'flex';
+    });
+    btnCloseAuth.addEventListener('click', () => authOverlay.style.display = 'none');
+
+    tedLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('login-id').value.trim();
+      const pwd = document.getElementById('login-pwd').value.trim();
+
+      if (id === 'tcam9863@gmail.com' && pwd === 'camtien12') {
+        playStampBang();
+        authOverlay.style.display = 'none';
+
+        document.body.classList.add('ted-illuminated');
+        btnToggleLight.style.display = 'flex';
+
+        btnOpenTerminal.innerText = "TED // ONLINE";
+        btnOpenTerminal.style.borderColor = "var(--crimson)";
+        tedActiveDesk.style.display = 'block';
+        tedActiveDesk.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(renderRedThreads, 200);
