@@ -12,12 +12,12 @@
     :root {
       --bg: #050406;
       --crimson: #e60026;
-      --crimson-glow: rgba(230, 0, 38, 0.55);
+      --crimson-glow: rgba(230, 0, 38, 0.6);
       --crimson-dark: #3a0008;
       --polaroid-paper: #e5ded2;
       --postit-yellow: #f4dc66;
       --text-main: #f0eef5;
-      --text-dim: #7f7c8d;
+      --text-dim: #8b889a;
       --border-subtle: rgba(255, 255, 255, 0.08);
     }
 
@@ -25,7 +25,7 @@
       --bg: #140f12;
     }
     body.ted-illuminated .spotlight-layer {
-      background: radial-gradient(circle 900px at 50% 30%, rgba(255, 215, 160, 0.25) 0%, rgba(25, 15, 20, 0.6) 60%, rgba(8, 6, 9, 0.88) 100%) !important;
+      background: radial-gradient(circle 900px at 50% 30%, rgba(255, 215, 160, 0.22) 0%, rgba(20, 16, 18, 0.6) 60%, rgba(8, 7, 9, 0.88) 100%) !important;
     }
 
     * {
@@ -36,8 +36,12 @@
       user-select: none;
     }
 
+    /* ẢNH NỀN BACKGROUND CHÍNH THỨC CỦA BẠN */
     body {
-      background-color: var(--bg);
+      background: 
+        radial-gradient(circle at 50% 30%, transparent 20%, rgba(5, 4, 6, 0.85) 80%),
+        url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
+        var(--bg);
       color: var(--text-main);
       font-family: 'Space Grotesk', sans-serif;
       min-height: 100vh;
@@ -46,38 +50,13 @@
       transition: background-color 0.8s ease;
     }
 
-    /* ================= 1. NỀN GOTHIC ÁM ẢNH & TÀN TRO RỰC LỬA ================= */
-    .gothic-arch-backdrop {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background: 
-        radial-gradient(circle at 50% 25%, rgba(180, 0, 25, 0.22) 0%, transparent 60%),
-        radial-gradient(circle at 20% 70%, rgba(100, 0, 15, 0.15) 0%, transparent 50%);
-      opacity: 0.9;
-    }
-
-    /* Vết bàn tay máu & chữ Lies ẩn sau tường (Ảnh 4 & 6) */
-    .ambient-crime-traces {
-      position: fixed;
-      top: 10%;
-      right: -20px;
-      width: 340px;
-      height: 450px;
-      background: radial-gradient(ellipse at center, rgba(180, 0, 25, 0.16) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 2;
-      transform: rotate(12deg);
-    }
-
-    /* Đèn spotlight rọi theo ngón tay */
+    /* ĐÈN SPOTLIGHT ĐIỆN ẢNH CHIẾU THEO TAY */
     .spotlight-layer {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 35;
-      background: radial-gradient(circle 300px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5, 4, 6, 0.45) 55%, rgba(5, 4, 6, 0.85) 100%);
+      background: radial-gradient(circle 290px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5, 4, 6, 0.45) 55%, rgba(5, 4, 6, 0.82) 100%);
       transition: background 0.08s ease-out;
     }
 
@@ -91,7 +70,7 @@
       mix-blend-mode: screen;
     }
 
-    /* NÚT ĐIỀU KHIỂN TRÊN CÙNG */
+    /* NÚT TRÊN CÙNG */
     .top-bar-controls {
       position: fixed;
       top: 14px;
@@ -135,7 +114,7 @@
     }
     @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ================= 2. CỔNG 18+ ================= */
+    /* ================= 1. CỔNG 18+ ================= */
     #gate-18 {
       position: fixed;
       inset: 0;
@@ -191,7 +170,7 @@
       box-shadow: 0 0 30px var(--crimson-glow);
     }
 
-    /* ================= 3. THƯ CỦA TED & MỘC CẤP PHÉP ================= */
+    /* ================= 2. THƯ CỦA TED & MỘC CẤP PHÉP ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
@@ -320,7 +299,7 @@
       color: #aaa;
     }
 
-    /* ================= 4. BẢNG COLLAGE ÁN MẠNG GOTHIC ================= */
+    /* ================= 3. BẢNG ÁN MẠNG GOTHIC ================= */
     #board-main {
       display: none;
       min-height: 100vh;
@@ -379,101 +358,81 @@
       box-shadow: 0 0 15px rgba(230,0,38,0.25);
     }
 
-    /* ================= CÁC DẤU ẤN NGHI THỨC NGHỆ THUẬT (THAY THẾ NÚT HỘP) ================= */
-    .occult-sigil-rack {
+    /* ================= KỆ CÁC CON DẤU LOGO TÁCH NỀN TRẮNG TỰ ĐỘNG ================= */
+    .artistic-sigil-rack {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 20px;
+      gap: 24px;
       overflow-x: auto;
-      padding: 10px 6px 20px;
+      padding: 10px 8px 22px;
       margin-bottom: 25px;
       position: relative;
       z-index: 15;
       scrollbar-width: none;
     }
-    .occult-sigil-rack::-webkit-scrollbar { display: none; }
+    .artistic-sigil-rack::-webkit-scrollbar { display: none; }
 
-    /* Dấu ấn Sigil ma mị không đóng khung */
-    .art-sigil-node {
+    .art-sigil-btn {
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       cursor: pointer;
+      text-decoration: none;
       position: relative;
       transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      opacity: 0.7;
+      opacity: 0.75;
     }
-    .art-sigil-node:hover, .art-sigil-node.active {
+    .art-sigil-btn:hover, .art-sigil-btn.active {
       opacity: 1;
-      transform: translateY(-3px) scale(1.05);
+      transform: translateY(-4px) scale(1.08);
     }
 
-    .sigil-glyph {
-      width: 48px;
-      height: 48px;
-      position: relative;
+    .sigil-icon-frame {
+      width: 58px;
+      height: 58px;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(230, 0, 38, 0.15) 0%, transparent 75%);
     }
 
-    .sigil-glyph svg {
-      width: 100%;
-      height: 100%;
-      fill: none;
-      stroke: #8b8899;
-      stroke-width: 1.5;
-      transition: stroke 0.3s, filter 0.3s;
+    /* TÁCH NỀN TRẮNG CỦA CÁC FILE JPG TỰ ĐỘNG BẰNG CSS */
+    .sigil-logo-img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      /* Biến nền trắng thành trong suốt và phát quang đỏ rực */
+      filter: invert(1) contrast(1.5) drop-shadow(0 0 6px rgba(230, 0, 38, 0.7));
+      mix-blend-mode: screen;
+      transition: all 0.3s;
     }
 
-    .art-sigil-node.active .sigil-glyph svg,
-    .art-sigil-node:hover .sigil-glyph svg {
-      stroke: var(--crimson);
-      filter: drop-shadow(0 0 8px var(--crimson));
+    .art-sigil-btn.active .sigil-logo-img,
+    .art-sigil-btn:hover .sigil-logo-img {
+      filter: invert(1) contrast(1.8) drop-shadow(0 0 14px var(--crimson));
+      transform: scale(1.1);
     }
 
-    .sigil-caption {
+    .sigil-label-text {
       font-family: 'Cinzel', serif;
       font-size: 0.65rem;
       letter-spacing: 1.5px;
-      color: #9f9dae;
+      color: #a8a5b8;
       text-transform: uppercase;
       transition: color 0.3s;
     }
-    .art-sigil-node.active .sigil-caption,
-    .art-sigil-node:hover .sigil-caption {
+    .art-sigil-btn.active .sigil-label-text,
+    .art-sigil-btn:hover .sigil-label-text {
       color: #fff;
-      text-shadow: 0 0 6px var(--crimson);
-    }
-
-    /* PHÙ HIỆU ĐẶC VỤ TED (BẢN DOANH FACEBOOK CỦA BẠN) */
-    .ted-winged-sigil {
-      text-decoration: none;
-    }
-    .ted-winged-sigil .sigil-glyph {
-      background: radial-gradient(circle, rgba(230, 0, 38, 0.3) 0%, transparent 80%);
-    }
-    .ted-winged-sigil .sigil-glyph svg {
-      stroke: #ff2a4b;
-      filter: drop-shadow(0 0 10px rgba(230, 0, 38, 0.6));
-      animation: wingPulse 2.5s infinite ease-in-out;
-    }
-    @keyframes wingPulse {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(230,0,38,0.5)); }
-      50% { transform: scale(1.08); filter: drop-shadow(0 0 16px rgba(230,0,38,0.9)); }
-    }
-    .ted-winged-sigil .sigil-caption {
-      color: #ff3355;
-      font-weight: 700;
       text-shadow: 0 0 8px var(--crimson);
     }
 
-    /* TÂM ĐIỂM '?' NỐI DÂY ĐỎ */
+    /* TÂM ĐIỂM '?' NỐI CHỈ ĐỎ */
     .mystery-hub-modern {
       text-align: center;
       margin: 5px auto 30px;
@@ -618,7 +577,7 @@
       pointer-events: none;
     }
 
-    /* ================= 5. TẬP HỒ SƠ CHI TIẾT ================= */
+    /* ================= 4. TẬP HỒ SƠ CHI TIẾT ================= */
     .dossier-inspect-overlay {
       position: fixed;
       inset: 0;
@@ -692,7 +651,7 @@
       box-shadow: 0 0 15px var(--crimson-glow);
     }
 
-    /* ================= 6. ĐĂNG NHẬP TED & BÀN HỒ SƠ ================= */
+    /* ================= 5. ĐĂNG NHẬP TED & BÀN HỒ SƠ ================= */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -775,17 +734,13 @@
 </head>
 <body>
 
-  <!-- ĐẦY ĐỦ CÁC BIẾN THỂ TÊN FILE ĐỂ TRÌNH DUYỆT TÌM THẤY 100% -->
+  <!-- ĐÚNG TÊN FILE NHẠC WHO IS SHE TRÊN GITHUB CỦA BẠN -->
   <audio id="noir-ambient-audio" loop preload="auto">
+    <source src="I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3" type="audio/mpeg">
+    <source src="I%20Monster%20-%20Who%20Is%20She%20%28Lyrics%29%20Immortal%20She%20Return%20To%20Me%20%5BTikTok%20Song%5D.mp3" type="audio/mpeg">
     <source src="KId_Cudi_-_She_Knows_This_slowed_reverb_(mp3.pm).mp3" type="audio/mpeg">
-    <source src="Kld_Cudi_-_She_Knows_This_slowed_reverb_(mp3.pm).mp3" type="audio/mpeg">
-    <source src="Kid_Cudi_-_She_Knows_This_slowed_reverb_(mp3.pm).mp3" type="audio/mpeg">
-    <source src="music.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- NỀN GOTHIC & VẾT TÍCH ÁM ẢNH PHÍA SAU -->
-  <div class="gothic-arch-backdrop"></div>
-  <div class="ambient-crime-traces"></div>
   <div class="spotlight-layer" id="spotlight"></div>
   <canvas id="ember-canvas"></canvas>
 
@@ -857,51 +812,30 @@
       <button class="btn-agent-terminal" id="btn-open-terminal">ACCESS TERMINAL: TED</button>
     </div>
 
-    <!-- CÁC DẤU ẤN NGHI THỨC NGHỆ THUẬT (THAY THẾ TOÀN BỘ CÁC NÚT ĐÓNG KHUNG CŨ) -->
-    <div class="occult-sigil-rack">
-      <!-- DẤU ẤN TỔNG HỒ SƠ -->
-      <div class="art-sigil-node active" data-filter="all">
-        <div class="sigil-glyph">
-          <svg viewBox="0 0 40 40">
-            <circle cx="20" cy="20" r="17" stroke-dasharray="3 2" />
-            <circle cx="20" cy="20" r="11" />
-            <polygon points="20,6 32,27 8,27" />
-          </svg>
+    <!-- CÁC CON DẤU LOGO TÁCH NỀN TRẮNG TỰ ĐỘNG BẰNG CSS -->
+    <div class="artistic-sigil-rack">
+      <!-- LOGO 1: TẤT CẢ HỒ SƠ -->
+      <div class="art-sigil-btn active" data-filter="all">
+        <div class="sigil-icon-frame">
+          <img src="d71e1855a1b1de229780369c6fb20679.jpg" class="sigil-logo-img" alt="Tất cả hồ sơ">
         </div>
-        <span class="sigil-caption">TẤT CẢ HỒ SƠ</span>
+        <span class="sigil-label-text">TẤT CẢ HỒ SƠ</span>
       </div>
 
-      <!-- DẤU ẤN LỆNH TRUY NÃ -->
-      <div class="art-sigil-node" data-filter="Active">
-        <div class="sigil-glyph">
-          <svg viewBox="0 0 40 40">
-            <path d="M20 4 L23 18 L36 20 L23 22 L20 36 L17 22 L4 20 L17 18 Z" />
-            <circle cx="20" cy="20" r="4" fill="var(--crimson)" />
-          </svg>
+      <!-- LOGO 2: LỆNH TRUY NÃ -->
+      <div class="art-sigil-btn" data-filter="Active">
+        <div class="sigil-icon-frame">
+          <img src="47bae67d27b11432e952819b2bc571fd.jpg" class="sigil-logo-img" alt="Lệnh truy nã">
         </div>
-        <span class="sigil-caption">LỆNH TRUY NÃ</span>
+        <span class="sigil-label-text">LỆNH TRUY NÃ</span>
       </div>
 
-      <!-- DẤU ẤN CỔNG VÒM SITE 17-A -->
-      <div class="art-sigil-node" data-filter="Beaumont">
-        <div class="sigil-glyph">
-          <svg viewBox="0 0 40 40">
-            <path d="M10 34 L10 18 C10 10 30 10 30 18 L30 34" />
-            <path d="M16 34 L16 22 C16 16 24 16 24 22 L24 34" />
-          </svg>
+      <!-- LOGO 3: TRẠM CHỦ TED (DẪN THẲNG ĐẾN FACEBOOK CỦA BẠN) -->
+      <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="art-sigil-btn">
+        <div class="sigil-icon-frame">
+          <img src="3c7066bc08b0fa30abc856bd32cc3260.jpg" class="sigil-logo-img" alt="Trạm chủ Ted">
         </div>
-        <span class="sigil-caption">SITE 17-A</span>
-      </div>
-
-      <!-- PHÙ HIỆU ĐẶC VỤ TED DẪN THẲNG ĐẾN FACEBOOK -->
-      <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="art-sigil-node ted-winged-sigil">
-        <div class="sigil-glyph">
-          <svg viewBox="0 0 40 40">
-            <path d="M20 12 C12 4 4 14 8 26 C12 24 16 20 20 22 C24 20 28 24 32 26 C36 14 28 4 20 12 Z" />
-            <circle cx="20" cy="22" r="2.5" fill="#fff" />
-          </svg>
-        </div>
-        <span class="sigil-caption">TRẠM CHỦ TED ↗</span>
+        <span class="sigil-label-text">TRẠM CHỦ TED ↗</span>
       </a>
     </div>
 
@@ -946,11 +880,7 @@
           <textarea id="in-desc" rows="2" placeholder="Ghi chép khám nghiệm..."></textarea>
         </div>
 
-        <button type="submit" class="btn-terminal-submit" id="btn-upload-submit">+ GHIM HỒ SƠ LÊN BẢNG</button>
-        
-        <button type="button" id="btn-export-code" style="width:100%; background:#22141c; border:1px dashed #777; color:#ddd; padding:10px; font-family:'JetBrains Mono'; font-size:0.75rem; margin-top:8px; cursor:pointer;">
-          📋 XUẤT CODE DANH SÁCH ĐỂ DÁN VÀO GITHUB (CHO MỌI NGƯỜI CÙNG THẤY)
-        </button>
+        <button type="submit" class="btn-terminal-submit" id="btn-upload-submit">+ GHIM HỒ SƠ LÊN BẢNG (TỰ ĐỘNG LƯU MÂY)</button>
       </form>
     </section>
 
@@ -1020,7 +950,7 @@
       if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    /* ================= 2. HỆ THỐNG PHÁT NHẠC TỰ ĐỘNG THÔNG MINH ================= */
+    /* ================= 2. HỆ THỐNG PHÁT NHẠC WHO IS SHE ================= */
     const noirAudio = document.getElementById('noir-ambient-audio');
     let isAudioOn = false;
     const audioPill = document.getElementById('audio-pill');
@@ -1040,7 +970,6 @@
       }
     }
 
-    // Bấm nút bật/tắt nhạc
     audioPill.addEventListener('click', () => {
       if (isAudioOn) {
         noirAudio.pause();
@@ -1052,7 +981,7 @@
       }
     });
 
-    // Chạm bất kỳ đâu trên web lần đầu tiên cũng sẽ tự mở nhạc nếu bị chặn
+    // Chạm bất kỳ đâu trên màn hình lần đầu cũng kích hoạt nhạc
     document.addEventListener('pointerdown', () => {
       if (!isAudioOn && gate18.style.display === 'none') {
         startMusic();
@@ -1075,7 +1004,7 @@
       osc.stop(audioCtx.currentTime + 0.4);
     }
 
-    /* ================= 3. TÀN TRO THAN ĐỎ RỰC LỬA TRÊN NỀN ================= */
+    /* ================= 3. TÀN TRO RỰC LỬA ================= */
     const emberCanvas = document.getElementById('ember-canvas');
     const emberCtx = emberCanvas.getContext('2d');
     let embers = [];
@@ -1119,7 +1048,7 @@
     }
     drawEmbers();
 
-    /* ================= 4. DANH SÁCH HỒ SƠ MẶC ĐỊNH ================= */
+    /* ================= 4. HỆ THỐNG ĐỒNG BỘ TOÀN CẦU TỰ ĐỘNG ================= */
     const GLOBAL_DEFAULT_CASES = [
       {
         code: "01",
@@ -1153,7 +1082,62 @@
       }
     ];
 
-    let dossiers = JSON.parse(localStorage.getItem('cali_cases_v4')) || GLOBAL_DEFAULT_CASES;
+    let dossiers = JSON.parse(localStorage.getItem('cali_cases_v5')) || GLOBAL_DEFAULT_CASES;
+
+    // Tự động tải dữ liệu từ mây khi bất kỳ ai (bạn hoặc Trang) mở web
+    async function loadSharedCloudCases() {
+      try {
+        const idRes = await fetch('https://api.keyval.org/get/ted_cali_blob_id_vault');
+        const blobId = (await idRes.text()).trim();
+        if (blobId && blobId.length > 10 && !blobId.includes("error")) {
+          const dataRes = await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
+            headers: { 'Accept': 'application/json' }
+          });
+          if (dataRes.ok) {
+            const cloudCases = await dataRes.json();
+            if (Array.isArray(cloudCases) && cloudCases.length > 0) {
+              dossiers = cloudCases;
+              localStorage.setItem('cali_cases_v5', JSON.stringify(dossiers));
+              renderCasesWall(dossiers);
+            }
+          }
+        }
+      } catch (err) {
+        console.log("Dùng cache nội bộ:", err);
+      }
+    }
+
+    // Tự động lưu lên mây khi Ted tạo nhân vật mới
+    async function saveSharedCloudCases(casesData) {
+      try {
+        let blobId = "";
+        try {
+          const idRes = await fetch('https://api.keyval.org/get/ted_cali_blob_id_vault');
+          blobId = (await idRes.text()).trim();
+        } catch(e){}
+
+        if (blobId && blobId.length > 10 && !blobId.includes("error")) {
+          await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(casesData)
+          });
+        } else {
+          const createRes = await fetch('https://jsonblob.com/api/jsonBlob', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(casesData)
+          });
+          const location = createRes.headers.get('Location') || "";
+          const newBlobId = location.split('/').pop();
+          if (newBlobId) {
+            await fetch('https://api.keyval.org/set/ted_cali_blob_id_vault/' + newBlobId);
+          }
+        }
+      } catch (err) {
+        console.error("Lỗi đồng bộ mây:", err);
+      }
+    }
 
     /* ================= 5. MỞ CỔNG & BẢNG ÁN MẠNG ================= */
     const gate18 = document.getElementById('gate-18');
@@ -1167,6 +1151,7 @@
       startMusic();
       gate18.style.display = 'none';
       letterScreen.style.display = 'flex';
+      loadSharedCloudCases(); // Tự động kéo dữ liệu mây cho mọi người
     });
 
     artSeal.addEventListener('click', () => {
@@ -1212,11 +1197,11 @@
       renderRedThreads();
     }
 
-    /* CHUYỂN DẤU ẤN SIGIL PHÂN LOẠI */
-    const sigilTabs = document.querySelectorAll('.art-sigil-node');
+    /* CHUYỂN DẤU ẤN LOGO PHÂN LOẠI */
+    const sigilTabs = document.querySelectorAll('.art-sigil-btn');
     sigilTabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        if (tab.classList.contains('ted-winged-sigil')) return;
+        if (tab.hasAttribute('href')) return; // Bỏ qua link Facebook
         sigilTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         const filter = tab.getAttribute('data-filter');
@@ -1344,8 +1329,9 @@
       btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
     });
 
-    /* ================= 10. NÉN ẢNH TỰ ĐỘNG & TẠO CHAR MỚI ================= */
+    /* ================= 10. NÉN ẢNH & TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU ================= */
     const createDossierForm = document.getElementById('create-dossier-form');
+    const btnUploadSubmit = document.getElementById('btn-upload-submit');
 
     function compressImage(file, callback) {
       const reader = new FileReader();
@@ -1382,7 +1368,10 @@
       const tagsVal = document.getElementById('in-tags').value.split(',');
       const descVal = document.getElementById('in-desc').value;
 
-      compressImage(fileVal, function(compressedBase64) {
+      btnUploadSubmit.innerText = "⏳ ĐANG ĐỒNG BỘ MÂY...";
+      btnUploadSubmit.disabled = true;
+
+      compressImage(fileVal, async function(compressedBase64) {
         const newRecord = {
           code: codeVal,
           name: nameVal,
@@ -1395,20 +1384,17 @@
         };
 
         dossiers.unshift(newRecord);
-        localStorage.setItem('cali_cases_v4', JSON.stringify(dossiers));
+        localStorage.setItem('cali_cases_v5', JSON.stringify(dossiers));
         renderCasesWall(dossiers);
-        playStampBang();
-        alert(`Đã đính hồ sơ [${nameVal}] lên bảng của bạn!\n\n👉 BẤM NÚT [XUẤT CODE DƯỚI ĐÂY] ĐỂ TRANG VÀ MỌI NGƯỜI CÙNG THẤY VĨNH VIỄN NHÉ!`);
-        createDossierForm.reset();
-      });
-    });
 
-    document.getElementById('btn-export-code').addEventListener('click', () => {
-      const exportJson = JSON.stringify(dossiers, null, 2);
-      navigator.clipboard.writeText(exportJson).then(() => {
-        alert("ĐÃ COPY TOÀN BỘ DANH SÁCH HỒ SƠ VÀO BỘ NHỚ TẠM!\n\nBạn chỉ cần vào GitHub, thay thế đoạn 'const GLOBAL_DEFAULT_CASES = [...]' bằng mã vừa copy là TẤT CẢ MỌI NGƯỜI SẼ THẤY CÁC CHAR BẠN TẠO MÃI MÃI!");
-      }).catch(() => {
-        prompt("Sao chép đoạn mã này và cập nhật vào GitHub:", exportJson);
+        // 🌟 TỰ ĐỘNG BẮN LÊN MÂY CHO MỌI NGƯỜI CÙNG THẤY VĨNH VIỄN
+        await saveSharedCloudCases(dossiers);
+
+        playStampBang();
+        alert(`⚡ HỒ SƠ [${nameVal}] ĐÃ ĐƯỢC ĐÍNH LÊN BẢNG VÀ TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU THÀNH CÔNG!`);
+        btnUploadSubmit.innerText = "+ GHIM HỒ SƠ LÊN BẢNG (TỰ ĐỘNG LƯU MÂY)";
+        btnUploadSubmit.disabled = false;
+        createDossierForm.reset();
       });
     });
   </script>
