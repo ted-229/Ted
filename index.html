@@ -1263,3 +1263,85 @@
         tedActiveDesk.style.display = 'block';
         tedActiveDesk.scrollIntoView({ behavior: 'smooth' });
         setTimeout(renderRedThreads, 200);
+      } else {
+        authAlertBox.style.display = 'block';
+        authAlertBox.innerText = "TRUY CẬP BỊ TỪ CHỐI // SAI ID HOẶC MẬT MÃ";
+      }
+    });
+
+    btnToggleLight.addEventListener('click', () => {
+      document.body.classList.toggle('ted-illuminated');
+      const isIlluminated = document.body.classList.contains('ted-illuminated');
+      btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
+    });
+
+    /* ================= 10. NÉN ẢNH TỰ ĐỘNG & TẠO CHAR MỚI ================= */
+    const createDossierForm = document.getElementById('create-dossier-form');
+
+    function compressImage(file, callback) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const MAX_SIZE = 350;
+          let w = img.width, h = img.height;
+          if (w > h) {
+            if (w > MAX_SIZE) { h *= MAX_SIZE / w; w = MAX_SIZE; }
+          } else {
+            if (h > MAX_SIZE) { h *= MAX_SIZE / h; h = MAX_SIZE; }
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          callback(canvas.toDataURL('image/jpeg', 0.65));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    createDossierForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const codeVal = document.getElementById('in-code').value;
+      const nameVal = document.getElementById('in-name').value;
+      const fileVal = document.getElementById('in-file').files[0];
+      const plotVal = document.getElementById('in-plot').value;
+      const ggaiVal = document.getElementById('in-ggai').value;
+      const tagsVal = document.getElementById('in-tags').value.split(',');
+      const descVal = document.getElementById('in-desc').value;
+
+      compressImage(fileVal, function(compressedBase64) {
+        const newRecord = {
+          code: codeVal,
+          name: nameVal,
+          img: compressedBase64,
+          tags: tagsVal.length ? tagsVal : ["Active"],
+          desc: descVal || "Không có ghi chú thêm.",
+          plot: plotVal,
+          ggai: ggaiVal,
+          note: `#${nameVal.toUpperCase()}`
+        };
+
+        dossiers.unshift(newRecord);
+        localStorage.setItem('cali_cases_v3', JSON.stringify(dossiers));
+        renderCasesWall(dossiers);
+        playStampBang();
+        alert(`Đã đính hồ sơ [${nameVal}] lên bảng của bạn!\n\n👉 BẤM NÚT [XUẤT CODE DƯỚI ĐÂY] ĐỂ TRANG VÀ MỌI NGƯỜI CÙNG THẤY VĨNH VIỄN NHÉ!`);
+        createDossierForm.reset();
+      });
+    });
+
+    document.getElementById('btn-export-code').addEventListener('click', () => {
+      const exportJson = JSON.stringify(dossiers, null, 2);
+      navigator.clipboard.writeText(exportJson).then(() => {
+        alert("ĐÃ COPY TOÀN BỘ DANH SÁCH HỒ SƠ VÀO BỘ NHỚ TẠM!\n\nBạn chỉ cần vào GitHub, thay thế đoạn 'const GLOBAL_DEFAULT_CASES = [...]' bằng mã vừa copy là TẤT CẢ MỌI NGƯỜI SẼ THẤY CÁC CHAR BẠN TẠO MÃI MÃI!");
+      }).catch(() => {
+        prompt("Sao chép đoạn mã này và cập nhật vào GitHub:", exportJson);
+      });
+    });
+  </script>
+</body>
+</html>
