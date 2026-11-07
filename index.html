@@ -19,7 +19,7 @@
       --text-main: #f0eef5;
       --text-dim: #9b98ab;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --orb-glow: rgba(230, 0, 38, 0.35);
+      --gold-baroque: #c5a059;
     }
 
     body.ted-illuminated {
@@ -37,7 +37,7 @@
       user-select: none;
     }
 
-    /* BACKGROUND CHÍNH THỨC CỦA BẠN ĐƯỢC GIỮ NGUYÊN */
+    /* ẢNH BACKGROUND CỦA BẠN ĐƯỢC GIỮ NGUYÊN */
     body {
       background: 
         radial-gradient(circle at 50% 30%, transparent 20%, rgba(5, 4, 6, 0.85) 80%),
@@ -94,25 +94,26 @@
       mix-blend-mode: screen;
     }
 
-    /* THANH NÚT ĐIỀU KHIỂN TRÊN CÙNG */
+    /* THANH NÚT ĐIỀU KHIỂN GÓC TRÊN CÙNG (ĐÃ THU NHỎ NÚT TED VÀO ĐÂY) */
     .top-bar-controls {
       position: fixed;
       top: 14px;
       right: 14px;
       z-index: 100;
       display: flex;
+      align-items: center;
       gap: 8px;
     }
 
-    .audio-pill, .light-pill {
-      background: rgba(14, 8, 12, 0.88);
+    .audio-pill, .light-pill, .admin-pill {
+      background: rgba(14, 8, 12, 0.9);
       border: 1px solid rgba(230, 0, 38, 0.35);
       backdrop-filter: blur(14px);
-      padding: 6px 14px;
+      padding: 6px 12px;
       border-radius: 30px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       color: var(--text-dim);
       display: flex;
       align-items: center;
@@ -120,6 +121,16 @@
       cursor: pointer;
       transition: 0.3s;
     }
+    .admin-pill {
+      border-color: rgba(212, 175, 55, 0.4);
+      color: #dfcfab;
+    }
+    .admin-pill:hover, .admin-pill.active {
+      border-color: var(--crimson);
+      color: #fff;
+      box-shadow: 0 0 12px var(--crimson-glow);
+    }
+
     .audio-pill.active {
       border-color: var(--crimson);
       color: #fff;
@@ -368,34 +379,16 @@
       font-size: 0.7rem;
       color: var(--text-dim);
       letter-spacing: 1px;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
 
-    .btn-ted-terminal-access {
-      background: rgba(230, 0, 38, 0.08);
-      border: 1px solid rgba(230, 0, 38, 0.45);
-      color: #fff;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      padding: 8px 18px;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      box-shadow: 0 0 15px rgba(230,0,38,0.25);
-      transition: all 0.3s;
-      border-radius: 20px;
-    }
-    .btn-ted-terminal-access:hover {
-      background: var(--crimson);
-      box-shadow: 0 0 25px var(--crimson-glow);
-    }
-
-    /* ================= 3 NÚT BONG BÓNG MỜ ẢO (MỸ THUẬT SƠN DẦU) ================= */
+    /* ================= 3 BONG BÓNG MỜ ẢO SƠN DẦU (FINE-ART LIQUID ORBS) ================= */
     .ethereal-orbs-nav {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 22px;
-      margin-top: 20px;
+      gap: 25px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
     }
 
@@ -413,46 +406,45 @@
 
     @keyframes floatOrb {
       0% { transform: translateY(0); }
-      100% { transform: translateY(-6px); }
+      100% { transform: translateY(-7px); }
     }
 
-    /* HÌNH BONG BÓNG THỦY TINH MỜ ẢO TRÒN TRỊA */
     .glass-orb-bubble {
-      width: 72px;
-      height: 72px;
+      width: 76px;
+      height: 76px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      background: radial-gradient(circle at 35% 30%, rgba(255, 60, 90, 0.35) 0%, rgba(30, 10, 18, 0.75) 60%, rgba(8, 4, 7, 0.95) 100%);
-      border: 1.5px solid rgba(255, 100, 120, 0.4);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.8), inset 0 0 16px rgba(230, 0, 38, 0.4);
+      background: radial-gradient(circle at 35% 30%, rgba(255, 60, 90, 0.3) 0%, rgba(35, 12, 20, 0.85) 60%, rgba(8, 4, 7, 0.98) 100%);
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.85), inset 0 0 16px rgba(230, 0, 38, 0.45);
       backdrop-filter: blur(14px);
     }
 
     .art-orb-btn:hover .glass-orb-bubble,
     .art-orb-btn.active .glass-orb-bubble {
       border-color: #fff;
-      box-shadow: 0 0 30px var(--crimson-glow), inset 0 0 20px var(--crimson);
+      box-shadow: 0 0 35px var(--crimson-glow), inset 0 0 20px var(--crimson);
       transform: scale(1.1);
     }
 
     .glass-orb-bubble svg {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
+      stroke: #dfd8e5;
       fill: none;
-      stroke: #ecd6dc;
       stroke-width: 1.4;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 0 5px rgba(230,0,38,0.7));
+      filter: drop-shadow(0 0 6px rgba(230,0,38,0.7));
       transition: all 0.3s;
     }
     .art-orb-btn:hover .glass-orb-bubble svg,
     .art-orb-btn.active .glass-orb-bubble svg {
       stroke: #fff;
-      filter: drop-shadow(0 0 10px var(--crimson));
+      filter: drop-shadow(0 0 12px var(--crimson));
     }
 
     .orb-label-title {
@@ -471,7 +463,6 @@
       text-shadow: 0 0 8px var(--crimson);
     }
 
-    /* BONG BÓNG BẢN DOANH TED (FACEBOOK) */
     .ted-orb-special .glass-orb-bubble {
       border-color: #ff3355;
       box-shadow: 0 0 25px rgba(230, 0, 38, 0.45), inset 0 0 18px rgba(230, 0, 38, 0.6);
@@ -482,10 +473,47 @@
       text-shadow: 0 0 10px var(--crimson);
     }
 
+    /* ================= THANH TÌM KIẾM / ĐIỀU TRA HỒ SƠ ================= */
+    .dossier-search-wrapper {
+      width: 100%;
+      max-width: 460px;
+      margin: 10px auto 25px;
+      position: relative;
+      z-index: 10;
+    }
+    .search-input-field {
+      width: 100%;
+      background: rgba(14, 8, 14, 0.85);
+      border: 1px solid rgba(230, 0, 38, 0.4);
+      color: #fff;
+      padding: 10px 16px 10px 38px;
+      border-radius: 25px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      outline: none;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+      transition: all 0.3s;
+    }
+    .search-input-field:focus {
+      border-color: var(--crimson);
+      box-shadow: 0 0 20px var(--crimson-glow);
+    }
+    .search-lens-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85rem;
+      color: var(--crimson);
+      pointer-events: none;
+    }
+
     /* TÂM ĐIỂM '?' NỐI CHỈ ĐỎ */
     .mystery-hub-modern {
       text-align: center;
-      margin: 15px auto 25px;
+      margin: 5px auto 25px;
       position: relative;
       z-index: 10;
       width: fit-content;
@@ -672,9 +700,9 @@
     }
     .btn-card-edit, .btn-card-del {
       flex: 1;
-      padding: 3px 0;
+      padding: 4px 0;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
+      font-size: 0.62rem;
       font-weight: bold;
       border: 1px solid #111;
       background: #222;
@@ -687,16 +715,16 @@
       border-color: #55000c;
     }
 
-    /* ================= 4. DIỄN ĐÀN PHẢN HỒI MỸ THUẬT GOTHIC ================= */
+    /* ================= 4. CỔNG DIỄN ĐÀN TRANH SƠN DẦU (FEEDBACK SALON) ================= */
     .discord-feedback-zone {
-      background: rgba(14, 9, 14, 0.85);
-      border: 1px solid rgba(230, 0, 38, 0.35);
-      padding: 22px 18px;
-      border-radius: 4px;
+      background: radial-gradient(circle at 50% 20%, rgba(35, 15, 25, 0.9) 0%, rgba(12, 6, 12, 0.95) 100%);
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      padding: 24px 20px;
+      border-radius: 6px;
       position: relative;
       z-index: 15;
       margin-top: 35px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.95);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.95), inset 0 0 30px rgba(0,0,0,0.8);
       backdrop-filter: blur(14px);
     }
 
@@ -704,41 +732,41 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 12px;
-      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
     }
 
     .channel-title {
       font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #fff;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
-    .channel-title span { color: var(--crimson); font-weight: bold; font-size: 1.1rem; }
+    .channel-title span { color: var(--gold-baroque); font-weight: bold; font-size: 1.2rem; }
 
     .btn-open-feedback-modal {
-      background: var(--crimson);
-      border: none;
+      background: linear-gradient(135deg, #a8001a 0%, #52000c 100%);
+      border: 1px solid var(--crimson);
       color: #fff;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
       font-size: 0.72rem;
-      padding: 7px 14px;
+      padding: 8px 16px;
       cursor: pointer;
-      border-radius: 2px;
+      border-radius: 20px;
       letter-spacing: 1px;
-      box-shadow: 0 0 12px var(--crimson-glow);
+      box-shadow: 0 0 15px var(--crimson-glow);
     }
 
     .discord-messages-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      max-height: 290px;
+      gap: 14px;
+      max-height: 310px;
       overflow-y: auto;
       padding-right: 6px;
     }
@@ -746,20 +774,21 @@
     .discord-message-item {
       display: flex;
       gap: 12px;
-      background: rgba(22, 14, 20, 0.85);
-      padding: 10px 14px;
-      border-radius: 3px;
+      background: rgba(22, 12, 20, 0.75);
+      padding: 12px 14px;
+      border-radius: 4px;
       border-left: 2.5px solid var(--crimson);
+      position: relative;
     }
 
     .discord-avatar-img {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
       flex-shrink: 0;
-      border: 1px solid rgba(230,0,38,0.5);
-      box-shadow: 0 0 8px rgba(0,0,0,0.8);
+      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      box-shadow: 0 0 10px rgba(0,0,0,0.8);
     }
 
     .discord-msg-content {
@@ -769,14 +798,20 @@
     .discord-author-line {
       display: flex;
       align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .author-name-tag {
+      display: flex;
+      align-items: baseline;
       gap: 8px;
-      margin-bottom: 3px;
     }
 
     .author-name {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: #fff;
     }
 
@@ -798,7 +833,24 @@
     .msg-body-text {
       font-size: 0.82rem;
       line-height: 1.45;
-      color: #cfcbdb;
+      color: #dfdaea;
+    }
+
+    /* Nút xoá comment dành riêng cho Ted */
+    .btn-del-feedback {
+      display: none;
+      background: #8a0014;
+      border: none;
+      color: #fff;
+      font-size: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 2px 6px;
+      cursor: pointer;
+      border-radius: 2px;
+      margin-left: 8px;
+    }
+    body.ted-illuminated .btn-del-feedback {
+      display: inline-block;
     }
 
     /* MODAL ĐĂNG FEEDBACK */
@@ -967,7 +1019,7 @@
       z-index: 15;
     }
 
-    /* MODAL CHỈNH SỬA HỒ SƠ DÀNH CHO TED */
+    /* MODAL CHỈNH SỬA HỒ SƠ */
     #edit-dossier-modal {
       position: fixed;
       inset: 0;
@@ -984,7 +1036,7 @@
 
   <div id="jumpscare-overlay"></div>
 
-  <!-- NHẠC WHO IS SHE CHẠY LIÊN TỤC -->
+  <!-- BÀI HÁT WHO IS SHE TIẾP TỤC CHẠY -->
   <audio id="noir-ambient-audio" loop preload="auto">
     <source src="I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3" type="audio/mpeg">
     <source src="I%20Monster%20-%20Who%20Is%20She%20%28Lyrics%29%20Immortal%20She%20Return%20To%20Me%20%5BTikTok%20Song%5D.mp3" type="audio/mpeg">
@@ -994,6 +1046,7 @@
   <div class="spotlight-layer" id="spotlight"></div>
   <canvas id="ember-canvas"></canvas>
 
+  <!-- THANH ĐIỀU KHIỂN GÓC TRÊN CÙNG: ĐÈN + NHẠC + NÚT TED KÍN ĐÁO -->
   <div class="top-bar-controls">
     <div class="light-pill" id="btn-toggle-light" style="display:none;">
       <span>💡 ĐÈN: BẬT</span>
@@ -1001,6 +1054,10 @@
     <div class="audio-pill" id="audio-pill">
       <div class="audio-dot"></div>
       <span id="audio-state">AMBIENT OFF</span>
+    </div>
+    <!-- NÚT TED ĐƯỢC THU NHỎ KÍN ĐÁO TẠI ĐÂY -->
+    <div class="admin-pill" id="btn-open-terminal">
+      <span>🔒 TED</span>
     </div>
   </div>
 
@@ -1057,45 +1114,52 @@
     <div class="redesigned-header">
       <h2 class="brand-headline">CALIFORNIA FORENSIC ARCHIVE</h2>
       <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
-      <button class="btn-ted-terminal-access" id="btn-open-terminal">[ ACCESS TERMINAL: TED ]</button>
 
-      <!-- 3 NÚT BONG BÓNG MỜ ẢO ĐÚNG TÊN CŨ -->
+      <!-- 3 NÚT BONG BÓNG MỜ ẢO SƠN DẦU (FINE ART ORBS) -->
       <div class="ethereal-orbs-nav">
         
-        <!-- BONG BÓNG 1: TẤT CẢ HỒ SƠ -->
+        <!-- BONG BÓNG 1: TẤT CẢ HỒ SƠ (CUỐN THƯ CỔ VÀ LA BÀN SƠN DẦU) -->
         <div class="art-orb-btn active" data-filter="all">
           <div class="glass-orb-bubble">
             <svg viewBox="0 0 40 40">
-              <circle cx="20" cy="20" r="14" stroke-dasharray="3 2" />
-              <circle cx="20" cy="20" r="8" />
-              <path d="M20 6 L20 12 M20 28 L20 34 M6 20 L12 20 M28 20 L34 20" />
+              <circle cx="20" cy="20" r="14" stroke="rgba(212,175,55,0.7)" stroke-dasharray="3 2" />
+              <path d="M12 15 C16 12 24 12 28 15 L28 27 C24 24 16 24 12 27 Z" stroke="#fff" />
+              <path d="M20 13 L20 25" stroke="var(--crimson)" />
             </svg>
           </div>
           <span class="orb-label-title">TẤT CẢ HỒ SƠ</span>
         </div>
 
-        <!-- BONG BÓNG 2: LỆNH TRUY NÃ -->
+        <!-- BONG BÓNG 2: LỆNH TRUY NÃ (TRÁI TIM GAI & DAO GĂM GOTHIC) -->
         <div class="art-orb-btn" data-filter="Active">
           <div class="glass-orb-bubble">
             <svg viewBox="0 0 40 40">
-              <path d="M20 7 L23 16 L33 20 L23 24 L20 33 L17 24 L7 20 L17 16 Z" />
-              <circle cx="20" cy="20" r="3" fill="var(--crimson)" />
+              <path d="M20 28 C10 20 8 13 14 9 C18 6 20 10 20 10 C20 10 22 6 26 9 C32 13 30 20 20 28 Z" stroke="#fff" fill="rgba(230,0,38,0.25)" />
+              <path d="M20 5 L20 34" stroke="var(--crimson)" stroke-width="1.8" />
+              <path d="M15 12 L25 12" stroke="rgba(212,175,55,0.8)" stroke-width="1.5" />
             </svg>
           </div>
           <span class="orb-label-title">LỆNH TRUY NÃ</span>
         </div>
 
-        <!-- BONG BÓNG 3: TRẠM CHỦ TED (DẪN FACEBOOK) -->
+        <!-- BONG BÓNG 3: TRẠM CHỦ TED (ĐÔI CÁNH THIÊN THẦN DẪN FACEBOOK) -->
         <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="art-orb-btn ted-orb-special">
           <div class="glass-orb-bubble">
             <svg viewBox="0 0 40 40">
-              <path d="M20 14 C14 4 6 14 10 26 C14 24 18 20 20 22 C22 20 26 24 30 26 C34 14 26 4 20 14 Z" />
-              <circle cx="20" cy="22" r="2.5" fill="#fff" />
+              <path d="M20 14 C13 4 5 14 9 26 C13 24 17 20 20 22 C23 20 27 24 31 26 C35 14 27 4 20 14 Z" stroke="#ff3355" fill="rgba(255,51,85,0.2)" />
+              <circle cx="20" cy="23" r="2.5" fill="#fff" />
+              <circle cx="20" cy="10" r="5" stroke="rgba(212,175,55,0.9)" stroke-width="1.2" stroke-dasharray="2 2" />
             </svg>
           </div>
           <span class="orb-label-title">TRẠM CHỦ TED ↗</span>
         </a>
 
+      </div>
+
+      <!-- KÍNH LÚP ĐIỀU TRA: TÌM KIẾM THEO MÃ SỐ VÀ TÊN HỒ SƠ -->
+      <div class="dossier-search-wrapper">
+        <span class="search-lens-icon">🔍</span>
+        <input type="text" id="case-search-input" class="search-input-field" placeholder="NHẬP MÃ SỐ (VD: 01) HOẶC TÊN ĐỐI TƯỢNG ĐỂ ĐIỀU TRA...">
       </div>
     </div>
 
@@ -1156,18 +1220,16 @@
     <!-- BẢNG GHIM POLAROID 2 CỘT -->
     <div class="conspiracy-board-wall" id="cases-wall"></div>
 
-    <!-- ================= DIỄN ĐÀN PHẢN HỒI GOTHIC MỸ THUẬT ================= -->
+    <!-- ================= CỔNG DIỄN ĐÀN TRANH SƠN DẦU (FEEDBACK SALON) ================= -->
     <section class="discord-feedback-zone">
       <div class="discord-channel-header">
         <div class="channel-title">
-          <span>#</span> MANH MỐI & PHẢN HỒI
+          <span>⚜️</span> DIỄN ĐÀN MANH MỐI & PHẢN HỒI
         </div>
         <button class="btn-open-feedback-modal" id="btn-trigger-feedback">+ GỬI MANH MỐI</button>
       </div>
 
-      <div class="discord-messages-list" id="feedback-chat-list">
-        <!-- Danh sách comment -->
-      </div>
+      <div class="discord-messages-list" id="feedback-chat-list"></div>
     </section>
   </main>
 
@@ -1310,7 +1372,9 @@
       }
     }, { once: false });
 
+    /* ÂM THANH NỔ HÙ DỌA & TIẾNG ĐẬP MỘC */
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
     function playJumpscareSound() {
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
@@ -1367,7 +1431,8 @@
     function drawEmbers() {
       emberCtx.clearRect(0, 0, emberCanvas.width, emberCanvas.height);
       embers.forEach(p => {
-        p.y += p.dy; p.x += p.dx;
+        p.y += p.dy;
+        p.x += p.dx;
         if (p.y < 0) {
           p.y = emberCanvas.height + 10;
           p.x = Math.random() * emberCanvas.width;
@@ -1383,12 +1448,26 @@
     }
     drawEmbers();
 
-    /* ================= 4. HỆ THỐNG ĐỒNG BỘ ĐÁM MÂY TỰ ĐỘNG ================= */
-    const GLOBAL_DEFAULT_CASES = [
+    /* ================= 4. KHO LƯU TRỮ BẤT BIẾN (KHÔNG BAO GIỜ MẤT CHAR) ================= */
+    const MASTER_KEY = "TED_MASTER_DOSSIERS_VAULT";
+
+    // Khởi tạo sẵn các nhân vật của bạn từ trước để không bao giờ bị mất
+    const PERMANENT_INITIAL_CASES = [
+      {
+        code: "01",
+        name: "Đại tội vùng California",
+        img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+        tags: ["Hi", "Active"],
+        desc: "Hồ sơ tâm lý tội phạm đặc quyền của bang California.",
+        plot: "https://google.com",
+        ggai: "https://aistudio.google.com",
+        note: "#TED",
+        likes: 0
+      },
       {
         code: "01",
         name: "ted",
-        img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+        img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
         tags: ["Hi", "Active"],
         desc: "Hồ sơ của Đặc vụ Ted. Đã được ghi nhận vào kho lưu trữ California.",
         plot: "https://google.com",
@@ -1405,7 +1484,7 @@
         plot: "https://google.com",
         ggai: "https://aistudio.google.com",
         note: "CLOSED 1988",
-        likes: 2
+        likes: 3
       },
       {
         code: "CA-04 // DAILY MIRROR",
@@ -1420,12 +1499,33 @@
       }
     ];
 
-    let dossiers = JSON.parse(localStorage.getItem('cali_cases_v8')) || GLOBAL_DEFAULT_CASES;
+    // Thuật toán quét và khôi phục toàn bộ char cũ bạn từng tạo
+    function getPersistedDossiers() {
+      let data = localStorage.getItem(MASTER_KEY);
+      if (data) return JSON.parse(data);
 
-    // Tải mây ngay lập tức
+      // Quét ngược các phiên bản cũ để gom char của Ted lại
+      const oldKeys = ['cali_cases_v8', 'cali_cases_v7', 'cali_cases_v6', 'cali_cases_v5', 'cali_cases_v4', 'cali_cases_v3', 'cali_cases_v2'];
+      for (let k of oldKeys) {
+        let oldData = localStorage.getItem(k);
+        if (oldData) {
+          try {
+            let parsed = JSON.parse(oldData);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              localStorage.setItem(MASTER_KEY, JSON.stringify(parsed));
+              return parsed;
+            }
+          } catch(e){}
+        }
+      }
+      return PERMANENT_INITIAL_CASES;
+    }
+
+    let dossiers = getPersistedDossiers();
+
     async function loadSharedCloudCases() {
       try {
-        const idRes = await fetch('https://api.keyval.org/get/ted_cali_vault_v8');
+        const idRes = await fetch('https://api.keyval.org/get/ted_master_cloud_vault_v1');
         const blobId = (await idRes.text()).trim();
         if (blobId && blobId.length > 10 && !blobId.includes("error")) {
           const dataRes = await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
@@ -1435,22 +1535,22 @@
             const cloudCases = await dataRes.json();
             if (Array.isArray(cloudCases) && cloudCases.length > 0) {
               dossiers = cloudCases;
-              localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
+              localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
               renderCasesWall(dossiers);
             }
           }
         }
       } catch (err) {
-        console.log("Dùng cache nội bộ:", err);
+        console.log("Dùng kho nội bộ:", err);
       }
     }
-    loadSharedCloudCases(); // Kéo dữ liệu tự động ngay khi mở web
+    loadSharedCloudCases();
 
     async function saveSharedCloudCases(casesData) {
       try {
         let blobId = "";
         try {
-          const idRes = await fetch('https://api.keyval.org/get/ted_cali_vault_v8');
+          const idRes = await fetch('https://api.keyval.org/get/ted_master_cloud_vault_v1');
           blobId = (await idRes.text()).trim();
         } catch(e){}
 
@@ -1469,7 +1569,7 @@
           const location = createRes.headers.get('Location') || "";
           const newBlobId = location.split('/').pop();
           if (newBlobId) {
-            await fetch('https://api.keyval.org/set/ted_cali_vault_v8/' + newBlobId);
+            await fetch('https://api.keyval.org/set/ted_master_cloud_vault_v1/' + newBlobId);
           }
         }
       } catch (err) {
@@ -1522,7 +1622,7 @@
         const rot = (idx % 2 === 0 ? 1 : -1) * (1.5 + (idx % 3) * 0.7);
         card.style.setProperty('--rot', `${rot}deg`);
 
-        const isLiked = localStorage.getItem('cali_liked_' + item.code);
+        const isLiked = localStorage.getItem('cali_liked_' + item.code + '_' + item.name);
 
         card.innerHTML = `
           <div class="red-pushpin pin-node"></div>
@@ -1534,7 +1634,7 @@
             <span>${item.code}</span>
             <div class="stamp-like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLikeChar(${idx}, event)">
               <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-              <span id="like-count-${idx}">${item.likes || 0}</span>
+              <span>${item.likes || 0}</span>
             </div>
           </div>
           <div class="sticky-note-clue">${item.note || '#CLUE'}</div>
@@ -1553,7 +1653,7 @@
     window.toggleLikeChar = function(idx, event) {
       event.stopPropagation();
       const item = dossiers[idx];
-      const key = 'cali_liked_' + item.code;
+      const key = 'cali_liked_' + item.code + '_' + item.name;
       if (!localStorage.getItem(key)) {
         item.likes = (item.likes || 0) + 1;
         localStorage.setItem(key, 'true');
@@ -1562,7 +1662,7 @@
         item.likes = Math.max(0, (item.likes || 1) - 1);
         localStorage.removeItem(key);
       }
-      localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
+      localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
       renderCasesWall(dossiers);
       saveSharedCloudCases(dossiers);
     };
@@ -1582,6 +1682,22 @@
           renderCasesWall(filtered);
         }
       });
+    });
+
+    /* ================= TÌM KIẾM / ĐIỀU TRA THEO MÃ SỐ & TÊN ================= */
+    const caseSearchInput = document.getElementById('case-search-input');
+    caseSearchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      if (!q) {
+        renderCasesWall(dossiers);
+        return;
+      }
+      const matched = dossiers.filter(c => 
+        c.code.toLowerCase().includes(q) || 
+        c.name.toLowerCase().includes(q) ||
+        c.tags.some(t => t.toLowerCase().includes(q))
+      );
+      renderCasesWall(matched);
     });
 
     /* ================= 7. XEM CHI TIẾT HỒ SƠ ================= */
@@ -1654,14 +1770,13 @@
     }
     window.addEventListener('resize', renderRedThreads);
 
-    /* ================= 9. DIỄN ĐÀN FEEDBACK (AVATAR MỸ THUẬT & CHẶN TỪ TỤC TĨU) ================= */
+    /* ================= 9. DIỄN ĐÀN SƠN DẦU (AVATAR MỸ THUẬT & QUYỀN XOÁ CỦA TED) ================= */
     const feedbackModal = document.getElementById('feedback-modal');
     const btnTriggerFeedback = document.getElementById('btn-trigger-feedback');
     const btnCloseFeedback = document.getElementById('btn-close-feedback');
     const btnSendFeedback = document.getElementById('btn-send-feedback');
     const feedbackChatList = document.getElementById('feedback-chat-list');
 
-    // 🎨 BỘ SƯU TẬP AVATAR MỸ THUẬT / TRANH SƠN DẦU CỰC XINH
     const FINE_ART_AVATARS = [
       "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=120&q=80",
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80",
@@ -1670,7 +1785,6 @@
       "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=120&q=80"
     ];
 
-    // 🚫 BỘ LỌC CHẶN TỪ NGỮ NHẠY CẢM / BẬY TỤC
     const BAD_WORDS_BLACKLIST = [
       "chó", "lồn", "cặc", "đụ", "địt", "đụ mẹ", "địt mẹ", 
       "lỗ đít", "đít", "đái", "buồi", "dâm", "chịch", "vú", 
@@ -1682,16 +1796,19 @@
       return BAD_WORDS_BLACKLIST.some(bad => lower.includes(bad));
     }
 
-    let feedbacks = JSON.parse(localStorage.getItem('cali_feedbacks_v2')) || [];
+    let feedbacks = JSON.parse(localStorage.getItem('TED_PERMANENT_FEEDBACKS')) || [];
 
     function renderFeedbacks() {
-      const items = feedbacks.map(f => `
+      const items = feedbacks.map((f, idx) => `
         <div class="discord-message-item">
           <img src="${f.avatar}" class="discord-avatar-img" alt="${f.name}">
           <div class="discord-msg-content">
             <div class="discord-author-line">
-              <span class="author-name">${f.name}</span>
-              <span class="msg-timestamp">${f.time}</span>
+              <div class="author-name-tag">
+                <span class="author-name">${f.name}</span>
+                <span class="msg-timestamp">${f.time}</span>
+              </div>
+              <button class="btn-del-feedback" onclick="deleteFeedbackItem(${idx})">🗑️ XOÁ</button>
             </div>
             <div class="msg-body-text">${f.msg}</div>
           </div>
@@ -1703,9 +1820,11 @@
           <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="discord-avatar-img" alt="Ted">
           <div class="discord-msg-content">
             <div class="discord-author-line">
-              <span class="author-name">Ted</span>
-              <span class="author-badge">CUSTODIAN</span>
-              <span class="msg-timestamp">Hôm nay</span>
+              <div class="author-name-tag">
+                <span class="author-name">Ted</span>
+                <span class="author-badge">CUSTODIAN</span>
+                <span class="msg-timestamp">Hôm nay</span>
+              </div>
             </div>
             <div class="msg-body-text">Mọi manh mối bạn phát hiện được hãy để lại tại đây. Hãy cẩn trọng với những gì bạn thấy.</div>
           </div>
@@ -1715,6 +1834,15 @@
     }
     renderFeedbacks();
 
+    window.deleteFeedbackItem = function(idx) {
+      if (confirm("Đặc vụ Ted có chắc chắn muốn xoá vĩnh viễn phản hồi này không?")) {
+        feedbacks.splice(idx, 1);
+        localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
+        renderFeedbacks();
+        playStampBang();
+      }
+    };
+
     btnTriggerFeedback.addEventListener('click', () => feedbackModal.style.display = 'flex');
     btnCloseFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
 
@@ -1723,15 +1851,12 @@
       const msg = document.getElementById('fb-user-msg').value.trim();
       if (!name || !msg) { alert("Vui lòng điền đầy đủ tên và nội dung!"); return; }
 
-      // KIỂM TRA TỪ NGỮ BẬY TỤC
       if (containsProfanity(name) || containsProfanity(msg)) {
-        alert("⚠️ HỆ THỐNG TỪ CHỐI LƯU VẾT!\nPhát hiện ngôn từ nhạy cảm hoặc tục tĩu. Vui lòng giữ văn minh khi truy cập kho lưu trữ!");
+        alert("⚠️ HỆ THỐNG TỪ CHỐI LƯU VẾT!\nPhát hiện ngôn từ nhạy cảm hoặc tục tĩu. Vui lòng giữ thái độ lịch sự trong khu vực hồ sơ!");
         return;
       }
 
-      // Phát ngẫu nhiên avatar tranh sơn dầu xinh đẹp
       const randomAvatar = FINE_ART_AVATARS[Math.floor(Math.random() * FINE_ART_AVATARS.length)];
-
       const newFb = {
         name: name,
         msg: msg,
@@ -1740,7 +1865,7 @@
       };
 
       feedbacks.push(newFb);
-      localStorage.setItem('cali_feedbacks_v2', JSON.stringify(feedbacks));
+      localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
       renderFeedbacks();
       feedbackModal.style.display = 'none';
       document.getElementById('fb-user-msg').value = "";
@@ -1774,11 +1899,12 @@
         document.body.classList.add('ted-illuminated');
         btnToggleLight.style.display = 'flex';
 
-        btnOpenTerminal.innerText = "[ TED // ONLINE ]";
-        btnOpenTerminal.style.borderColor = "var(--crimson)";
+        btnOpenTerminal.innerHTML = "<span>👑 TED ONLINE</span>";
+        btnOpenTerminal.classList.add('active');
         tedActiveDesk.style.display = 'block';
         tedActiveDesk.scrollIntoView({ behavior: 'smooth' });
         renderCasesWall(dossiers);
+        renderFeedbacks();
         setTimeout(renderRedThreads, 200);
       } else {
         authAlertBox.style.display = 'block';
@@ -1792,7 +1918,7 @@
       btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
     });
 
-    /* ================= 11. SỬA HỒ SƠ (CÓ ĐỔI CẢ ẢNH) & XOÁ ================= */
+    /* ================= 11. SỬA HỒ SƠ (CÓ THỂ ĐỔI CẢ ẢNH) & XOÁ ================= */
     const editModal = document.getElementById('edit-dossier-modal');
     const btnCloseEdit = document.getElementById('btn-close-edit');
     const btnSaveEdit = document.getElementById('btn-save-edit');
@@ -1806,7 +1932,7 @@
       document.getElementById('edit-plot').value = c.plot;
       document.getElementById('edit-ggai').value = c.ggai;
       document.getElementById('edit-desc').value = c.desc;
-      document.getElementById('edit-file').value = ""; // reset file input
+      document.getElementById('edit-file').value = "";
       editModal.style.display = 'flex';
     };
 
@@ -1822,7 +1948,7 @@
       dossiers[idx].ggai = document.getElementById('edit-ggai').value;
       dossiers[idx].desc = document.getElementById('edit-desc').value;
 
-      // NẾU TED CHỌN ẢNH MỚI: NÉN VÀ THAY THẾ
+      // NẾU TED TẢI ẢNH MỚI LÊN ĐỂ THAY THẾ
       if (fileInput.files && fileInput.files[0]) {
         compressImageKeepRatio(fileInput.files[0], async function(newImgBase64) {
           dossiers[idx].img = newImgBase64;
@@ -1833,7 +1959,7 @@
       }
 
       async function finalizeEdit() {
-        localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
+        localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
         renderCasesWall(dossiers);
         editModal.style.display = 'none';
         playStampBang();
@@ -1846,7 +1972,7 @@
       event.stopPropagation();
       if (confirm(`Bạn có chắc chắn muốn tiêu huỷ hồ sơ [${dossiers[idx].name}] vĩnh viễn không?`)) {
         dossiers.splice(idx, 1);
-        localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
+        localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
         renderCasesWall(dossiers);
         playStampBang();
 
@@ -1908,7 +2034,7 @@
         };
 
         dossiers.unshift(newRecord);
-        localStorage.setItem('cali_cases_v8', JSON.stringify(dossiers));
+        localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
         renderCasesWall(dossiers);
 
         await saveSharedCloudCases(dossiers);
