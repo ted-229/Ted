@@ -6,735 +6,2113 @@
   <title>ĐẠI TỘI VÙNG CALIFORNIA</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Reenie+Beanie&family=Space+Grotesk:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --crimson: #9e0013;
-      --paper: #e6ddc5;
-      --bg-dark: #050404;
-      --text-dim: #888;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
-
-    /* NỀN VÀ FONT CHUẨN TIẾNG VIỆT */
-    body {
-      background: 
-        radial-gradient(circle at 50% 50%, rgba(10,5,5,0.4) 0%, rgba(2,1,1,0.98) 100%),
-        url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
-        var(--bg-dark);
-      color: #dfdfdf;
-      font-family: 'Space Grotesk', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
+      --bg: #040305;
+      --crimson: #a80010;
+      --crimson-glow: rgba(168, 0, 16, 0.65);
+      --crimson-dark: #3a0008;
+      --paper: #e5ded2;
+      --postit-yellow: #f4dc66;
+      --tape: rgba(220, 215, 190, 0.65);
+      --text-main: #f0eef5;
+      --text-dim: #9b98ab;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --gold-baroque: #c5a059;
     }
 
     body.ted-illuminated {
-      background: url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed;
+      --bg: #140f12;
     }
-    body.ted-illuminated .spotlight-layer { display: none; }
-    body.ted-illuminated #fog-canvas { opacity: 0.1; }
-
-    /* ================= HIỆU ỨNG SPOTLIGHT & KHÓI ================= */
-    .spotlight-layer {
-      position: fixed; inset: 0; pointer-events: none; z-index: 35;
-      background: radial-gradient(circle 350px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5,3,3,0.7) 50%, rgba(0,0,0,0.96) 100%);
+    body.ted-illuminated .spotlight-layer {
+      background: radial-gradient(circle 900px at 50% 30%, rgba(255, 215, 160, 0.22) 0%, rgba(20, 16, 18, 0.6) 60%, rgba(8, 7, 9, 0.88) 100%) !important;
     }
 
-    #fog-canvas {
-      position: fixed; inset: 0; width: 100vw; height: 100vh;
-      pointer-events: none; z-index: 30; mix-blend-mode: screen; opacity: 0.45;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
 
-    /* ================= HIỆU ỨNG JUMPSCARE CÓ BÓNG ĐEN ================= */
+    /* BACKGROUND CHÍNH THỨC CỦA BẠN */
+    body {
+      background: 
+        radial-gradient(circle at 50% 30%, transparent 20%, rgba(5, 4, 6, 0.85) 80%),
+        url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
+        var(--bg);
+      color: var(--text-main);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color 0.8s ease;
+    }
+
+    /* HIỆU ỨNG NHÁ ĐÈN & BÓNG ĐEN HÙ DỌA (JUMPSCARE) */
     #jumpscare-overlay {
-      position: fixed; inset: 0; z-index: 999; pointer-events: none; display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      pointer-events: none;
+      display: none;
       background-color: #fff;
-      background-position: center; background-size: cover; background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
+
     .strobe-active {
       display: block !important;
       animation: horrorStrobe 0.4s steps(2, start) forwards;
     }
+
     @keyframes horrorStrobe {
-      0% { background-color: #fff; opacity: 1; filter: invert(0); }
-      25% { background-color: var(--crimson); opacity: 0.9; filter: invert(1); }
-      50% { background-color: #000; opacity: 1; filter: invert(0); }
-      75% { background-color: #fff; opacity: 0.8; }
-      100% { background-color: transparent; opacity: 0; }
+      0% { opacity: 1; filter: invert(0); }
+      25% { opacity: 0.95; filter: invert(1); background-color: var(--crimson); }
+      50% { opacity: 1; filter: invert(0); }
+      75% { opacity: 0.9; }
+      100% { opacity: 0; }
     }
 
-    /* THANH CÔNG CỤ TED & NHẠC (THU GỌN) */
-    .top-controls {
-      position: fixed; top: 15px; right: 15px; z-index: 100; display: flex; gap: 8px;
+    /* ĐÈN SPOTLIGHT ĐIỆN ẢNH */
+    .spotlight-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 35;
+      background: radial-gradient(circle 300px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5, 4, 6, 0.5) 55%, rgba(5, 4, 6, 0.88) 100%);
+      transition: background 0.08s ease-out;
     }
-    .ctrl-btn {
-      background: rgba(10, 10, 10, 0.9); border: 1px solid #444; padding: 6px 12px;
-      font-size: 0.7rem; font-family: 'Courier Prime', monospace; color: #aaa;
-      cursor: pointer; display: flex; align-items: center; gap: 6px; border-radius: 3px;
-    }
-    .ctrl-btn.active { border-color: var(--crimson); color: #fff; }
-    .audio-dot { width: 6px; height: 6px; border-radius: 50%; background: #555; }
-    .ctrl-btn.active .audio-dot { background: var(--crimson); box-shadow: 0 0 8px var(--crimson); }
-    .admin-btn { border-color: #500; color: var(--crimson); font-weight: bold; }
-    .admin-btn:hover, .admin-btn.active { background: var(--crimson); color: #fff; border-color: #fff; }
 
-    /* ================= CỔNG 18+ (ĐẠI TỘI VÙNG CALIFORNIA) ================= */
+    /* LỚP KHÓI SƯƠNG CANVASS */
+    #fog-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 28;
+      mix-blend-mode: screen;
+      opacity: 0.4;
+    }
+
+    /* LỚP TÀN TRO ĐỎ CANVASS */
+    #ember-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 30;
+      mix-blend-mode: screen;
+    }
+
+    /* THANH NÚT ĐIỀU KHIỂN TRÊN CÙNG */
+    .top-bar-controls {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .audio-pill, .light-pill, .admin-pill {
+      background: rgba(14, 8, 12, 0.92);
+      border: 1px solid rgba(230, 0, 38, 0.35);
+      backdrop-filter: blur(14px);
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .admin-pill {
+      border-color: rgba(212, 175, 55, 0.5);
+      color: #dfcfab;
+      font-weight: bold;
+    }
+    .admin-pill:hover, .admin-pill.active {
+      border-color: var(--crimson);
+      color: #fff;
+      box-shadow: 0 0 15px var(--crimson-glow);
+    }
+    .audio-pill.active {
+      border-color: var(--crimson);
+      color: #fff;
+      box-shadow: 0 0 15px var(--crimson-glow);
+    }
+    .audio-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+    .audio-pill.active .audio-dot {
+      background: var(--crimson);
+      box-shadow: 0 0 8px var(--crimson);
+      animation: pulseDot 1.5s infinite;
+    }
+    @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+    /* ================= 1. CỔNG 18+: ĐẠI TỘI VÙNG CALIFORNIA ================= */
     #gate-18 {
-      position: fixed; inset: 0; background: #020101; z-index: 200; display: flex; justify-content: center; align-items: center; padding: 20px;
+      position: fixed;
+      inset: 0;
+      background: #030204;
+      z-index: 200;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
     }
+
     .gate-card {
-      background: #0a0505; border: 1px solid var(--crimson); padding: 40px 25px;
-      max-width: 420px; text-align: center; box-shadow: 0 0 50px rgba(158, 0, 19, 0.4);
+      width: 100%;
+      max-width: 440px;
+      background: #0b0709;
+      border: 1px solid rgba(230, 0, 38, 0.4);
+      padding: 40px 24px 30px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 40px rgba(230, 0, 38, 0.25);
+      text-align: center;
     }
+
     .gate-card h1 {
-      font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700;
-      color: #ff1a1a; margin-bottom: 15px; text-shadow: 0 0 15px var(--crimson);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.65rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+      color: #ff1a2a;
+      line-height: 1.3;
+      text-shadow: 0 0 15px var(--crimson);
     }
-    .gate-card p { font-size: 0.85rem; line-height: 1.6; color: #aaa; margin-bottom: 30px; font-family: 'Courier Prime', monospace; }
-    
-    .btn-blood {
-      background: var(--crimson); color: #fff; border: 1px solid #ff4d4d; padding: 12px 20px;
-      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; cursor: pointer; width: 100%; transition: 0.3s;
-    }
-    .btn-blood:hover { background: #d00018; box-shadow: 0 0 20px var(--crimson); }
 
-    /* ================= THƯ & MỘC CHUẨN PHÁP Y ================= */
+    .gate-card p {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      font-family: 'Courier Prime', monospace;
+    }
+
+    .btn-action-glow {
+      width: 100%;
+      background: var(--crimson);
+      border: 1px solid #ff4d4d;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-action-glow:hover, .btn-action-glow:active {
+      background: #d40018;
+      box-shadow: 0 0 30px var(--crimson-glow);
+    }
+
+    /* ================= 2. BỨC THƯ & MỘC PHÁP Y HUYẾT ẤN ================= */
     #letter-screen {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 150;
-      display: none; justify-content: center; align-items: center; padding: 20px; transition: transform 0.8s ease-in;
-    }
-    .letter-paper {
-      background: var(--paper); color: #111; padding: 40px 30px; max-width: 500px;
-      box-shadow: 0 10px 40px rgba(0,0,0,1); position: relative;
-    }
-    .letter-paper h2 {
-      font-family: 'Special Elite', cursive; font-size: 2rem; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px;
-    }
-    .letter-paper p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; font-family: 'Courier Prime', monospace; font-weight: 700;}
-    
-    /* Mộc Cấp Phép Pháp Y - Vẽ bằng CSS chuẩn */
-    .forensic-seal-btn {
-      width: 130px; height: 130px; border-radius: 50%; margin: 0 auto; cursor: pointer;
-      border: 4px double var(--crimson); display: flex; flex-direction: column; justify-content: center; align-items: center;
-      position: relative; transform: rotate(-8deg); transition: 0.3s;
-      background: radial-gradient(circle, rgba(158, 0, 19, 0.05) 0%, transparent 80%);
-    }
-    .forensic-seal-btn:hover { transform: scale(1.05) rotate(0deg); border-color: #ff1a1a; box-shadow: 0 0 25px var(--crimson-glow); }
-    .seal-text-circle {
-      position: absolute; width: 100%; height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path id="curve" d="M 15 50 A 35 35 0 1 1 85 50 A 35 35 0 1 1 15 50" fill="none" stroke="none"/><text fill="%239e0013" font-size="9" font-family="Courier Prime" font-weight="bold" letter-spacing="3"><textPath href="%23curve">DEPT. OF JUSTICE * CLASSIFIED *</textPath></text></svg>') center/contain no-repeat;
-      animation: rotateSeal 20s linear infinite;
-    }
-    @keyframes rotateSeal { 100% { transform: rotate(360deg); } }
-    .seal-center {
-      font-family: 'Special Elite', cursive; font-size: 1.2rem; color: var(--crimson); font-weight: bold; z-index: 2;
-      border-top: 2px solid var(--crimson); border-bottom: 2px solid var(--crimson); padding: 2px 0;
+      position: fixed;
+      inset: 0;
+      background: #040305;
+      z-index: 150;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+      overflow-y: auto;
+      transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
     }
 
-    /* ================= BẢNG ÁN MẠNG ================= */
+    .forensic-dossier-letter {
+      width: 100%;
+      max-width: 520px;
+      background: var(--paper);
+      border: 1px solid #70624d;
+      padding: 35px 25px 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.95);
+      position: relative;
+      margin: auto;
+      color: #121013;
+    }
+
+    /* Kẹp giấy đính thư */
+    .forensic-dossier-letter::before {
+      content: "";
+      position: absolute;
+      top: -14px;
+      left: 25px;
+      width: 18px;
+      height: 48px;
+      border: 3px solid #666;
+      border-radius: 10px;
+      background: transparent;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+      transform: rotate(-8deg);
+    }
+
+    .dossier-barcode {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.7rem;
+      color: #555;
+      letter-spacing: 2px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #333;
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+    }
+
+    .dossier-headline h2 {
+      font-family: 'Special Elite', cursive;
+      font-size: 2rem;
+      color: #111;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .dossier-headline .sub {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.75rem;
+      color: var(--crimson);
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .dossier-body {
+      font-family: 'Special Elite', cursive;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: #222;
+      margin-bottom: 25px;
+      text-align: justify;
+    }
+
+    /* MỘC PHÁP Y HUYẾT ẤN CHUẨN CỤC LƯU TRỮ */
+    .seal-permit-zone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px dashed #777;
+      padding-top: 22px;
+    }
+
+    .official-forensic-seal {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px double var(--crimson);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      transform: rotate(-6deg);
+      box-shadow: 0 0 25px rgba(168, 0, 16, 0.35);
+      background: radial-gradient(circle, rgba(168, 0, 16, 0.08) 0%, transparent 75%);
+      transition: all 0.3s;
+    }
+    .official-forensic-seal:hover {
+      transform: scale(1.06) rotate(0deg);
+      border-color: #ff1a2a;
+      box-shadow: 0 0 35px var(--crimson-glow);
+    }
+
+    .seal-svg-ring {
+      position: absolute;
+      inset: 4px;
+      width: calc(100% - 8px);
+      height: calc(100% - 8px);
+      animation: rotateStamp 22s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes rotateStamp { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .seal-center-text {
+      text-align: center;
+      z-index: 2;
+    }
+    .seal-center-text .permit-tag {
+      font-family: 'Special Elite', cursive;
+      font-weight: bold;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: var(--crimson);
+      display: block;
+    }
+    .seal-center-text .status-tag {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.55rem;
+      color: #333;
+      font-weight: bold;
+      border-top: 1px solid var(--crimson);
+      border-bottom: 1px solid var(--crimson);
+      padding: 1px 0;
+      margin: 3px 0;
+      display: block;
+    }
+    .seal-center-text .auth-code {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.6rem;
+      color: #666;
+    }
+
+    /* ================= 3. BẢNG ÁN MẠNG GOTHIC ================= */
     #board-main {
-      display: none; min-height: 100vh; padding: 40px 15px 100px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 20;
-    }
-    #thread-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-
-    .main-title {
-      font-family: 'Special Elite', cursive; font-size: 2.2rem; text-align: center; color: #fff; margin-bottom: 5px; text-shadow: 2px 2px 4px #000;
-    }
-    .sub-title { text-align: center; font-size: 0.8rem; color: #888; font-family: 'Courier Prime', monospace; margin-bottom: 40px;}
-
-    /* KÍNH LÚP TÌM KIẾM */
-    .search-box { max-width: 450px; margin: 0 auto 40px; position: relative; z-index: 10; }
-    .search-box input {
-      width: 100%; background: rgba(10, 5, 5, 0.8); border: 1px solid #440000; padding: 12px 20px 12px 40px;
-      color: #fff; font-family: 'Courier Prime', monospace; font-size: 0.85rem; outline: none; box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-    }
-    .search-box input:focus { border-color: var(--crimson); box-shadow: 0 0 15px rgba(158, 0, 19, 0.5); }
-    .search-box::before { content: "🔍"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; opacity: 0.7; }
-
-    /* ================= BẢNG ĐĂNG KÝ TED ================= */
-    #admin-desk {
-      display: none; background: rgba(10, 5, 5, 0.95); border: 1px dashed var(--crimson);
-      padding: 25px; margin-bottom: 40px; position: relative; z-index: 10; box-shadow: 0 0 30px rgba(0,0,0,0.8);
-    }
-    body.ted-illuminated #admin-desk { display: block; }
-    .input-grp { margin-bottom: 15px; }
-    .input-grp label { display: block; font-size: 0.75rem; color: #999; margin-bottom: 5px; font-family: 'Courier Prime', monospace; }
-    .input-grp input, .input-grp textarea {
-      width: 100%; background: #000; border: 1px solid #330000; color: #fff; padding: 10px; font-family: 'Courier Prime', monospace; outline: none;
+      display: none;
+      min-height: 100vh;
+      padding: 30px 12px 100px;
+      max-width: 1250px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 20;
     }
 
-    /* ================= THẺ POLAROID NGHỆ THUẬT ================= */
-    .polaroid-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; position: relative; z-index: 10; padding-bottom: 50px;
+    #thread-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
     }
-    @media (min-width: 768px) { .polaroid-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; } }
 
-    .card-polaroid {
-      background: var(--paper); padding: 10px 10px 20px 10px; box-shadow: 2px 8px 20px rgba(0,0,0,0.9);
-      position: relative; cursor: pointer; transform: rotate(var(--rot, 0deg));
+    .redesigned-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 25px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand-headline {
+      font-family: 'Special Elite', cursive;
+      font-size: 1.9rem;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 4px;
+      text-shadow: 2px 2px 4px #000, 0 0 10px var(--crimson);
+    }
+
+    .brand-sub {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+
+    /* 3 BONG BÓNG MỜ ẢO SƠN DẦU (ETHREAL GLASS ORBS) */
+    .ethereal-orbs-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .art-orb-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: floatOrb 5s ease-in-out infinite alternate;
+    }
+    .art-orb-btn:nth-child(2) { animation-delay: 1.5s; }
+    .art-orb-btn:nth-child(3) { animation-delay: 3s; }
+
+    @keyframes floatOrb {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-7px); }
+    }
+
+    .glass-orb-bubble {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 60, 90, 0.3) 0%, rgba(35, 12, 20, 0.85) 60%, rgba(8, 4, 7, 0.98) 100%);
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.85), inset 0 0 16px rgba(230, 0, 38, 0.45);
+      backdrop-filter: blur(14px);
+    }
+
+    .art-orb-btn:hover .glass-orb-bubble,
+    .art-orb-btn.active .glass-orb-bubble {
+      border-color: #fff;
+      box-shadow: 0 0 35px var(--crimson-glow), inset 0 0 20px var(--crimson);
+      transform: scale(1.1);
+    }
+
+    .glass-orb-bubble svg {
+      width: 40px;
+      height: 40px;
+      stroke: #dfd8e5;
+      fill: none;
+      stroke-width: 1.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 6px rgba(230,0,38,0.7));
+      transition: all 0.3s;
+    }
+    .art-orb-btn:hover .glass-orb-bubble svg,
+    .art-orb-btn.active .glass-orb-bubble svg {
+      stroke: #fff;
+      filter: drop-shadow(0 0 12px var(--crimson));
+    }
+
+    .orb-label-title {
+      font-family: 'Special Elite', cursive;
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      color: #beb9cb;
+      margin-top: 8px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .art-orb-btn:hover .orb-label-title,
+    .art-orb-btn.active .orb-label-title {
+      color: #fff;
+      text-shadow: 0 0 8px var(--crimson);
+    }
+
+    .ted-orb-special .glass-orb-bubble {
+      border-color: #ff3355;
+      box-shadow: 0 0 25px rgba(230, 0, 38, 0.45), inset 0 0 18px rgba(230, 0, 38, 0.6);
+    }
+    .ted-orb-special .orb-label-title {
+      color: #ff3355;
+      font-weight: bold;
+      text-shadow: 0 0 10px var(--crimson);
+    }
+
+    /* KÍNH LÚP TÌM KIẾM ĐIỀU TRA */
+    .dossier-search-wrapper {
+      width: 100%;
+      max-width: 460px;
+      margin: 10px auto 25px;
+      position: relative;
+      z-index: 10;
+    }
+    .search-input-field {
+      width: 100%;
+      background: rgba(14, 8, 14, 0.88);
+      border: 1px solid rgba(230, 0, 38, 0.45);
+      color: #fff;
+      padding: 11px 16px 11px 40px;
+      border-radius: 25px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      outline: none;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+      transition: all 0.3s;
+    }
+    .search-input-field:focus {
+      border-color: var(--crimson);
+      box-shadow: 0 0 20px var(--crimson-glow);
+    }
+    .search-lens-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.95rem;
+      color: var(--crimson);
+      pointer-events: none;
+    }
+
+    /* TÂM ĐIỂM '?' NỐI CHỈ ĐỎ */
+    .mystery-hub-modern {
+      text-align: center;
+      margin: 5px auto 30px;
+      position: relative;
+      z-index: 10;
+      width: fit-content;
+    }
+
+    .question-core {
+      font-family: 'Special Elite', cursive;
+      font-size: 4.5rem;
+      line-height: 1;
+      color: var(--crimson);
+      text-shadow: 0 0 30px var(--crimson-glow);
+      position: relative;
+    }
+    .hub-pin-node {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
+    }
+
+    /* BẢNG POLAROID CẦU KỲ */
+    .conspiracy-board-wall {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      position: relative;
+      z-index: 10;
+      margin-bottom: 45px;
+    }
+
+    @media (min-width: 768px) {
+      .conspiracy-board-wall {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+      }
+    }
+
+    .polaroid-evidence-card {
+      background: var(--paper);
+      color: #1a171a;
+      padding: 12px 12px 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+      position: relative;
+      cursor: pointer;
       transition: transform 0.3s, box-shadow 0.3s;
-      /* Hiệu ứng lơ lửng nhẹ, ko giật */
-      animation: floatCard 5s ease-in-out infinite alternate;
+      transform: rotate(var(--rot, 0deg));
+      animation: floatCard 6s ease-in-out infinite alternate;
       animation-delay: calc(var(--rand) * -4s);
     }
-    @keyframes floatCard { 0% { transform: translateY(0) rotate(var(--rot)); } 100% { transform: translateY(-6px) rotate(calc(var(--rot) + 1deg)); } }
-
-    .card-polaroid:hover { transform: scale(1.05) rotate(0deg) !important; z-index: 40 !important; box-shadow: 0 15px 35px rgba(158,0,19,0.4); animation: none; }
-
-    /* Băng keo & Ghim */
-    .card-polaroid::before {
-      content: ""; position: absolute; top: -10px; right: 10px; width: 45px; height: 18px;
-      background: rgba(220, 215, 190, 0.7); transform: rotate(15deg); pointer-events: none; z-index: 6;
-      border-left: 1px dashed rgba(0,0,0,0.2); border-right: 1px dashed rgba(0,0,0,0.2);
-    }
-    .pushpin {
-      position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px;
-      background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000); border-radius: 50%;
-      box-shadow: -2px 4px 6px rgba(0,0,0,0.8); z-index: 6; border: 1px solid #4a0000;
+    @keyframes floatCard {
+      0% { transform: translateY(0) rotate(var(--rot)); }
+      100% { transform: translateY(-6px) rotate(calc(var(--rot) + 0.8deg)); }
     }
 
-    .polaroid-img { width: 100%; height: 210px; background: #000; margin-bottom: 8px; overflow: hidden; border: 1px solid #a39b8a; }
-    .polaroid-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(80%) contrast(1.2); transition: 0.3s; }
-    .card-polaroid:hover .polaroid-img img { filter: grayscale(10%) contrast(1.3); }
+    .polaroid-evidence-card:hover {
+      transform: scale(1.05) rotate(0deg) !important;
+      z-index: 40 !important;
+      box-shadow: 0 20px 45px rgba(168, 0, 16, 0.55);
+      animation: none;
+    }
 
-    .polaroid-name { font-family: 'Special Elite', cursive; font-size: 1.15rem; color: #111; font-weight: bold; }
-    .polaroid-meta { display: flex; justify-content: space-between; align-items: center; font-family: 'Courier Prime', monospace; font-size: 0.65rem; color: #555; }
+    /* Băng dính đục góc */
+    .polaroid-evidence-card::after {
+      content: "";
+      position: absolute;
+      top: -10px;
+      right: 12px;
+      width: 44px;
+      height: 18px;
+      background: var(--tape);
+      border-left: 1px dashed rgba(0,0,0,0.15);
+      border-right: 1px dashed rgba(0,0,0,0.15);
+      transform: rotate(14deg);
+      pointer-events: none;
+      z-index: 5;
+    }
 
-    /* Icon Thả tim */
-    .like-stamp { display: flex; align-items: center; gap: 4px; cursor: pointer; color: #888; font-weight: bold; font-size: 0.7rem; }
-    .like-stamp svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; transition: 0.2s; }
-    .like-stamp.liked { color: var(--crimson); }
-    .like-stamp.liked svg { fill: var(--crimson); stroke: var(--crimson); }
+    .red-pushpin {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      background: #e60026;
+      border-radius: 50%;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.8), inset 0 1px 3px #fff;
+      border: 1px solid #660010;
+      z-index: 6;
+    }
 
-    /* 2 Nút Link Plot & GGAI kiểu giấy đánh chữ */
-    .card-links { display: flex; gap: 8px; margin-top: 12px; }
+    .polaroid-photo-frame {
+      width: 100%;
+      height: 175px;
+      background: #111;
+      overflow: hidden;
+      margin-bottom: 8px;
+      border: 1px solid #baa;
+    }
+
+    .polaroid-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(90%) contrast(1.25);
+      transition: filter 0.3s;
+    }
+    .polaroid-evidence-card:hover .polaroid-photo-frame img {
+      filter: grayscale(10%) contrast(1.3);
+    }
+
+    .polaroid-title {
+      font-family: 'Special Elite', cursive;
+      font-size: 1.15rem;
+      line-height: 1.2;
+      color: #121013;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .polaroid-meta {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.65rem;
+      color: #6a1a1a;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* NÚT THẢ TIM / LIKE NHỎ */
+    .stamp-like-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      color: #777;
+      font-size: 0.68rem;
+      font-family: 'Courier Prime', monospace;
+      transition: all 0.2s;
+    }
+    .stamp-like-btn.liked {
+      color: var(--crimson);
+      font-weight: bold;
+    }
+    .stamp-like-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+    .stamp-like-btn.liked svg {
+      fill: var(--crimson);
+      stroke: var(--crimson);
+      filter: drop-shadow(0 0 4px var(--crimson));
+    }
+
+    /* 2 NÚT LINK PLOT & GGAI MẪU MÁY ĐÁNH CHỮ */
+    .card-links {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      border-top: 1px solid #ccc;
+      padding-top: 8px;
+    }
     .link-tag {
-      flex: 1; text-align: center; background: #fdfbf7; border: 1px solid #999; color: #111;
-      font-family: 'Courier Prime', monospace; font-size: 0.65rem; font-weight: bold; padding: 4px 0; text-decoration: none;
-      box-shadow: 1px 2px 4px rgba(0,0,0,0.2); transition: 0.2s;
+      flex: 1;
+      text-align: center;
+      background: #fdfbf7;
+      border: 1px solid #888;
+      color: #111;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.65rem;
+      font-weight: bold;
+      padding: 4px 0;
+      text-decoration: none;
+      box-shadow: 1px 2px 3px rgba(0,0,0,0.15);
+      transition: 0.2s;
     }
     .link-tag:hover { background: #111; color: #fff; }
+    .link-tag.ggai { border-color: var(--crimson); color: var(--crimson); }
+    .link-tag.ggai:hover { background: var(--crimson); color: #fff; }
 
-    /* Quyền Admin của Ted */
-    .admin-controls { display: none; position: absolute; top: 10px; left: 10px; gap: 5px; z-index: 50; }
-    body.ted-illuminated .admin-controls { display: flex; }
-    .btn-admin-act { background: #000; color: #fff; border: 1px solid #fff; padding: 4px 8px; font-family: 'Space Grotesk'; font-size: 0.6rem; font-weight: bold; cursor: pointer; }
-    .btn-admin-act.del { background: #800000; border-color: #ff0000; }
-
-    /* TÂM ĐIỂM DẤU CHẤM HỎI ĐỎ MÁU */
-    .mystery-hub { text-align: center; position: relative; z-index: 10; margin-bottom: 40px; }
-    .mystery-hub h1 { font-family: 'Special Elite', cursive; font-size: 4rem; color: var(--crimson); text-shadow: 0 0 25px rgba(168, 0, 16, 0.9); line-height: 1; }
-    .hub-pin { position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; border-radius: 50%; background: #fff; box-shadow: 0 0 15px #fff, 0 0 20px var(--crimson); }
-
-    /* ================= DIỄN ĐÀN ================= */
-    .feedback-wall {
-      background: rgba(10, 5, 5, 0.9); border: 2px solid #500;
-      padding: 25px; position: relative; z-index: 10; border-radius: 2px;
+    /* QUYỀN SỬA XOÁ CHO TED TRÊN CARD */
+    .ted-card-controls {
+      display: none;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(0,0,0,0.25);
+      gap: 6px;
     }
-    .fb-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #400; padding-bottom: 10px; margin-bottom: 20px;}
-    .fb-header h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--crimson); font-size: 1.1rem; }
-    .fb-list { display: flex; flex-direction: column; gap: 15px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
-    .fb-item { display: flex; gap: 12px; background: rgba(0,0,0,0.6); padding: 12px; border-left: 2px solid var(--crimson); position: relative; }
-    .fb-avatar { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--crimson); object-fit: cover; }
-    .fb-content { flex: 1; }
-    .fb-name { font-family: 'Space Grotesk', sans-serif; font-weight: bold; color: #fff; font-size: 0.9rem; }
-    .fb-time { font-size: 0.6rem; color: #777; margin-left: 8px; font-family: 'Courier Prime'; }
-    .fb-text { font-size: 0.85rem; color: #ccc; margin-top: 4px; line-height: 1.4; }
-    
-    .btn-del-fb { position: absolute; right: 10px; top: 10px; background: transparent; color: var(--crimson); border: none; cursor: pointer; font-size: 0.8rem; display: none; }
-    body.ted-illuminated .btn-del-fb { display: block; }
+    body.ted-illuminated .ted-card-controls {
+      display: flex;
+    }
+    .btn-card-edit, .btn-card-del {
+      flex: 1;
+      padding: 4px 0;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.62rem;
+      font-weight: bold;
+      border: 1px solid #111;
+      background: #222;
+      color: #fff;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-card-del {
+      background: #8a0014;
+      border-color: #55000c;
+    }
 
-    /* ================= MODAL CHUNG ================= */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 400; display: none; justify-content: center; align-items: center; padding: 20px; }
-    .modal-box { background: #0a0505; border: 1px solid var(--crimson); padding: 30px; width: 100%; max-width: 420px; position: relative; box-shadow: 0 0 30px rgba(168,0,16,0.3); }
-    .close-x { position: absolute; top: 10px; right: 15px; color: #777; cursor: pointer; font-size: 1.5rem; border: none; background: none; }
-    .modal-box h3 { color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin-bottom: 20px; font-size: 1.3rem; }
+    /* ================= 4. DIỄN ĐÀN PHẢN HỒI (DISCORD STYLE) ================= */
+    .discord-feedback-zone {
+      background: radial-gradient(circle at 50% 20%, rgba(35, 15, 25, 0.9) 0%, rgba(12, 6, 12, 0.95) 100%);
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      padding: 24px 20px;
+      border-radius: 6px;
+      position: relative;
+      z-index: 15;
+      margin-top: 35px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.95);
+      backdrop-filter: blur(14px);
+    }
+
+    .discord-channel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    .channel-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      color: #fff;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .channel-title span { color: var(--gold-baroque); font-weight: bold; font-size: 1.2rem; }
+
+    .btn-open-feedback-modal {
+      background: linear-gradient(135deg, #a8001a 0%, #52000c 100%);
+      border: 1px solid var(--crimson);
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px var(--crimson-glow);
+    }
+
+    .discord-messages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: 310px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .discord-message-item {
+      display: flex;
+      gap: 12px;
+      background: rgba(22, 12, 20, 0.75);
+      padding: 12px 14px;
+      border-radius: 4px;
+      border-left: 2.5px solid var(--crimson);
+      position: relative;
+    }
+
+    .discord-avatar-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    }
+
+    .discord-msg-content {
+      flex: 1;
+    }
+
+    .discord-author-line {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .author-name-tag {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .author-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #fff;
+    }
+
+    .author-badge {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.6rem;
+      background: rgba(230,0,38,0.25);
+      color: var(--crimson);
+      padding: 1px 5px;
+      border-radius: 2px;
+    }
+
+    .msg-timestamp {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.65rem;
+      color: var(--text-dim);
+    }
+
+    .msg-body-text {
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: #dfdaea;
+    }
+
+    .btn-del-feedback {
+      display: none;
+      background: #8a0014;
+      border: none;
+      color: #fff;
+      font-size: 0.65rem;
+      font-family: 'Courier Prime', monospace;
+      padding: 2px 6px;
+      cursor: pointer;
+      border-radius: 2px;
+      margin-left: 8px;
+    }
+    body.ted-illuminated .btn-del-feedback {
+      display: inline-block;
+    }
+
+    /* MODAL ĐĂNG FEEDBACK */
+    #feedback-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,4,6,0.96);
+      z-index: 320;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* ================= 5. TẬP HỒ SƠ PHÓNG TO CHI TIẾT (INSPECTOR) ================= */
+    .dossier-inspect-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 4, 7, 0.95);
+      backdrop-filter: blur(15px);
+      z-index: 300;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .dossier-inspect-card {
+      width: 100%;
+      max-width: 480px;
+      background: #0d080b;
+      border: 1px solid var(--crimson);
+      padding: 26px;
+      position: relative;
+      box-shadow: 0 0 50px rgba(230, 0, 38, 0.35);
+    }
+
+    .close-inspect-btn {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .inspect-mugshot {
+      width: 100%;
+      height: 220px;
+      background: #000;
+      border: 1px solid var(--border-subtle);
+      margin: 12px 0 16px;
+      overflow: hidden;
+    }
+    .inspect-mugshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .inspect-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .inspect-actions a {
+      text-align: center;
+      padding: 10px 4px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.72rem;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .btn-act-plot {
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      border: 1px solid var(--border-subtle);
+    }
+    .btn-act-ggai {
+      background: var(--crimson);
+      color: #fff;
+      box-shadow: 0 0 15px var(--crimson-glow);
+    }
+
+    /* ================= 6. ĐĂNG NHẬP TED & BÀN HỒ SƠ ================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 4, 6, 0.96);
+      backdrop-filter: blur(20px);
+      z-index: 250;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .terminal-window {
+      width: 100%;
+      max-width: 440px;
+      background: #0d070a;
+      border: 1px solid var(--crimson);
+      padding: 30px 22px;
+      box-shadow: 0 0 50px rgba(230, 0, 38, 0.3);
+      position: relative;
+    }
+
+    .field-wrap {
+      margin-bottom: 14px;
+    }
+    .field-wrap label {
+      display: block;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+    }
+    .field-wrap input, .field-wrap textarea {
+      width: 100%;
+      background: #060406;
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      padding: 10px 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    #auth-alert-box {
+      display: none;
+      background: rgba(230, 0, 38, 0.1);
+      border: 1px solid var(--crimson);
+      color: #ff6b81;
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.75rem;
+      padding: 8px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .btn-terminal-submit {
+      width: 100%;
+      background: var(--crimson);
+      border: none;
+      color: #fff;
+      padding: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    #ted-active-desk {
+      display: none;
+      background: #181014;
+      border: 1px solid var(--crimson);
+      padding: 22px 18px;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 15;
+    }
+
+    /* MODAL CHỈNH SỬA HỒ SƠ */
+    #edit-dossier-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,4,6,0.96);
+      z-index: 310;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- BÓNG ĐEN JUMPSCARE & FLASH -->
+  <!-- JUMPSCARE FLASH & BÓNG MA CHỒM RA -->
   <div id="jumpscare-overlay"></div>
 
-  <!-- NHẠC WHO IS SHE CHUẨN TÊN FILE -->
-  <audio id="noir-audio" loop preload="auto">
+  <!-- BÀI HÁT WHO IS SHE CHẠY LIÊN TỤC -->
+  <audio id="noir-ambient-audio" loop preload="auto">
     <source src="I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3" type="audio/mpeg">
     <source src="I%20Monster%20-%20Who%20Is%20She%20%28Lyrics%29%20Immortal%20She%20Return%20To%20Me%20%5BTikTok%20Song%5D.mp3" type="audio/mpeg">
   </audio>
 
   <div class="spotlight-layer" id="spotlight"></div>
   <canvas id="fog-canvas"></canvas>
+  <canvas id="ember-canvas"></canvas>
 
-  <!-- THANH NÚT KÍN ĐÁO -->
+  <!-- THANH NÚT TRÊN CÙNG: ĐÈN + NHẠC + NÚT TED KÍN ĐÁO -->
   <div class="top-bar-controls">
-    <div class="ctrl-btn" id="btn-light" style="display:none;">💡 ĐÈN TẮT</div>
-    <div class="ctrl-btn" id="btn-audio"><div class="audio-dot"></div> NHẠC OFF</div>
-    <div class="ctrl-btn admin-btn" id="btn-login-trigger">👁️‍🗨️ TED</div>
+    <div class="light-pill" id="btn-toggle-light" style="display:none;">
+      <span>💡 ĐÈN: BẬT</span>
+    </div>
+    <div class="audio-pill" id="audio-pill">
+      <div class="audio-dot"></div>
+      <span id="audio-state">AMBIENT OFF</span>
+    </div>
+    <!-- NÚT TED ĐƯỢC THU NHỎ KÍN ĐÁO -->
+    <div class="admin-pill" id="btn-open-terminal">
+      <span>👁️‍🗨️ TED</span>
+    </div>
   </div>
 
-  <!-- CỔNG 18+ -->
+  <!-- 1. CỔNG 18+: ĐẠI TỘI VÙNG CALIFORNIA -->
   <section id="gate-18">
     <div class="gate-card">
+      <span style="font-family:'Courier Prime'; font-size:0.7rem; color:var(--crimson); letter-spacing:2px; font-weight:bold;">// PROTOCOL 18+</span>
       <h1>ĐẠI TỘI VÙNG CALIFORNIA</h1>
-      <p>Kho lưu trữ chứa các tư liệu án mạng và thực thể dị thường. Yêu cầu bạn xác nhận độ tuổi trước khi giải mã.</p>
-      <button class="btn-blood" id="btn-pass-gate">[ XÁC NHẬN TRÊN 18 TUỔI ]</button>
+      <p>Kho lưu trữ chứa các tư liệu hiện trường án mạng và thực thể dị thường. Yêu cầu bạn xác nhận độ tuổi trước khi giải mã dữ liệu.</p>
+      <button class="btn-action-glow" id="btn-pass-gate">[ XÁC NHẬN TRÊN 18 TUỔI ]</button>
     </div>
   </section>
 
-  <!-- BỨC THƯ & MỘC PHÁP Y -->
+  <!-- 2. THƯ CỦA TED & MỘC PHÁP Y HUYẾT ẤN -->
   <section id="letter-screen">
-    <div class="letter-paper">
-      <h2>Welcome to California</h2>
-      <p>Chào mừng bạn đã bước vào hệ thống điều tra đen của California. Mọi bức ảnh, vết nứt tâm thần và chuỗi sự kiện tại đây đều là <em>những manh mối còn sót lại từ bóng tối</em>. Mỗi nạn nhân và kẻ thủ ác đều được nối với nhau qua một sợi chỉ định mệnh.</p>
-      <p style="font-weight: bold; color: #500;">"Trust the facts, not the rumors. Not every story has a happy ending."</p>
-      
-      <div class="complex-seal-wrapper">
-        <div class="forensic-seal-btn" id="btn-break-seal">
-          <div class="seal-text-circle"></div>
-          <div class="seal-center">AUTHORIZE</div>
+    <div class="forensic-dossier-letter">
+      <div class="dossier-barcode">
+        <span>MEMORANDUM // DEPT-04</span>
+        <span>STATUS: CLASSIFIED</span>
+      </div>
+
+      <div class="dossier-headline">
+        <h2>Welcome to California</h2>
+        <span class="sub">CHIEF CUSTODIAN OF RECORDS: TED</span>
+      </div>
+
+      <div class="dossier-body">
+        Chào mừng bạn đã bước vào hệ thống điều tra đen của California. Mọi bức ảnh, vết nứt tâm thần và chuỗi sự kiện tại đây đều là <em>những manh mối còn sót lại từ bóng tối</em>. Mỗi nạn nhân và kẻ thủ ác đều được nối với nhau qua một sợi chỉ định mệnh.
+        <br><br>
+        <span style="color:var(--crimson); font-weight:bold;">"Trust the facts, not the rumors. Not every story has a happy ending."</span>
+      </div>
+
+      <!-- MỘC PHÁP Y CHUẨN MỰC CHUYÊN SÂU -->
+      <div class="seal-permit-zone">
+        <div class="official-forensic-seal" id="art-seal">
+          <svg class="seal-svg-ring" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="46" stroke="var(--crimson)" stroke-width="1.5" fill="none" stroke-dasharray="3, 2.5"/>
+            <circle cx="50" cy="50" r="39" stroke="var(--crimson)" stroke-width="0.8" fill="none"/>
+          </svg>
+          <div class="seal-center-text">
+            <span class="permit-tag">AUTHORIZED</span>
+            <span class="status-tag">BUREAU CLASSIFIED</span>
+            <span class="auth-code">DOC.CA-098</span>
+          </div>
         </div>
-        <div style="font-family: 'Courier Prime'; font-size: 0.65rem; color:#888; margin-top: 15px; letter-spacing: 1px;">[ CHẠM MỘC ĐỂ MỞ HỒ SƠ ]</div>
+        <div style="font-family:'Courier Prime'; font-size:0.68rem; color:#666; font-weight:bold;">[ CHẠM MỘC ĐỂ MỞ HỒ SƠ ]</div>
       </div>
     </div>
   </section>
 
-  <!-- BẢNG ÁN MẠNG CHÍNH -->
+  <!-- 3. BẢNG ÁN MẠNG CHÍNH -->
   <main id="board-main">
     <canvas id="thread-canvas"></canvas>
 
-    <div style="position:relative; z-index:10; margin-bottom: 25px;">
-      <h1 class="main-title">ĐẠI TỘI VÙNG CALIFORNIA</h1>
-      <div class="sub-title">CUSTODIAN OF RECORDS: TED</div>
+    <div class="redesigned-header">
+      <h2 class="brand-headline">ĐẠI TỘI VÙNG CALIFORNIA</h2>
+      <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
+
+      <!-- 3 NÚT BONG BÓNG MỜ ẢO SƠN DẦU (ETHREAL GLASS ORBS) -->
+      <div class="ethereal-orbs-nav">
+        
+        <!-- BONG BÓNG 1: TẤT CẢ HỒ SƠ -->
+        <div class="art-orb-btn active" data-filter="all">
+          <div class="glass-orb-bubble">
+            <svg viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="14" stroke="rgba(212,175,55,0.7)" stroke-dasharray="3 2" />
+              <path d="M12 15 C16 12 24 12 28 15 L28 27 C24 24 16 24 12 27 Z" stroke="#fff" />
+              <path d="M20 13 L20 25" stroke="var(--crimson)" />
+            </svg>
+          </div>
+          <span class="orb-label-title">TẤT CẢ HỒ SƠ</span>
+        </div>
+
+        <!-- BONG BÓNG 2: LỆNH TRUY NÃ -->
+        <div class="art-orb-btn" data-filter="Active">
+          <div class="glass-orb-bubble">
+            <svg viewBox="0 0 40 40">
+              <path d="M20 28 C10 20 8 13 14 9 C18 6 20 10 20 10 C20 10 22 6 26 9 C32 13 30 20 20 28 Z" stroke="#fff" fill="rgba(230,0,38,0.25)" />
+              <path d="M20 5 L20 34" stroke="var(--crimson)" stroke-width="1.8" />
+              <path d="M15 12 L25 12" stroke="rgba(212,175,55,0.8)" stroke-width="1.5" />
+            </svg>
+          </div>
+          <span class="orb-label-title">LỆNH TRUY NÃ</span>
+        </div>
+
+        <!-- BONG BÓNG 3: TRẠM CHỦ TED (DẪN FACEBOOK) -->
+        <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="art-orb-btn ted-orb-special">
+          <div class="glass-orb-bubble">
+            <svg viewBox="0 0 40 40">
+              <path d="M20 14 C13 4 5 14 9 26 C13 24 17 20 20 22 C23 20 27 24 31 26 C35 14 27 4 20 14 Z" stroke="#ff3355" fill="rgba(255,51,85,0.2)" />
+              <circle cx="20" cy="23" r="2.5" fill="#fff" />
+              <circle cx="20" cy="10" r="5" stroke="rgba(212,175,55,0.9)" stroke-width="1.2" stroke-dasharray="2 2" />
+            </svg>
+          </div>
+          <span class="orb-label-title">TRẠM CHỦ TED ↗</span>
+        </a>
+
+      </div>
+
+      <!-- KÍNH LÚP TÌM KIẾM ĐIỀU TRA -->
+      <div class="dossier-search-wrapper">
+        <span class="search-lens-icon">🔍</span>
+        <input type="text" id="case-search-input" class="search-input-field" placeholder="NHẬP MÃ SỐ (VD: 01) HOẶC TÊN ĐỐI TƯỢNG ĐỂ ĐIỀU TRA...">
+      </div>
     </div>
 
-    <!-- TÌM KIẾM -->
-    <div class="search-box">
-      <input type="text" id="search-input" placeholder="TÌM MÃ SỐ HOẶC TÊN HỒ SƠ...">
-    </div>
+    <!-- KHU VỰC ĐĂNG HỒ SƠ TED -->
+    <section id="ted-active-desk">
+      <h4 style="font-family:'Special Elite'; color:var(--crimson); font-size:1.2rem; margin-bottom:12px;">// ĐÍNH HỒ SƠ MỚI [QUYỀN CHỦ: TED]</h4>
+      <form id="create-dossier-form">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div class="field-wrap">
+            <label>Mã hồ sơ:</label>
+            <input type="text" id="in-code" required placeholder="CA-01">
+          </div>
+          <div class="field-wrap">
+            <label>Tên nhân vật / đối tượng:</label>
+            <input type="text" id="in-name" required placeholder="Tên nhân vật">
+          </div>
+        </div>
 
-    <!-- KHU VỰC TED ĐĂNG HỒ SƠ -->
-    <section id="admin-desk">
-      <h3 style="color:var(--crimson); margin-bottom:15px; font-family:'Space Grotesk'; font-weight:700;">// ĐÍNH HỒ SƠ MỚI</h3>
-      <form id="create-form">
-        <div style="display:flex; gap:10px;">
-          <div class="input-grp" style="flex:1;"><label>Mã hồ sơ:</label><input type="text" id="in-code" required></div>
-          <div class="input-grp" style="flex:2;"><label>Tên nhân vật:</label><input type="text" id="in-name" required></div>
+        <div class="field-wrap">
+          <label>Tải ảnh Chân dung (Tự động nén chuẩn tỉ lệ không méo):</label>
+          <input type="file" id="in-file" accept="image/*" required>
         </div>
-        <div class="input-grp"><label>Tải ảnh Chân dung:</label><input type="file" id="in-file" accept="image/*" required></div>
-        <div style="display:flex; gap:10px;">
-          <div class="input-grp" style="flex:1;"><label>Link Plot:</label><input type="url" id="in-plot" required></div>
-          <div class="input-grp" style="flex:1;"><label>Link GGAI:</label><input type="url" id="in-ggai" required></div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div class="field-wrap">
+            <label>Link Plot:</label>
+            <input type="url" id="in-plot" required placeholder="https://...">
+          </div>
+          <div class="field-wrap">
+            <label>Link GGAI:</label>
+            <input type="url" id="in-ggai" required placeholder="https://aistudio.google.com/...">
+          </div>
         </div>
-        <div class="input-grp"><label>Ghi chú án mạng:</label><textarea id="in-desc" rows="2"></textarea></div>
-        <button type="submit" class="btn-blood">+ GHIM LÊN BẢNG (LƯU VĨNH VIỄN)</button>
+
+        <div class="field-wrap">
+          <label>Tags (phân cách bằng dấu phẩy):</label>
+          <input type="text" id="in-tags" placeholder="Hi, Active">
+        </div>
+
+        <div class="field-wrap">
+          <label>Ghi chú tuyệt mật:</label>
+          <textarea id="in-desc" rows="2" placeholder="Ghi chép khám nghiệm..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-terminal-submit" id="btn-upload-submit">+ GHIM HỒ SƠ LÊN BẢNG (TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU)</button>
       </form>
     </section>
 
     <!-- TÂM ĐIỂM '?' NỐI DÂY ĐỎ -->
-    <div class="mystery-hub">
-      <div class="hub-pin" id="hub-pin"></div>
-      <h1>?</h1>
+    <div class="mystery-hub-modern">
+      <div class="question-core">
+        ?
+        <div class="hub-pin-node" id="hub-pin"></div>
+      </div>
+      <div style="font-family:'Courier Prime'; font-size:0.7rem; color:var(--text-dim); letter-spacing:2px; margin-top:4px;">SITE 17-A // NEXUS</div>
     </div>
 
-    <!-- LƯỚI ẢNH POLAROID -->
-    <div class="polaroid-grid" id="cases-wall"></div>
+    <!-- BẢNG GHIM POLAROID 2 CỘT -->
+    <div class="conspiracy-board-wall" id="cases-wall"></div>
 
-    <!-- DIỄN ĐÀN FEEDBACK -->
-    <section class="feedback-wall">
-      <div class="fb-header">
-        <h3>DIỄN ĐÀN MANH MỐI</h3>
-        <button class="btn-blood" id="btn-open-fb" style="width: auto; padding: 6px 14px; font-size: 0.8rem;">+ GỬI MANH MỐI</button>
+    <!-- DIỄN ĐÀN PHẢN HỒI GOTHIC MỸ THUẬT -->
+    <section class="discord-feedback-zone">
+      <div class="discord-channel-header">
+        <div class="channel-title">
+          <span>⚜️</span> DIỄN ĐÀN MANH MỐI & PHẢN HỒI
+        </div>
+        <button class="btn-open-feedback-modal" id="btn-trigger-feedback">+ GỬI MANH MỐI</button>
       </div>
-      <div class="fb-list" id="fb-list"></div>
+
+      <div class="discord-messages-list" id="feedback-chat-list"></div>
     </section>
   </main>
 
-  <!-- MODAL ĐĂNG NHẬP TED -->
-  <div class="modal-overlay" id="login-modal">
-    <div class="modal-box">
-      <button class="close-x" id="btn-close-login">&times;</button>
-      <h3>XÁC THỰC DANH TÍNH</h3>
-      <div class="input-grp"><label>ID TÀI KHOẢN:</label><input type="email" id="login-id" autocomplete="off"></div>
-      <div class="input-grp"><label>MẬT MÃ:</label><input type="password" id="login-pwd" autocomplete="off"></div>
-      <button class="btn-blood" id="btn-submit-login">BẺ KHOÁ</button>
+  <!-- MODAL ĐĂNG FEEDBACK (CÓ BỘ LỌC TỪ NGỮ BẬY TỤC) -->
+  <div id="feedback-modal">
+    <div class="terminal-window">
+      <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.5rem; cursor:pointer;" id="btn-close-feedback">&times;</button>
+      <h4 style="font-family:'Cinzel'; font-size:1.2rem; color:#fff;">// GỬI PHẢN HỒI</h4>
+      <div class="field-wrap">
+        <label>Tên của bạn:</label>
+        <input type="text" id="fb-user-name" required placeholder="Nhập bí danh của bạn...">
+      </div>
+      <div class="field-wrap">
+        <label>Nội dung manh mối / Cảm nghĩ:</label>
+        <textarea id="fb-user-msg" rows="3" required placeholder="Chia sẻ suy luận của bạn..."></textarea>
+      </div>
+      <button type="button" class="btn-terminal-submit" id="btn-send-feedback">ĐĂNG VÀO DIỄN ĐÀN</button>
     </div>
   </div>
 
-  <!-- MODAL SỬA HỒ SƠ -->
-  <div class="modal-overlay" id="edit-modal">
-    <div class="modal-box">
-      <button class="close-x" id="btn-close-edit">&times;</button>
-      <h3>SỬA HỒ SƠ</h3>
+  <!-- MODAL XEM CHI TIẾT HỒ SƠ PHÓNG TO (INSPECTOR) -->
+  <div class="dossier-inspect-overlay" id="inspect-modal">
+    <div class="dossier-inspect-card">
+      <button class="close-inspect-btn" id="btn-close-inspect">&times;</button>
+      <div style="font-family:'Courier Prime'; font-size:0.75rem; color:var(--crimson); font-weight:bold;" id="ins-code">CA-XXXX</div>
+      <h3 style="font-family:'Special Elite'; font-size:1.6rem; color:#fff;" id="ins-name">NAME</h3>
+      <div class="inspect-mugshot">
+        <img id="ins-img" src="" alt="Mugshot">
+      </div>
+      <div style="font-size:0.75rem; color:var(--text-dim); margin-bottom:8px; font-family:'Courier Prime';" id="ins-tags"></div>
+      <p style="font-size:0.85rem; line-height:1.6; color:#ccc; font-family:'Special Elite';" id="ins-desc"></p>
+      
+      <!-- HAI NÚT LINK TRONG MODAL -->
+      <div class="inspect-actions">
+        <a id="ins-link-plot" href="#" target="_blank" class="btn-act-plot">XEM PLOT</a>
+        <a id="ins-link-ggai" href="#" target="_blank" class="btn-act-ggai">BẢN GGAI</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CHỈNH SỬA HỒ SƠ (CHO PHÉP ĐỔI CẢ ẢNH MỚI) -->
+  <div id="edit-dossier-modal">
+    <div class="terminal-window">
+      <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.5rem; cursor:pointer;" id="btn-close-edit">&times;</button>
+      <h4 style="font-family:'Special Elite'; font-size:1.3rem; color:#fff;">// CHỈNH SỬA HỒ SƠ</h4>
       <input type="hidden" id="edit-idx">
-      <div class="input-grp"><label>Mã hồ sơ:</label><input type="text" id="edit-code"></div>
-      <div class="input-grp"><label>Tên nhân vật:</label><input type="text" id="edit-name"></div>
-      <div class="input-grp"><label>Đổi ảnh mới (Để trống nếu giữ nguyên):</label><input type="file" id="edit-file" accept="image/*"></div>
-      <div class="input-grp"><label>Link Plot:</label><input type="url" id="edit-plot"></div>
-      <div class="input-grp"><label>Link GGAI:</label><input type="url" id="edit-ggai"></div>
-      <div class="input-grp"><label>Ghi chú:</label><textarea id="edit-desc" rows="2"></textarea></div>
-      <button class="btn-blood" id="btn-save-edit">CẬP NHẬT (LƯU VĨNH VIỄN)</button>
+      <div class="field-wrap">
+        <label>Mã hồ sơ:</label>
+        <input type="text" id="edit-code">
+      </div>
+      <div class="field-wrap">
+        <label>Tên nhân vật:</label>
+        <input type="text" id="edit-name">
+      </div>
+      <div class="field-wrap">
+        <label>Tải ảnh mới để thay thế (để trống nếu giữ ảnh cũ):</label>
+        <input type="file" id="edit-file" accept="image/*">
+      </div>
+      <div class="field-wrap">
+        <label>Link Plot:</label>
+        <input type="url" id="edit-plot">
+      </div>
+      <div class="field-wrap">
+        <label>Link GGAI:</label>
+        <input type="url" id="edit-ggai">
+      </div>
+      <div class="field-wrap">
+        <label>Ghi chú:</label>
+        <textarea id="edit-desc" rows="2"></textarea>
+      </div>
+      <button type="button" class="btn-terminal-submit" id="btn-save-edit">CẬP NHẬT & ĐỒNG BỘ MÂY</button>
     </div>
   </div>
 
-  <!-- MODAL GỬI FEEDBACK -->
-  <div class="modal-overlay" id="fb-modal">
-    <div class="modal-box">
-      <button class="close-x" id="btn-close-fb">&times;</button>
-      <h3 style="color:#fff;">GỬI MANH MỐI</h3>
-      <div class="input-grp"><label>Bí danh của bạn:</label><input type="text" id="fb-name"></div>
-      <div class="input-grp"><label>Nội dung:</label><textarea id="fb-msg" rows="3"></textarea></div>
-      <button class="btn-blood" id="btn-send-fb">ĐĂNG TẢI</button>
+  <!-- ĐĂNG NHẬP TED -->
+  <div class="modal-overlay" id="auth-overlay">
+    <div class="terminal-window">
+      <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.5rem; cursor:pointer;" id="btn-close-auth">&times;</button>
+      <h4 style="font-family:'Special Elite'; font-size:1.4rem; color:#fff;">XÁC THỰC DANH TÍNH</h4>
+      <span style="font-family:'Courier Prime'; font-size:0.75rem; color:var(--crimson); margin-bottom:18px; display:block; font-weight:bold;">// TED - CUSTODIAN OF RECORDS ONLY</span>
+
+      <div id="auth-alert-box">THÔNG TIN KHÔNG CHÍNH XÁC</div>
+
+      <form id="ted-login-form" novalidate>
+        <div class="field-wrap">
+          <label>ID TÀI KHOẢN:</label>
+          <input type="email" id="login-id" placeholder="Nhập ID Đặc vụ..." autocomplete="off">
+        </div>
+        <div class="field-wrap">
+          <label>MẬT MÃ AN NINH:</label>
+          <input type="password" id="login-pwd" placeholder="Nhập Mật mã..." autocomplete="off">
+        </div>
+        <button type="submit" class="btn-terminal-submit">BẺ KHOÁ HỆ THỐNG</button>
+      </form>
     </div>
   </div>
 
   <script>
-    /* ================= 1. KHÓI & SPOTLIGHT ================= */
-    const fog = document.getElementById('fog-canvas');
-    const ctxFog = fog.getContext('2d');
-    let particles = [];
-    function resizeFog() { fog.width = window.innerWidth; fog.height = window.innerHeight; }
+    /* ================= 1. KHÓI SƯƠNG CANVASS & SPOTLIGHT ================= */
+    const fogCanvas = document.getElementById('fog-canvas');
+    const fogCtx = fogCanvas.getContext('2d');
+    let fogs = [];
+    function resizeFog() { fogCanvas.width = window.innerWidth; fogCanvas.height = window.innerHeight; }
     window.addEventListener('resize', resizeFog); resizeFog();
-    for(let i=0; i<30; i++) particles.push({ x: Math.random()*fog.width, y: Math.random()*fog.height, r: 50+Math.random()*80, dx: (Math.random()-0.5)*0.3, dy: (Math.random()-0.5)*0.3, alpha: 0.05+Math.random()*0.05 });
+
+    for(let i=0; i<30; i++) {
+      fogs.push({ x: Math.random()*fogCanvas.width, y: Math.random()*fogCanvas.height, r: 60+Math.random()*90, dx: (Math.random()-0.5)*0.3, dy: (Math.random()-0.5)*0.3, alpha: 0.04+Math.random()*0.05 });
+    }
     function drawFog() {
-      ctxFog.clearRect(0,0,fog.width,fog.height);
-      particles.forEach(p => {
+      fogCtx.clearRect(0,0,fogCanvas.width,fogCanvas.height);
+      fogs.forEach(p => {
         p.x+=p.dx; p.y+=p.dy;
-        if(p.x < -p.r) p.x = fog.width+p.r; if(p.x > fog.width+p.r) p.x = -p.r;
-        if(p.y < -p.r) p.y = fog.height+p.r; if(p.y > fog.height+p.r) p.y = -p.r;
-        const g = ctxFog.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
-        g.addColorStop(0, `rgba(200,200,220,${p.alpha})`); g.addColorStop(1, 'rgba(200,200,220,0)');
-        ctxFog.fillStyle = g; ctxFog.beginPath(); ctxFog.arc(p.x,p.y,p.r,0,Math.PI*2); ctxFog.fill();
+        if(p.x < -p.r) p.x = fogCanvas.width+p.r; if(p.x > fogCanvas.width+p.r) p.x = -p.r;
+        if(p.y < -p.r) p.y = fogCanvas.height+p.r; if(p.y > fogCanvas.height+p.r) p.y = -p.r;
+        const g = fogCtx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+        g.addColorStop(0, `rgba(220,220,240,${p.alpha})`); g.addColorStop(1, 'rgba(220,220,240,0)');
+        fogCtx.fillStyle = g; fogCtx.beginPath(); fogCtx.arc(p.x,p.y,p.r,0,Math.PI*2); fogCtx.fill();
       });
       requestAnimationFrame(drawFog);
     }
     drawFog();
 
     const spotlight = document.getElementById('spotlight');
-    document.addEventListener('mousemove', e => { spotlight.style.setProperty('--spot-x', `${e.clientX}px`); spotlight.style.setProperty('--spot-y', `${e.clientY}px`); });
-    document.addEventListener('touchmove', e => { if (e.touches[0]) { spotlight.style.setProperty('--spot-x', `${e.touches[0].clientX}px`); spotlight.style.setProperty('--spot-y', `${e.touches[0].clientY}px`); }});
-
-    /* ================= 2. NHẠC VÀ JUMPSCARE CÓ BÓNG MA ================= */
-    const audio = document.getElementById('noir-audio');
-    let isMusicOn = false;
-    const btnAudio = document.getElementById('btn-audio');
-    
-    function toggleMusic() {
-      if(isMusicOn) { audio.pause(); btnAudio.classList.remove('active'); btnAudio.innerHTML = '<div class="audio-dot"></div> NHẠC OFF'; }
-      else { audio.volume = 0.8; audio.play().catch(()=>{}); btnAudio.classList.add('active'); btnAudio.innerHTML = '<div class="audio-dot"></div> NHẠC ON'; }
-      isMusicOn = !isMusicOn;
+    function updateSpotlight(x, y) {
+      spotlight.style.setProperty('--spot-x', `${x}px`);
+      spotlight.style.setProperty('--spot-y', `${y}px`);
     }
-    btnAudio.addEventListener('click', toggleMusic);
-
-    const jumpOverlay = document.getElementById('jumpscare-overlay');
-    const SCARY_FACES = [
-      "https://images.unsplash.com/photo-1605786657930-b37996c56787?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1510255395725-780133c94474?auto=format&fit=crop&w=800&q=80"
-    ];
-
-    document.getElementById('btn-pass-gate').addEventListener('click', () => {
-      // Chọn 1 ảnh bóng đen ma quái random
-      jumpOverlay.style.backgroundImage = `url('${SCARY_FACES[Math.floor(Math.random()*SCARY_FACES.length)]}')`;
-      jumpOverlay.classList.add('strobe-active');
-      if(!isMusicOn) toggleMusic();
-
-      // Tiếng nổ rít khi jumpscare
-      const aCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const osc = aCtx.createOscillator(); const gain = aCtx.createGain();
-      osc.type = 'sawtooth'; osc.frequency.setValueAtTime(800, aCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(40, aCtx.currentTime + 0.4);
-      gain.gain.setValueAtTime(1, aCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, aCtx.currentTime + 0.4);
-      osc.connect(gain); gain.connect(aCtx.destination); osc.start(); osc.stop(aCtx.currentTime + 0.4);
-
-      setTimeout(() => {
-        document.getElementById('gate-18').style.display = 'none';
-        document.getElementById('letter-screen').style.display = 'flex';
-        jumpOverlay.classList.remove('strobe-active');
-      }, 400);
+    window.addEventListener('mousemove', (e) => updateSpotlight(e.clientX, e.clientY));
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    document.getElementById('btn-break-seal').addEventListener('click', () => {
-      document.getElementById('letter-screen').style.transform = 'translateY(-100%)';
-      setTimeout(() => {
-        document.getElementById('board-main').style.display = 'block';
-        renderWall(dossiers);
-        setTimeout(drawThreads, 300);
-      }, 500);
+    /* ================= 2. PHÁT NHẠC TỰ ĐỘNG & JUMPSCARE BÓNG ĐEN ================= */
+    const noirAudio = document.getElementById('noir-ambient-audio');
+    let isAudioOn = false;
+    const audioPill = document.getElementById('audio-pill');
+    const audioState = document.getElementById('audio-state');
+
+    function startMusic() {
+      noirAudio.volume = 0.8;
+      const playPromise = noirAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isAudioOn = true;
+          audioPill.classList.add('active');
+          audioState.innerText = "AMBIENT ON";
+        }).catch(() => {});
+      }
+    }
+
+    audioPill.addEventListener('click', () => {
+      if (isAudioOn) {
+        noirAudio.pause();
+        isAudioOn = false;
+        audioPill.classList.remove('active');
+        audioState.innerText = "AMBIENT OFF";
+      } else {
+        startMusic();
+      }
     });
 
-    /* ================= 3. ĐỒNG BỘ DỮ LIỆU ĐÁM MÂY (MASTER) ================= */
-    const LOCAL_KEY = 'CALI_FINAL_VAULT_V2';
-    const CLOUD_MASTER_KEY = 'ted_master_vault_final_v2';
-    
-    let defaultData = [
-      { code: "CA-01", name: "Đại tội vùng California", img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80", desc: "Hồ sơ tối mật.", plot: "#", ggai: "#", likes: 12 },
-      { code: "CA-02", name: "Đặc vụ Ted", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80", desc: "Giám sát viên hệ thống.", plot: "#", ggai: "#", likes: 35 }
-    ];
-    let dossiers = JSON.parse(localStorage.getItem(LOCAL_KEY)) || defaultData;
-    let feedbacks = JSON.parse(localStorage.getItem('CALI_FB_V2')) || [];
+    document.addEventListener('pointerdown', () => {
+      if (!isAudioOn && gate18.style.display === 'none') {
+        startMusic();
+      }
+    }, { once: false });
 
-    async function loadCloud() {
+    // HÌNH ẢNH BÓNG ĐEN MA QUÁI HÙ DỌA
+    const JUMPSCARE_GHOSTS = [
+      "https://images.unsplash.com/photo-1510255395725-780133c94474?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1605786657930-b37996c56787?auto=format&fit=crop&w=800&q=80"
+    ];
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playJumpscareSound() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.4);
+      gain.gain.setValueAtTime(1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.45);
+    }
+
+    function playStampBang() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(90, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(25, audioCtx.currentTime + 0.4);
+      gain.gain.setValueAtTime(0.8, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.4);
+    }
+
+    /* ================= 3. TÀN TRO RỰC LỬA ================= */
+    const emberCanvas = document.getElementById('ember-canvas');
+    const emberCtx = emberCanvas.getContext('2d');
+    let embers = [];
+
+    function resizeCanvas() {
+      emberCanvas.width = window.innerWidth;
+      emberCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 35; i++) {
+      embers.push({
+        x: Math.random() * emberCanvas.width,
+        y: Math.random() * emberCanvas.height,
+        r: 1 + Math.random() * 2.5,
+        dy: -(0.4 + Math.random() * 0.8),
+        dx: (Math.random() - 0.5) * 0.4,
+        alpha: 0.2 + Math.random() * 0.7
+      });
+    }
+
+    function drawEmbers() {
+      emberCtx.clearRect(0, 0, emberCanvas.width, emberCanvas.height);
+      embers.forEach(p => {
+        p.y += p.dy;
+        p.x += p.dx;
+        if (p.y < 0) {
+          p.y = emberCanvas.height + 10;
+          p.x = Math.random() * emberCanvas.width;
+        }
+        emberCtx.beginPath();
+        emberCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        emberCtx.fillStyle = `rgba(230, 20, 40, ${p.alpha})`;
+        emberCtx.shadowColor = "rgba(230, 0, 38, 0.8)";
+        emberCtx.shadowBlur = 8;
+        emberCtx.fill();
+      });
+      requestAnimationFrame(drawEmbers);
+    }
+    drawEmbers();
+
+    /* ================= 4. HỆ THỐNG LƯU TRỮ VĨNH CỬU ================= */
+    const MASTER_KEY = "TED_MASTER_DOSSIERS_VAULT";
+
+    const PERMANENT_INITIAL_CASES = [
+      {
+        code: "01",
+        name: "Đại tội vùng California",
+        img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
+        tags: ["Active"],
+        desc: "Hồ sơ tâm lý tội phạm đặc quyền của California.",
+        plot: "https://google.com",
+        ggai: "https://aistudio.google.com",
+        likes: 12
+      },
+      {
+        code: "01",
+        name: "ted",
+        img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+        tags: ["Active"],
+        desc: "Hồ sơ của Đặc vụ Ted. Đã được ghi nhận vào kho lưu trữ California.",
+        plot: "https://google.com",
+        ggai: "https://aistudio.google.com",
+        likes: 24
+      }
+    ];
+
+    function getPersistedDossiers() {
+      let data = localStorage.getItem(MASTER_KEY);
+      if (data) return JSON.parse(data);
+
+      const oldKeys = ['CALI_FINAL_VAULT_V2', 'CALI_FINAL_VAULT', 'cali_cases_v8', 'cali_cases_v7', 'cali_cases_v6', 'cali_cases_v5'];
+      for (let k of oldKeys) {
+        let oldData = localStorage.getItem(k);
+        if (oldData) {
+          try {
+            let parsed = JSON.parse(oldData);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              localStorage.setItem(MASTER_KEY, JSON.stringify(parsed));
+              return parsed;
+            }
+          } catch(e){}
+        }
+      }
+      return PERMANENT_INITIAL_CASES;
+    }
+
+    let dossiers = getPersistedDossiers();
+
+    async function loadSharedCloudCases() {
       try {
-        const idRes = await fetch(`https://api.keyval.org/get/${CLOUD_MASTER_KEY}`);
+        const idRes = await fetch('https://api.keyval.org/get/ted_master_cloud_vault_v1');
         const blobId = (await idRes.text()).trim();
-        if(blobId && blobId.length > 5 && !blobId.includes("error")) {
-          const dataRes = await fetch(`https://jsonblob.com/api/jsonBlob/${blobId}`);
-          if(dataRes.ok) {
-            const data = await dataRes.json();
-            if(data.dossiers && data.dossiers.length > 0) {
-              dossiers = data.dossiers; feedbacks = data.feedbacks || [];
-              localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-              localStorage.setItem('CALI_FB_V2', JSON.stringify(feedbacks));
-              renderWall(dossiers); renderFb();
+        if (blobId && blobId.length > 10 && !blobId.includes("error")) {
+          const dataRes = await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
+            headers: { 'Accept': 'application/json' }
+          });
+          if (dataRes.ok) {
+            const cloudCases = await dataRes.json();
+            if (Array.isArray(cloudCases) && cloudCases.length > 0) {
+              dossiers = cloudCases;
+              localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+              renderCasesWall(dossiers);
             }
           }
         }
-      } catch(e) {}
+      } catch (err) {}
     }
-    loadCloud();
+    loadSharedCloudCases();
 
-    async function saveCloud() {
-      const payload = { dossiers, feedbacks };
+    async function saveSharedCloudCases(casesData) {
       try {
         let blobId = "";
-        try { blobId = (await (await fetch(`https://api.keyval.org/get/${CLOUD_MASTER_KEY}`)).text()).trim(); } catch(e){}
-        if(blobId && blobId.length > 5 && !blobId.includes("error")) {
-          await fetch(`https://jsonblob.com/api/jsonBlob/${blobId}`, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+        try {
+          const idRes = await fetch('https://api.keyval.org/get/ted_master_cloud_vault_v1');
+          blobId = (await idRes.text()).trim();
+        } catch(e){}
+
+        if (blobId && blobId.length > 10 && !blobId.includes("error")) {
+          await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(casesData)
+          });
         } else {
-          const res = await fetch(`https://jsonblob.com/api/jsonBlob`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
-          const location = res.headers.get('Location');
-          if(location) await fetch(`https://api.keyval.org/set/${CLOUD_MASTER_KEY}/${location.split('/').pop()}`);
+          const createRes = await fetch('https://jsonblob.com/api/jsonBlob', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(casesData)
+          });
+          const location = createRes.headers.get('Location') || "";
+          const newBlobId = location.split('/').pop();
+          if (newBlobId) {
+            await fetch('https://api.keyval.org/set/ted_master_cloud_vault_v1/' + newBlobId);
+          }
         }
-      } catch(e) {}
+      } catch (err) {}
     }
 
-    /* ================= 4. RENDER BẢNG HỒ SƠ & DÂY CHỈ ================= */
+    /* ================= 5. MỞ CỔNG + NHÁ ĐÈN JUMPSCARE ================= */
+    const gate18 = document.getElementById('gate-18');
+    const btnPassGate = document.getElementById('btn-pass-gate');
+    const letterScreen = document.getElementById('letter-screen');
+    const artSeal = document.getElementById('art-seal');
+    const boardMain = document.getElementById('board-main');
+    const jumpscareOverlay = document.getElementById('jumpscare-overlay');
+
+    btnPassGate.addEventListener('click', () => {
+      playJumpscareSound();
+      // Chọn ngẫu nhiên 1 bóng ma chồm lên
+      jumpscareOverlay.style.backgroundImage = `url('${JUMPSCARE_GHOSTS[Math.floor(Math.random()*JUMPSCARE_GHOSTS.length)]}')`;
+      jumpscareOverlay.classList.add('strobe-active');
+
+      setTimeout(() => {
+        startMusic();
+        gate18.style.display = 'none';
+        letterScreen.style.display = 'flex';
+        jumpscareOverlay.classList.remove('strobe-active');
+        loadSharedCloudCases();
+      }, 400);
+    });
+
+    artSeal.addEventListener('click', () => {
+      playStampBang();
+      startMusic();
+      letterScreen.style.transform = "translateY(-100%)";
+
+      setTimeout(() => {
+        boardMain.style.display = "block";
+        renderCasesWall(dossiers);
+        setTimeout(renderRedThreads, 350);
+      }, 450);
+    });
+
+    /* ================= 6. VẼ BẢNG POLAROID & LIKE ================= */
     const casesWall = document.getElementById('cases-wall');
-    function renderWall(dataList) {
+
+    function renderCasesWall(itemsToRender) {
       casesWall.innerHTML = "";
-      dataList.forEach((item, idx) => {
+      itemsToRender.forEach((item, idx) => {
         const card = document.createElement('div');
-        card.className = "card-polaroid pin-target";
-        const rot = (idx % 2 === 0 ? 1 : -1) * (1.5 + (idx % 3) * 0.5);
-        const rand = (idx % 5) * 0.4;
+        card.className = "polaroid-evidence-card";
+        const rot = (idx % 2 === 0 ? 1 : -1) * (1.5 + (idx % 3) * 0.7);
+        const rand = (idx % 4) * 0.4;
         card.style.setProperty('--rot', `${rot}deg`);
         card.style.setProperty('--rand', `${rand}`);
 
-        const isLiked = localStorage.getItem('like_v2_' + item.code);
+        const isLiked = localStorage.getItem('cali_liked_' + item.code + '_' + item.name);
 
         card.innerHTML = `
-          <div class="pushpin"></div>
-          <div class="polaroid-img"><img src="${item.img}" alt="Ảnh"></div>
-          <div class="polaroid-name">${item.name}</div>
+          <div class="red-pushpin pin-node"></div>
+          <div class="polaroid-photo-frame">
+            <img src="${item.img}" alt="${item.name}">
+          </div>
+          <div class="polaroid-title">${item.name}</div>
           <div class="polaroid-meta">
             <span>MÃ: ${item.code}</span>
-            <div class="like-stamp ${isLiked ? 'liked' : ''}" onclick="toggleLike(${idx}, event)">
+            <div class="stamp-like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLikeChar(${idx}, event)">
               <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
               <span>${item.likes || 0}</span>
             </div>
           </div>
-          <div class="blood-stain"></div>
-          
+
+          <!-- 2 NÚT LINK PLOT & GGAI ĐẦY ĐỦ -->
           <div class="card-links">
             <a href="${item.plot}" target="_blank" class="link-tag" onclick="event.stopPropagation()">[ PLOT ]</a>
             <a href="${item.ggai}" target="_blank" class="link-tag ggai" onclick="event.stopPropagation()">[ GGAI ]</a>
           </div>
 
-          <div class="admin-controls">
-            <button class="btn-admin-act" onclick="openEdit(${idx}, event)">✏️ SỬA</button>
-            <button class="btn-admin-act del" onclick="delCase(${idx}, event)">🗑️ XOÁ</button>
+          <div class="ted-card-controls">
+            <button class="btn-card-edit" onclick="openEditModal(${idx}, event)">✏️ SỬA</button>
+            <button class="btn-card-del" onclick="deleteCase(${idx}, event)">🗑️ XOÁ</button>
           </div>
         `;
+
+        card.addEventListener('click', () => inspectDossier(item));
         casesWall.appendChild(card);
       });
-      drawThreads();
+      renderRedThreads();
     }
 
-    window.toggleLike = function(idx, e) {
-      e.stopPropagation();
+    window.toggleLikeChar = function(idx, event) {
+      event.stopPropagation();
       const item = dossiers[idx];
-      const key = 'like_v2_' + item.code;
-      if(!localStorage.getItem(key)) { item.likes = (item.likes || 0) + 1; localStorage.setItem(key, 'true'); }
-      else { item.likes = Math.max(0, (item.likes || 1) - 1); localStorage.removeItem(key); }
-      localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-      renderWall(dossiers); saveCloud();
-    }
+      const key = 'cali_liked_' + item.code + '_' + item.name;
+      if (!localStorage.getItem(key)) {
+        item.likes = (item.likes || 0) + 1;
+        localStorage.setItem(key, 'true');
+        playStampBang();
+      } else {
+        item.likes = Math.max(0, (item.likes || 1) - 1);
+        localStorage.removeItem(key);
+      }
+      localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+      renderCasesWall(dossiers);
+      saveSharedCloudCases(dossiers);
+    };
 
-    document.getElementById('search-input').addEventListener('input', e => {
+    /* CHUYỂN BỘ LỌC 3 BONG BÓNG */
+    const orbBtns = document.querySelectorAll('.art-orb-btn');
+    orbBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.hasAttribute('href')) return;
+        orbBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+        if (filter === 'all') {
+          renderCasesWall(dossiers);
+        } else {
+          const filtered = dossiers.filter(c => c.tags.some(t => t.toLowerCase().includes(filter.toLowerCase())));
+          renderCasesWall(filtered);
+        }
+      });
+    });
+
+    /* TÌM KIẾM / ĐIỀU TRA THEO MÃ SỐ & TÊN */
+    const caseSearchInput = document.getElementById('case-search-input');
+    caseSearchInput.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
-      if(!q) { renderWall(dossiers); return; }
-      renderWall(dossiers.filter(d => d.code.toLowerCase().includes(q) || d.name.toLowerCase().includes(q)));
+      if (!q) {
+        renderCasesWall(dossiers);
+        return;
+      }
+      const matched = dossiers.filter(c => 
+        c.code.toLowerCase().includes(q) || 
+        c.name.toLowerCase().includes(q) ||
+        c.tags.some(t => t.toLowerCase().includes(q))
+      );
+      renderCasesWall(matched);
     });
 
-    const canvas = document.getElementById('thread-canvas');
-    const ctx = canvas.getContext('2d');
-    function drawThreads() {
-      if(document.getElementById('board-main').style.display !== 'block') return;
-      canvas.width = document.getElementById('board-main').scrollWidth; canvas.height = document.getElementById('board-main').scrollHeight;
-      ctx.clearRect(0,0, canvas.width, canvas.height);
-      
-      const hub = document.getElementById('hub-pin').getBoundingClientRect();
-      const bRect = document.getElementById('board-main').getBoundingClientRect();
-      const hX = hub.left - bRect.left + hub.width/2;
-      const hY = hub.top - bRect.top + hub.height/2;
+    /* ================= 7. XEM CHI TIẾT HỒ SƠ ================= */
+    const inspectModal = document.getElementById('inspect-modal');
+    const btnCloseInspect = document.getElementById('btn-close-inspect');
 
-      const pins = document.querySelectorAll('.pin-target .pushpin');
-      const pts = [];
-      pins.forEach(p => { const r = p.getBoundingClientRect(); pts.push({ x: r.left - bRect.left + r.width/2, y: r.top - bRect.top + r.height/2 }); });
-
-      pts.forEach(pt => {
-        ctx.beginPath(); ctx.moveTo(hX, hY);
-        ctx.quadraticCurveTo((hX+pt.x)/2, (hY+pt.y)/2 + 15, pt.x, pt.y);
-        ctx.strokeStyle = "rgba(166, 0, 16, 0.75)"; ctx.lineWidth = 1.8;
-        ctx.shadowColor = "#a60311"; ctx.shadowBlur = 5; ctx.stroke();
-      });
+    function inspectDossier(data) {
+      document.getElementById('ins-code').innerText = data.code;
+      document.getElementById('ins-name').innerText = data.name;
+      document.getElementById('ins-img').src = data.img;
+      document.getElementById('ins-tags').innerText = data.tags.map(t => `#${t.trim()}`).join(' ');
+      document.getElementById('ins-desc').innerText = data.desc;
+      document.getElementById('ins-link-plot').href = data.plot;
+      document.getElementById('ins-link-ggai').href = data.ggai;
+      inspectModal.style.display = 'flex';
+      playStampBang();
     }
-    window.addEventListener('resize', drawThreads);
+    btnCloseInspect.addEventListener('click', () => inspectModal.style.display = 'none');
 
-    /* ================= 5. DIỄN ĐÀN FEEDBACK (CHẶN TỪ BẬY) ================= */
-    const AVATARS = [
-      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=100",
-      "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?w=100"
-    ];
-    const BAD_WORDS = ["chó","lồn","cặc","đụ","địt","đít","đái","buồi"];
-    
-    const fbList = document.getElementById('fb-list');
-    function renderFb() {
-      fbList.innerHTML = "";
-      feedbacks.forEach((f, idx) => {
-        fbList.innerHTML += `
-          <div class="fb-item">
-            <img src="${f.ava}" class="fb-avatar">
-            <div class="fb-content">
-              <div style="display:flex; justify-content:space-between;">
-                <div><span class="fb-name">${f.name}</span><span class="fb-time">${f.time}</span></div>
-                <button class="btn-del-fb" onclick="delFb(${idx})">🗑️ XOÁ</button>
-              </div>
-              <div class="fb-text">${f.msg}</div>
-            </div>
-          </div>
-        `;
-      });
-    }
-    renderFb();
+    /* ================= 8. DÂY CHỈ ĐỎ PHÁT QUANG ================= */
+    const threadCanvas = document.getElementById('thread-canvas');
+    const threadCtx = threadCanvas.getContext('2d');
 
-    document.getElementById('btn-open-fb').addEventListener('click', () => document.getElementById('fb-modal').style.display = 'flex');
-    document.getElementById('btn-close-fb').addEventListener('click', () => document.getElementById('fb-modal').style.display = 'none');
-    
-    document.getElementById('btn-send-fb').addEventListener('click', () => {
-      const name = document.getElementById('fb-name').value.trim();
-      const msg = document.getElementById('fb-msg').value.trim();
-      if(!name || !msg) return alert("Vui lòng điền đủ!");
-      if(BAD_WORDS.some(w => name.toLowerCase().includes(w) || msg.toLowerCase().includes(w))) return alert("⚠️ Phát hiện ngôn từ tục tĩu!");
-      
-      feedbacks.push({ name, msg, ava: AVATARS[Math.floor(Math.random()*AVATARS.length)], time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
-      localStorage.setItem('CALI_FB_V2', JSON.stringify(feedbacks));
-      renderFb(); saveCloud();
-      document.getElementById('fb-modal').style.display = 'none'; document.getElementById('fb-msg').value = "";
-    });
+    function renderRedThreads() {
+      if (boardMain.style.display !== 'block') return;
 
-    window.delFb = function(idx) {
-      if(confirm("Ted muốn xoá vĩnh viễn bình luận này?")) { feedbacks.splice(idx,1); localStorage.setItem('CALI_FB_V2', JSON.stringify(feedbacks)); renderFb(); saveCloud(); }
-    }
+      threadCanvas.width = boardMain.scrollWidth;
+      threadCanvas.height = boardMain.scrollHeight;
+      threadCtx.clearRect(0, 0, threadCanvas.width, threadCanvas.height);
 
-    /* ================= 6. TÍNH NĂNG ADMIN TED (SỬA CÓ ĐỔI ẢNH) ================= */
-    const loginModal = document.getElementById('login-modal');
-    document.getElementById('btn-login-trigger').addEventListener('click', () => loginModal.style.display = 'flex');
-    document.getElementById('btn-close-login').addEventListener('click', () => loginModal.style.display = 'none');
-    
-    const btnLight = document.getElementById('btn-light');
-    
-    document.getElementById('btn-submit-login').addEventListener('click', () => {
-      if(document.getElementById('login-id').value === 'tcam9863@gmail.com' && document.getElementById('login-pwd').value === 'camtien12') {
-        loginModal.style.display = 'none'; document.body.classList.add('ted-illuminated');
-        document.getElementById('btn-login-trigger').innerHTML = '👁️‍🗨️ TED ONLINE';
-        document.getElementById('btn-login-trigger').classList.add('active');
-        btnLight.style.display = 'flex';
-      } else alert("SAI THÔNG TIN!");
-    });
+      const hubPin = document.getElementById('hub-pin');
+      const hubRect = hubPin.getBoundingClientRect();
+      const boardRect = boardMain.getBoundingClientRect();
 
-    btnLight.addEventListener('click', () => {
-      document.body.classList.toggle('ted-illuminated');
-      btnLight.innerText = document.body.classList.contains('ted-illuminated') ? "💡 ĐÈN SÁNG" : "💡 ĐÈN TẮT";
-    });
+      const hubX = hubRect.left - boardRect.left + hubRect.width / 2;
+      const hubY = hubRect.top - boardRect.top + hubRect.height / 2;
 
-    function compressImg(file, cb) {
-      const r = new FileReader();
-      r.onload = e => {
-        const img = new Image();
-        img.onload = () => {
-          const cvs = document.createElement('canvas');
-          const scale = Math.min(400/img.width, 400/img.height, 1);
-          cvs.width = img.width * scale; cvs.height = img.height * scale;
-          const ctx = cvs.getContext('2d'); ctx.imageSmoothingQuality = 'high';
-          ctx.drawImage(img,0,0,cvs.width,cvs.height);
-          cb(cvs.toDataURL('image/jpeg', 0.7));
-        };
-        img.src = e.target.result;
-      }; r.readAsDataURL(file);
-    }
+      const pins = document.querySelectorAll('.pin-node');
+      const pinCoords = [];
 
-    document.getElementById('create-form').addEventListener('submit', e => {
-      e.preventDefault();
-      compressImg(document.getElementById('in-file').files[0], imgBase64 => {
-        dossiers.unshift({
-          code: document.getElementById('in-code').value,
-          name: document.getElementById('in-name').value,
-          img: imgBase64,
-          desc: document.getElementById('in-desc').value,
-          plot: document.getElementById('in-plot').value,
-          ggai: document.getElementById('in-ggai').value,
-          likes: 0
+      pins.forEach(pin => {
+        const r = pin.getBoundingClientRect();
+        pinCoords.push({
+          x: r.left - boardRect.left + r.width / 2,
+          y: r.top - boardRect.top + r.height / 2
         });
-        localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-        renderWall(dossiers); saveCloud();
-        alert("ĐÃ LƯU VĨNH VIỄN LÊN ĐÁM MÂY!"); document.getElementById('create-form').reset();
       });
+
+      pinCoords.forEach(pos => {
+        threadCtx.beginPath();
+        threadCtx.moveTo(hubX, hubY);
+        const midX = (hubX + pos.x) / 2;
+        const midY = (hubY + pos.y) / 2 + 10;
+        threadCtx.quadraticCurveTo(midX, midY, pos.x, pos.y);
+        threadCtx.strokeStyle = "rgba(168, 0, 16, 0.75)";
+        threadCtx.lineWidth = 1.6;
+        threadCtx.shadowColor = "rgba(168, 0, 16, 0.85)";
+        threadCtx.shadowBlur = 5;
+        threadCtx.stroke();
+      });
+
+      for (let i = 0; i < pinCoords.length - 1; i++) {
+        threadCtx.beginPath();
+        threadCtx.moveTo(pinCoords[i].x, pinCoords[i].y);
+        threadCtx.lineTo(pinCoords[i+1].x, pinCoords[i+1].y);
+        threadCtx.strokeStyle = "rgba(168, 0, 16, 0.35)";
+        threadCtx.lineWidth = 1.1;
+        threadCtx.stroke();
+      }
+    }
+    window.addEventListener('resize', renderRedThreads);
+
+    /* ================= 9. DIỄN ĐÀN SƠN DẦU (AVATAR MỸ THUẬT & XOÁ FEEDBACK) ================= */
+    const feedbackModal = document.getElementById('feedback-modal');
+    const btnTriggerFeedback = document.getElementById('btn-trigger-feedback');
+    const btnCloseFeedback = document.getElementById('btn-close-feedback');
+    const btnSendFeedback = document.getElementById('btn-send-feedback');
+    const feedbackChatList = document.getElementById('feedback-chat-list');
+
+    const FINE_ART_AVATARS = [
+      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=120&q=80",
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80",
+      "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=120&q=80",
+      "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=120&q=80"
+    ];
+
+    const BAD_WORDS_BLACKLIST = [
+      "chó", "lồn", "cặc", "đụ", "địt", "đụ mẹ", "địt mẹ", 
+      "lỗ đít", "đít", "đái", "buồi", "dâm", "chịch", "vú", 
+      "ngu lồn", "thằng chó", "con chó", "hãm lồn"
+    ];
+
+    function containsProfanity(text) {
+      const lower = text.toLowerCase();
+      return BAD_WORDS_BLACKLIST.some(bad => lower.includes(bad));
+    }
+
+    let feedbacks = JSON.parse(localStorage.getItem('TED_PERMANENT_FEEDBACKS')) || [];
+
+    function renderFeedbacks() {
+      const items = feedbacks.map((f, idx) => `
+        <div class="discord-message-item">
+          <img src="${f.avatar}" class="discord-avatar-img" alt="${f.name}">
+          <div class="discord-msg-content">
+            <div class="discord-author-line">
+              <div class="author-name-tag">
+                <span class="author-name">${f.name}</span>
+                <span class="msg-timestamp">${f.time}</span>
+              </div>
+              <button class="btn-del-feedback" onclick="deleteFeedbackItem(${idx})">🗑️ XOÁ</button>
+            </div>
+            <div class="msg-body-text">${f.msg}</div>
+          </div>
+        </div>
+      `).join('');
+
+      feedbackChatList.innerHTML = `
+        <div class="discord-message-item">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="discord-avatar-img" alt="Ted">
+          <div class="discord-msg-content">
+            <div class="discord-author-line">
+              <div class="author-name-tag">
+                <span class="author-name">Ted</span>
+                <span class="author-badge">CUSTODIAN</span>
+                <span class="msg-timestamp">Hôm nay</span>
+              </div>
+            </div>
+            <div class="msg-body-text">Mọi manh mối bạn phát hiện được hãy để lại tại đây. Hãy cẩn trọng với những gì bạn thấy.</div>
+          </div>
+        </div>
+        ${items}
+      `;
+    }
+    renderFeedbacks();
+
+    window.deleteFeedbackItem = function(idx) {
+      if (confirm("Đặc vụ Ted có chắc chắn muốn xoá vĩnh viễn phản hồi này không?")) {
+        feedbacks.splice(idx, 1);
+        localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
+        renderFeedbacks();
+        playStampBang();
+      }
+    };
+
+    btnTriggerFeedback.addEventListener('click', () => feedbackModal.style.display = 'flex');
+    btnCloseFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
+
+    btnSendFeedback.addEventListener('click', () => {
+      const name = document.getElementById('fb-user-name').value.trim();
+      const msg = document.getElementById('fb-user-msg').value.trim();
+      if (!name || !msg) { alert("Vui lòng điền đầy đủ tên và nội dung!"); return; }
+
+      if (containsProfanity(name) || containsProfanity(msg)) {
+        alert("⚠️ HỆ THỐNG TỪ CHỐI LƯU VẾT!\nPhát hiện ngôn từ nhạy cảm hoặc tục tĩu. Vui lòng giữ văn minh!");
+        return;
+      }
+
+      const randomAvatar = FINE_ART_AVATARS[Math.floor(Math.random() * FINE_ART_AVATARS.length)];
+      const newFb = {
+        name: name,
+        msg: msg,
+        avatar: randomAvatar,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
+      feedbacks.push(newFb);
+      localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
+      renderFeedbacks();
+      feedbackModal.style.display = 'none';
+      document.getElementById('fb-user-msg').value = "";
+      playStampBang();
     });
 
-    const editModal = document.getElementById('edit-modal');
-    document.getElementById('btn-close-edit').addEventListener('click', () => editModal.style.display = 'none');
-    
-    window.openEdit = function(idx, e) {
-      e.stopPropagation(); const d = dossiers[idx];
+    /* ================= 10. XÁC THỰC TED & BẬT ĐÈN ================= */
+    const authOverlay = document.getElementById('auth-overlay');
+    const btnOpenTerminal = document.getElementById('btn-open-terminal');
+    const btnCloseAuth = document.getElementById('btn-close-auth');
+    const tedLoginForm = document.getElementById('ted-login-form');
+    const tedActiveDesk = document.getElementById('ted-active-desk');
+    const authAlertBox = document.getElementById('auth-alert-box');
+    const btnToggleLight = document.getElementById('btn-toggle-light');
+
+    btnOpenTerminal.addEventListener('click', () => {
+      authAlertBox.style.display = 'none';
+      authOverlay.style.display = 'flex';
+    });
+    btnCloseAuth.addEventListener('click', () => authOverlay.style.display = 'none');
+
+    tedLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('login-id').value.trim();
+      const pwd = document.getElementById('login-pwd').value.trim();
+
+      if (id === 'tcam9863@gmail.com' && pwd === 'camtien12') {
+        playStampBang();
+        authOverlay.style.display = 'none';
+
+        document.body.classList.add('ted-illuminated');
+        btnToggleLight.style.display = 'flex';
+
+        btnOpenTerminal.innerHTML = "<span>👁️‍🗨️ TED ONLINE</span>";
+        btnOpenTerminal.classList.add('active');
+        tedActiveDesk.style.display = 'block';
+        tedActiveDesk.scrollIntoView({ behavior: 'smooth' });
+        renderCasesWall(dossiers);
+        renderFeedbacks();
+        setTimeout(renderRedThreads, 200);
+      } else {
+        authAlertBox.style.display = 'block';
+        authAlertBox.innerText = "TRUY CẬP BỊ TỪ CHỐI // SAI ID HOẶC MẬT MÃ";
+      }
+    });
+
+    btnToggleLight.addEventListener('click', () => {
+      document.body.classList.toggle('ted-illuminated');
+      const isIlluminated = document.body.classList.contains('ted-illuminated');
+      btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
+    });
+
+    /* ================= 11. SỬA HỒ SƠ (CÓ THAY ẢNH MỚI) & XOÁ ================= */
+    const editModal = document.getElementById('edit-dossier-modal');
+    const btnCloseEdit = document.getElementById('btn-close-edit');
+    const btnSaveEdit = document.getElementById('btn-save-edit');
+
+    window.openEditModal = function(idx, event) {
+      event.stopPropagation();
+      const c = dossiers[idx];
       document.getElementById('edit-idx').value = idx;
-      document.getElementById('edit-code').value = d.code;
-      document.getElementById('edit-name').value = d.name;
-      document.getElementById('edit-plot').value = d.plot || "#";
-      document.getElementById('edit-ggai').value = d.ggai || "#";
-      document.getElementById('edit-desc').value = d.desc;
+      document.getElementById('edit-code').value = c.code;
+      document.getElementById('edit-name').value = c.name;
+      document.getElementById('edit-plot').value = c.plot;
+      document.getElementById('edit-ggai').value = c.ggai;
+      document.getElementById('edit-desc').value = c.desc;
       document.getElementById('edit-file').value = "";
       editModal.style.display = 'flex';
     };
 
-    document.getElementById('btn-save-edit').addEventListener('click', () => {
+    btnCloseEdit.addEventListener('click', () => editModal.style.display = 'none');
+
+    btnSaveEdit.addEventListener('click', async () => {
       const idx = document.getElementById('edit-idx').value;
+      const fileInput = document.getElementById('edit-file');
+
       dossiers[idx].code = document.getElementById('edit-code').value;
       dossiers[idx].name = document.getElementById('edit-name').value;
       dossiers[idx].plot = document.getElementById('edit-plot').value;
       dossiers[idx].ggai = document.getElementById('edit-ggai').value;
       dossiers[idx].desc = document.getElementById('edit-desc').value;
-      
-      const file = document.getElementById('edit-file').files[0];
-      if(file) {
-        compressImg(file, b64 => { dossiers[idx].img = b64; finishEdit(); });
-      } else finishEdit();
 
-      function finishEdit() {
-        localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-        renderWall(dossiers); saveCloud();
-        editModal.style.display = 'none'; alert("ĐÃ CẬP NHẬT HỒ SƠ!");
+      if (fileInput.files && fileInput.files[0]) {
+        compressImageKeepRatio(fileInput.files[0], async function(newImgBase64) {
+          dossiers[idx].img = newImgBase64;
+          await finalizeEdit();
+        });
+      } else {
+        await finalizeEdit();
+      }
+
+      async function finalizeEdit() {
+        localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+        renderCasesWall(dossiers);
+        editModal.style.display = 'none';
+        playStampBang();
+        await saveSharedCloudCases(dossiers);
+        alert("ĐÃ CẬP NHẬT HỒ SƠ & LƯU MÂY TOÀN CẦU THÀNH CÔNG!");
       }
     });
 
-    window.delCase = function(idx, e) {
-      e.stopPropagation();
-      if(confirm("Tiêu hủy vĩnh viễn hồ sơ này?")) {
+    window.deleteCase = async function(idx, event) {
+      event.stopPropagation();
+      if (confirm(`Bạn có chắc chắn muốn tiêu huỷ hồ sơ [${dossiers[idx].name}] vĩnh viễn không?`)) {
         dossiers.splice(idx, 1);
-        localStorage.setItem(LOCAL_KEY, JSON.stringify(dossiers));
-        renderWall(dossiers); saveCloud();
+        localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+        renderCasesWall(dossiers);
+        playStampBang();
+
+        await saveSharedCloudCases(dossiers);
+        alert("ĐÃ TIÊU HUỶ HỒ SƠ!");
       }
+    };
+
+    /* ================= 12. NÉN ẢNH CHUẨN TỈ LỆ KHÔNG MÉO & ĐĂNG MỚI ================= */
+    const createDossierForm = document.getElementById('create-dossier-form');
+    const btnUploadSubmit = document.getElementById('btn-upload-submit');
+
+    function compressImageKeepRatio(file, callback) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const MAX_DIM = 400;
+          let w = img.width, h = img.height;
+          const scale = Math.min(MAX_DIM / w, MAX_DIM / h, 1);
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(w * scale);
+          canvas.height = Math.round(h * scale);
+          const ctx = canvas.getContext('2d');
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          callback(canvas.toDataURL('image/jpeg', 0.72));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
+
+    createDossierForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const codeVal = document.getElementById('in-code').value;
+      const nameVal = document.getElementById('in-name').value;
+      const fileVal = document.getElementById('in-file').files[0];
+      const plotVal = document.getElementById('in-plot').value;
+      const ggaiVal = document.getElementById('in-ggai').value;
+      const tagsVal = document.getElementById('in-tags').value.split(',');
+      const descVal = document.getElementById('in-desc').value;
+
+      btnUploadSubmit.innerText = "⏳ ĐANG ĐỒNG BỘ ĐÁM MÂY...";
+      btnUploadSubmit.disabled = true;
+
+      compressImageKeepRatio(fileVal, async function(compressedBase64) {
+        const newRecord = {
+          code: codeVal,
+          name: nameVal,
+          img: compressedBase64,
+          tags: tagsVal.length ? tagsVal : ["Active"],
+          desc: descVal || "Không có ghi chú thêm.",
+          plot: plotVal,
+          ggai: ggaiVal,
+          likes: 0
+        };
+
+        dossiers.unshift(newRecord);
+        localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+        renderCasesWall(dossiers);
+
+        await saveSharedCloudCases(dossiers);
+
+        playStampBang();
+        alert(`⚡ HỒ SƠ [${nameVal}] ĐÃ ĐƯỢC ĐÍNH LÊN BẢNG VÀ TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU THÀNH CÔNG!`);
+        btnUploadSubmit.innerText = "+ GHIM HỒ SƠ LÊN BẢNG (TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU)";
+        btnUploadSubmit.disabled = false;
+        createDossierForm.reset();
+      });
+    });
   </script>
 </body>
 </html>
