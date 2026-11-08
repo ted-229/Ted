@@ -61,7 +61,7 @@
       border-bottom: 1px solid rgba(168, 0, 16, 0.25);
     }
 
-    /* ================= 1. ĐÈN TRẦN & CHÙM SÁNG HÌNH TAM GIÁC MỀM MẠI ================= */
+    /* ================= 1. ĐÈN TRẦN & ÁNH SÁNG PHÒNG MỀM MẠI ================= */
     .ceiling-lamp-fixture {
       position: fixed;
       top: -260px;
@@ -94,43 +94,41 @@
       height: auto;
       object-fit: contain;
       filter: drop-shadow(0 10px 25px rgba(0,0,0,0.95));
+      transition: filter 0.5s ease;
     }
 
-    /* CHÙM ÁNH SÁNG TAM GIÁC MỀM MẠI PHÁT TỪ ĐIỂM CUỐI CỦA TẤM ẢNH ĐÈN */
+    /* LỚP ÁNH SÁNG TRẮNG MỀM PHỦ ĐỀU GIAO DIỆN (ĐÃ XOÁ CỤM TAM GIÁC PHÂN VÙNG TỐI SÁNG) */
     .ceiling-triangular-beam {
-      position: absolute;
-      top: 76px; /* Bắt đầu chuẩn xác từ mép đáy chao đèn */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 135vw;
-      max-width: 1200px;
+      position: fixed;
+      inset: 0;
+      width: 100vw;
       height: 100vh;
-      /* Cắt thành hình nón tam giác tỏa rộng xuống dưới */
-      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-      /* Tâm tam giác sáng hơn, tỏa mềm dần ra hai bên và đáy */
-      background: radial-gradient(ellipse 100% 100% at 50% 0%, 
-        rgba(255, 255, 255, 0.45) 0%, 
-        rgba(255, 255, 255, 0.2) 30%, 
-        rgba(255, 255, 255, 0.05) 65%, 
-        transparent 95%);
-      filter: blur(6px);
+      background: rgba(255, 255, 255, 0.12);
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.6s ease;
+      z-index: 34;
     }
 
     /* KHI BẬT ĐÈN TRẦN */
     body.room-light-on .ceiling-lamp-fixture {
       top: -12px !important;
     }
+    body.room-light-on .ceiling-lamp-img {
+      filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.55)) drop-shadow(0 15px 35px rgba(0,0,0,0.95)) !important;
+    }
     body.room-light-on .ceiling-triangular-beam {
       opacity: 1 !important;
     }
     body.room-light-on .spotlight-layer {
-      opacity: 0.1 !important;
+      opacity: 0 !important;
     }
     body.room-light-on {
-      --bg: #151216;
+      --bg: #221c21;
+      background: 
+        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.06) 0%, rgba(15, 12, 16, 0.6) 100%),
+        url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
+        #221c21 !important;
     }
 
     /* ================= 2. ĐÈN UV TỬ NGOẠI ĐẬM ĐẶC RÙNG RỢN ================= */
@@ -1575,7 +1573,7 @@
   <!-- DẢI RÈM NHUNG CHE KÍN MẶT TRÊN CÙNG -->
   <div class="top-velvet-drapery"></div>
 
-  <!-- ĐÈN TRẦN VÀ CHÙM SÁNG HÌNH TAM GIÁC MỀM MẠI PHÁT TỪ ĐÁY ĐÈN -->
+  <!-- ĐÈN TRẦN VÀ CHÙM SÁNG PHỦ ĐỀU GIAO DIỆN -->
   <div class="ceiling-lamp-fixture" id="ceiling-lamp">
     <div class="ceiling-lamp-chain"></div>
     <div class="ceiling-lamp-img-wrap">
@@ -2017,51 +2015,74 @@
     const TRACK_PLAYLIST = [
       "Stract_Shiloh_Dynasty_feat._Burgettii_-_Losing_Interest_Remix_(mp3.pm).mp3",
       "I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3",
-      "KId_Cudi_-_She_Knows_This_slowed_reverb_(mp3.pm).mp3"
+      "Lizz_Robinett_-_Hide_and_Seek_(mp3.pm).aac",
+      "Gesaffelstein_-_Aleph_slowed_reverb_(mp3.pm).mp3"
     ];
 
     let currentTrackIdx = Math.floor(Math.random() * TRACK_PLAYLIST.length);
     const noirAudio = document.getElementById('noir-ambient-audio');
     let isMusicPlaying = false;
+    let isExplicitlyPaused = false;
     const btnToggleAudio = document.getElementById('btn-toggle-audio');
     const tapeStateLabel = document.getElementById('tape-state-label');
 
     function playRandomTrack() {
       initAudioContext();
+      if (!TRACK_PLAYLIST || TRACK_PLAYLIST.length === 0) return;
       noirAudio.src = TRACK_PLAYLIST[currentTrackIdx];
       noirAudio.volume = 0.8;
-      noirAudio.play().then(() => {
-        isMusicPlaying = true;
-        btnToggleAudio.classList.add('active');
-        tapeStateLabel.innerText = "TAPE // PLAYING";
-      }).catch(() => {});
+      const playPromise = noirAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isMusicPlaying = true;
+          isExplicitlyPaused = false;
+          btnToggleAudio.classList.add('active');
+          tapeStateLabel.innerText = "TAPE // PLAYING";
+        }).catch(() => {});
+      }
     }
 
-    noirAudio.addEventListener('ended', () => {
-      let nextIdx;
-      do {
-        nextIdx = Math.floor(Math.random() * TRACK_PLAYLIST.length);
-      } while (nextIdx === currentTrackIdx && TRACK_PLAYLIST.length > 1);
-      currentTrackIdx = nextIdx;
+    function switchNextTrack() {
+      if (TRACK_PLAYLIST.length > 1) {
+        let nextIdx;
+        do {
+          nextIdx = Math.floor(Math.random() * TRACK_PLAYLIST.length);
+        } while (nextIdx === currentTrackIdx);
+        currentTrackIdx = nextIdx;
+      } else {
+        currentTrackIdx = 0;
+      }
       playRandomTrack();
+    }
+
+    noirAudio.addEventListener('ended', switchNextTrack);
+    noirAudio.addEventListener('error', () => {
+      setTimeout(switchNextTrack, 600);
     });
 
-    btnToggleAudio.addEventListener('click', () => {
+    btnToggleAudio.addEventListener('click', (e) => {
+      e.stopPropagation();
       playMechClickSound();
       if (isMusicPlaying) {
+        isExplicitlyPaused = true;
         noirAudio.pause();
         isMusicPlaying = false;
         btnToggleAudio.classList.remove('active');
         tapeStateLabel.innerText = "TAPE // OFF";
       } else {
+        isExplicitlyPaused = false;
         playRandomTrack();
       }
     });
 
+    function handleGlobalAutoPlay() {
+      initAudioContext();
+      if (!isMusicPlaying && !isExplicitlyPaused) {
+        playRandomTrack();
+      }
+    }
     ['pointerdown', 'touchstart', 'click'].forEach(evt => {
-      document.addEventListener(evt, () => {
-        initAudioContext();
-      }, { once: true });
+      document.addEventListener(evt, handleGlobalAutoPlay);
     });
 
     /* ÂM THANH NỔ JUMPSCARE BÙNG NỔ DỮ DỘI */
