@@ -23,6 +23,10 @@
       --gold-baroque: #c5a059;
     }
 
+    body.ted-illuminated {
+      --bg: #140f12;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -31,7 +35,7 @@
       user-select: none;
     }
 
-    /* BACKGROUND CHÍNH CỦA BẠN */
+    /* BACKGROUND CHÍNH THỨC CỦA BẠN */
     body {
       background: 
         radial-gradient(circle at 50% 30%, transparent 20%, rgba(3, 2, 4, 0.9) 80%),
@@ -44,55 +48,47 @@
       position: relative;
     }
 
-    /* ĐÈN TRẦN HẠ TỪ TRÊN XUỐNG VỚI ÁNH SÁNG TRẮNG */
+    /* ================= ĐÈN TRẦN THẢ XUỐNG DÙNG FILE ẢNH BẠN GỬI ================= */
     .ceiling-lamp-fixture {
       position: fixed;
-      top: -240px;
+      top: -280px;
       left: 50%;
       transform: translateX(-50%);
-      width: 140px;
+      width: 130px;
       z-index: 38;
       pointer-events: none;
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: top 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+      transition: top 0.7s cubic-bezier(0.19, 1, 0.22, 1);
     }
-    .ceiling-chain {
-      width: 3px;
-      height: 110px;
-      background: repeating-linear-gradient(180deg, #555 0px, #555 6px, #222 6px, #222 10px);
+    .ceiling-lamp-chain {
+      width: 2.5px;
+      height: 90px;
+      background: repeating-linear-gradient(180deg, #777 0px, #777 6px, #222 6px, #222 10px);
       box-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     }
-    .ceiling-shade {
+    .ceiling-lamp-img-wrap {
       width: 120px;
-      height: 48px;
-      background: linear-gradient(180deg, #2b2628 0%, #151114 100%);
-      border: 1px solid #5a4b4f;
-      border-radius: 60px 60px 10px 10px;
-      position: relative;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    .ceiling-bulb {
-      width: 24px;
-      height: 20px;
-      background: #fff;
-      border-radius: 50%;
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0 0 20px #fff;
+    .ceiling-lamp-img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.9));
     }
     .ceiling-white-beam {
       position: absolute;
-      top: 48px;
+      top: 100px;
       left: 50%;
       transform: translateX(-50%);
-      width: 95vw;
-      max-width: 1100px;
+      width: 100vw;
       height: 100vh;
-      background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.12) 50%, transparent 80%);
+      background: radial-gradient(ellipse 1400px 950px at 50% 0%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 45%, transparent 85%);
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.6s ease;
@@ -100,16 +96,19 @@
 
     /* KHI BẬT ĐÈN PHÒNG */
     body.room-light-on .ceiling-lamp-fixture {
-      top: 0px !important;
+      top: -15px !important;
     }
     body.room-light-on .ceiling-white-beam {
       opacity: 1 !important;
     }
     body.room-light-on .spotlight-layer {
-      opacity: 0.25 !important;
+      opacity: 0.12 !important;
+    }
+    body.room-light-on {
+      --bg: #161317;
     }
 
-    /* ĐÈN UV TỬ NGOẠI */
+    /* ĐÈN UV TỬ NGOẠI (CHỈ BẬT KHI BẤM CÔNG TẮC) */
     body.uv-mode-on .spotlight-layer {
       background: radial-gradient(circle 360px at var(--spot-x, 50%) var(--spot-y, 40%), rgba(90, 10, 180, 0.22) 0%, rgba(18, 2, 35, 0.7) 60%, rgba(4, 1, 10, 0.96) 100%) !important;
     }
@@ -121,7 +120,7 @@
       text-shadow: 0 0 10px #b84dff, 0 0 20px #ff0055;
     }
 
-    /* MẬT MÃ ẨN PHÁT QUANG DƯỚI ĐÈN UV */
+    /* MẬT MÃ ẨN PHÁT QUANG */
     .uv-secret-code {
       position: fixed;
       top: 18%;
@@ -580,8 +579,8 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-top: 65px; /* Giữ khoảng cách không che khuất công tắc */
-      margin-bottom: 15px;
+      margin-top: 55px;
+      margin-bottom: 12px;
       position: relative;
       z-index: 10;
     }
@@ -601,11 +600,11 @@
       font-size: 0.7rem;
       color: var(--text-dim);
       letter-spacing: 1px;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
     }
 
     /* ========================================================
-       3 NÚT ĐIỀU HƯỚNG GOTHIC LUXURY BẰNG FILE ẢNH CỦA BẠN
+       3 NÚT ĐIỀU HƯỚNG GOTHIC LUXURY TINH GỌN (KHÔNG BỊ DÀI THÔ)
     ======================================================== */
     .archive-navigation {
       --rose: #a92d4e;
@@ -613,11 +612,11 @@
       --silver: #c7aeb7;
       --dark: #100609;
 
-      width: min(100% - 16px, 1050px);
-      margin: 15px auto 26px;
+      width: min(100% - 10px, 980px);
+      margin: 10px auto 20px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
+      gap: 12px;
       font-family: 'Playfair Display', Georgia, serif;
       position: relative;
       z-index: 15;
@@ -626,8 +625,8 @@
     .archive-card {
       position: relative;
       min-width: 0;
-      min-height: 290px;
-      padding: 16px 12px 20px;
+      min-height: 215px; /* Giảm độ dài để không bị thô kệch */
+      padding: 12px 8px 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -648,25 +647,25 @@
           rgba(8, 4, 8, .98));
 
       border: 1px solid rgba(193, 91, 119, .48);
-      border-radius: 85px 85px 13px 13px;
+      border-radius: 65px 65px 12px 12px;
 
       box-shadow:
-        inset 0 0 25px rgba(166, 38, 76, .12),
-        0 0 18px rgba(110, 14, 42, .12);
+        inset 0 0 20px rgba(166, 38, 76, .12),
+        0 0 16px rgba(110, 14, 42, .12);
 
       transition:
-        transform .4s ease,
-        border-color .4s ease,
-        box-shadow .4s ease;
+        transform .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
     }
 
     .archive-card::before {
       content: "";
       position: absolute;
-      inset: 7px;
+      inset: 5px;
       z-index: -1;
-      border: 1px solid rgba(220, 139, 160, .23);
-      border-radius: 78px 78px 9px 9px;
+      border: 1px solid rgba(220, 139, 160, .2);
+      border-radius: 60px 60px 8px 8px;
       pointer-events: none;
     }
 
@@ -674,8 +673,8 @@
       position: relative;
       z-index: 2;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
-      letter-spacing: 2px;
+      font-size: 8px;
+      letter-spacing: 1.5px;
       color: #ad7d8b;
       text-align: center;
     }
@@ -683,7 +682,7 @@
     .card-decoration {
       position: relative;
       width: 100%;
-      height: 120px;
+      height: 85px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -691,8 +690,8 @@
 
     /* KHUNG CHỨA FILE ẢNH BẠN TẢI LÊN */
     .custom-card-art-frame {
-      width: 95px;
-      height: 95px;
+      width: 78px;
+      height: 78px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -710,7 +709,7 @@
 
     .archive-card:hover .custom-card-art-frame img,
     .archive-card.active .custom-card-art-frame img {
-      transform: scale(1.12);
+      transform: scale(1.1);
       filter: drop-shadow(0 0 16px var(--crimson-bright));
     }
 
@@ -724,53 +723,46 @@
     .card-subtitle {
       display: block;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
-      letter-spacing: 2px;
+      font-size: 7.5px;
+      letter-spacing: 1.5px;
       color: #a27a87;
-      margin-bottom: 6px;
+      margin-bottom: 3px;
     }
 
     .card-content h3 {
       margin: 0;
-      font-size: clamp(13px, 1.4vw, 18px);
+      font-size: clamp(12px, 1.3vw, 16px);
       font-weight: 700;
-      letter-spacing: 1px;
-      line-height: 1.35;
+      letter-spacing: 0.5px;
+      line-height: 1.3;
       color: #f1c5d2;
-      text-shadow: 0 0 12px rgba(228, 82, 126, .35);
-    }
-
-    .card-content p {
-      margin: 6px 0 12px;
-      color: #c39ba7;
-      font-size: 11.5px;
-      font-style: italic;
-      font-family: 'Be Vietnam Pro', sans-serif;
+      text-shadow: 0 0 10px rgba(228, 82, 126, .35);
     }
 
     .card-enter {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
-      padding: 6px 12px;
-      border-top: 1px solid rgba(211, 116, 145, .35);
+      gap: 5px;
+      padding: 5px 10px;
+      border-top: 1px solid rgba(211, 116, 145, .3);
       color: #d77f9b;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
-      letter-spacing: 1.5px;
+      font-size: 8px;
+      letter-spacing: 1px;
       transition: .3s ease;
+      margin-top: 6px;
     }
-    .card-enter b { font-size: 12px; font-weight: bold; }
+    .card-enter b { font-size: 11px; font-weight: bold; }
 
     /* HOVER & ACTIVE CHO THẺ */
     .archive-card:hover, .archive-card.active {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       border-color: #ed789a;
       box-shadow:
         0 0 12px rgba(232, 72, 120, .4),
-        0 0 35px rgba(195, 37, 83, .3),
-        inset 0 0 35px rgba(177, 37, 76, .2);
+        0 0 30px rgba(195, 37, 83, .3),
+        inset 0 0 30px rgba(177, 37, 76, .2);
     }
     .archive-card:hover .card-enter, .archive-card.active .card-enter {
       color: #fff;
@@ -782,21 +774,20 @@
     @media (max-width: 600px) {
       .archive-navigation {
         width: 100%;
-        gap: 8px;
-        margin: 12px auto 20px;
+        gap: 6px;
+        margin: 8px auto 16px;
       }
       .archive-card {
-        min-height: 235px;
-        padding: 12px 3px 15px;
+        min-height: 175px;
+        padding: 10px 2px 12px;
         border-radius: 46px 46px 10px 10px;
       }
-      .archive-card::before { inset: 5px; border-radius: 41px 41px 7px 7px; }
-      .card-decoration { height: 90px; }
-      .custom-card-art-frame { width: 68px; height: 68px; }
-      .card-content h3 { font-size: 11px; letter-spacing: 0; }
-      .card-content p { font-size: 8.5px; min-height: 22px; margin: 4px 0 6px; line-height: 1.25; }
-      .card-subtitle { font-size: 6.5px; letter-spacing: 1px; margin-bottom: 3px; }
-      .card-enter { font-size: 6.5px; padding: 5px 2px; letter-spacing: .5px; gap: 3px; }
+      .archive-card::before { inset: 4px; border-radius: 42px 42px 7px 7px; }
+      .card-decoration { height: 68px; }
+      .custom-card-art-frame { width: 56px; height: 56px; }
+      .card-content h3 { font-size: 10.5px; }
+      .card-subtitle { font-size: 6px; letter-spacing: 0.5px; }
+      .card-enter { font-size: 6.5px; padding: 4px 2px; }
     }
 
     /* KÍNH LÚP TÌM KIẾM */
@@ -1236,7 +1227,7 @@
       color: #dfdaea;
     }
 
-    /* NÚT XOÁ FEEDBACK CHỈ HIỆN KHI TED ĐĂNG NHẬP */
+    /* NÚT XOÁ FEEDBACK CHỈ DÀNH CHO TED */
     .btn-del-feedback {
       display: none;
       background: #8a0014;
@@ -1445,7 +1436,6 @@
       outline: none;
     }
 
-    /* CHECKBOX TRUY NÃ NGUY HIỂM */
     .wanted-checkbox-wrap {
       background: rgba(230, 0, 38, 0.08);
       border: 1px dashed rgba(230, 0, 38, 0.4);
@@ -1519,11 +1509,11 @@
 </head>
 <body>
 
-  <!-- ĐÈN TRẦN HẠ TỪ TRÊN XUỐNG VỚI ÁNH SÁNG TRẮNG ĐIỆN ẢNH -->
+  <!-- ĐÈN TRẦN DÙNG CHÍNH XÁC FILE ẢNH BẠN GỬI THẢ TỪ TRÊN XUỐNG -->
   <div class="ceiling-lamp-fixture" id="ceiling-lamp">
-    <div class="ceiling-chain"></div>
-    <div class="ceiling-shade">
-      <div class="ceiling-bulb"></div>
+    <div class="ceiling-lamp-chain"></div>
+    <div class="ceiling-lamp-img-wrap">
+      <img src="file_000000002b6c8209aa657cc551e48687.png" alt="Ceiling Lamp" class="ceiling-lamp-img">
     </div>
     <div class="ceiling-white-beam"></div>
   </div>
@@ -1549,7 +1539,7 @@
   <canvas id="fog-canvas"></canvas>
   <canvas id="ember-canvas"></canvas>
 
-  <!-- ================= BẢNG ĐIỀU KHIỂN CÔNG TẮC DÂY XÍCH & TAPE DECK ================= -->
+  <!-- ================= BẢNG CÔNG TẮC ĐIỀU KHIỂN ================= -->
   <div class="top-switchboard">
     <!-- CÔNG TẮC KÉO MÓC XÍCH CHO ĐÈN UV -->
     <div class="chain-pull-switch" id="btn-toggle-uv">
@@ -1557,7 +1547,7 @@
       <span id="uv-state-label">ĐÈN UV [TẮT]</span>
     </div>
 
-    <!-- CÔNG TẮC ĐÈN TRẦN CHO TẤT CẢ MỌI NGƯỜI (ÁNH SÁNG TRẮNG HẠ TỪ TRÊN XUỐNG) -->
+    <!-- CÔNG TẮC ĐÈN TRẦN CHO TẤT CẢ MỌI NGƯỜI (ÁNH SÁNG TRẮNG ĐIỆN ẢNH) -->
     <div class="chain-pull-switch" id="btn-toggle-light">
       <div class="chain-link-icon"></div>
       <span id="light-state-label">ĐÈN SÁNG [BẬT]</span>
@@ -1630,12 +1620,12 @@
       <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
 
       <!-- ========================================================
-           3 NÚT ĐIỀU HƯỚNG GOTHIC LUXURY BẰNG FILE ẢNH CỦA BẠN
+           3 THẺ ĐIỀU HƯỚNG GOTHIC LUXURY TINH GỌN (DÙNG FILE ẢNH MỚI)
       ======================================================== -->
       <nav class="archive-navigation">
         <!-- NÚT 1: TẤT CẢ HỒ SƠ -->
         <div class="archive-card active" data-filter="all">
-          <span class="card-index">SEC.01 // REPOSITORY</span>
+          <span class="card-index">SEC.01</span>
 
           <div class="card-decoration">
             <div class="custom-card-art-frame">
@@ -1646,14 +1636,13 @@
           <div class="card-content">
             <span class="card-subtitle">ARCHIVE PROTOCOL</span>
             <h3>TẤT CẢ HỒ SƠ</h3>
-            <p>Toàn bộ tài liệu mật đã niêm phong</p>
-            <div class="card-enter"><b>KHÁM PHÁ</b> <span>✦</span></div>
+            <div class="card-enter"><b>XEM</b> <span>✦</span></div>
           </div>
         </div>
 
         <!-- NÚT 2: LỆNH TRUY NÃ -->
         <div class="archive-card" data-filter="Active">
-          <span class="card-index">SEC.02 // RED NOTICE</span>
+          <span class="card-index">SEC.02</span>
 
           <div class="card-decoration">
             <div class="custom-card-art-frame">
@@ -1662,27 +1651,25 @@
           </div>
 
           <div class="card-content">
-            <span class="card-subtitle">CRIMINAL REGISTRY</span>
+            <span class="card-subtitle">RED NOTICE</span>
             <h3>LỆNH TRUY NÃ</h3>
-            <p>Đối tượng báo động diện nguy cấp</p>
             <div class="card-enter"><b>TRUY VẾT</b> <span>✦</span></div>
           </div>
         </div>
 
-        <!-- NÚT 3: TRẠM CỦA TED (DẪN FACEBOOK) -->
+        <!-- NÚT 3: TRẠM CỦA TED (FILE MỚI THEO YÊU CẦU + DẪN LINK FB) -->
         <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="archive-card">
-          <span class="card-index">SEC.03 // DISPATCH</span>
+          <span class="card-index">SEC.03</span>
 
           <div class="card-decoration">
             <div class="custom-card-art-frame">
-              <img src="file_00000000945882119969a7fad4be7c5f(3).png" alt="Trạm Của Ted">
+              <img src="file_000000002cdc81f8b44a8728c0a9f22e.png" alt="Trạm Của Ted">
             </div>
           </div>
 
           <div class="card-content">
-            <span class="card-subtitle">HEADQUARTERS</span>
+            <span class="card-subtitle">DISPATCH HQ</span>
             <h3>TRẠM CỦA TED</h3>
-            <p>Bản doanh chỉ huy & kênh liên lạc</p>
             <div class="card-enter"><b>KẾT NỐI</b> <span>↗</span></div>
           </div>
         </a>
@@ -2044,6 +2031,22 @@
       osc.stop(audioCtx.currentTime + 0.08);
     }
 
+    // ÂM THANH BẬT ĐÈN DÂY TÓC ĐIỆN TỬ
+    function playLightSwitchSound() {
+      initAudioContext();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.09);
+      gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.1);
+    }
+
     function playCameraShutterSound() {
       initAudioContext();
       const bufferSize = audioCtx.sampleRate * 0.06;
@@ -2107,14 +2110,13 @@
     }
     drawEmbers();
 
-    /* ================= 4. ĐỒNG BỘ HOÀN TOÀN FIREBASE (KHÔNG CHAR CỐ ĐỊNH) ================= */
+    /* ================= 4. ĐỒNG BỘ HOÀN TOÀN FIREBASE ================= */
     const FIREBASE_DB_URL = "https://ften2-bdaff-default-rtdb.asia-southeast1.firebasedatabase.app";
     const MASTER_KEY = "TED_PERMANENT_IMMORTAL_VAULT";
 
     let dossiers = JSON.parse(localStorage.getItem(MASTER_KEY)) || [];
     let feedbacks = JSON.parse(localStorage.getItem('TED_PERMANENT_FEEDBACKS')) || [];
 
-    // TẢI TẤT CẢ DỮ LIỆU TỪ FIREBASE
     async function syncFromFirebase() {
       try {
         const res = await fetch(`${FIREBASE_DB_URL}/california_vault.json`);
@@ -2136,7 +2138,7 @@
     }
     syncFromFirebase();
 
-    // REALTIME STREAM: KHI TED XOÁ THÌ MÁY KHÁCH TỰ ĐỘNG MẤT
+    // REALTIME STREAM: KHI TED XOÁ THÌ MÁY KHÁCH TỰ MẤT TỨC THÌ
     try {
       const sse = new EventSource(`${FIREBASE_DB_URL}/california_vault.json`);
       sse.addEventListener('put', (e) => {
@@ -2157,7 +2159,6 @@
       });
     } catch(e){}
 
-    // ĐẨY DỮ LIỆU LÊN FIREBASE
     async function pushMasterVaultToFirebase() {
       try {
         const payload = {
@@ -2266,7 +2267,7 @@
     function renderCasesWall(itemsToRender, globalOffset) {
       casesWall.innerHTML = "";
       if (itemsToRender.length === 0) {
-        casesWall.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: #777; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; padding: 40px 0;">[ CHƯA CÓ HỒ SƠ NÀO ĐƯỢC LƯU TRỮ ]</div>`;
+        casesWall.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: #777; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; padding: 40px 0;">[ CHƯA CÓ HỒ SƠ NÀO ĐƯỢC LƯU TRỮ TRÊN FIREBASE ]</div>`;
         renderRedThreads();
         return;
       }
@@ -2342,7 +2343,6 @@
         if (filter === 'all') {
           currentFilteredList = dossiers;
         } else if (filter === 'Active') {
-          // Lọc chính xác những đối tượng Ted đánh dấu là diện TRUY NÃ
           currentFilteredList = dossiers.filter(c => c.isWanted === true || (c.tags && c.tags.some(t => t.toLowerCase().includes('active') || t.toLowerCase().includes('truy nã'))));
         }
         renderCurrentView();
@@ -2497,7 +2497,6 @@
     renderFeedbacks();
 
     window.deleteFeedbackItem = function(idx) {
-      // Chỉ Ted mới có quyền xoá cmt
       if (!isTedLoggedIn) {
         alert("Chỉ có tài khoản Ted mới có quyền xoá manh mối!");
         return;
@@ -2550,7 +2549,7 @@
       pushMasterVaultToFirebase();
     });
 
-    /* ================= 11. BẢNG CÔNG TẮC: ĐÈN UV, ĐÈN PHÒNG & TED ADMIN ================= */
+    /* ================= 11. BẢNG CÔNG TẮC: ĐÈN UV, ĐÈN TRẦN & TED ADMIN ================= */
     let isTedLoggedIn = false;
     const authOverlay = document.getElementById('auth-overlay');
     const btnOpenTerminal = document.getElementById('btn-open-terminal');
@@ -2563,7 +2562,7 @@
     const btnToggleUV = document.getElementById('btn-toggle-uv');
     const uvStateLabel = document.getElementById('uv-state-label');
 
-    // CÔNG TẮC DÂY XÍCH CHO ĐÈN UV (MẶC ĐỊNH TẮT)
+    // CÔNG TẮC KÉO MÓC XÍCH CHO ĐÈN UV (MẶC ĐỊNH TẮT)
     let isUVActive = false;
     btnToggleUV.addEventListener('click', () => {
       playMechClickSound();
@@ -2576,7 +2575,7 @@
     // CÔNG TẮC THẢ ĐÈN TRẦN CHO TẤT CẢ MỌI NGƯỜI (ÁNH SÁNG TRẮNG ĐIỆN ẢNH)
     let isLightActive = false;
     btnToggleLight.addEventListener('click', () => {
-      playMechClickSound();
+      playLightSwitchSound(); // Tiếng bật đèn dây tóc nhẹ
       isLightActive = !isLightActive;
       document.body.classList.toggle('room-light-on', isLightActive);
       btnToggleLight.classList.toggle('white-lamp-active', isLightActive);
@@ -2674,7 +2673,7 @@
         editModal.style.display = 'none';
         playStampImpactSound();
         await pushMasterVaultToFirebase();
-        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀ LƯU FIREBASE VĨNH VIỄN!");
+        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀO FIREBASE VĨNH VIỄN!");
       }
     });
 
@@ -2763,4 +2762,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
