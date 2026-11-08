@@ -98,12 +98,12 @@
       transition: filter 0.5s ease;
     }
 
-    /* XOÁ CỤM TAM GIÁC GÂY LỆCH TRỤC CHIA ĐÔI MÀN HÌNH */
+    /* ĐÃ XOÁ BỎ HOÀN TOÀN CỤM TAM GIÁC GÂY LỆCH TRỤC VÀ ĐƯỜNG RÃNH CHIA ĐÔI MÀN HÌNH */
     .ceiling-triangular-beam {
       display: none !important;
     }
 
-    /* PHỦ ÁNH SÁNG TRẮNG NHẠT ÊM MẮT 100% TOÀN BỘ GIAO DIỆN */
+    /* LỚP ÁNH SÁNG TRẮNG NHẠT ÊM MẮT PHỦ ĐỀU 100% TOÀN BỘ GIAO DIỆN */
     body.room-light-on::before {
       content: "" !important;
       position: fixed !important;
@@ -638,7 +638,6 @@
       text-decoration: none;
       color: #e8cbd3;
 
-      /* NỀN NHẠT, TRONG SUỐT, NHÌN THẤU VÂN TƯỜNG PHÍA SAU */
       background:
         radial-gradient(ellipse at 50% 25%, rgba(180, 25, 60, 0.16), transparent 70%),
         linear-gradient(145deg, rgba(20, 7, 14, 0.32), rgba(6, 2, 5, 0.45));
@@ -898,7 +897,7 @@
       100% { transform: translate(-50%, -50%) scale(1.18); box-shadow: 0 0 18px #fff, 0 0 32px var(--crimson); }
     }
 
-    /* ================= BẢNG HỒ SƠ COMPACT GỌN GÀNG ================= */
+    /* ================= BẢNG HỒ SƠ COMPACT GỌN GÀNG & TỐI ƯU SIÊU MƯỢT ================= */
     .conspiracy-board-wall {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -924,6 +923,7 @@
       cursor: pointer;
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, border-color 0.3s;
       border-radius: 2px;
+      contain: layout style paint; /* Tăng tốc render 60fps cực mượt không lag */
     }
 
     .polaroid-evidence-card:hover {
@@ -933,40 +933,36 @@
       box-shadow: 0 20px 45px rgba(168, 0, 16, 0.7), 0 0 25px rgba(255, 18, 61, 0.45) !important;
     }
 
-    /* HIỆU ỨNG TRANG TRÍ RIÊNG DÀNH CHO CHAR BỊ TRUY NÃ */
+    /* HIỆU ỨNG TRUY NÃ GOTHIC SANG TRỌNG - RED NOTICE VINTAGE MỘC ĐỎ MA MỊ (KHÔNG BỊ ĐỎ CHÓE) */
     .polaroid-evidence-card.wanted-evidence-card {
-      border-color: #ff123d !important;
-      box-shadow: 0 0 15px rgba(255, 18, 61, 0.4), 0 15px 35px rgba(0,0,0,0.95);
-      animation: wantedBorderPulse 3s infinite ease-in-out;
+      border: 1.5px solid rgba(184, 15, 35, 0.85) !important;
+      box-shadow: 0 0 16px rgba(168, 0, 16, 0.4), 0 15px 35px rgba(0,0,0,0.95);
+      animation: wantedNoticePulse 3.5s infinite ease-in-out;
     }
-    @keyframes wantedBorderPulse {
-      0% { box-shadow: 0 0 10px rgba(255, 18, 61, 0.3), 0 15px 35px rgba(0,0,0,0.95); }
-      50% { box-shadow: 0 0 25px rgba(255, 18, 61, 0.75), inset 0 0 15px rgba(255, 18, 61, 0.25); border-color: #ff385c !important; }
-      100% { box-shadow: 0 0 10px rgba(255, 18, 61, 0.3), 0 15px 35px rgba(0,0,0,0.95); }
+    @keyframes wantedNoticePulse {
+      0% { box-shadow: 0 0 12px rgba(168, 0, 16, 0.35), 0 15px 35px rgba(0,0,0,0.95); }
+      50% { box-shadow: 0 0 22px rgba(220, 20, 45, 0.65), inset 0 0 12px rgba(168, 0, 16, 0.2); }
+      100% { box-shadow: 0 0 12px rgba(168, 0, 16, 0.35), 0 15px 35px rgba(0,0,0,0.95); }
     }
 
-    .wanted-danger-stamp {
+    .wanted-red-notice-badge {
       position: absolute;
-      top: 14px;
-      left: -6px;
-      background: #a80010;
-      color: #fff;
+      top: 12px;
+      left: -5px;
+      background: #7a000d;
+      color: #f7e6e9;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.58rem;
       font-weight: 900;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       padding: 3px 8px;
-      transform: rotate(-8deg);
-      border: 1px solid #ff4d66;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255,0,0,0.6);
+      transform: rotate(-9deg);
+      border: 1.5px double rgba(255, 140, 155, 0.7);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.95);
       z-index: 8;
       pointer-events: none;
       text-transform: uppercase;
-      animation: wantedStampGlow 2s infinite alternate;
-    }
-    @keyframes wantedStampGlow {
-      0% { filter: drop-shadow(0 0 2px #ff0033); }
-      100% { filter: drop-shadow(0 0 8px #ff123d) brightness(1.2); }
+      text-shadow: 0 1px 3px #000;
     }
 
     .polaroid-evidence-card::after {
@@ -1133,17 +1129,19 @@
       box-shadow: 0 0 12px var(--crimson-glow);
     }
 
+    /* BẢNG ĐIỀU KHIỂN CỦA TED (SỬA, XOÁ VÀ ĐỔI THỨ TỰ SẮP XẾP) */
     .ted-card-controls {
       display: none;
       margin-top: 6px;
       padding-top: 6px;
       border-top: 1px dashed rgba(230, 0, 38, 0.3);
-      gap: 5px;
+      gap: 4px;
+      flex-wrap: wrap;
     }
     body.ted-illuminated .ted-card-controls {
       display: flex;
     }
-    .btn-card-edit, .btn-card-del {
+    .btn-card-edit, .btn-card-del, .btn-card-order {
       flex: 1;
       padding: 4px 0;
       font-family: 'JetBrains Mono', monospace;
@@ -1155,6 +1153,15 @@
       cursor: pointer;
       text-align: center;
       border-radius: 2px;
+    }
+    .btn-card-order {
+      background: #1c1308;
+      border-color: #4a3416;
+      color: #e5b058;
+    }
+    .btn-card-order:hover {
+      background: #c5a059;
+      color: #000;
     }
     .btn-card-del {
       background: #8a0014;
@@ -1309,7 +1316,7 @@
       padding: 20px;
     }
 
-    /* ================= 5. TẬP HỒ SƠ PHÓNG TO CHI TIẾT (INSPECTOR) ================= */
+    /* ================= 5. TẬP HỒ SƠ PHÓNG TO CHI TIẾT (INSPECTOR GOTHIC SANG TRỌNG) ================= */
     .dossier-inspect-overlay {
       position: fixed;
       inset: 0;
@@ -1324,14 +1331,34 @@
 
     .dossier-inspect-card {
       width: 100%;
-      max-width: 480px;
-      background: #0d080b;
-      border: 1px solid var(--crimson);
-      padding: 24px;
+      max-width: 490px;
+      background: radial-gradient(circle at 50% 0%, #150a0f 0%, #080407 100%);
+      border: 1px solid rgba(220, 30, 60, 0.6);
+      padding: 26px 22px;
       position: relative;
-      box-shadow: 0 0 60px rgba(230, 0, 38, 0.45);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.98), inset 0 0 35px rgba(168, 0, 16, 0.2);
       max-height: 90vh;
       overflow-y: auto;
+      border-radius: 4px;
+      animation: inspectCardOpen 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+    }
+    @keyframes inspectCardOpen {
+      0% { opacity: 0; transform: scale(0.92) translateY(15px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* MỘC PHÁP Y CONFIDENTIAL CHÌM TRÊN GÓC HỒ SƠ CHI TIẾT */
+    .inspect-classified-stamp {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #ba1228;
+      border: 1.5px solid #ba1228;
+      padding: 2px 7px;
+      letter-spacing: 2px;
+      font-weight: 900;
+      display: inline-block;
+      transform: rotate(-3deg);
+      margin-bottom: 8px;
     }
 
     .close-inspect-btn {
@@ -1341,9 +1368,11 @@
       background: none;
       border: none;
       color: var(--text-dim);
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       cursor: pointer;
+      transition: 0.2s;
     }
+    .close-inspect-btn:hover { color: #fff; }
 
     .ted-memo-note-box {
       background: #dfd8cb;
@@ -1383,17 +1412,30 @@
 
     .inspect-mugshot {
       width: 100%;
-      height: 220px;
+      height: 230px;
       background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       margin: 10px 0 14px;
       overflow: hidden;
       position: relative;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
     }
     .inspect-mugshot img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+    /* VẠCH ĐO CHIỀU CAO TỬ TỘI TRONG PHÒNG KHÁM NGHIỆM */
+    .inspect-mugshot::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 35px;
+      height: 100%;
+      background: repeating-linear-gradient(180deg, rgba(255,255,255,0.4) 0px, rgba(255,255,255,0.4) 1px, transparent 1px, transparent 14px);
+      pointer-events: none;
+      z-index: 2;
     }
 
     .hazard-meter-line {
@@ -1434,6 +1476,26 @@
       font-weight: 700;
       letter-spacing: 1px;
       cursor: pointer;
+    }
+    .btn-act-plot {
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid #c5a059;
+      color: #f0dfb8;
+      transition: 0.2s;
+    }
+    .btn-act-plot:hover {
+      background: #c5a059;
+      color: #000;
+    }
+    .btn-act-ggai {
+      background: rgba(230, 0, 38, 0.12);
+      border: 1px solid var(--crimson);
+      color: #ff8093;
+      transition: 0.2s;
+    }
+    .btn-act-ggai:hover {
+      background: var(--crimson);
+      color: #fff;
     }
 
     /* ================= 6. BẢN GIẤY ĐIỀU TRA / PLOT VĂN ÁN CUỘN DỌC ================= */
@@ -1936,10 +1998,11 @@
     </div>
   </div>
 
-  <!-- MODAL XEM CHI TIẾT HỒ SƠ PHÓNG TO (INSPECTOR) -->
+  <!-- MODAL XEM CHI TIẾT HỒ SƠ PHÓNG TO (INSPECTOR GOTHIC SANG TRỌNG) -->
   <div class="dossier-inspect-overlay" id="inspect-modal">
     <div class="dossier-inspect-card">
       <button class="close-inspect-btn" id="btn-close-inspect">&times;</button>
+      <div class="inspect-classified-stamp">CONFIDENTIAL // BUREAU LEVEL 4</div>
       <div style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--crimson-bright); font-weight:bold;" id="ins-code">CA-XXXX</div>
       <h3 style="font-family:'Playfair Display'; font-size:1.55rem; color:#fff;" id="ins-name">NAME</h3>
 
@@ -1950,7 +2013,7 @@
       </div>
       
       <div class="inspect-mugshot">
-        <img id="ins-img" src="" alt="Mugshot">
+        <img id="ins-img" src="" alt="Mugshot" loading="lazy" decoding="async">
       </div>
 
       <!-- TỜ GIẤY GHI CHÚ RIÊNG CỦA ĐẶC VỤ TED -->
@@ -2135,7 +2198,7 @@
 
     noirAudio.addEventListener('ended', switchNextRandomTrack);
     noirAudio.addEventListener('error', () => {
-      setTimeout(switchNextRandomTrack, 500); // Tự động bỏ qua tệp lỗi sang bài tiếp theo không đứt quãng
+      setTimeout(switchNextRandomTrack, 500);
     });
 
     btnToggleAudio.addEventListener('click', (e) => {
@@ -2462,15 +2525,15 @@
         const card = document.createElement('div');
         const isLiked = localStorage.getItem('cali_liked_' + item.code + '_' + item.name);
         
-        // KIỂM TRA ĐỐI TƯỢNG CÓ THUỘC DIỆN TRUY NÃ ĐẶC BIỆT KHÔNG
-        const isWanted = item.isWanted === true || (item.tags && item.tags.some(t => t.toLowerCase().includes('active') || t.toLowerCase().includes('truy nã')));
+        // KIỂM TRA ĐỐI TƯỢNG TRUY NÃ CHUẨN XÁC
+        const isWanted = (item.isWanted === true) || (item.tags && item.tags.some(t => t.toLowerCase() === 'active' || t.toLowerCase().includes('truy nã')));
         card.className = "polaroid-evidence-card" + (isWanted ? " wanted-evidence-card" : "");
 
         card.innerHTML = `
-          ${isWanted ? `<div class="wanted-danger-stamp">WANTED // TRUY NÃ</div>` : ''}
+          ${isWanted ? `<div class="wanted-red-notice-badge">RED NOTICE</div>` : ''}
           <div class="red-pushpin pin-node"></div>
           <div class="polaroid-photo-frame">
-            <img src="${item.img}" alt="${item.name}">
+            <img src="${item.img}" alt="${item.name}" loading="lazy" decoding="async">
             <svg class="crosshair-corner-badge" viewBox="0 0 40 40">
               <circle cx="20" cy="20" r="16" stroke="var(--crimson)" stroke-width="1.5" fill="none"/>
               <path d="M20 4 L20 36 M4 20 L36 20" stroke="var(--crimson)" stroke-width="1.2"/>
@@ -2491,7 +2554,10 @@
             <a href="${item.ggai}" target="_blank" class="link-tag ggai" onclick="event.stopPropagation()">[ GGAI ]</a>
           </div>
 
+          <!-- BẢNG ĐIỀU KHIỂN CỦA TED (CÓ NÚT SẮP XẾP THỨ TỰ LÊN / XUỐNG) -->
           <div class="ted-card-controls">
+            <button class="btn-card-order" onclick="moveCaseOrder(${actualIdx}, -1, event)" title="Đưa lên trên">▲ LÊN</button>
+            <button class="btn-card-order" onclick="moveCaseOrder(${actualIdx}, 1, event)" title="Đưa xuống dưới">▼ XUỐNG</button>
             <button class="btn-card-edit" onclick="openEditModal(${actualIdx}, event)">✏️ SỬA</button>
             <button class="btn-card-del" onclick="deleteCase(${actualIdx}, event)">🗑️ XOÁ</button>
           </div>
@@ -2502,6 +2568,25 @@
       });
       renderRedThreads();
     }
+
+    /* TÍNH NĂNG ĐỔI THỨ TỰ HỒ SƠ CỦA TED */
+    window.moveCaseOrder = async function(idx, direction, event) {
+      event.stopPropagation();
+      if (!isTedLoggedIn) return;
+      const targetIdx = idx + direction;
+      if (targetIdx < 0 || targetIdx >= dossiers.length) return;
+      playMechClickSound();
+
+      // Hoán đổi vị trí hai hồ sơ
+      const temp = dossiers[idx];
+      dossiers[idx] = dossiers[targetIdx];
+      dossiers[targetIdx] = temp;
+
+      localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+      currentFilteredList = dossiers;
+      renderCurrentView();
+      await pushMasterVaultToFirebase();
+    };
 
     window.toggleLikeChar = function(idx, event) {
       event.stopPropagation();
@@ -2533,7 +2618,7 @@
         if (filter === 'all') {
           currentFilteredList = dossiers;
         } else if (filter === 'Active') {
-          currentFilteredList = dossiers.filter(c => c.isWanted === true || (c.tags && c.tags.some(t => t.toLowerCase().includes('active') || t.toLowerCase().includes('truy nã'))));
+          currentFilteredList = dossiers.filter(c => c.isWanted === true || (c.tags && c.tags.some(t => t.toLowerCase() === 'active' || t.toLowerCase().includes('truy nã'))));
         }
         renderCurrentView();
       });
@@ -2614,60 +2699,65 @@
       plotDossierModal.style.display = 'none';
     });
 
-    /* ================= 10. MẠNG LƯỚI CHỈ ĐỎ DÀY ĐẶC TỐI ƯU ================= */
+    /* ================= 10. MẠNG LƯỚI CHỈ ĐỎ DÀY ĐẶC TỐI ƯU 60FPS ================= */
     const threadCanvas = document.getElementById('thread-canvas');
     const threadCtx = threadCanvas.getContext('2d');
+    let threadAnimFrame = null;
 
     function renderRedThreads() {
       if (boardMain.style.display !== 'block') return;
+      if (threadAnimFrame) cancelAnimationFrame(threadAnimFrame);
 
-      threadCanvas.width = boardMain.scrollWidth;
-      threadCanvas.height = boardMain.scrollHeight;
-      threadCtx.clearRect(0, 0, threadCanvas.width, threadCanvas.height);
+      threadAnimFrame = requestAnimationFrame(() => {
+        threadCanvas.width = boardMain.scrollWidth;
+        threadCanvas.height = boardMain.scrollHeight;
+        threadCtx.clearRect(0, 0, threadCanvas.width, threadCanvas.height);
 
-      const hubPin = document.getElementById('hub-pin');
-      const hubRect = hubPin.getBoundingClientRect();
-      const boardRect = boardMain.getBoundingClientRect();
+        const hubPin = document.getElementById('hub-pin');
+        if (!hubPin) return;
+        const hubRect = hubPin.getBoundingClientRect();
+        const boardRect = boardMain.getBoundingClientRect();
 
-      const hubX = hubRect.left - boardRect.left + hubRect.width / 2;
-      const hubY = hubRect.top - boardRect.top + hubRect.height / 2;
+        const hubX = hubRect.left - boardRect.left + hubRect.width / 2;
+        const hubY = hubRect.top - boardRect.top + hubRect.height / 2;
 
-      const pins = document.querySelectorAll('.pin-node');
-      const pinCoords = [];
+        const pins = document.querySelectorAll('.pin-node');
+        const pinCoords = [];
 
-      pins.forEach(pin => {
-        const r = pin.getBoundingClientRect();
-        pinCoords.push({
-          x: r.left - boardRect.left + r.width / 2,
-          y: r.top - boardRect.top + r.height / 2
+        pins.forEach(pin => {
+          const r = pin.getBoundingClientRect();
+          pinCoords.push({
+            x: r.left - boardRect.left + r.width / 2,
+            y: r.top - boardRect.top + r.height / 2
+          });
         });
-      });
 
-      pinCoords.forEach(pos => {
-        threadCtx.beginPath();
-        threadCtx.moveTo(hubX, hubY);
-        const midX = (hubX + pos.x) / 2;
-        const midY = (hubY + pos.y) / 2 + 10;
-        threadCtx.quadraticCurveTo(midX, midY, pos.x, pos.y);
-        threadCtx.strokeStyle = "rgba(168, 0, 16, 0.75)";
-        threadCtx.lineWidth = 1.6;
-        threadCtx.shadowColor = "rgba(230, 0, 38, 0.85)";
-        threadCtx.shadowBlur = 5;
-        threadCtx.stroke();
-      });
+        pinCoords.forEach(pos => {
+          threadCtx.beginPath();
+          threadCtx.moveTo(hubX, hubY);
+          const midX = (hubX + pos.x) / 2;
+          const midY = (hubY + pos.y) / 2 + 10;
+          threadCtx.quadraticCurveTo(midX, midY, pos.x, pos.y);
+          threadCtx.strokeStyle = "rgba(168, 0, 16, 0.75)";
+          threadCtx.lineWidth = 1.6;
+          threadCtx.shadowColor = "rgba(230, 0, 38, 0.85)";
+          threadCtx.shadowBlur = 5;
+          threadCtx.stroke();
+        });
 
-      for (let i = 0; i < pinCoords.length; i++) {
-        for (let j = i + 1; j < pinCoords.length; j++) {
-          if (Math.abs(i - j) === 1 || (i % 2 === 0 && j === i + 2)) {
-            threadCtx.beginPath();
-            threadCtx.moveTo(pinCoords[i].x, pinCoords[i].y);
-            threadCtx.lineTo(pinCoords[j].x, pinCoords[j].y);
-            threadCtx.strokeStyle = "rgba(168, 0, 16, 0.35)";
-            threadCtx.lineWidth = 1.1;
-            threadCtx.stroke();
+        for (let i = 0; i < pinCoords.length; i++) {
+          for (let j = i + 1; j < pinCoords.length; j++) {
+            if (Math.abs(i - j) === 1 || (i % 2 === 0 && j === i + 2)) {
+              threadCtx.beginPath();
+              threadCtx.moveTo(pinCoords[i].x, pinCoords[i].y);
+              threadCtx.lineTo(pinCoords[j].x, pinCoords[j].y);
+              threadCtx.strokeStyle = "rgba(168, 0, 16, 0.35)";
+              threadCtx.lineWidth = 1.1;
+              threadCtx.stroke();
+            }
           }
         }
-      }
+      });
     }
     window.addEventListener('resize', renderRedThreads);
 
@@ -2869,7 +2959,10 @@
       document.getElementById('edit-ggai').value = c.ggai;
       document.getElementById('edit-desc').value = c.desc || "";
       document.getElementById('edit-tags').value = c.tags ? c.tags.join(', ') : "";
-      document.getElementById('edit-is-wanted').checked = c.isWanted || (c.tags && c.tags.includes('Active'));
+      
+      // KIỂM TRA CHUẨN XÁC TRẠNG THÁI TRUY NÃ KHI MỞ BẢNG SỬA
+      const isCurrentlyWanted = (c.isWanted === true) || (c.tags && c.tags.some(t => t.toLowerCase() === 'active' || t.toLowerCase().includes('truy nã')));
+      document.getElementById('edit-is-wanted').checked = isCurrentlyWanted;
       document.getElementById('edit-file').value = "";
       editModal.style.display = 'flex';
     };
@@ -2889,10 +2982,17 @@
       dossiers[idx].plot = document.getElementById('edit-plot').value;
       dossiers[idx].ggai = document.getElementById('edit-ggai').value;
       dossiers[idx].desc = document.getElementById('edit-desc').value;
+      
+      // GHI ĐÈ TRẠNG THÁI TRUY NÃ VÀ LOẠI BỎ TRIỆT ĐỂ TAG GÂY XUNG ĐỘT
       dossiers[idx].isWanted = isWantedChecked;
 
       let tagArray = document.getElementById('edit-tags').value.split(',').map(t => t.trim()).filter(t => t);
-      if (isWantedChecked && !tagArray.includes('Active')) tagArray.push('Active');
+      if (isWantedChecked) {
+        if (!tagArray.some(t => t.toLowerCase() === 'active')) tagArray.push('Active');
+      } else {
+        // KHI BỎ TÍCH: XÓA SẠCH TAG ACTIVE VÀ TRUY NÃ KHỎI MẢNG ĐỂ KHÔNG BỊ DÍNH LẠI
+        tagArray = tagArray.filter(t => t.toLowerCase() !== 'active' && !t.toLowerCase().includes('truy nã'));
+      }
       dossiers[idx].tags = tagArray;
 
       if (fileInput.files && fileInput.files[0]) {
@@ -2963,7 +3063,12 @@
       const plotVal = document.getElementById('in-plot').value;
       const ggaiVal = document.getElementById('in-ggai').value;
       let tagsVal = document.getElementById('in-tags').value.split(',').map(t => t.trim()).filter(t => t);
-      if (isWanted && !tagsVal.includes('Active')) tagsVal.push('Active');
+      
+      if (isWanted) {
+        if (!tagsVal.some(t => t.toLowerCase() === 'active')) tagsVal.push('Active');
+      } else {
+        tagsVal = tagsVal.filter(t => t.toLowerCase() !== 'active' && !t.toLowerCase().includes('truy nã'));
+      }
       const descVal = document.getElementById('in-desc').value;
 
       btnUploadSubmit.innerText = "⏳ ĐANG LƯU VÀO FIREBASE...";
