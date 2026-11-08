@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ĐẠI TỘI VÙNG CALIFORNIA // ARCHIVE</title>
   
-  <!-- BỘ FONT CHUẨN 100% TIẾNG VIỆT - KHÔNG BAO GIỜ LỖI FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
 
@@ -37,7 +36,6 @@
       user-select: none;
     }
 
-    /* BACKGROUND CHÍNH CỦA BẠN */
     body {
       background: 
         radial-gradient(circle at 50% 30%, transparent 20%, rgba(3, 2, 4, 0.88) 80%),
@@ -50,7 +48,7 @@
       position: relative;
     }
 
-    /* ================= JUMPSCARE BÓNG MA CHỒM RA ================= */
+    /* ================= JUMPSCARE BÓNG MA ================= */
     #jumpscare-overlay {
       position: fixed;
       inset: 0;
@@ -117,7 +115,7 @@
       mix-blend-mode: screen;
     }
 
-    /* THANH NÚT ĐIỀU KHIỂN GÓC TRÊN CÙNG */
+    /* THANH NÚT TRÊN CÙNG */
     .top-bar-controls {
       position: fixed;
       top: 14px;
@@ -172,7 +170,7 @@
     }
     @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ================= 1. CỔNG 18+: ĐẠI TỘI VÙNG CALIFORNIA ================= */
+    /* ================= 1. CỔNG 18+ ================= */
     #gate-18 {
       position: fixed;
       inset: 0;
@@ -259,7 +257,6 @@
       transform-origin: center center;
     }
 
-    /* Kẹp giấy đính thư */
     .forensic-dossier-letter::before {
       content: "";
       position: absolute;
@@ -313,7 +310,6 @@
       text-align: justify;
     }
 
-    /* MỘC PHÁP Y ĐÓNG CÁI "ĐÙNG" CHUYÊN SÂU */
     .seal-permit-zone {
       display: flex;
       flex-direction: column;
@@ -340,13 +336,12 @@
       transition: all 0.2s;
     }
 
-    /* HIỆU ỨNG DẬP CON MỘC XUỐNG CÁI ĐÙNG */
     .seal-slamming {
       animation: stampSlamImpact 0.4s cubic-bezier(0.1, 0.9, 0.2, 1) forwards !important;
     }
     @keyframes stampSlamImpact {
       0% { transform: scale(2.8) rotate(-25deg); opacity: 0.3; }
-      60% { transform: scale(0.92) rotate(0deg); opacity: 1; border-color: #ff0000; box-shadow: 0 0 50px #ff0000; }
+      60% { transform: scale(0.92) rotate(0deg); opacity: 1; border-color: #ff0000; box-shadow: 0 0 55px #ff0000; }
       100% { transform: scale(1) rotate(-4deg); opacity: 1; border-color: var(--crimson); }
     }
 
@@ -403,7 +398,7 @@
     #board-main {
       display: none;
       min-height: 100vh;
-      padding: 30px 12px 100px;
+      padding: 30px 10px 100px;
       max-width: 1250px;
       margin: 0 auto;
       position: relative;
@@ -425,7 +420,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       position: relative;
       z-index: 10;
     }
@@ -445,7 +440,7 @@
       font-size: 0.72rem;
       color: var(--text-dim);
       letter-spacing: 1px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     /* 3 BONG BÓNG MỜ ẢO SƠN DẦU */
@@ -453,7 +448,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 24px;
+      gap: 22px;
       margin-bottom: 20px;
       flex-wrap: wrap;
     }
@@ -476,8 +471,8 @@
     }
 
     .glass-orb-bubble {
-      width: 74px;
-      height: 74px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
@@ -497,8 +492,8 @@
     }
 
     .glass-orb-bubble svg {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       stroke: #dfd8e5;
       fill: none;
       stroke-width: 1.4;
@@ -542,7 +537,7 @@
     .dossier-search-wrapper {
       width: 100%;
       max-width: 460px;
-      margin: 10px auto 25px;
+      margin: 5px auto 20px;
       position: relative;
       z-index: 10;
     }
@@ -578,7 +573,7 @@
     /* TÂM ĐIỂM '?' NỐI CHỈ ĐỎ */
     .mystery-hub-modern {
       text-align: center;
-      margin: 5px auto 30px;
+      margin: 5px auto 25px;
       position: relative;
       z-index: 10;
       width: fit-content;
@@ -604,46 +599,53 @@
       box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
     }
 
-    /* ================= BẢNG HỒ SƠ DARK NOIR CAO CẤP ================= */
+    /* ================= BẢNG HỒ SƠ CUỘN NGANG (HORIZONTAL CONVEYOR) ================= */
     .conspiracy-board-wall {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      display: flex;
+      overflow-x: auto;
+      overflow-y: visible;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 22px;
+      padding: 20px 15px 40px 15px;
+      margin-bottom: 35px;
       position: relative;
       z-index: 10;
-      margin-bottom: 45px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--crimson) transparent;
     }
-
-    @media (min-width: 768px) {
-      .conspiracy-board-wall {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 30px;
-      }
+    .conspiracy-board-wall::-webkit-scrollbar {
+      height: 6px;
+    }
+    .conspiracy-board-wall::-webkit-scrollbar-track {
+      background: rgba(10, 5, 8, 0.6);
+      border-radius: 3px;
+    }
+    .conspiracy-board-wall::-webkit-scrollbar-thumb {
+      background: var(--crimson);
+      border-radius: 3px;
+      box-shadow: 0 0 8px var(--crimson);
     }
 
     .polaroid-evidence-card {
+      flex: 0 0 265px;
+      max-width: 275px;
+      scroll-snap-align: center;
       background: var(--card-paper);
       border: 1px solid rgba(230, 0, 38, 0.35);
       padding: 14px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.95), inset 0 0 25px rgba(0,0,0,0.8);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.95), inset 0 0 25px rgba(0,0,0,0.8);
       position: relative;
       cursor: pointer;
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, border-color 0.3s;
       transform: rotate(var(--rot, 0deg));
-      animation: floatCard 6s ease-in-out infinite alternate;
-      animation-delay: calc(var(--rand) * -4s);
-    }
-    @keyframes floatCard {
-      0% { transform: translateY(0) rotate(var(--rot)); }
-      100% { transform: translateY(-6px) rotate(calc(var(--rot) + 0.6deg)); }
     }
 
     .polaroid-evidence-card:hover {
-      transform: scale(1.05) rotate(0deg) !important;
+      transform: scale(1.05) rotate(0deg) translateY(-8px) !important;
       z-index: 40 !important;
       border-color: var(--crimson);
       box-shadow: 0 25px 60px rgba(168, 0, 16, 0.6);
-      animation: none;
     }
 
     /* Băng dính đục góc */
@@ -678,7 +680,7 @@
 
     .polaroid-photo-frame {
       width: 100%;
-      height: 185px;
+      height: 200px;
       background: #000;
       overflow: hidden;
       margin-bottom: 10px;
@@ -700,7 +702,7 @@
     .polaroid-title {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       line-height: 1.25;
       color: #fff;
       margin-bottom: 4px;
@@ -747,7 +749,7 @@
       filter: drop-shadow(0 0 4px var(--crimson));
     }
 
-    /* 2 NÚT LINK PLOT & GGAI MẪU MÁY ĐÁNH CHỮ CAO CẤP */
+    /* 2 NÚT LINK PLOT & GGAI */
     .card-links {
       display: flex;
       gap: 8px;
@@ -1130,16 +1132,14 @@
 </head>
 <body>
 
-  <!-- JUMPSCARE VỚI BÓNG MA QUỶ DỊ CHỚP CHỒM LÊN -->
+  <!-- JUMPSCARE BÓNG MA QUỶ DỊ -->
   <div id="jumpscare-overlay">
     <svg class="ghost-face-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M100 10 C40 10 15 60 15 130 C15 190 40 230 100 230 C160 230 185 190 185 130 C185 60 160 10 100 10 Z" fill="#050002" stroke="#ff0020" stroke-width="4"/>
-      <!-- Hốc mắt ma quỷ rực máu -->
       <ellipse cx="65" cy="100" rx="20" ry="28" fill="#000" stroke="#ff0000" stroke-width="3"/>
       <circle cx="65" cy="100" r="5" fill="#fff"/>
       <ellipse cx="135" cy="100" rx="20" ry="28" fill="#000" stroke="#ff0000" stroke-width="3"/>
       <circle cx="135" cy="100" r="5" fill="#fff"/>
-      <!-- Miệng ngoác dài -->
       <path d="M60 165 C75 220 125 220 140 165 C125 180 75 180 60 165 Z" fill="#200" stroke="#ff0000" stroke-width="3"/>
     </svg>
   </div>
@@ -1323,7 +1323,7 @@
       <div style="font-family:'JetBrains Mono'; font-size:0.7rem; color:var(--text-dim); letter-spacing:2px; margin-top:4px;">SITE 17-A // NEXUS</div>
     </div>
 
-    <!-- BẢNG HỒ SƠ POLAROID DARK NOIR CAO CẤP -->
+    <!-- BẢNG HỒ SƠ DẠNG CUỘN NGANG (HORIZONTAL CONVEYOR) -->
     <div class="conspiracy-board-wall" id="cases-wall"></div>
 
     <!-- DIỄN ĐÀN PHẢN HỒI GOTHIC MỸ THUẬT -->
@@ -1467,7 +1467,7 @@
       if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    /* ================= 2. PHÁT NHẠC TỰ ĐỘNG & JUMPSCARE ================= */
+    /* ================= 2. HỆ THỐNG ÂM THANH NÂNG CẤP & JUMPSCARE ================= */
     const noirAudio = document.getElementById('noir-ambient-audio');
     let isAudioOn = false;
     const audioPill = document.getElementById('audio-pill');
@@ -1502,7 +1502,7 @@
       }
     }, { once: false });
 
-    // HỆ THỐNG ÂM THANH NỔ CÁI ĐÙNG & RÍT JUMPSCARE
+    // HỆ THỐNG ÂM THANH NỔ CÁI ĐÙNG & TIẾNG CƠ HỌC
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
     function playJumpscareSound() {
@@ -1510,8 +1510,8 @@
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.4);
+      osc.frequency.setValueAtTime(850, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(25, audioCtx.currentTime + 0.42);
       gain.gain.setValueAtTime(1, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
       osc.connect(gain);
@@ -1520,20 +1520,36 @@
       osc.stop(audioCtx.currentTime + 0.45);
     }
 
-    // TIẾNG NỔ DẬP MỘC CÁI "ĐÙNG"
+    // TIẾNG DẬP MỘC NỔ CÁI "ĐÙNG" SIÊU TRẦM + RUNG CHẤN
     function playStampImpactSound() {
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(130, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.45);
+      osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(18, audioCtx.currentTime + 0.48);
       gain.gain.setValueAtTime(1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.52);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.5);
+      osc.stop(audioCtx.currentTime + 0.52);
+    }
+
+    // TIẾNG CLICK CƠ HỌC KHI TƯƠNG TÁC
+    function playMechClickSound() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(450, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.08);
     }
 
     /* ================= 3. TÀN TRO RỰC LỬA ================= */
@@ -1687,7 +1703,6 @@
     const jumpscareOverlay = document.getElementById('jumpscare-overlay');
 
     btnPassGate.addEventListener('click', () => {
-      // 🌟 KÍCH HOẠT TIẾNG RÍT & BÓNG MA CHỒM RA
       playJumpscareSound();
       jumpscareOverlay.classList.add('strobe-active');
 
@@ -1700,9 +1715,9 @@
       }, 420);
     });
 
-    // 🌟 KÍCH HOẠT HIỆU ỨNG ĐÓNG MỘC DẬP CÁI "ĐÙNG"
+    // HIỆU ỨNG ĐÓNG MỘC DẬP CÁI "ĐÙNG"
     artSeal.addEventListener('click', () => {
-      playStampImpactSound(); // Tiếng va đập nặng
+      playStampImpactSound(); // Tiếng va đập siêu trầm nổ ra
       artSeal.classList.add('seal-slamming');
       letterPaperElm.classList.add('letter-rumble');
 
@@ -1717,8 +1732,13 @@
       }, 500);
     });
 
-    /* ================= 6. VẼ BẢNG HỒ SƠ & TƯƠNG TÁC ================= */
+    /* ================= 6. VẼ BẢNG HỒ SƠ CUỘN NGANG & TƯƠNG TÁC ================= */
     const casesWall = document.getElementById('cases-wall');
+
+    // Tự động vẽ lại dây chỉ đỏ khi người dùng cuộn ngang
+    casesWall.addEventListener('scroll', () => {
+      requestAnimationFrame(renderRedThreads);
+    });
 
     function renderCasesWall(itemsToRender) {
       casesWall.innerHTML = "";
@@ -1726,9 +1746,7 @@
         const card = document.createElement('div');
         card.className = "polaroid-evidence-card";
         const rot = (idx % 2 === 0 ? 1 : -1) * (1.2 + (idx % 3) * 0.6);
-        const rand = (idx % 4) * 0.4;
         card.style.setProperty('--rot', `${rot}deg`);
-        card.style.setProperty('--rand', `${rand}`);
 
         const isLiked = localStorage.getItem('cali_liked_' + item.code + '_' + item.name);
 
@@ -1766,12 +1784,12 @@
 
     window.toggleLikeChar = function(idx, event) {
       event.stopPropagation();
+      playMechClickSound();
       const item = dossiers[idx];
       const key = 'cali_liked_' + item.code + '_' + item.name;
       if (!localStorage.getItem(key)) {
         item.likes = (item.likes || 0) + 1;
         localStorage.setItem(key, 'true');
-        playStampImpactSound();
       } else {
         item.likes = Math.max(0, (item.likes || 1) - 1);
         localStorage.removeItem(key);
@@ -1786,6 +1804,7 @@
     orbBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         if (btn.hasAttribute('href')) return;
+        playMechClickSound();
         orbBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const filter = btn.getAttribute('data-filter');
@@ -1819,6 +1838,7 @@
     const btnCloseInspect = document.getElementById('btn-close-inspect');
 
     function inspectDossier(data) {
+      playMechClickSound();
       document.getElementById('ins-code').innerText = data.code;
       document.getElementById('ins-name').innerText = data.name;
       document.getElementById('ins-img').src = data.img;
@@ -1827,11 +1847,13 @@
       document.getElementById('ins-link-plot').href = data.plot;
       document.getElementById('ins-link-ggai').href = data.ggai;
       inspectModal.style.display = 'flex';
-      playStampImpactSound();
     }
-    btnCloseInspect.addEventListener('click', () => inspectModal.style.display = 'none');
+    btnCloseInspect.addEventListener('click', () => {
+      playMechClickSound();
+      inspectModal.style.display = 'none';
+    });
 
-    /* ================= 8. DÂY CHỈ ĐỎ PHÁT QUANG ================= */
+    /* ================= 8. DÂY CHỈ ĐỎ PHÁT QUANG CO DÃN THEO CUỘN NGANG ================= */
     const threadCanvas = document.getElementById('thread-canvas');
     const threadCtx = threadCanvas.getContext('2d');
 
@@ -1854,6 +1876,7 @@
 
       pins.forEach(pin => {
         const r = pin.getBoundingClientRect();
+        // Chỉ vẽ dây cho các thẻ đang nằm trong tầm nhìn ngang
         pinCoords.push({
           x: r.left - boardRect.left + r.width / 2,
           y: r.top - boardRect.top + r.height / 2
@@ -1952,12 +1975,18 @@
         feedbacks.splice(idx, 1);
         localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
         renderFeedbacks();
-        playStampImpactSound();
+        playMechClickSound();
       }
     };
 
-    btnTriggerFeedback.addEventListener('click', () => feedbackModal.style.display = 'flex');
-    btnCloseFeedback.addEventListener('click', () => feedbackModal.style.display = 'none');
+    btnTriggerFeedback.addEventListener('click', () => {
+      playMechClickSound();
+      feedbackModal.style.display = 'flex';
+    });
+    btnCloseFeedback.addEventListener('click', () => {
+      playMechClickSound();
+      feedbackModal.style.display = 'none';
+    });
 
     btnSendFeedback.addEventListener('click', () => {
       const name = document.getElementById('fb-user-name').value.trim();
@@ -1982,7 +2011,7 @@
       renderFeedbacks();
       feedbackModal.style.display = 'none';
       document.getElementById('fb-user-msg').value = "";
-      playStampImpactSound();
+      playMechClickSound();
     });
 
     /* ================= 10. XÁC THỰC TED & BẬT ĐÈN ================= */
@@ -1995,10 +2024,14 @@
     const btnToggleLight = document.getElementById('btn-toggle-light');
 
     btnOpenTerminal.addEventListener('click', () => {
+      playMechClickSound();
       authAlertBox.style.display = 'none';
       authOverlay.style.display = 'flex';
     });
-    btnCloseAuth.addEventListener('click', () => authOverlay.style.display = 'none');
+    btnCloseAuth.addEventListener('click', () => {
+      playMechClickSound();
+      authOverlay.style.display = 'none';
+    });
 
     tedLoginForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -2026,6 +2059,7 @@
     });
 
     btnToggleLight.addEventListener('click', () => {
+      playMechClickSound();
       document.body.classList.toggle('ted-illuminated');
       const isIlluminated = document.body.classList.contains('ted-illuminated');
       btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
@@ -2038,6 +2072,7 @@
 
     window.openEditModal = function(idx, event) {
       event.stopPropagation();
+      playMechClickSound();
       const c = dossiers[idx];
       document.getElementById('edit-idx').value = idx;
       document.getElementById('edit-code').value = c.code;
@@ -2049,7 +2084,10 @@
       editModal.style.display = 'flex';
     };
 
-    btnCloseEdit.addEventListener('click', () => editModal.style.display = 'none');
+    btnCloseEdit.addEventListener('click', () => {
+      playMechClickSound();
+      editModal.style.display = 'none';
+    });
 
     btnSaveEdit.addEventListener('click', async () => {
       const idx = document.getElementById('edit-idx').value;
@@ -2152,7 +2190,7 @@
 
         playStampImpactSound();
         alert(`⚡ HỒ SƠ [${nameVal}] ĐÃ ĐƯỢC ĐÍNH LÊN BẢNG VÀ TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU THÀNH CÔNG!`);
-        btnUploadSubmit.innerText = "+ GHIM HỒ SƠ LÊN BẢNG (TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU)";
+        btnUploadSubmit.innerText = "+ GHIM HỒ SƠ LÊN BẢNG (LƯU VĨNH VIỄN)";
         btnUploadSubmit.disabled = false;
         createDossierForm.reset();
       });
