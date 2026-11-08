@@ -20,7 +20,8 @@
       --text-main: #f0eef5;
       --text-dim: #8b889a;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --uv-purple: rgba(120, 0, 255, 0.4);
+      --gold-baroque: #c5a059;
+      --uv-violet: #a84dff;
     }
 
     body.ted-illuminated {
@@ -30,12 +31,16 @@
       background: radial-gradient(circle 900px at 50% 30%, rgba(255, 215, 160, 0.22) 0%, rgba(20, 16, 18, 0.6) 60%, rgba(8, 7, 9, 0.88) 100%) !important;
     }
 
-    /* CHẾ ĐỘ ĐÈN UV SOI HUỲNH QUANG */
+    /* ĐÈN UV MẶC ĐỊNH PHÁT QUANG TỬ NGOẠI */
     body.uv-mode-on .spotlight-layer {
-      background: radial-gradient(circle 350px at var(--spot-x, 50%) var(--spot-y, 40%), rgba(140, 20, 255, 0.25) 0%, rgba(20, 0, 50, 0.7) 60%, rgba(5, 0, 15, 0.96) 100%) !important;
+      background: radial-gradient(circle 350px at var(--spot-x, 50%) var(--spot-y, 40%), rgba(140, 20, 255, 0.22) 0%, rgba(25, 0, 50, 0.7) 60%, rgba(5, 0, 15, 0.96) 100%) !important;
     }
     body.uv-mode-on #thread-canvas {
       filter: drop-shadow(0 0 8px #ff0055) hue-rotate(290deg);
+    }
+    body.uv-mode-on .uv-secret-code {
+      opacity: 0.8 !important;
+      text-shadow: 0 0 10px #b84dff, 0 0 20px #ff0055;
     }
 
     * {
@@ -46,7 +51,6 @@
       user-select: none;
     }
 
-    /* BACKGROUND CHÍNH THỨC CỦA BẠN */
     body {
       background: 
         radial-gradient(circle at 50% 30%, transparent 20%, rgba(3, 2, 4, 0.9) 80%),
@@ -57,6 +61,22 @@
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+    }
+
+    /* KÝ HIỆU PHÁT QUANG BÍ MẬT DƯỚI ĐÈN UV */
+    .uv-secret-code {
+      position: fixed;
+      top: 18%;
+      left: 6%;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #b84dff;
+      letter-spacing: 3px;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transform: rotate(-12deg);
+      transition: opacity 0.5s ease;
     }
 
     /* JUMPSCARE BÓNG MA QUỶ DỊ */
@@ -95,7 +115,7 @@
       100% { background: transparent; }
     }
 
-    /* ĐÈN SPOTLIGHT ĐIỆN ẢNH */
+    /* ĐÈN SPOTLIGHT */
     .spotlight-layer {
       position: fixed;
       inset: 0;
@@ -126,20 +146,22 @@
       mix-blend-mode: screen;
     }
 
-    /* THANH NÚT ĐIỀU KHIỂN TRÊN CÙNG */
+    /* THANH NÚT ĐIỀU KHIỂN TRÊN CÙNG - KHÔNG BỊ CHE KHUẤT */
     .top-bar-controls {
       position: fixed;
-      top: 14px;
-      right: 14px;
-      z-index: 100;
+      top: 12px;
+      right: 12px;
+      z-index: 120;
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .ctrl-pill {
-      background: rgba(14, 8, 12, 0.92);
-      border: 1px solid rgba(230, 0, 38, 0.35);
+      background: rgba(14, 8, 12, 0.94);
+      border: 1px solid rgba(230, 0, 38, 0.4);
       backdrop-filter: blur(14px);
       padding: 6px 11px;
       border-radius: 20px;
@@ -152,9 +174,14 @@
       gap: 5px;
       cursor: pointer;
       transition: 0.25s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    }
+    .ctrl-pill:hover {
+      border-color: var(--crimson-bright);
+      color: #fff;
     }
     .admin-pill {
-      border-color: rgba(230, 0, 38, 0.5);
+      border-color: rgba(212, 175, 55, 0.6);
       color: #dfcfab;
       font-weight: bold;
     }
@@ -167,6 +194,11 @@
       border-color: var(--crimson);
       color: #fff;
       box-shadow: 0 0 15px var(--crimson-glow);
+    }
+    .uv-pill-active {
+      border-color: #b84dff !important;
+      color: #e6b8ff !important;
+      box-shadow: 0 0 15px rgba(184, 77, 255, 0.7) !important;
     }
     .audio-dot {
       width: 6px;
@@ -181,7 +213,7 @@
     }
     @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ================= 1. CỔNG 18+: ĐẠI TỘI VÙNG CALIFORNIA ================= */
+    /* ================= 1. CỔNG 18+ ================= */
     #gate-18 {
       position: fixed;
       inset: 0;
@@ -217,7 +249,7 @@
 
     .gate-card p {
       color: var(--text-dim);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       line-height: 1.6;
       margin-bottom: 28px;
     }
@@ -426,11 +458,13 @@
       z-index: 1;
     }
 
+    /* ĐẨY PHẦN HEADER XUỐNG ĐỂ KHÔNG BỊ THANH ĐIỀU KHIỂN CHE */
     .redesigned-header {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      margin-top: 45px;
       margin-bottom: 15px;
       position: relative;
       z-index: 10;
@@ -470,7 +504,7 @@
       align-items: center;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.3s;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       animation: floatOrb 5s ease-in-out infinite alternate;
     }
     .art-orb-btn:nth-child(2) { animation-delay: 1.5s; }
@@ -543,7 +577,7 @@
     .dossier-search-wrapper {
       width: 100%;
       max-width: 440px;
-      margin: 5px auto 16px;
+      margin: 5px auto 14px;
       position: relative;
       z-index: 10;
     }
@@ -576,13 +610,13 @@
       pointer-events: none;
     }
 
-    /* PHÂN TRANG (MÀU BẠC KHÓI / ĐỎ THẪM - BỎ HẲN MÀU VÀNG) */
+    /* PHÂN TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) */
     .pagination-bar {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 15px;
-      margin: 10px auto 20px;
+      margin: 8px auto 18px;
       position: relative;
       z-index: 15;
     }
@@ -647,11 +681,11 @@
       box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
     }
 
-    /* ================= BẢNG HỒ SƠ COMPACT 2 CỘT GỌN GÀNG ================= */
+    /* ================= BẢNG HỒ SƠ COMPACT GỌN GÀNG ================= */
     .conspiracy-board-wall {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 15px;
       position: relative;
       z-index: 10;
       margin-bottom: 35px;
@@ -660,7 +694,7 @@
     @media (min-width: 768px) {
       .conspiracy-board-wall {
         grid-template-columns: repeat(4, 1fr);
-        gap: 22px;
+        gap: 20px;
       }
     }
 
@@ -682,7 +716,6 @@
       box-shadow: 0 20px 45px rgba(168, 0, 16, 0.6);
     }
 
-    /* Băng dính đục góc */
     .polaroid-evidence-card::after {
       content: "";
       position: absolute;
@@ -698,7 +731,6 @@
       z-index: 5;
     }
 
-    /* Ghim đỏ đỉnh thẻ */
     .red-pushpin {
       position: absolute;
       top: -6px;
@@ -713,7 +745,6 @@
       z-index: 6;
     }
 
-    /* Khung ảnh chân dung gọn gàng (145px chiều cao để ko bị khuất) */
     .polaroid-photo-frame {
       width: 100%;
       height: 145px;
@@ -736,7 +767,6 @@
       filter: grayscale(0%) contrast(1.3);
     }
 
-    /* Icon hồng tâm ngắm bắn góc ảnh */
     .crosshair-corner-badge {
       position: absolute;
       top: 6px;
@@ -769,7 +799,6 @@
       align-items: center;
     }
 
-    /* NÚT THẢ TIM NHỎ GỌN */
     .stamp-like-btn {
       display: inline-flex;
       align-items: center;
@@ -797,7 +826,6 @@
       filter: drop-shadow(0 0 4px var(--crimson));
     }
 
-    /* 2 NÚT LINK PLOT & GGAI GỌN GÀNG */
     .card-links {
       display: flex;
       gap: 5px;
@@ -834,7 +862,6 @@
       box-shadow: 0 0 12px var(--crimson-glow);
     }
 
-    /* QUYỀN SỬA XOÁ CHO TED */
     .ted-card-controls {
       display: none;
       margin-top: 6px;
@@ -1047,7 +1074,6 @@
       cursor: pointer;
     }
 
-    /* TỜ GIẤY GHI CHÚ ĐIỀU TRA RIÊNG CỦA ĐẶC VỤ TED */
     .ted-memo-note-box {
       background: #dfd8cb;
       border: 1px solid #7a6e5b;
@@ -1099,7 +1125,6 @@
       object-fit: cover;
     }
 
-    /* Thanh chỉ số mức độ nguy hiểm */
     .hazard-meter-line {
       display: flex;
       align-items: center;
@@ -1229,7 +1254,6 @@
       z-index: 15;
     }
 
-    /* MODAL CHỈNH SỬA HỒ SƠ */
     #edit-dossier-modal {
       position: fixed;
       inset: 0;
@@ -1242,7 +1266,10 @@
     }
   </style>
 </head>
-<body>
+<body class="uv-mode-on"> <!-- ĐÈN UV MẶC ĐỊNH BẬT SÁNG -->
+
+  <!-- KÝ HIỆU MẬT ẨN TRÊN TƯỜNG (CHỈ THẤY KHI BẬT ĐÈN UV) -->
+  <div class="uv-secret-code">SITE 17-A // KẺ THỦ ÁC VẪN Ở ĐÂY // 1988</div>
 
   <!-- JUMPSCARE BÓNG MA QUỶ DỊ CHỚP CHỒM LÊN -->
   <div id="jumpscare-overlay">
@@ -1268,9 +1295,9 @@
 
   <!-- THANH ĐIỀU KHIỂN TRÊN CÙNG -->
   <div class="top-bar-controls">
-    <!-- NÚT MỚI: ĐÈN UV SOI VẾT MÁU -->
-    <div class="ctrl-pill" id="btn-toggle-uv">
-      <span>🟣 ĐÈN UV</span>
+    <!-- NÚT ĐÈN UV MẶC ĐỊNH BẬT -->
+    <div class="ctrl-pill uv-pill-active" id="btn-toggle-uv">
+      <span>🟣 ĐÈN UV: BẬT</span>
     </div>
     <div class="ctrl-pill" id="btn-toggle-light" style="display:none;">
       <span>💡 ĐÈN: BẬT</span>
@@ -1313,7 +1340,6 @@
         <span style="color:var(--crimson); font-weight:bold; font-style: italic;">"Trust the facts, not the rumors. Not every story has a happy ending."</span>
       </div>
 
-      <!-- MỘC PHÁP Y CHUẨN MỰC: ĐÓNG CÁI ĐÙNG -->
       <div class="seal-permit-zone">
         <div class="official-forensic-seal" id="art-seal">
           <svg class="seal-svg-ring" viewBox="0 0 100 100">
@@ -1341,7 +1367,6 @@
 
       <!-- 3 BONG BÓNG MỜ ẢO SƠN DẦU -->
       <div class="ethereal-orbs-nav">
-        <!-- BONG BÓNG 1: TẤT CẢ HỒ SƠ -->
         <div class="art-orb-btn active" data-filter="all">
           <div class="glass-orb-bubble">
             <svg viewBox="0 0 40 40">
@@ -1353,7 +1378,6 @@
           <span class="orb-label-title">TẤT CẢ HỒ SƠ</span>
         </div>
 
-        <!-- BONG BÓNG 2: LỆNH TRUY NÃ -->
         <div class="art-orb-btn" data-filter="Active">
           <div class="glass-orb-bubble">
             <svg viewBox="0 0 40 40">
@@ -1365,7 +1389,6 @@
           <span class="orb-label-title">LỆNH TRUY NÃ</span>
         </div>
 
-        <!-- BONG BÓNG 3: TRẠM CHỦ TED (DẪN FACEBOOK) -->
         <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="art-orb-btn ted-orb-special">
           <div class="glass-orb-bubble">
             <svg viewBox="0 0 40 40">
@@ -1384,7 +1407,7 @@
         <input type="text" id="case-search-input" class="search-input-field" placeholder="NHẬP MÃ SỐ HOẶC TÊN HỒ SƠ ĐỂ ĐIỀU TRA...">
       </div>
 
-      <!-- THANH CHUYỂN TRANG 8 CHAR / TRANG (BỎ HẲN MÀU VÀNG) -->
+      <!-- THANH CHUYỂN TRANG 8 CHAR / TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) -->
       <div class="pagination-bar" id="pagination-control-bar">
         <button class="page-nav-btn" id="btn-prev-page" disabled>❮ TRƯỚC</button>
         <div class="page-indicator-text" id="page-display-text">TRANG <span id="current-page-num">1</span> / <span id="total-page-num">1</span></div>
@@ -1408,7 +1431,7 @@
         </div>
 
         <div class="field-wrap">
-          <label>Tải ảnh Chân dung (Tự nén chuẩn HD không mờ không méo):</label>
+          <label>Tải ảnh Chân dung (Chuẩn HD sắc nét không méo):</label>
           <input type="file" id="in-file" accept="image/*" required>
         </div>
 
@@ -1429,11 +1452,11 @@
         </div>
 
         <div class="field-wrap">
-          <label>Ghi chú khám nghiệm (Sẽ hiển thị trên tờ ghi chú của Ted):</label>
+          <label>Ghi chú khám nghiệm (Hiện trên giấy note của Ted):</label>
           <textarea id="in-desc" rows="2" placeholder="Ghi chép án mạng..."></textarea>
         </div>
 
-        <button type="submit" class="btn-terminal-submit" id="btn-upload-submit">+ GHIM HỒ SƠ LÊN BẢNG (LƯU VĨNH VIỄN)</button>
+        <button type="submit" class="btn-terminal-submit" id="btn-upload-submit">+ GHIM HỒ SƠ LÊN BẢNG (LƯU FIREBASE VĨNH VIỄN)</button>
       </form>
     </section>
 
@@ -1446,10 +1469,10 @@
       <div style="font-family:'JetBrains Mono'; font-size:0.7rem; color:var(--text-dim); letter-spacing:2px; margin-top:4px;">SITE 17-A // NEXUS</div>
     </div>
 
-    <!-- BẢNG HỒ SƠ COMPACT 2 CỘT GỌN GÀNG -->
+    <!-- BẢNG HỒ SƠ COMPACT GỌN GÀNG -->
     <div class="conspiracy-board-wall" id="cases-wall"></div>
 
-    <!-- DIỄN ĐÀN PHẢN HỒI GOTHIC MỸ THUẬT (KHÔNG CÒN MÀU VÀNG) -->
+    <!-- DIỄN ĐÀN PHẢN HỒI GOTHIC MỸ THUẬT -->
     <section class="discord-feedback-zone">
       <div class="discord-channel-header">
         <div class="channel-title">
@@ -1496,11 +1519,11 @@
         <img id="ins-img" src="" alt="Mugshot">
       </div>
 
-      <!-- TỜ GIẤY GHI CHÚ RIÊNG CỦA TED -->
+      <!-- TỜ GIẤY GHI CHÚ RIÊNG CỦA ĐẶC VỤ TED -->
       <div class="ted-memo-note-box">
         <div class="memo-note-header">
           <span>TED'S FIELD NOTES // CLASSIFIED</span>
-          <span>PIN #04</span>
+          <span>EVIDENCE PIN</span>
         </div>
         <div class="memo-note-body" id="ins-desc">
           Chưa có ghi chú hiện trường.
@@ -1516,7 +1539,7 @@
     </div>
   </div>
 
-  <!-- MODAL CHỈNH SỬA HỒ SƠ (CHO PHÉP THAY ĐỔI CẢ ẢNH MỚI) -->
+  <!-- MODAL CHỈNH SỬA HỒ SƠ -->
   <div id="edit-dossier-modal">
     <div class="terminal-window">
       <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.5rem; cursor:pointer;" id="btn-close-edit">&times;</button>
@@ -1546,7 +1569,7 @@
         <label>Ghi chú khám nghiệm (Trên tờ note của Ted):</label>
         <textarea id="edit-desc" rows="2"></textarea>
       </div>
-      <button type="button" class="btn-terminal-submit" id="btn-save-edit">CẬP NHẬT & ĐỒNG BỘ MÂY</button>
+      <button type="button" class="btn-terminal-submit" id="btn-save-edit">CẬP NHẬT & ĐỒNG BỘ FIREBASE</button>
     </div>
   </div>
 
@@ -1608,7 +1631,7 @@
       if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    /* ================= 2. HỆ THỐNG ÂM THANH & UNLOCK TỰ ĐỘNG ================= */
+    /* ================= 2. HỆ THỐNG ÂM THANH ================= */
     let audioCtx = null;
     function initAudioContext() {
       if (!audioCtx) {
@@ -1648,14 +1671,12 @@
       }
     });
 
-    // Bất kỳ cú chạm nào trên web cũng kích hoạt giải phóng âm thanh
     ['pointerdown', 'touchstart', 'click'].forEach(evt => {
       document.addEventListener(evt, () => {
         initAudioContext();
       }, { once: true });
     });
 
-    // TIẾNG RÍT JUMPSCARE
     function playJumpscareSound() {
       initAudioContext();
       const osc = audioCtx.createOscillator();
@@ -1671,7 +1692,6 @@
       osc.stop(audioCtx.currentTime + 0.45);
     }
 
-    // TIẾNG DẬP MỘC NỔ CÁI "ĐÙNG" SIÊU TRẦM
     function playStampImpactSound() {
       initAudioContext();
       const osc = audioCtx.createOscillator();
@@ -1687,7 +1707,6 @@
       osc.stop(audioCtx.currentTime + 0.52);
     }
 
-    // TIẾNG CLICK CƠ HỌC
     function playMechClickSound() {
       initAudioContext();
       const osc = audioCtx.createOscillator();
@@ -1701,6 +1720,29 @@
       gain.connect(audioCtx.destination);
       osc.start();
       osc.stop(audioCtx.currentTime + 0.08);
+    }
+
+    // ÂM THANH CHỤP ẢNH BẰNG CHỨNG (CAMERA SHUTTER)
+    function playCameraShutterSound() {
+      initAudioContext();
+      const bufferSize = audioCtx.sampleRate * 0.06;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+      const whiteNoise = audioCtx.createBufferSource();
+      whiteNoise.buffer = buffer;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1800;
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.8, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.06);
+      whiteNoise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+      whiteNoise.start();
     }
 
     /* ================= 3. TÀN TRO RỰC LỬA ================= */
@@ -1746,7 +1788,8 @@
     }
     drawEmbers();
 
-    /* ================= 4. HỆ THỐNG LƯU TRỮ VĨNH CỬU ================= */
+    /* ================= 4. KẾT NỐI CHÍNH THỨC VỚI GOOGLE FIREBASE CỦA BẠN ================= */
+    const FIREBASE_DB_URL = "https://ften2-bdaff-default-rtdb.asia-southeast1.firebasedatabase.app";
     const MASTER_KEY = "TED_PERMANENT_IMMORTAL_VAULT";
 
     const PERMANENT_INITIAL_CASES = [
@@ -1792,76 +1835,74 @@
       }
     ];
 
-    function getPersistedDossiers() {
+    function getLocalCachedDossiers() {
       let data = localStorage.getItem(MASTER_KEY);
-      if (data) return JSON.parse(data);
-
-      const oldKeys = ['TED_MASTER_DOSSIERS_VAULT_IMMORTAL', 'TED_MASTER_DOSSIERS_VAULT', 'CALI_FINAL_VAULT_V2'];
-      for (let k of oldKeys) {
-        let oldData = localStorage.getItem(k);
-        if (oldData) {
-          try {
-            let parsed = JSON.parse(oldData);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              localStorage.setItem(MASTER_KEY, JSON.stringify(parsed));
-              return parsed;
-            }
-          } catch(e){}
-        }
+      if (data) {
+        try { return JSON.parse(data); } catch(e){}
       }
       return PERMANENT_INITIAL_CASES;
     }
 
-    let dossiers = getPersistedDossiers();
+    let dossiers = getLocalCachedDossiers();
+    let feedbacks = JSON.parse(localStorage.getItem('TED_PERMANENT_FEEDBACKS')) || [];
 
-    async function loadSharedCloudCases() {
+    // TẢI DỮ LIỆU TỪ FIREBASE THỜI GIAN THỰC
+    async function loadDataFromFirebase() {
       try {
-        const idRes = await fetch('https://api.keyval.org/get/ted_cali_eternal_vault_2026');
-        const blobId = (await idRes.text()).trim();
-        if (blobId && blobId.length > 10 && !blobId.includes("error")) {
-          const dataRes = await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
-            headers: { 'Accept': 'application/json' }
-          });
-          if (dataRes.ok) {
-            const cloudCases = await dataRes.json();
-            if (Array.isArray(cloudCases) && cloudCases.length > 0) {
-              dossiers = cloudCases;
+        const res = await fetch(`${FIREBASE_DB_URL}/dossiers.json`);
+        if (res.ok) {
+          const cloudCases = await res.json();
+          if (cloudCases && (Array.isArray(cloudCases) || typeof cloudCases === 'object')) {
+            const list = Array.isArray(cloudCases) ? cloudCases : Object.values(cloudCases);
+            if (list.length > 0) {
+              dossiers = list.filter(item => item !== null);
               localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+              currentFilteredList = dossiers;
               renderCurrentView();
             }
           }
         }
-      } catch (err) {}
-    }
-    loadSharedCloudCases();
+      } catch (err) {
+        console.log("Firebase sync fallback:", err);
+      }
 
-    async function saveSharedCloudCases(casesData) {
+      // TẢI FEEDBACK TỪ FIREBASE
       try {
-        let blobId = "";
-        try {
-          const idRes = await fetch('https://api.keyval.org/get/ted_cali_eternal_vault_2026');
-          blobId = (await idRes.text()).trim();
-        } catch(e){}
-
-        if (blobId && blobId.length > 10 && !blobId.includes("error")) {
-          await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(casesData)
-          });
-        } else {
-          const createRes = await fetch('https://jsonblob.com/api/jsonBlob', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify(casesData)
-          });
-          const location = createRes.headers.get('Location') || "";
-          const newBlobId = location.split('/').pop();
-          if (newBlobId) {
-            await fetch('https://api.keyval.org/set/ted_cali_eternal_vault_2026/' + newBlobId);
+        const fbRes = await fetch(`${FIREBASE_DB_URL}/feedbacks.json`);
+        if (fbRes.ok) {
+          const cloudFb = await fbRes.json();
+          if (cloudFb) {
+            const fbList = Array.isArray(cloudFb) ? cloudFb : Object.values(cloudFb);
+            feedbacks = fbList.filter(f => f !== null);
+            localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
+            renderFeedbacks();
           }
         }
-      } catch (err) {}
+      } catch (err){}
+    }
+    loadDataFromFirebase();
+
+    // LƯU DỮ LIỆU VÀO FIREBASE CỦA BẠN
+    async function saveDossiersToFirebase(casesData) {
+      try {
+        await fetch(`${FIREBASE_DB_URL}/dossiers.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(casesData)
+        });
+      } catch (err) {
+        console.error("Lỗi đẩy Firebase:", err);
+      }
+    }
+
+    async function saveFeedbacksToFirebase(fbData) {
+      try {
+        await fetch(`${FIREBASE_DB_URL}/feedbacks.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(fbData)
+        });
+      } catch (err){}
     }
 
     /* ================= 5. MỞ CỔNG + NHÁ ĐÈN JUMPSCARE ================= */
@@ -1883,7 +1924,7 @@
         gate18.style.display = 'none';
         letterScreen.style.display = 'flex';
         jumpscareOverlay.classList.remove('strobe-active');
-        loadSharedCloudCases();
+        loadDataFromFirebase();
       }, 400);
     });
 
@@ -1949,7 +1990,7 @@
       }
     });
 
-    /* ================= 7. VẼ BẢNG HỒ SƠ COMPACT ================= */
+    /* ================= 7. VẼ BẢNG HỒ SƠ ================= */
     const casesWall = document.getElementById('cases-wall');
 
     function renderCasesWall(itemsToRender, globalOffset) {
@@ -1978,7 +2019,6 @@
             </div>
           </div>
 
-          <!-- 2 NÚT LINK PLOT & GGAI -->
           <div class="card-links">
             <a href="${item.plot}" target="_blank" class="link-tag" onclick="event.stopPropagation()">[ PLOT ]</a>
             <a href="${item.ggai}" target="_blank" class="link-tag ggai" onclick="event.stopPropagation()">[ GGAI ]</a>
@@ -2010,7 +2050,7 @@
       }
       localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
       renderCurrentView();
-      saveSharedCloudCases(dossiers);
+      saveDossiersToFirebase(dossiers);
     };
 
     /* CHUYỂN BỘ LỌC 3 BONG BÓNG */
@@ -2054,7 +2094,7 @@
     const btnCloseInspect = document.getElementById('btn-close-inspect');
 
     function inspectDossier(data) {
-      playMechClickSound();
+      playCameraShutterSound(); // Tiếng chớp máy ảnh tanh tách
       document.getElementById('ins-code').innerText = data.code;
       document.getElementById('ins-name').innerText = data.name;
       document.getElementById('ins-img').src = data.img;
@@ -2115,7 +2155,7 @@
       // 2. MẠNG DÂY ĐAN CHÉO LIÊN KẾT GIỮA CÁC HỒ SƠ
       for (let i = 0; i < pinCoords.length; i++) {
         for (let j = i + 1; j < pinCoords.length; j++) {
-          if (Math.abs(i - j) === 1 || (i % 2 === 0 && j === i + 3)) {
+          if (Math.abs(i - j) === 1 || (i % 2 === 0 && j === i + 2)) {
             threadCtx.beginPath();
             threadCtx.moveTo(pinCoords[i].x, pinCoords[i].y);
             threadCtx.lineTo(pinCoords[j].x, pinCoords[j].y);
@@ -2128,7 +2168,7 @@
     }
     window.addEventListener('resize', renderRedThreads);
 
-    /* ================= 10. DIỄN ĐÀN PHẢN HỒI (DISCORD GOTHIC) ================= */
+    /* ================= 10. DIỄN ĐÀN PHẢN HỒI ================= */
     const feedbackModal = document.getElementById('feedback-modal');
     const btnTriggerFeedback = document.getElementById('btn-trigger-feedback');
     const btnCloseFeedback = document.getElementById('btn-close-feedback');
@@ -2142,6 +2182,8 @@
       "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><circle cx='20' cy='20' r='18' fill='%23140505' stroke='%23990010' stroke-width='2'/><circle cx='20' cy='20' r='10' fill='%23550008'/><circle cx='20' cy='20' r='3' fill='%23fff'/></svg>"
     ];
 
+    const TED_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><circle cx='20' cy='20' r='18' fill='%231a0005' stroke='%23ff123d' stroke-width='2'/><path d='M10 20 L30 20 M20 10 L20 30' stroke='%23ff123d' stroke-width='2'/><circle cx='20' cy='20' r='6' stroke='%23fff' stroke-width='1.5' fill='none'/></svg>";
+
     const BAD_WORDS_BLACKLIST = [
       "chó", "lồn", "cặc", "đụ", "địt", "đụ mẹ", "địt mẹ", 
       "lỗ đít", "đít", "đái", "buồi", "dâm", "chịch", "vú", 
@@ -2152,8 +2194,6 @@
       const lower = text.toLowerCase();
       return BAD_WORDS_BLACKLIST.some(bad => lower.includes(bad));
     }
-
-    let feedbacks = JSON.parse(localStorage.getItem('TED_PERMANENT_FEEDBACKS')) || [];
 
     function renderFeedbacks() {
       if (feedbacks.length === 0) {
@@ -2188,6 +2228,7 @@
         localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
         renderFeedbacks();
         playMechClickSound();
+        saveFeedbacksToFirebase(feedbacks);
       }
     };
 
@@ -2210,12 +2251,14 @@
         return;
       }
 
-      const randomAvatar = ABSTRACT_DARK_AVATARS[Math.floor(Math.random() * ABSTRACT_DARK_AVATARS.length)];
+      const isTed = (name.toLowerCase() === 'ted' || name.toLowerCase() === 'đặc vụ ted');
+      const avatarChosen = isTed ? TED_AVATAR : ABSTRACT_DARK_AVATARS[Math.floor(Math.random() * ABSTRACT_DARK_AVATARS.length)];
+
       const newFb = {
         name: name,
         msg: msg,
-        avatar: randomAvatar,
-        isAdmin: (name.toLowerCase() === 'ted' || name.toLowerCase() === 'đặc vụ ted'),
+        avatar: avatarChosen,
+        isAdmin: isTed,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
 
@@ -2225,6 +2268,7 @@
       feedbackModal.style.display = 'none';
       document.getElementById('fb-user-msg').value = "";
       playMechClickSound();
+      saveFeedbacksToFirebase(feedbacks);
     });
 
     /* ================= 11. XÁC THỰC TED, ĐÈN UV & ĐÈN PHÒNG ================= */
@@ -2237,14 +2281,14 @@
     const btnToggleLight = document.getElementById('btn-toggle-light');
     const btnToggleUV = document.getElementById('btn-toggle-uv');
 
-    // BẬT / TẮT ĐÈN UV HUỲNH QUANG
-    let isUVOn = false;
+    // NÚT BẬT / TẮT ĐÈN UV
+    let isUVOn = true; // Mặc định bật sẵn
     btnToggleUV.addEventListener('click', () => {
       playMechClickSound();
       isUVOn = !isUVOn;
       document.body.classList.toggle('uv-mode-on', isUVOn);
-      btnToggleUV.style.borderColor = isUVOn ? "#b84dff" : "rgba(230,0,38,0.35)";
-      btnToggleUV.style.boxShadow = isUVOn ? "0 0 15px rgba(184,77,255,0.7)" : "none";
+      btnToggleUV.classList.toggle('uv-pill-active', isUVOn);
+      btnToggleUV.innerHTML = isUVOn ? "<span>🟣 ĐÈN UV: BẬT</span>" : "<span>🟣 ĐÈN UV: TẮT</span>";
     });
 
     btnOpenTerminal.addEventListener('click', () => {
@@ -2337,8 +2381,8 @@
         renderCurrentView();
         editModal.style.display = 'none';
         playStampImpactSound();
-        await saveSharedCloudCases(dossiers);
-        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀ LƯU VĨNH VIỄN TOÀN CẦU!");
+        await saveDossiersToFirebase(dossiers);
+        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀO FIREBASE VĨNH VIỄN!");
       }
     });
 
@@ -2350,12 +2394,12 @@
         renderCurrentView();
         playStampImpactSound();
 
-        await saveSharedCloudCases(dossiers);
-        alert("ĐÃ TIÊU HUỶ HỒ SƠ!");
+        await saveDossiersToFirebase(dossiers);
+        alert("ĐÃ TIÊU HUỶ HỒ SƠ KHỎI FIREBASE!");
       }
     };
 
-    /* ================= 13. NÉN ẢNH CHUẨN HD SẮC NÉT (KHÔNG MỜ, KHÔNG MÉO) ================= */
+    /* ================= 13. NÉN ẢNH CHUẨN HD SẮC NÉT KHÔNG MÉO ================= */
     const createDossierForm = document.getElementById('create-dossier-form');
     const btnUploadSubmit = document.getElementById('btn-upload-submit');
 
@@ -2364,7 +2408,7 @@
       reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
-          const MAX_DIM = 750; // Chuẩn HD sắc nét
+          const MAX_DIM = 750;
           let w = img.width, h = img.height;
           const scale = Math.min(MAX_DIM / w, MAX_DIM / h, 1);
           const canvas = document.createElement('canvas');
@@ -2391,7 +2435,7 @@
       const tagsVal = document.getElementById('in-tags').value.split(',');
       const descVal = document.getElementById('in-desc').value;
 
-      btnUploadSubmit.innerText = "⏳ ĐANG ĐỒNG BỘ ĐÁM MÂY...";
+      btnUploadSubmit.innerText = "⏳ ĐANG LƯU VÀO FIREBASE...";
       btnUploadSubmit.disabled = true;
 
       compressImageHighRes(fileVal, async function(compressedBase64) {
@@ -2412,11 +2456,11 @@
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
         renderCurrentView();
 
-        await saveSharedCloudCases(dossiers);
+        await saveDossiersToFirebase(dossiers);
 
         playStampImpactSound();
-        alert(`⚡ HỒ SƠ [${nameVal}] ĐÃ ĐƯỢC ĐÍNH LÊN BẢNG VÀ LƯU VĨNH VIỄN TOÀN CẦU!`);
-        btnUploadSubmit.innerText = "+ GHIM HỒ SƠ LÊN BẢNG (LƯU VĨNH VIỄN)";
+        alert(`⚡ HỒ SƠ [${nameVal}] ĐÃ ĐƯỢC ĐÍNH LÊN BẢNG VÀ LƯU FIREBASE VĨNH VIỄN!`);
+        btnUploadSubmit.innerText = "+ GHIM HỒ SƠ LÊN BẢNG (LƯU FIREBASE VĨNH VIỄN)";
         btnUploadSubmit.disabled = false;
         createDossierForm.reset();
       });
