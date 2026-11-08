@@ -74,6 +74,7 @@
       flex-direction: column;
       align-items: center;
       transition: top 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+      will-change: top, transform;
     }
     .ceiling-lamp-chain {
       width: 2px;
@@ -97,31 +98,54 @@
       transition: filter 0.5s ease;
     }
 
-    /* LỚP ÁNH SÁNG TRẮNG MỀM PHỦ ĐỀU GIAO DIỆN (ĐÃ XOÁ CỤM TAM GIÁC PHÂN VÙNG TỐI SÁNG) */
+    /* XOÁ CỤM TAM GIÁC GÂY LỆCH TRỤC CHIA ĐÔI MÀN HÌNH */
     .ceiling-triangular-beam {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(255, 255, 255, 0.12);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      z-index: 34;
+      display: none !important;
     }
 
-    /* KHI BẬT ĐÈN TRẦN */
+    /* PHỦ ÁNH SÁNG TRẮNG NHẠT ÊM MẮT 100% TOÀN BỘ GIAO DIỆN */
+    body.room-light-on::before {
+      content: "" !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(255, 255, 255, 0.12) !important;
+      pointer-events: none !important;
+      z-index: 34 !important;
+      animation: roomLightFlicker 0.45s ease-out forwards;
+    }
+
+    /* HIỆU ỨNG CHỚP BÓNG ĐÈN VONFRAM KHI BẬT */
+    @keyframes roomLightFlicker {
+      0% { opacity: 0; }
+      20% { opacity: 0.85; }
+      35% { opacity: 0.25; }
+      55% { opacity: 0.9; }
+      75% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    /* HIỆU ỨNG ĐÈN THẢ XUỐNG CÓ ĐỘ LẮC ĐU ĐƯA VẬT LÝ */
     body.room-light-on .ceiling-lamp-fixture {
       top: -12px !important;
+      animation: lampDropSway 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
     }
+    @keyframes lampDropSway {
+      0% { top: -260px; transform: translateX(-50%) rotate(0deg); }
+      60% { top: -8px; transform: translateX(-50%) rotate(3deg); }
+      75% { top: -14px; transform: translateX(-50%) rotate(-1.5deg); }
+      90% { top: -11px; transform: translateX(-50%) rotate(0.8deg); }
+      100% { top: -12px; transform: translateX(-50%) rotate(0deg); }
+    }
+
     body.room-light-on .ceiling-lamp-img {
-      filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.55)) drop-shadow(0 15px 35px rgba(0,0,0,0.95)) !important;
-    }
-    body.room-light-on .ceiling-triangular-beam {
-      opacity: 1 !important;
+      filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6)) drop-shadow(0 15px 35px rgba(0,0,0,0.95)) !important;
     }
     body.room-light-on .spotlight-layer {
       opacity: 0 !important;
+      visibility: hidden !important;
     }
     body.room-light-on {
       --bg: #221c21;
@@ -231,8 +255,10 @@
       z-index: 35;
       background: radial-gradient(circle 300px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(3, 2, 4, 0.45) 55%, rgba(3, 2, 4, 0.88) 100%);
       transition: background 0.08s ease-out, opacity 0.5s ease;
+      will-change: background, opacity;
     }
 
+    /* TỐI ƯU HOÁ GPU MƯỚT RƯỢT CHO CANVASES KHÔNG GIẬT LAG */
     #fog-canvas {
       position: fixed;
       inset: 0;
@@ -242,6 +268,8 @@
       z-index: 28;
       mix-blend-mode: screen;
       opacity: 0.45;
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     #ember-canvas {
@@ -252,6 +280,8 @@
       pointer-events: none;
       z-index: 30;
       mix-blend-mode: screen;
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     /* ================= BẢNG CÔNG TẮC ĐIỀU KHIỂN ================= */
@@ -547,6 +577,8 @@
       height: 100%;
       pointer-events: none;
       z-index: 1;
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     .redesigned-header {
@@ -859,9 +891,14 @@
       border-radius: 50%;
       background: #fff;
       box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
+      animation: hubBreathingGlow 2.5s ease-in-out infinite alternate !important;
+    }
+    @keyframes hubBreathingGlow {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      100% { transform: translate(-50%, -50%) scale(1.18); box-shadow: 0 0 18px #fff, 0 0 32px var(--crimson); }
     }
 
-    /* BẢNG HỒ SƠ COMPACT GỌN GÀNG */
+    /* ================= BẢNG HỒ SƠ COMPACT GỌN GÀNG ================= */
     .conspiracy-board-wall {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -885,15 +922,51 @@
       box-shadow: 0 15px 35px rgba(0,0,0,0.92);
       position: relative;
       cursor: pointer;
-      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, border-color 0.3s;
       border-radius: 2px;
     }
 
     .polaroid-evidence-card:hover {
       transform: scale(1.03) translateY(-4px);
       z-index: 40 !important;
-      border-color: var(--crimson-bright);
-      box-shadow: 0 20px 45px rgba(168, 0, 16, 0.6);
+      border-color: var(--crimson-bright) !important;
+      box-shadow: 0 20px 45px rgba(168, 0, 16, 0.7), 0 0 25px rgba(255, 18, 61, 0.45) !important;
+    }
+
+    /* HIỆU ỨNG TRANG TRÍ RIÊNG DÀNH CHO CHAR BỊ TRUY NÃ */
+    .polaroid-evidence-card.wanted-evidence-card {
+      border-color: #ff123d !important;
+      box-shadow: 0 0 15px rgba(255, 18, 61, 0.4), 0 15px 35px rgba(0,0,0,0.95);
+      animation: wantedBorderPulse 3s infinite ease-in-out;
+    }
+    @keyframes wantedBorderPulse {
+      0% { box-shadow: 0 0 10px rgba(255, 18, 61, 0.3), 0 15px 35px rgba(0,0,0,0.95); }
+      50% { box-shadow: 0 0 25px rgba(255, 18, 61, 0.75), inset 0 0 15px rgba(255, 18, 61, 0.25); border-color: #ff385c !important; }
+      100% { box-shadow: 0 0 10px rgba(255, 18, 61, 0.3), 0 15px 35px rgba(0,0,0,0.95); }
+    }
+
+    .wanted-danger-stamp {
+      position: absolute;
+      top: 14px;
+      left: -6px;
+      background: #a80010;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      padding: 3px 8px;
+      transform: rotate(-8deg);
+      border: 1px solid #ff4d66;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255,0,0,0.6);
+      z-index: 8;
+      pointer-events: none;
+      text-transform: uppercase;
+      animation: wantedStampGlow 2s infinite alternate;
+    }
+    @keyframes wantedStampGlow {
+      0% { filter: drop-shadow(0 0 2px #ff0033); }
+      100% { filter: drop-shadow(0 0 8px #ff123d) brightness(1.2); }
     }
 
     .polaroid-evidence-card::after {
@@ -923,6 +996,11 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.8), inset 0 1px 3px #fff;
       border: 1px solid #660010;
       z-index: 6;
+      animation: pinBreathingGlow 2.5s ease-in-out infinite alternate !important;
+    }
+    @keyframes pinBreathingGlow {
+      0% { filter: drop-shadow(0 0 2px #ff123d); transform: translateX(-50%) scale(1); }
+      100% { filter: drop-shadow(0 0 8px #ff123d) brightness(1.3); transform: translateX(-50%) scale(1.1); }
     }
 
     .polaroid-photo-frame {
@@ -1967,7 +2045,7 @@
   </div>
 
   <script>
-    /* ================= 1. KHÓI SƯƠNG CANVASS & SPOTLIGHT ================= */
+    /* ================= 1. KHÓI SƯƠNG CANVASS & SPOTLIGHT TỐI ƯU ================= */
     const fogCanvas = document.getElementById('fog-canvas');
     const fogCtx = fogCanvas.getContext('2d');
     let fogs = [];
@@ -2022,7 +2100,7 @@
     let currentTrackIdx = Math.floor(Math.random() * TRACK_PLAYLIST.length);
     const noirAudio = document.getElementById('noir-ambient-audio');
     let isMusicPlaying = false;
-    let isExplicitlyPaused = false;
+    let isUserExplicitlyPaused = false;
     const btnToggleAudio = document.getElementById('btn-toggle-audio');
     const tapeStateLabel = document.getElementById('tape-state-label');
 
@@ -2035,14 +2113,14 @@
       if (playPromise !== undefined) {
         playPromise.then(() => {
           isMusicPlaying = true;
-          isExplicitlyPaused = false;
+          isUserExplicitlyPaused = false;
           btnToggleAudio.classList.add('active');
           tapeStateLabel.innerText = "TAPE // PLAYING";
         }).catch(() => {});
       }
     }
 
-    function switchNextTrack() {
+    function switchNextRandomTrack() {
       if (TRACK_PLAYLIST.length > 1) {
         let nextIdx;
         do {
@@ -2055,40 +2133,40 @@
       playRandomTrack();
     }
 
-    noirAudio.addEventListener('ended', switchNextTrack);
+    noirAudio.addEventListener('ended', switchNextRandomTrack);
     noirAudio.addEventListener('error', () => {
-      setTimeout(switchNextTrack, 600);
+      setTimeout(switchNextRandomTrack, 500); // Tự động bỏ qua tệp lỗi sang bài tiếp theo không đứt quãng
     });
 
     btnToggleAudio.addEventListener('click', (e) => {
       e.stopPropagation();
       playMechClickSound();
       if (isMusicPlaying) {
-        isExplicitlyPaused = true;
+        isUserExplicitlyPaused = true;
         noirAudio.pause();
         isMusicPlaying = false;
         btnToggleAudio.classList.remove('active');
         tapeStateLabel.innerText = "TAPE // OFF";
       } else {
-        isExplicitlyPaused = false;
+        isUserExplicitlyPaused = false;
         playRandomTrack();
       }
     });
 
-    function handleGlobalAutoPlay() {
+    // CHẠM BẤT KỲ VỊ TRÍ NÀO TRÊN MÀN HÌNH LÀ TỰ PHÁT NHẠC RANDOM NGAY LẬP TỨC
+    function handleGlobalTapAutoplay() {
       initAudioContext();
-      if (!isMusicPlaying && !isExplicitlyPaused) {
+      if (!isMusicPlaying && !isUserExplicitlyPaused) {
         playRandomTrack();
       }
     }
     ['pointerdown', 'touchstart', 'click'].forEach(evt => {
-      document.addEventListener(evt, handleGlobalAutoPlay);
+      document.addEventListener(evt, handleGlobalTapAutoplay);
     });
 
     /* ÂM THANH NỔ JUMPSCARE BÙNG NỔ DỮ DỘI */
     function playViolentJumpscareSound() {
       initAudioContext();
-      // 1. Tiếng nổ Sub-Bass siêu trầm rung màn hình
       const subOsc = audioCtx.createOscillator();
       const subGain = audioCtx.createGain();
       subOsc.type = 'sine';
@@ -2101,7 +2179,6 @@
       subOsc.start();
       subOsc.stop(audioCtx.currentTime + 0.55);
 
-      // 2. Tiếng rít kim loại xé toang không gian
       const screechOsc = audioCtx.createOscillator();
       const screechGain = audioCtx.createGain();
       screechOsc.type = 'sawtooth';
@@ -2180,7 +2257,7 @@
       whiteNoise.start();
     }
 
-    /* ================= 3. TÀN TRO RỰC LỬA ================= */
+    /* ================= 3. TÀN TRO RỰC LỬA TỐI ƯU ================= */
     const emberCanvas = document.getElementById('ember-canvas');
     const emberCtx = emberCanvas.getContext('2d');
     let embers = [];
@@ -2295,7 +2372,6 @@
 
     btnPassGate.addEventListener('click', () => {
       initAudioContext();
-      // KÍCH HOẠT HIỆU ỨNG RUNG BÃO TỐ & ÂM THANH NỔ DỮ DỘI
       playViolentJumpscareSound();
       jumpscareOverlay.classList.add('strobe-violent-active');
 
@@ -2384,10 +2460,14 @@
       itemsToRender.forEach((item, localIdx) => {
         const actualIdx = globalOffset + localIdx;
         const card = document.createElement('div');
-        card.className = "polaroid-evidence-card";
         const isLiked = localStorage.getItem('cali_liked_' + item.code + '_' + item.name);
+        
+        // KIỂM TRA ĐỐI TƯỢNG CÓ THUỘC DIỆN TRUY NÃ ĐẶC BIỆT KHÔNG
+        const isWanted = item.isWanted === true || (item.tags && item.tags.some(t => t.toLowerCase().includes('active') || t.toLowerCase().includes('truy nã')));
+        card.className = "polaroid-evidence-card" + (isWanted ? " wanted-evidence-card" : "");
 
         card.innerHTML = `
+          ${isWanted ? `<div class="wanted-danger-stamp">WANTED // TRUY NÃ</div>` : ''}
           <div class="red-pushpin pin-node"></div>
           <div class="polaroid-photo-frame">
             <img src="${item.img}" alt="${item.name}">
@@ -2534,7 +2614,7 @@
       plotDossierModal.style.display = 'none';
     });
 
-    /* ================= 10. MẠNG LƯỚI CHỈ ĐỎ DÀY ĐẶC ================= */
+    /* ================= 10. MẠNG LƯỚI CHỈ ĐỎ DÀY ĐẶC TỐI ƯU ================= */
     const threadCanvas = document.getElementById('thread-canvas');
     const threadCtx = threadCanvas.getContext('2d');
 
@@ -2918,172 +2998,5 @@
       });
     });
   </script>
-  <!-- ================= ĐOẠN FIX: MÀU SÁNG ĐỀU TOÀN MÀN HÌNH + HIỆU ỨNG MỚI ================= -->
-  <style>
-    /* 1. TRIỆT TIÊU ĐƯỜNG RÃNH CHIA ĐÔI MÀN HÌNH */
-    .ceiling-triangular-beam {
-      display: none !important; /* Xoá triệt để lớp đèn bị lệch trục */
-    }
-
-    /* 2. LẤY MÀU SÁNG NHẠT BÊN TRÁI PHỦ ĐỀU 100% TOÀN BỘ GIAO DIỆN */
-    body.room-light-on::before {
-      content: "" !important;
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      background: rgba(255, 255, 255, 0.12) !important; /* Chuẩn tông màu sáng nhạt bên trái */
-      pointer-events: none !important;
-      z-index: 34 !important;
-      /* HIỆU ỨNG 1: BẬT ĐÈN CHỚP NHẸ KHỞI ĐỘNG NHƯ PHÒNG GIẢI PHẪU */
-      animation: roomLightFlicker 0.45s ease-out forwards;
-    }
-
-    /* TẮT HOÀN TOÀN QUẦNG TỐI SPOTLIGHT ĐỂ SÁNG ĐỀU DỊU MẮT */
-    body.room-light-on .spotlight-layer {
-      opacity: 0 !important;
-      visibility: hidden !important;
-    }
-
-    body.room-light-on {
-      --bg: #221c21 !important;
-      background: 
-        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.06) 0%, rgba(15, 12, 16, 0.6) 100%),
-        url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
-        #221c21 !important;
-    }
-
-    /* HIỆU ỨNG 2: ĐÈN TRẦN HẠ XUỐNG CÓ ĐỘ ĐUNG ĐƯA NHÚN LẮC VẬT LÝ */
-    body.room-light-on .ceiling-lamp-fixture {
-      top: -12px !important;
-      animation: lampDropSway 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    }
-    @keyframes lampDropSway {
-      0% { top: -260px; transform: translateX(-50%) rotate(0deg); }
-      60% { top: -8px; transform: translateX(-50%) rotate(3deg); }
-      75% { top: -14px; transform: translateX(-50%) rotate(-1.5deg); }
-      90% { top: -11px; transform: translateX(-50%) rotate(0.8deg); }
-      100% { top: -12px; transform: translateX(-50%) rotate(0deg); }
-    }
-
-    /* HIỆU ỨNG CHỚP ĐÈN DÂY TÓC */
-    @keyframes roomLightFlicker {
-      0% { opacity: 0; }
-      20% { opacity: 0.85; }
-      35% { opacity: 0.25; }
-      55% { opacity: 0.9; }
-      75% { opacity: 0.6; }
-      100% { opacity: 1; }
-    }
-
-    body.room-light-on .ceiling-lamp-img {
-      filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6)) drop-shadow(0 15px 35px rgba(0,0,0,0.95)) !important;
-    }
-
-    /* HIỆU ỨNG 3: ĐINH GHIM ĐỎ & TÂM ĐIỂM '?' THỞ HUỲNH QUANG HUYỀN BÍ */
-    .red-pushpin, .hub-pin-node {
-      box-shadow: 0 0 8px rgba(230, 0, 38, 0.8), 0 0 16px rgba(255, 18, 61, 0.5) !important;
-      animation: pinBreathingGlow 2.5s ease-in-out infinite alternate !important;
-    }
-    @keyframes pinBreathingGlow {
-      0% { filter: drop-shadow(0 0 2px #ff123d); transform: translateX(-50%) scale(1); }
-      100% { filter: drop-shadow(0 0 8px #ff123d) brightness(1.3); transform: translateX(-50%) scale(1.08); }
-    }
-    .hub-pin-node {
-      animation: hubBreathingGlow 2.5s ease-in-out infinite alternate !important;
-    }
-    @keyframes hubBreathingGlow {
-      0% { transform: translate(-50%, -50%) scale(1); }
-      100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 18px #fff, 0 0 30px var(--crimson); }
-    }
-
-    /* HIỆU ỨNG 4: THẺ HỒ SƠ TỎA ÁNH ĐỎ MA MỊ KHI HOVER / CHẠM VÀO */
-    .polaroid-evidence-card {
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, border-color 0.3s !important;
-    }
-    .polaroid-evidence-card:hover {
-      box-shadow: 0 20px 45px rgba(168, 0, 16, 0.7), 0 0 25px rgba(255, 18, 61, 0.45) !important;
-      border-color: var(--crimson-bright) !important;
-    }
-  </style>
-  (function() {
-    /* HỆ THỐNG PHÁT RANDOM 4 BÀI KHÔNG ĐỨT QUÃNG */
-    const NEW_TRACKS = [
-      "Stract_Shiloh_Dynasty_feat._Burgettii_-_Losing_Interest_Remix_(mp3.pm).mp3",
-      "I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3",
-      "Lizz_Robinett_-_Hide_and_Seek_(mp3.pm).aac",
-      "Gesaffelstein_-_Aleph_slowed_reverb_(mp3.pm).mp3"
-    ];
-
-    let currentIdx = Math.floor(Math.random() * NEW_TRACKS.length);
-    const audioEl = document.getElementById('noir-ambient-audio');
-    const oldBtn = document.getElementById('btn-toggle-audio');
-    let isPlaying = false;
-    let userPaused = false;
-
-    function playTrack() {
-      if (!audioEl || NEW_TRACKS.length === 0) return;
-      audioEl.src = NEW_TRACKS[currentIdx];
-      audioEl.volume = 0.8;
-      audioEl.play().then(() => {
-        isPlaying = true;
-        userPaused = false;
-        const btn = document.getElementById('btn-toggle-audio');
-        const lbl = document.getElementById('tape-state-label');
-        if (btn) btn.classList.add('active');
-        if (lbl) lbl.innerText = "TAPE // PLAYING";
-      }).catch(() => {});
-    }
-
-    function playNextRandom() {
-      if (NEW_TRACKS.length > 1) {
-        let next;
-        do {
-          next = Math.floor(Math.random() * NEW_TRACKS.length);
-        } while (next === currentIdx);
-        currentIdx = next;
-      } else {
-        currentIdx = 0;
-      }
-      playTrack();
-    }
-
-    if (audioEl) {
-      audioEl.onended = playNextRandom;
-      audioEl.onerror = () => setTimeout(playNextRandom, 500);
-    }
-
-    if (oldBtn) {
-      const newBtn = oldBtn.cloneNode(true);
-      oldBtn.parentNode.replaceChild(newBtn, oldBtn);
-
-      newBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (typeof playMechClickSound === 'function') playMechClickSound();
-        const lbl = document.getElementById('tape-state-label');
-        if (isPlaying) {
-          userPaused = true;
-          audioEl.pause();
-          isPlaying = false;
-          newBtn.classList.remove('active');
-          if (lbl) lbl.innerText = "TAPE // OFF";
-        } else {
-          userPaused = false;
-          playTrack();
-        }
-      });
-    }
-
-    function triggerAnywhere() {
-      if (!isPlaying && !userPaused) {
-        playTrack();
-      }
-    }
-    ['pointerdown', 'touchstart', 'click'].forEach(evt => {
-      document.addEventListener(evt, triggerAnywhere);
-    });
-  })();
-  </script>
 </body>
-  </html>
+</html>
