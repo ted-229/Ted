@@ -23,25 +23,6 @@
       --gold-baroque: #c5a059;
     }
 
-    body.ted-illuminated {
-      --bg: #140f12;
-    }
-    body.ted-illuminated .spotlight-layer {
-      background: radial-gradient(circle 900px at 50% 30%, rgba(255, 215, 160, 0.22) 0%, rgba(20, 16, 18, 0.6) 60%, rgba(8, 7, 9, 0.88) 100%) !important;
-    }
-
-    /* ĐÈN UV MẶC ĐỊNH SOI HUỲNH QUANG TRẦM */
-    body.uv-mode-on .spotlight-layer {
-      background: radial-gradient(circle 360px at var(--spot-x, 50%) var(--spot-y, 40%), rgba(90, 10, 180, 0.22) 0%, rgba(18, 2, 35, 0.7) 60%, rgba(4, 1, 10, 0.96) 100%) !important;
-    }
-    body.uv-mode-on #thread-canvas {
-      filter: drop-shadow(0 0 8px #ff0055) hue-rotate(290deg);
-    }
-    body.uv-mode-on .uv-secret-code {
-      opacity: 0.85 !important;
-      text-shadow: 0 0 10px #b84dff, 0 0 20px #ff0055;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -50,6 +31,7 @@
       user-select: none;
     }
 
+    /* BACKGROUND CHÍNH CỦA BẠN */
     body {
       background: 
         radial-gradient(circle at 50% 30%, transparent 20%, rgba(3, 2, 4, 0.9) 80%),
@@ -60,6 +42,83 @@
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
+    }
+
+    /* ĐÈN TRẦN HẠ TỪ TRÊN XUỐNG VỚI ÁNH SÁNG TRẮNG */
+    .ceiling-lamp-fixture {
+      position: fixed;
+      top: -240px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      z-index: 38;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: top 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+    }
+    .ceiling-chain {
+      width: 3px;
+      height: 110px;
+      background: repeating-linear-gradient(180deg, #555 0px, #555 6px, #222 6px, #222 10px);
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    }
+    .ceiling-shade {
+      width: 120px;
+      height: 48px;
+      background: linear-gradient(180deg, #2b2628 0%, #151114 100%);
+      border: 1px solid #5a4b4f;
+      border-radius: 60px 60px 10px 10px;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+    }
+    .ceiling-bulb {
+      width: 24px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 20px #fff;
+    }
+    .ceiling-white-beam {
+      position: absolute;
+      top: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95vw;
+      max-width: 1100px;
+      height: 100vh;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.12) 50%, transparent 80%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    /* KHI BẬT ĐÈN PHÒNG */
+    body.room-light-on .ceiling-lamp-fixture {
+      top: 0px !important;
+    }
+    body.room-light-on .ceiling-white-beam {
+      opacity: 1 !important;
+    }
+    body.room-light-on .spotlight-layer {
+      opacity: 0.25 !important;
+    }
+
+    /* ĐÈN UV TỬ NGOẠI */
+    body.uv-mode-on .spotlight-layer {
+      background: radial-gradient(circle 360px at var(--spot-x, 50%) var(--spot-y, 40%), rgba(90, 10, 180, 0.22) 0%, rgba(18, 2, 35, 0.7) 60%, rgba(4, 1, 10, 0.96) 100%) !important;
+    }
+    body.uv-mode-on #thread-canvas {
+      filter: drop-shadow(0 0 8px #ff0055) hue-rotate(290deg);
+    }
+    body.uv-mode-on .uv-secret-code {
+      opacity: 0.85 !important;
+      text-shadow: 0 0 10px #b84dff, 0 0 20px #ff0055;
     }
 
     /* MẬT MÃ ẨN PHÁT QUANG DƯỚI ĐÈN UV */
@@ -78,7 +137,7 @@
       transition: opacity 0.5s ease;
     }
 
-    /* JUMPSCARE BÓNG MA QUỶ DỊ */
+    /* JUMPSCARE BÓNG MA */
     #jumpscare-overlay {
       position: fixed;
       inset: 0;
@@ -114,14 +173,14 @@
       100% { background: transparent; }
     }
 
-    /* ĐÈN SPOTLIGHT ĐIỆN ẢNH */
+    /* ĐÈN SPOTLIGHT MẶC ĐỊNH */
     .spotlight-layer {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 35;
       background: radial-gradient(circle 300px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(3, 2, 4, 0.45) 55%, rgba(3, 2, 4, 0.88) 100%);
-      transition: background 0.08s ease-out;
+      transition: background 0.08s ease-out, opacity 0.5s ease;
     }
 
     #fog-canvas {
@@ -145,7 +204,7 @@
       mix-blend-mode: screen;
     }
 
-    /* ================= BẢNG ĐIỀU KHIỂN CÔNG TẮC TRÊN CÙNG ================= */
+    /* ================= BẢNG CÔNG TẮC ĐIỀU KHIỂN ================= */
     .top-switchboard {
       position: fixed;
       top: 14px;
@@ -158,7 +217,6 @@
       justify-content: flex-end;
     }
 
-    /* CÔNG TẮC DÂY XÍCH CHO ĐÈN */
     .chain-pull-switch {
       background: #110e13;
       border: 1px solid #4a383d;
@@ -171,9 +229,8 @@
       font-size: 0.65rem;
       color: #b5b0be;
       box-shadow: 0 4px 15px rgba(0,0,0,0.9);
-      position: relative;
-      transition: all 0.2s;
       border-radius: 20px;
+      transition: all 0.2s;
     }
     .chain-pull-switch:hover {
       border-color: var(--crimson);
@@ -208,7 +265,18 @@
       background: var(--crimson-bright);
     }
 
-    /* MÁY PHÁT BĂNG CASSETTE */
+    .white-lamp-active {
+      border-color: #fff !important;
+      color: #fff !important;
+      box-shadow: 0 0 15px rgba(255,255,255,0.7) !important;
+    }
+    .white-lamp-active .chain-link-icon {
+      border-color: #fff !important;
+    }
+    .white-lamp-active .chain-link-icon::after {
+      background: #fff !important;
+    }
+
     .tape-player-pill {
       background: #110e13;
       border: 1px solid #4a383d;
@@ -241,7 +309,6 @@
     }
     @keyframes spinReel { 100% { transform: rotate(360deg); } }
 
-    /* HUY HIỆU TED */
     .ted-master-badge {
       background: #170d12;
       border: 1px solid #552229;
@@ -323,7 +390,7 @@
       box-shadow: 0 0 30px var(--crimson-glow);
     }
 
-    /* ================= 2. BỨC THƯ & MỘC PHÁP Y ================= */
+    /* ================= 2. BỨC THƯ & MỘC PHÁP Y ĐÓNG CÁI ĐÙNG ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
@@ -513,7 +580,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-top: 55px; /* Đẩy xuống chuẩn để không bao giờ bị nút trên che */
+      margin-top: 65px; /* Giữ khoảng cách không che khuất công tắc */
       margin-bottom: 15px;
       position: relative;
       z-index: 10;
@@ -538,8 +605,7 @@
     }
 
     /* ========================================================
-       CALIFORNIA ARCHIVE - GOTHIC LUXURY NAVIGATION CARDS
-       (THIẾT KẾ 3 THẺ ĐIỀU HƯỚNG THEO YÊU CẦU CỦA BẠN)
+       3 NÚT ĐIỀU HƯỚNG GOTHIC LUXURY BẰNG FILE ẢNH CỦA BẠN
     ======================================================== */
     .archive-navigation {
       --rose: #a92d4e;
@@ -548,10 +614,10 @@
       --dark: #100609;
 
       width: min(100% - 16px, 1050px);
-      margin: 15px auto 28px;
+      margin: 15px auto 26px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      gap: 16px;
       font-family: 'Playfair Display', Georgia, serif;
       position: relative;
       z-index: 15;
@@ -560,8 +626,8 @@
     .archive-card {
       position: relative;
       min-width: 0;
-      min-height: 310px;
-      padding: 17px 13px 22px;
+      min-height: 290px;
+      padding: 16px 12px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -591,8 +657,7 @@
       transition:
         transform .4s ease,
         border-color .4s ease,
-        box-shadow .4s ease,
-        background .4s ease;
+        box-shadow .4s ease;
     }
 
     .archive-card::before {
@@ -605,24 +670,11 @@
       pointer-events: none;
     }
 
-    .archive-card::after {
-      content: "✧";
-      position: absolute;
-      bottom: 6px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--pink);
-      font-size: 24px;
-      text-shadow: 0 0 12px var(--pink);
-      opacity: .85;
-      pointer-events: none;
-    }
-
     .card-index {
       position: relative;
       z-index: 2;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 8.5px;
       letter-spacing: 2px;
       color: #ad7d8b;
       text-align: center;
@@ -631,108 +683,35 @@
     .card-decoration {
       position: relative;
       width: 100%;
-      height: 125px;
+      height: 120px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .archive-icon {
+    /* KHUNG CHỨA FILE ẢNH BẠN TẢI LÊN */
+    .custom-card-art-frame {
+      width: 95px;
+      height: 95px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
-      width: 90px;
-      height: 90px;
-      display: grid;
-      place-items: center;
-
-      border: 1px solid rgba(226, 117, 150, .55);
-      border-radius: 50%;
-
-      background:
-        radial-gradient(circle,
-          rgba(157, 38, 71, .32),
-          rgba(15, 5, 10, .85));
-
-      box-shadow:
-        0 0 20px rgba(204, 48, 91, .16),
-        inset 0 0 20px rgba(201, 72, 107, .15);
-
-      transition: .4s ease;
+      transition: transform 0.35s ease;
     }
 
-    .archive-icon svg {
-      width: 44px;
-      height: 44px;
-      fill: none;
-      stroke: #e9a4b8;
-      stroke-width: 1.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: drop-shadow(0 0 5px rgba(240, 95, 141, .6));
+    .custom-card-art-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px rgba(230, 0, 38, 0.6));
+      transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    .deco-star {
-      position: absolute;
-      top: 5px;
-      right: 18%;
-      font-size: 21px;
-      color: #ffd0df;
-      text-shadow: 0 0 12px #ff6c9a;
-      pointer-events: none;
-    }
-
-    .deco-flower {
-      position: absolute;
-      bottom: 10px;
-      left: 16%;
-      font-size: 23px;
-      color: #b54c6a;
-      text-shadow: 0 0 10px #a51f48;
-      pointer-events: none;
-    }
-
-    .deco-seal {
-      position: absolute;
-      top: 15px;
-      left: 17%;
-      color: #c18c9d;
-      font-size: 18px;
-      pointer-events: none;
-    }
-
-    .wanted-stamp {
-      position: absolute;
-      bottom: 8px;
-      right: 10%;
-      transform: rotate(-13deg);
-      padding: 4px 8px;
-      border: 1px solid #a52e4b;
-      color: #e65a78;
-      font-size: 9px;
-      letter-spacing: 2px;
-      font-weight: bold;
-      background: rgba(30, 4, 10, .8);
-      font-family: 'JetBrains Mono', monospace;
-      pointer-events: none;
-    }
-
-    .ted-orbit {
-      position: absolute;
-      bottom: 6px;
-      right: 12%;
-      width: 34px;
-      height: 34px;
-      border: 1px solid #d36a89;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: #ffb6cb;
-      font-size: 9px;
-      letter-spacing: 1px;
-      background: #210912;
-      box-shadow: 0 0 12px #a82c51;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: bold;
-      pointer-events: none;
+    .archive-card:hover .custom-card-art-frame img,
+    .archive-card.active .custom-card-art-frame img {
+      transform: scale(1.12);
+      filter: drop-shadow(0 0 16px var(--crimson-bright));
     }
 
     .card-content {
@@ -745,15 +724,15 @@
     .card-subtitle {
       display: block;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 8.5px;
       letter-spacing: 2px;
       color: #a27a87;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .card-content h3 {
       margin: 0;
-      font-size: clamp(14px, 1.5vw, 19px);
+      font-size: clamp(13px, 1.4vw, 18px);
       font-weight: 700;
       letter-spacing: 1px;
       line-height: 1.35;
@@ -762,9 +741,9 @@
     }
 
     .card-content p {
-      margin: 6px 0 14px;
+      margin: 6px 0 12px;
       color: #c39ba7;
-      font-size: 12px;
+      font-size: 11.5px;
       font-style: italic;
       font-family: 'Be Vietnam Pro', sans-serif;
     }
@@ -774,106 +753,50 @@
       align-items: center;
       justify-content: center;
       gap: 7px;
-      padding: 7px 12px;
+      padding: 6px 12px;
       border-top: 1px solid rgba(211, 116, 145, .35);
       color: #d77f9b;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 8.5px;
       letter-spacing: 1.5px;
       transition: .3s ease;
     }
-    .card-enter b { font-size: 13px; font-weight: bold; }
+    .card-enter b { font-size: 12px; font-weight: bold; }
 
-    .card-corner {
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      border-color: #e58ba6;
-      border-style: solid;
-      opacity: .75;
-      pointer-events: none;
-    }
-    .corner-tl { top: 15px; left: 14px; border-width: 1px 0 0 1px; }
-    .corner-br { right: 14px; bottom: 16px; border-width: 0 1px 1px 0; }
-
-    /* HOVER & ACTIVE */
+    /* HOVER & ACTIVE CHO THẺ */
     .archive-card:hover, .archive-card.active {
       transform: translateY(-8px);
       border-color: #ed789a;
       box-shadow:
-        0 0 10px rgba(232, 72, 120, .35),
-        0 0 35px rgba(195, 37, 83, .25),
-        inset 0 0 35px rgba(177, 37, 76, .18);
+        0 0 12px rgba(232, 72, 120, .4),
+        0 0 35px rgba(195, 37, 83, .3),
+        inset 0 0 35px rgba(177, 37, 76, .2);
     }
-
-    .archive-card:hover .archive-icon, .archive-card.active .archive-icon {
-      transform: scale(1.08);
-      border-color: #ff9bb7;
-      box-shadow:
-        0 0 30px rgba(242, 84, 137, .45),
-        inset 0 0 20px rgba(229, 89, 135, .25);
-    }
-
     .archive-card:hover .card-enter, .archive-card.active .card-enter {
       color: #fff;
-      letter-spacing: 2px;
       border-color: #e77b9d;
     }
-
-    .archive-card:hover .deco-star {
-      transform: rotate(45deg) scale(1.2);
-    }
-
     .archive-card:active { transform: scale(.97); }
 
-    .card-wanted {
-      --pink: #ff637d;
-      border-color: rgba(204, 55, 76, .5);
-    }
-    .card-wanted .archive-icon {
-      border-radius: 18px;
-      border-color: rgba(218, 72, 90, .65);
-    }
-
-    .card-ted {
-      --pink: #e7a0bd;
-      border-color: rgba(188, 115, 153, .55);
-    }
-    .card-ted .archive-icon {
-      border-radius: 22px;
-    }
-
-    /* RESPONSIVE TRÊN ĐIỆN THOẠI (SAMSUNG ANDROID...) */
+    /* RESPONSIVE TRÊN ĐIỆN THOẠI */
     @media (max-width: 600px) {
       .archive-navigation {
-        width: calc(100% - 10px);
+        width: 100%;
         gap: 8px;
-        margin: 15px auto 22px;
+        margin: 12px auto 20px;
       }
       .archive-card {
-        min-height: 240px;
-        padding: 12px 4px 16px;
+        min-height: 235px;
+        padding: 12px 3px 15px;
         border-radius: 46px 46px 10px 10px;
       }
       .archive-card::before { inset: 5px; border-radius: 41px 41px 7px 7px; }
-      .card-decoration { height: 95px; }
-      .archive-icon { width: 62px; height: 62px; }
-      .archive-icon svg { width: 32px; height: 32px; }
+      .card-decoration { height: 90px; }
+      .custom-card-art-frame { width: 68px; height: 68px; }
       .card-content h3 { font-size: 11px; letter-spacing: 0; }
-      .card-content p { font-size: 9px; min-height: 24px; margin: 5px 0 8px; line-height: 1.25; }
-      .card-subtitle { font-size: 7px; letter-spacing: 1px; margin-bottom: 4px; }
-      .card-enter { font-size: 7px; padding: 6px 2px; letter-spacing: .5px; gap: 3px; }
-      .deco-star { font-size: 15px; }
-      .deco-flower { font-size: 17px; }
-      .wanted-stamp { font-size: 7px; padding: 2px 4px; }
-      .ted-orbit { width: 26px; height: 26px; font-size: 7px; }
-    }
-
-    @media (max-width: 360px) {
-      .archive-navigation { gap: 5px; width: 100%; }
-      .archive-card { min-height: 215px; }
-      .card-content h3 { font-size: 9.5px; }
-      .card-subtitle { font-size: 6px; }
+      .card-content p { font-size: 8.5px; min-height: 22px; margin: 4px 0 6px; line-height: 1.25; }
+      .card-subtitle { font-size: 6.5px; letter-spacing: 1px; margin-bottom: 3px; }
+      .card-enter { font-size: 6.5px; padding: 5px 2px; letter-spacing: .5px; gap: 3px; }
     }
 
     /* KÍNH LÚP TÌM KIẾM */
@@ -913,7 +836,7 @@
       pointer-events: none;
     }
 
-    /* PHÂN TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) */
+    /* PHÂN TRANG */
     .pagination-bar {
       display: flex;
       justify-content: center;
@@ -984,7 +907,7 @@
       box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
     }
 
-    /* BẢNG HỒ SƠ COMPACT 2 CỘT */
+    /* BẢNG HỒ SƠ COMPACT GỌN GÀNG */
     .conspiracy-board-wall {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1129,7 +1052,6 @@
       filter: drop-shadow(0 0 4px var(--crimson));
     }
 
-    /* 2 NÚT LINK PLOT & GGAI */
     .card-links {
       display: flex;
       gap: 5px;
@@ -1314,6 +1236,7 @@
       color: #dfdaea;
     }
 
+    /* NÚT XOÁ FEEDBACK CHỈ HIỆN KHI TED ĐĂNG NHẬP */
     .btn-del-feedback {
       display: none;
       background: #8a0014;
@@ -1327,7 +1250,7 @@
       margin-left: 8px;
     }
     body.ted-illuminated .btn-del-feedback {
-      display: inline-block;
+      display: inline-block !important;
     }
 
     /* MODAL ĐĂNG FEEDBACK */
@@ -1522,6 +1445,30 @@
       outline: none;
     }
 
+    /* CHECKBOX TRUY NÃ NGUY HIỂM */
+    .wanted-checkbox-wrap {
+      background: rgba(230, 0, 38, 0.08);
+      border: 1px dashed rgba(230, 0, 38, 0.4);
+      padding: 10px 12px;
+      border-radius: 4px;
+    }
+    .custom-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      color: #ff4d66 !important;
+      font-weight: bold;
+      font-size: 0.75rem !important;
+      margin-bottom: 0 !important;
+    }
+    .custom-checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--crimson-bright);
+      cursor: pointer;
+    }
+
     #auth-alert-box {
       display: none;
       background: rgba(230, 0, 38, 0.1);
@@ -1570,7 +1517,16 @@
     }
   </style>
 </head>
-<body class="uv-mode-on"> <!-- ĐÈN UV MẶC ĐỊNH BẬT SẴN -->
+<body>
+
+  <!-- ĐÈN TRẦN HẠ TỪ TRÊN XUỐNG VỚI ÁNH SÁNG TRẮNG ĐIỆN ẢNH -->
+  <div class="ceiling-lamp-fixture" id="ceiling-lamp">
+    <div class="ceiling-chain"></div>
+    <div class="ceiling-shade">
+      <div class="ceiling-bulb"></div>
+    </div>
+    <div class="ceiling-white-beam"></div>
+  </div>
 
   <div class="uv-secret-code">SITE 17-A // KẺ THỦ ÁC VẪN Ở ĐÂY // 1988</div>
 
@@ -1595,16 +1551,16 @@
 
   <!-- ================= BẢNG ĐIỀU KHIỂN CÔNG TẮC DÂY XÍCH & TAPE DECK ================= -->
   <div class="top-switchboard">
-    <!-- CÔNG TẮC GIẬT DÂY XÍCH CHO ĐÈN UV -->
-    <div class="chain-pull-switch chain-active" id="btn-toggle-uv">
+    <!-- CÔNG TẮC KÉO MÓC XÍCH CHO ĐÈN UV -->
+    <div class="chain-pull-switch" id="btn-toggle-uv">
       <div class="chain-link-icon"></div>
-      <span id="uv-state-label">ĐÈN UV [BẬT]</span>
+      <span id="uv-state-label">ĐÈN UV [TẮT]</span>
     </div>
 
-    <!-- CÔNG TẮC ĐÈN PHÒNG CHO TẤT CẢ MỌI NGƯỜI (ĐÃ MỞ KHÔNG BỊ ẨN) -->
+    <!-- CÔNG TẮC ĐÈN TRẦN CHO TẤT CẢ MỌI NGƯỜI (ÁNH SÁNG TRẮNG HẠ TỪ TRÊN XUỐNG) -->
     <div class="chain-pull-switch" id="btn-toggle-light">
       <div class="chain-link-icon"></div>
-      <span id="light-state-label">ĐÈN PHÒNG [TẮT]</span>
+      <span id="light-state-label">ĐÈN SÁNG [BẬT]</span>
     </div>
 
     <!-- MÁY GHI ÂM ÁN MẠNG PHÁT RANDOM -->
@@ -1674,83 +1630,53 @@
       <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
 
       <!-- ========================================================
-           CALIFORNIA ARCHIVE - GOTHIC LUXURY NAVIGATION CARDS
-           (3 THẺ ĐIỀU HƯỚNG TƯƠNG TÁC THAY THẾ TOÀN BỘ NÚT CŨ)
+           3 NÚT ĐIỀU HƯỚNG GOTHIC LUXURY BẰNG FILE ẢNH CỦA BẠN
       ======================================================== -->
       <nav class="archive-navigation">
-        <!-- THẺ 1: TẤT CẢ HỒ SƠ -->
-        <div class="archive-card card-files active" data-filter="all">
-          <div class="card-corner corner-tl"></div>
-          <div class="card-corner corner-br"></div>
-          <span class="card-index">SEC.01 // ARCHIVES</span>
+        <!-- NÚT 1: TẤT CẢ HỒ SƠ -->
+        <div class="archive-card active" data-filter="all">
+          <span class="card-index">SEC.01 // REPOSITORY</span>
 
           <div class="card-decoration">
-            <span class="deco-star">✧</span>
-            <span class="deco-seal">❖</span>
-            <div class="archive-icon">
-              <!-- Biểu tượng cuốn thư cổ và đôi cánh vòm Gothic -->
-              <svg viewBox="0 0 48 48">
-                <circle cx="24" cy="24" r="18" stroke-dasharray="3 2" />
-                <path d="M14 18 C19 14 29 14 34 18 L34 32 C29 28 19 28 14 32 Z" />
-                <path d="M24 16 L24 30" stroke="#ff8da9" stroke-width="1.5"/>
-                <path d="M18 22 C21 20 27 20 30 22" />
-              </svg>
+            <div class="custom-card-art-frame">
+              <img src="file_00000000945882119969a7fad4be7c5f(1).png" alt="Tất Cả Hồ Sơ">
             </div>
-            <span class="deco-flower">❦</span>
           </div>
 
           <div class="card-content">
-            <span class="card-subtitle">CLASSIFIED DOSSIERS</span>
+            <span class="card-subtitle">ARCHIVE PROTOCOL</span>
             <h3>TẤT CẢ HỒ SƠ</h3>
             <p>Toàn bộ tài liệu mật đã niêm phong</p>
             <div class="card-enter"><b>KHÁM PHÁ</b> <span>✦</span></div>
           </div>
         </div>
 
-        <!-- THẺ 2: LỆNH TRUY NÃ -->
-        <div class="archive-card card-wanted" data-filter="Active">
-          <div class="card-corner corner-tl"></div>
-          <div class="card-corner corner-br"></div>
+        <!-- NÚT 2: LỆNH TRUY NÃ -->
+        <div class="archive-card" data-filter="Active">
           <span class="card-index">SEC.02 // RED NOTICE</span>
 
           <div class="card-decoration">
-            <span class="deco-star">✦</span>
-            <div class="archive-icon">
-              <!-- Biểu tượng dao găm & hồng tâm truy lùng -->
-              <svg viewBox="0 0 48 48">
-                <path d="M24 8 L27 18 L38 21 L27 24 L24 38 L21 24 L10 21 L21 18 Z" />
-                <circle cx="24" cy="21" r="5" stroke="#ff4d66" stroke-width="1.5" />
-                <path d="M24 4 L24 44" stroke="#ff637d" stroke-width="1" stroke-dasharray="2 2"/>
-              </svg>
+            <div class="custom-card-art-frame">
+              <img src="file_00000000945882119969a7fad4be7c5f(2).png" alt="Lệnh Truy Nã">
             </div>
-            <div class="wanted-stamp">WANTED</div>
           </div>
 
           <div class="card-content">
-            <span class="card-subtitle">DEADLY THREATS</span>
+            <span class="card-subtitle">CRIMINAL REGISTRY</span>
             <h3>LỆNH TRUY NÃ</h3>
             <p>Đối tượng báo động diện nguy cấp</p>
             <div class="card-enter"><b>TRUY VẾT</b> <span>✦</span></div>
           </div>
         </div>
 
-        <!-- THẺ 3: TRẠM CỦA TED -->
-        <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="archive-card card-ted">
-          <div class="card-corner corner-tl"></div>
-          <div class="card-corner corner-br"></div>
+        <!-- NÚT 3: TRẠM CỦA TED (DẪN FACEBOOK) -->
+        <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="archive-card">
           <span class="card-index">SEC.03 // DISPATCH</span>
 
           <div class="card-decoration">
-            <span class="deco-star">✧</span>
-            <div class="archive-icon">
-              <!-- Biểu tượng thiên thần vương miện của Đặc vụ Ted -->
-              <svg viewBox="0 0 48 48">
-                <path d="M24 16 C16 4 6 16 11 30 C16 28 20 23 24 25 C28 23 32 28 37 30 C42 16 32 4 24 16 Z" />
-                <circle cx="24" cy="26" r="3" fill="#fff" />
-                <circle cx="24" cy="11" r="6" stroke="#ffb6cb" stroke-width="1" stroke-dasharray="2 2" />
-              </svg>
+            <div class="custom-card-art-frame">
+              <img src="file_00000000945882119969a7fad4be7c5f(3).png" alt="Trạm Của Ted">
             </div>
-            <div class="ted-orbit">TED</div>
           </div>
 
           <div class="card-content">
@@ -1768,7 +1694,7 @@
         <input type="text" id="case-search-input" class="search-input-field" placeholder="NHẬP MÃ SỐ HOẶC TÊN HỒ SƠ ĐỂ ĐIỀU TRA...">
       </div>
 
-      <!-- THANH PHÂN TRANG 8 CHAR / TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) -->
+      <!-- THANH PHÂN TRANG -->
       <div class="pagination-bar" id="pagination-control-bar">
         <button class="page-nav-btn" id="btn-prev-page" disabled>❮ TRƯỚC</button>
         <div class="page-indicator-text" id="page-display-text">TRANG <span id="current-page-num">1</span> / <span id="total-page-num">1</span></div>
@@ -1796,6 +1722,14 @@
           <input type="file" id="in-file" accept="image/*" required>
         </div>
 
+        <!-- Ô CHỌN LIỆT VÀO DIỆN TRUY NÃ -->
+        <div class="field-wrap wanted-checkbox-wrap">
+          <label class="custom-checkbox-label">
+            <input type="checkbox" id="in-is-wanted">
+            <span>⚠️ LIỆT VÀO DIỆN TRUY NÃ ĐẶC BIỆT (XUẤT HIỆN Ở THẺ LỆNH TRUY NÃ)</span>
+          </label>
+        </div>
+
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
           <div class="field-wrap">
             <label>Link Plot:</label>
@@ -1809,7 +1743,7 @@
 
         <div class="field-wrap">
           <label>Tags (phân cách bằng dấu phẩy):</label>
-          <input type="text" id="in-tags" placeholder="Hi, Active">
+          <input type="text" id="in-tags" placeholder="Hi, Beaumont, Site 17-A">
         </div>
 
         <div class="field-wrap">
@@ -1830,7 +1764,7 @@
       <div style="font-family:'JetBrains Mono'; font-size:0.7rem; color:var(--text-dim); letter-spacing:2px; margin-top:4px;">SITE 17-A // NEXUS</div>
     </div>
 
-    <!-- BẢNG HỒ SƠ COMPACT GỌN GÀNG -->
+    <!-- BẢNG HỒ SƠ COMPACT -->
     <div class="conspiracy-board-wall" id="cases-wall"></div>
 
     <!-- DIỄN ĐÀN PHẢN HỒI GOTHIC MỸ THUẬT -->
@@ -1863,7 +1797,7 @@
     </div>
   </div>
 
-  <!-- MODAL XEM CHI TIẾT HỒ SƠ PHÓNG TO (CÓ TỜ GIẤY NOTE CỦA TED) -->
+  <!-- MODAL XEM CHI TIẾT HỒ SƠ PHÓNG TO (INSPECTOR) -->
   <div class="dossier-inspect-overlay" id="inspect-modal">
     <div class="dossier-inspect-card">
       <button class="close-inspect-btn" id="btn-close-inspect">&times;</button>
@@ -1918,13 +1852,25 @@
         <label>Tải ảnh mới để thay thế (để trống nếu giữ ảnh cũ):</label>
         <input type="file" id="edit-file" accept="image/*">
       </div>
-      <div class="field-wrap">
-        <label>Link Plot:</label>
-        <input type="url" id="edit-plot">
+      <div class="field-wrap wanted-checkbox-wrap">
+        <label class="custom-checkbox-label">
+          <input type="checkbox" id="edit-is-wanted">
+          <span>⚠️ LIỆT VÀO DIỆN TRUY NÃ ĐẶC BIỆT (XUẤT HIỆN Ở THẺ LỆNH TRUY NÃ)</span>
+        </label>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div class="field-wrap">
+          <label>Link Plot:</label>
+          <input type="url" id="edit-plot">
+        </div>
+        <div class="field-wrap">
+          <label>Link GGAI:</label>
+          <input type="url" id="edit-ggai">
+        </div>
       </div>
       <div class="field-wrap">
-        <label>Link GGAI:</label>
-        <input type="url" id="edit-ggai">
+        <label>Tags (phân cách bằng dấu phẩy):</label>
+        <input type="text" id="edit-tags">
       </div>
       <div class="field-wrap">
         <label>Ghi chú khám nghiệm (Trên tờ note của Ted):</label>
@@ -2161,105 +2107,49 @@
     }
     drawEmbers();
 
-    /* ================= 4. ĐỒNG BỘ CHÍNH XÁC FIREBASE REALTIME ================= */
+    /* ================= 4. ĐỒNG BỘ HOÀN TOÀN FIREBASE (KHÔNG CHAR CỐ ĐỊNH) ================= */
     const FIREBASE_DB_URL = "https://ften2-bdaff-default-rtdb.asia-southeast1.firebasedatabase.app";
     const MASTER_KEY = "TED_PERMANENT_IMMORTAL_VAULT";
 
-    const PERMANENT_INITIAL_CASES = [
-      {
-        code: "01",
-        name: "Đại tội vùng California",
-        img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=750&q=85",
-        tags: ["Hi", "Active"],
-        desc: "Hồ sơ tâm lý đối tượng đặc quyền vùng California. Bị theo dõi đặc biệt sau chuỗi sự cố ngoại ô.",
-        plot: "https://google.com",
-        ggai: "https://aistudio.google.com",
-        likes: 12
-      },
-      {
-        code: "01",
-        name: "ted",
-        img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=750&q=85",
-        tags: ["Hi", "Active"],
-        desc: "Hồ sơ lưu trữ chính của Đặc vụ Ted. Quản lý toàn bộ hồ sơ lưu vết án mạng.",
-        plot: "https://google.com",
-        ggai: "https://aistudio.google.com",
-        likes: 24
-      },
-      {
-        code: "SITE-17A",
-        name: "Sự Cố Beaumont",
-        img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=750&q=85",
-        tags: ["Site 17-A", "Beaumont"],
-        desc: "Khu vực bị phong toả từ năm 1988 sau khi toàn bộ cư dân báo cáo về bóng đen không khuôn mặt.",
-        plot: "https://google.com",
-        ggai: "https://aistudio.google.com",
-        likes: 5
-      },
-      {
-        code: "CA-04",
-        name: "Kẻ Mượn Danh Tính",
-        img: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=750&q=85",
-        tags: ["Daily Mirror", "Active"],
-        desc: "Đối tượng để lại mẩu báo cắt dán và giăng kín dây chỉ đỏ khắp hiện trường trước khi biến mất.",
-        plot: "https://google.com",
-        ggai: "https://aistudio.google.com",
-        likes: 9
-      }
-    ];
-
-    function getLocalCachedDossiers() {
-      let data = localStorage.getItem(MASTER_KEY);
-      if (data) {
-        try { return JSON.parse(data); } catch(e){}
-      }
-      return PERMANENT_INITIAL_CASES;
-    }
-
-    let dossiers = getLocalCachedDossiers();
+    let dossiers = JSON.parse(localStorage.getItem(MASTER_KEY)) || [];
     let feedbacks = JSON.parse(localStorage.getItem('TED_PERMANENT_FEEDBACKS')) || [];
 
+    // TẢI TẤT CẢ DỮ LIỆU TỪ FIREBASE
     async function syncFromFirebase() {
       try {
         const res = await fetch(`${FIREBASE_DB_URL}/california_vault.json`);
         if (res.ok) {
           const vault = await res.json();
           if (vault && typeof vault === 'object') {
-            if (vault.cases !== undefined) {
-              dossiers = Array.isArray(vault.cases) ? vault.cases : Object.values(vault.cases);
-              localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-              currentFilteredList = dossiers;
-              renderCurrentView();
-            }
-            if (vault.feedbacks !== undefined) {
-              feedbacks = Array.isArray(vault.feedbacks) ? vault.feedbacks : Object.values(vault.feedbacks);
-              localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
-              renderFeedbacks();
-            }
-          } else {
-            pushMasterVaultToFirebase();
+            dossiers = vault.cases ? (Array.isArray(vault.cases) ? vault.cases : Object.values(vault.cases)) : [];
+            feedbacks = vault.feedbacks ? (Array.isArray(vault.feedbacks) ? vault.feedbacks : Object.values(vault.feedbacks)) : [];
+            localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+            localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
+            currentFilteredList = dossiers;
+            renderCurrentView();
+            renderFeedbacks();
           }
         }
-      } catch (err) {}
+      } catch (err) {
+        console.log("Firebase sync fallback:", err);
+      }
     }
     syncFromFirebase();
 
-    // REALTIME STREAM: KHI TED XOÁ THÌ MÁY KHÁCH TỰ MẤT CHAR NGAY TỨC THỜI
+    // REALTIME STREAM: KHI TED XOÁ THÌ MÁY KHÁCH TỰ ĐỘNG MẤT
     try {
       const sse = new EventSource(`${FIREBASE_DB_URL}/california_vault.json`);
       sse.addEventListener('put', (e) => {
         try {
           const streamData = JSON.parse(e.data);
           if (streamData && streamData.path === '/') {
-            if (streamData.data && streamData.data.cases !== undefined) {
+            if (streamData.data) {
               dossiers = streamData.data.cases || [];
+              feedbacks = streamData.data.feedbacks || [];
               localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+              localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
               currentFilteredList = dossiers;
               renderCurrentView();
-            }
-            if (streamData.data && streamData.data.feedbacks !== undefined) {
-              feedbacks = streamData.data.feedbacks || [];
-              localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
               renderFeedbacks();
             }
           }
@@ -2267,6 +2157,7 @@
       });
     } catch(e){}
 
+    // ĐẨY DỮ LIỆU LÊN FIREBASE
     async function pushMasterVaultToFirebase() {
       try {
         const payload = {
@@ -2279,7 +2170,9 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-      } catch (err) {}
+      } catch (err) {
+        console.error("Lỗi cập nhật Firebase:", err);
+      }
     }
 
     /* ================= 5. MỞ CỔNG + NHÁ ĐÈN JUMPSCARE ================= */
@@ -2372,6 +2265,12 @@
 
     function renderCasesWall(itemsToRender, globalOffset) {
       casesWall.innerHTML = "";
+      if (itemsToRender.length === 0) {
+        casesWall.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: #777; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; padding: 40px 0;">[ CHƯA CÓ HỒ SƠ NÀO ĐƯỢC LƯU TRỮ ]</div>`;
+        renderRedThreads();
+        return;
+      }
+
       itemsToRender.forEach((item, localIdx) => {
         const actualIdx = globalOffset + localIdx;
         const card = document.createElement('div');
@@ -2442,8 +2341,9 @@
         currentPage = 1;
         if (filter === 'all') {
           currentFilteredList = dossiers;
-        } else {
-          currentFilteredList = dossiers.filter(c => c.tags && c.tags.some(t => t.toLowerCase().includes(filter.toLowerCase())));
+        } else if (filter === 'Active') {
+          // Lọc chính xác những đối tượng Ted đánh dấu là diện TRUY NÃ
+          currentFilteredList = dossiers.filter(c => c.isWanted === true || (c.tags && c.tags.some(t => t.toLowerCase().includes('active') || t.toLowerCase().includes('truy nã'))));
         }
         renderCurrentView();
       });
@@ -2515,7 +2415,6 @@
         });
       });
 
-      // Dây nối từ tâm ? đến các hồ sơ
       pinCoords.forEach(pos => {
         threadCtx.beginPath();
         threadCtx.moveTo(hubX, hubY);
@@ -2529,7 +2428,6 @@
         threadCtx.stroke();
       });
 
-      // Dây đan chéo liên kết
       for (let i = 0; i < pinCoords.length; i++) {
         for (let j = i + 1; j < pinCoords.length; j++) {
           if (Math.abs(i - j) === 1 || (i % 2 === 0 && j === i + 2)) {
@@ -2599,6 +2497,11 @@
     renderFeedbacks();
 
     window.deleteFeedbackItem = function(idx) {
+      // Chỉ Ted mới có quyền xoá cmt
+      if (!isTedLoggedIn) {
+        alert("Chỉ có tài khoản Ted mới có quyền xoá manh mối!");
+        return;
+      }
       if (confirm("Đặc vụ Ted muốn xoá vĩnh viễn phản hồi này?")) {
         feedbacks.splice(idx, 1);
         localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
@@ -2648,6 +2551,7 @@
     });
 
     /* ================= 11. BẢNG CÔNG TẮC: ĐÈN UV, ĐÈN PHÒNG & TED ADMIN ================= */
+    let isTedLoggedIn = false;
     const authOverlay = document.getElementById('auth-overlay');
     const btnOpenTerminal = document.getElementById('btn-open-terminal');
     const btnCloseAuth = document.getElementById('btn-close-auth');
@@ -2659,8 +2563,8 @@
     const btnToggleUV = document.getElementById('btn-toggle-uv');
     const uvStateLabel = document.getElementById('uv-state-label');
 
-    // CÔNG TẮC KÉO MÓC XÍCH CHO ĐÈN UV
-    let isUVActive = true;
+    // CÔNG TẮC DÂY XÍCH CHO ĐÈN UV (MẶC ĐỊNH TẮT)
+    let isUVActive = false;
     btnToggleUV.addEventListener('click', () => {
       playMechClickSound();
       isUVActive = !isUVActive;
@@ -2669,14 +2573,14 @@
       uvStateLabel.innerText = isUVActive ? "ĐÈN UV [BẬT]" : "ĐÈN UV [TẮT]";
     });
 
-    // CÔNG TẮC ĐÈN PHÒNG CHO TẤT CẢ MỌI NGƯỜI
+    // CÔNG TẮC THẢ ĐÈN TRẦN CHO TẤT CẢ MỌI NGƯỜI (ÁNH SÁNG TRẮNG ĐIỆN ẢNH)
     let isLightActive = false;
     btnToggleLight.addEventListener('click', () => {
       playMechClickSound();
       isLightActive = !isLightActive;
-      document.body.classList.toggle('ted-illuminated', isLightActive);
-      btnToggleLight.classList.toggle('chain-active', isLightActive);
-      lightStateLabel.innerText = isLightActive ? "ĐÈN PHÒNG [SÁNG]" : "ĐÈN PHÒNG [TẮT]";
+      document.body.classList.toggle('room-light-on', isLightActive);
+      btnToggleLight.classList.toggle('white-lamp-active', isLightActive);
+      lightStateLabel.innerText = isLightActive ? "ĐÈN SÁNG [TẮT]" : "ĐÈN SÁNG [BẬT]";
     });
 
     btnOpenTerminal.addEventListener('click', () => {
@@ -2698,11 +2602,8 @@
         playStampImpactSound();
         authOverlay.style.display = 'none';
 
+        isTedLoggedIn = true;
         document.body.classList.add('ted-illuminated');
-        isLightActive = true;
-        btnToggleLight.classList.add('chain-active');
-        lightStateLabel.innerText = "ĐÈN PHÒNG [SÁNG]";
-
         btnOpenTerminal.innerHTML = "<span>👑 TED ONLINE</span>";
         btnOpenTerminal.classList.add('active');
         tedActiveDesk.style.display = 'block';
@@ -2731,6 +2632,8 @@
       document.getElementById('edit-plot').value = c.plot;
       document.getElementById('edit-ggai').value = c.ggai;
       document.getElementById('edit-desc').value = c.desc || "";
+      document.getElementById('edit-tags').value = c.tags ? c.tags.join(', ') : "";
+      document.getElementById('edit-is-wanted').checked = c.isWanted || (c.tags && c.tags.includes('Active'));
       document.getElementById('edit-file').value = "";
       editModal.style.display = 'flex';
     };
@@ -2743,12 +2646,18 @@
     btnSaveEdit.addEventListener('click', async () => {
       const idx = document.getElementById('edit-idx').value;
       const fileInput = document.getElementById('edit-file');
+      const isWantedChecked = document.getElementById('edit-is-wanted').checked;
 
       dossiers[idx].code = document.getElementById('edit-code').value;
       dossiers[idx].name = document.getElementById('edit-name').value;
       dossiers[idx].plot = document.getElementById('edit-plot').value;
       dossiers[idx].ggai = document.getElementById('edit-ggai').value;
       dossiers[idx].desc = document.getElementById('edit-desc').value;
+      dossiers[idx].isWanted = isWantedChecked;
+
+      let tagArray = document.getElementById('edit-tags').value.split(',').map(t => t.trim()).filter(t => t);
+      if (isWantedChecked && !tagArray.includes('Active')) tagArray.push('Active');
+      dossiers[idx].tags = tagArray;
 
       if (fileInput.files && fileInput.files[0]) {
         compressImageHighRes(fileInput.files[0], async function(newImgBase64) {
@@ -2765,7 +2674,7 @@
         editModal.style.display = 'none';
         playStampImpactSound();
         await pushMasterVaultToFirebase();
-        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀO FIREBASE VĨNH VIỄN!");
+        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀ LƯU FIREBASE VĨNH VIỄN!");
       }
     });
 
@@ -2774,10 +2683,10 @@
       if (confirm(`Bạn có chắc chắn muốn tiêu huỷ hồ sơ [${dossiers[idx].name}] vĩnh viễn không?`)) {
         dossiers.splice(idx, 1);
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+        currentFilteredList = dossiers;
         renderCurrentView();
         playStampImpactSound();
 
-        // ĐẨY LẬP TỨC LÊN FIREBASE ĐỂ MỌI NGƯỜI BIẾN MẤT CÙNG LÚC
         await pushMasterVaultToFirebase();
         alert("ĐÃ TIÊU HUỶ HỒ SƠ KHỎI FIREBASE TOÀN CẦU!");
       }
@@ -2814,9 +2723,11 @@
       const codeVal = document.getElementById('in-code').value;
       const nameVal = document.getElementById('in-name').value;
       const fileVal = document.getElementById('in-file').files[0];
+      const isWanted = document.getElementById('in-is-wanted').checked;
       const plotVal = document.getElementById('in-plot').value;
       const ggaiVal = document.getElementById('in-ggai').value;
-      const tagsVal = document.getElementById('in-tags').value.split(',');
+      let tagsVal = document.getElementById('in-tags').value.split(',').map(t => t.trim()).filter(t => t);
+      if (isWanted && !tagsVal.includes('Active')) tagsVal.push('Active');
       const descVal = document.getElementById('in-desc').value;
 
       btnUploadSubmit.innerText = "⏳ ĐANG LƯU VÀO FIREBASE...";
@@ -2827,7 +2738,8 @@
           code: codeVal,
           name: nameVal,
           img: compressedBase64,
-          tags: tagsVal.length ? tagsVal : ["Active"],
+          isWanted: isWanted,
+          tags: tagsVal.length ? tagsVal : ["Classified"],
           desc: descVal || "Không có ghi chú thêm.",
           plot: plotVal,
           ggai: ggaiVal,
