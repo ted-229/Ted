@@ -20,7 +20,7 @@
       --text-main: #f0eef5;
       --text-dim: #8b889a;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --iron-dark: #121015;
+      --gold-baroque: #c5a059;
     }
 
     body.ted-illuminated {
@@ -62,7 +62,7 @@
       position: relative;
     }
 
-    /* DÒNG MẬT MÃ ẨN PHÁT QUANG DƯỚI ĐÈN UV */
+    /* MẬT MÃ ẨN PHÁT QUANG DƯỚI ĐÈN UV */
     .uv-secret-code {
       position: fixed;
       top: 18%;
@@ -145,7 +145,7 @@
       mix-blend-mode: screen;
     }
 
-    /* ================= BẢNG ĐIỀU KHIỂN CÔNG TẮC DÂY XÍCH & TAPE DECK (KHÔNG MÀU MÈ) ================= */
+    /* ================= BẢNG ĐIỀU KHIỂN CÔNG TẮC TRÊN CÙNG ================= */
     .top-switchboard {
       position: fixed;
       top: 14px;
@@ -153,14 +153,16 @@
       z-index: 120;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    /* CÔNG TẮC DÂY XÍCH KIM LOẠI */
+    /* CÔNG TẮC DÂY XÍCH CHO ĐÈN */
     .chain-pull-switch {
       background: #110e13;
       border: 1px solid #4a383d;
-      padding: 6px 12px;
+      padding: 6px 11px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -171,14 +173,15 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.9);
       position: relative;
       transition: all 0.2s;
+      border-radius: 20px;
     }
     .chain-pull-switch:hover {
       border-color: var(--crimson);
       color: #fff;
     }
     .chain-link-icon {
-      width: 8px;
-      height: 14px;
+      width: 7px;
+      height: 12px;
       border: 1.5px solid #888;
       border-radius: 4px;
       position: relative;
@@ -190,7 +193,7 @@
       left: 50%;
       transform: translateX(-50%);
       width: 1.5px;
-      height: 6px;
+      height: 5px;
       background: #888;
     }
     .chain-active {
@@ -209,7 +212,7 @@
     .tape-player-pill {
       background: #110e13;
       border: 1px solid #4a383d;
-      padding: 6px 12px;
+      padding: 6px 11px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -218,6 +221,7 @@
       font-size: 0.65rem;
       color: #b5b0be;
       box-shadow: 0 4px 15px rgba(0,0,0,0.9);
+      border-radius: 20px;
     }
     .tape-reel {
       width: 8px;
@@ -237,7 +241,7 @@
     }
     @keyframes spinReel { 100% { transform: rotate(360deg); } }
 
-    /* NÚT HUY HIỆU TED */
+    /* HUY HIỆU TED */
     .ted-master-badge {
       background: #170d12;
       border: 1px solid #552229;
@@ -251,6 +255,7 @@
       align-items: center;
       gap: 5px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.9);
+      border-radius: 20px;
     }
     .ted-master-badge:hover, .ted-master-badge.active {
       border-color: var(--crimson);
@@ -318,7 +323,7 @@
       box-shadow: 0 0 30px var(--crimson-glow);
     }
 
-    /* ================= 2. BỨC THƯ & MỘC PHÁP Y ĐÓNG CÁI ĐÙNG ================= */
+    /* ================= 2. BỨC THƯ & MỘC PHÁP Y ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
@@ -508,7 +513,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-top: 50px; /* Đẩy xuống để không bị thanh công tắc che */
+      margin-top: 55px; /* Đẩy xuống chuẩn để không bao giờ bị nút trên che */
       margin-bottom: 15px;
       position: relative;
       z-index: 10;
@@ -529,92 +534,346 @@
       font-size: 0.7rem;
       color: var(--text-dim);
       letter-spacing: 1px;
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
 
-    /* 3 BONG BÓNG MỜ ẢO */
-    .ethereal-orbs-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
+    /* ========================================================
+       CALIFORNIA ARCHIVE - GOTHIC LUXURY NAVIGATION CARDS
+       (THIẾT KẾ 3 THẺ ĐIỀU HƯỚNG THEO YÊU CẦU CỦA BẠN)
+    ======================================================== */
+    .archive-navigation {
+      --rose: #a92d4e;
+      --pink: #ed789a;
+      --silver: #c7aeb7;
+      --dark: #100609;
+
+      width: min(100% - 16px, 1050px);
+      margin: 15px auto 28px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      font-family: 'Playfair Display', Georgia, serif;
+      position: relative;
+      z-index: 15;
     }
 
-    .art-orb-btn {
+    .archive-card {
+      position: relative;
+      min-width: 0;
+      min-height: 310px;
+      padding: 17px 13px 22px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+      isolation: isolate;
       cursor: pointer;
+
       text-decoration: none;
-      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: floatOrb 5s ease-in-out infinite alternate;
-    }
-    .art-orb-btn:nth-child(2) { animation-delay: 1.5s; }
-    .art-orb-btn:nth-child(3) { animation-delay: 3s; }
+      color: #e8cbd3;
 
-    @keyframes floatOrb {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-6px); }
+      background:
+        radial-gradient(ellipse at 50% 35%,
+          rgba(130, 26, 53, .25),
+          transparent 65%),
+        linear-gradient(145deg,
+          rgba(39, 11, 21, .96),
+          rgba(8, 4, 8, .98));
+
+      border: 1px solid rgba(193, 91, 119, .48);
+      border-radius: 85px 85px 13px 13px;
+
+      box-shadow:
+        inset 0 0 25px rgba(166, 38, 76, .12),
+        0 0 18px rgba(110, 14, 42, .12);
+
+      transition:
+        transform .4s ease,
+        border-color .4s ease,
+        box-shadow .4s ease,
+        background .4s ease;
     }
 
-    .glass-orb-bubble {
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
+    .archive-card::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      z-index: -1;
+      border: 1px solid rgba(220, 139, 160, .23);
+      border-radius: 78px 78px 9px 9px;
+      pointer-events: none;
+    }
+
+    .archive-card::after {
+      content: "✧";
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--pink);
+      font-size: 24px;
+      text-shadow: 0 0 12px var(--pink);
+      opacity: .85;
+      pointer-events: none;
+    }
+
+    .card-index {
+      position: relative;
+      z-index: 2;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: #ad7d8b;
+      text-align: center;
+    }
+
+    .card-decoration {
+      position: relative;
+      width: 100%;
+      height: 125px;
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .archive-icon {
       position: relative;
-      background: radial-gradient(circle at 35% 30%, rgba(255, 60, 90, 0.3) 0%, rgba(35, 12, 20, 0.85) 60%, rgba(8, 4, 7, 0.98) 100%);
-      border: 1.5px solid rgba(212, 175, 55, 0.4);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.85), inset 0 0 16px rgba(230, 0, 38, 0.45);
-      backdrop-filter: blur(14px);
+      width: 90px;
+      height: 90px;
+      display: grid;
+      place-items: center;
+
+      border: 1px solid rgba(226, 117, 150, .55);
+      border-radius: 50%;
+
+      background:
+        radial-gradient(circle,
+          rgba(157, 38, 71, .32),
+          rgba(15, 5, 10, .85));
+
+      box-shadow:
+        0 0 20px rgba(204, 48, 91, .16),
+        inset 0 0 20px rgba(201, 72, 107, .15);
+
+      transition: .4s ease;
     }
 
-    .art-orb-btn:hover .glass-orb-bubble,
-    .art-orb-btn.active .glass-orb-bubble {
-      border-color: #fff;
-      box-shadow: 0 0 30px var(--crimson-glow), inset 0 0 20px var(--crimson);
-      transform: scale(1.08);
-    }
-
-    .glass-orb-bubble svg {
-      width: 36px;
-      height: 36px;
-      stroke: #dfd8e5;
+    .archive-icon svg {
+      width: 44px;
+      height: 44px;
       fill: none;
-      stroke-width: 1.4;
+      stroke: #e9a4b8;
+      stroke-width: 1.2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 0 6px rgba(230,0,38,0.7));
-      transition: all 0.3s;
+      filter: drop-shadow(0 0 5px rgba(240, 95, 141, .6));
     }
 
-    .orb-label-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.68rem;
-      letter-spacing: 1px;
-      color: #beb9cb;
-      margin-top: 6px;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-    .art-orb-btn:hover .orb-label-title,
-    .art-orb-btn.active .orb-label-title {
-      color: #fff;
-      text-shadow: 0 0 8px var(--crimson);
+    .deco-star {
+      position: absolute;
+      top: 5px;
+      right: 18%;
+      font-size: 21px;
+      color: #ffd0df;
+      text-shadow: 0 0 12px #ff6c9a;
+      pointer-events: none;
     }
 
-    .ted-orb-special .glass-orb-bubble {
-      border-color: #ff3355;
-      box-shadow: 0 0 25px rgba(230, 0, 38, 0.45), inset 0 0 18px rgba(230, 0, 38, 0.6);
+    .deco-flower {
+      position: absolute;
+      bottom: 10px;
+      left: 16%;
+      font-size: 23px;
+      color: #b54c6a;
+      text-shadow: 0 0 10px #a51f48;
+      pointer-events: none;
     }
-    .ted-orb-special .orb-label-title {
-      color: #ff3355;
+
+    .deco-seal {
+      position: absolute;
+      top: 15px;
+      left: 17%;
+      color: #c18c9d;
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    .wanted-stamp {
+      position: absolute;
+      bottom: 8px;
+      right: 10%;
+      transform: rotate(-13deg);
+      padding: 4px 8px;
+      border: 1px solid #a52e4b;
+      color: #e65a78;
+      font-size: 9px;
+      letter-spacing: 2px;
       font-weight: bold;
-      text-shadow: 0 0 10px var(--crimson);
+      background: rgba(30, 4, 10, .8);
+      font-family: 'JetBrains Mono', monospace;
+      pointer-events: none;
+    }
+
+    .ted-orbit {
+      position: absolute;
+      bottom: 6px;
+      right: 12%;
+      width: 34px;
+      height: 34px;
+      border: 1px solid #d36a89;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #ffb6cb;
+      font-size: 9px;
+      letter-spacing: 1px;
+      background: #210912;
+      box-shadow: 0 0 12px #a82c51;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: bold;
+      pointer-events: none;
+    }
+
+    .card-content {
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-subtitle {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: #a27a87;
+      margin-bottom: 8px;
+    }
+
+    .card-content h3 {
+      margin: 0;
+      font-size: clamp(14px, 1.5vw, 19px);
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1.35;
+      color: #f1c5d2;
+      text-shadow: 0 0 12px rgba(228, 82, 126, .35);
+    }
+
+    .card-content p {
+      margin: 6px 0 14px;
+      color: #c39ba7;
+      font-size: 12px;
+      font-style: italic;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+
+    .card-enter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 7px 12px;
+      border-top: 1px solid rgba(211, 116, 145, .35);
+      color: #d77f9b;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      transition: .3s ease;
+    }
+    .card-enter b { font-size: 13px; font-weight: bold; }
+
+    .card-corner {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-color: #e58ba6;
+      border-style: solid;
+      opacity: .75;
+      pointer-events: none;
+    }
+    .corner-tl { top: 15px; left: 14px; border-width: 1px 0 0 1px; }
+    .corner-br { right: 14px; bottom: 16px; border-width: 0 1px 1px 0; }
+
+    /* HOVER & ACTIVE */
+    .archive-card:hover, .archive-card.active {
+      transform: translateY(-8px);
+      border-color: #ed789a;
+      box-shadow:
+        0 0 10px rgba(232, 72, 120, .35),
+        0 0 35px rgba(195, 37, 83, .25),
+        inset 0 0 35px rgba(177, 37, 76, .18);
+    }
+
+    .archive-card:hover .archive-icon, .archive-card.active .archive-icon {
+      transform: scale(1.08);
+      border-color: #ff9bb7;
+      box-shadow:
+        0 0 30px rgba(242, 84, 137, .45),
+        inset 0 0 20px rgba(229, 89, 135, .25);
+    }
+
+    .archive-card:hover .card-enter, .archive-card.active .card-enter {
+      color: #fff;
+      letter-spacing: 2px;
+      border-color: #e77b9d;
+    }
+
+    .archive-card:hover .deco-star {
+      transform: rotate(45deg) scale(1.2);
+    }
+
+    .archive-card:active { transform: scale(.97); }
+
+    .card-wanted {
+      --pink: #ff637d;
+      border-color: rgba(204, 55, 76, .5);
+    }
+    .card-wanted .archive-icon {
+      border-radius: 18px;
+      border-color: rgba(218, 72, 90, .65);
+    }
+
+    .card-ted {
+      --pink: #e7a0bd;
+      border-color: rgba(188, 115, 153, .55);
+    }
+    .card-ted .archive-icon {
+      border-radius: 22px;
+    }
+
+    /* RESPONSIVE TRÊN ĐIỆN THOẠI (SAMSUNG ANDROID...) */
+    @media (max-width: 600px) {
+      .archive-navigation {
+        width: calc(100% - 10px);
+        gap: 8px;
+        margin: 15px auto 22px;
+      }
+      .archive-card {
+        min-height: 240px;
+        padding: 12px 4px 16px;
+        border-radius: 46px 46px 10px 10px;
+      }
+      .archive-card::before { inset: 5px; border-radius: 41px 41px 7px 7px; }
+      .card-decoration { height: 95px; }
+      .archive-icon { width: 62px; height: 62px; }
+      .archive-icon svg { width: 32px; height: 32px; }
+      .card-content h3 { font-size: 11px; letter-spacing: 0; }
+      .card-content p { font-size: 9px; min-height: 24px; margin: 5px 0 8px; line-height: 1.25; }
+      .card-subtitle { font-size: 7px; letter-spacing: 1px; margin-bottom: 4px; }
+      .card-enter { font-size: 7px; padding: 6px 2px; letter-spacing: .5px; gap: 3px; }
+      .deco-star { font-size: 15px; }
+      .deco-flower { font-size: 17px; }
+      .wanted-stamp { font-size: 7px; padding: 2px 4px; }
+      .ted-orbit { width: 26px; height: 26px; font-size: 7px; }
+    }
+
+    @media (max-width: 360px) {
+      .archive-navigation { gap: 5px; width: 100%; }
+      .archive-card { min-height: 215px; }
+      .card-content h3 { font-size: 9.5px; }
+      .card-subtitle { font-size: 6px; }
     }
 
     /* KÍNH LÚP TÌM KIẾM */
@@ -654,7 +913,7 @@
       pointer-events: none;
     }
 
-    /* PHÂN TRANG 8 CHAR / TRANG (BẠC KHÓI / ĐỎ THẪM) */
+    /* PHÂN TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) */
     .pagination-bar {
       display: flex;
       justify-content: center;
@@ -725,7 +984,7 @@
       box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
     }
 
-    /* BẢNG HỒ SƠ 2 CỘT COMPACT */
+    /* BẢNG HỒ SƠ COMPACT 2 CỘT */
     .conspiracy-board-wall {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -843,7 +1102,6 @@
       align-items: center;
     }
 
-    /* NÚT THẢ TIM */
     .stamp-like-btn {
       display: inline-flex;
       align-items: center;
@@ -908,7 +1166,6 @@
       box-shadow: 0 0 12px var(--crimson-glow);
     }
 
-    /* QUYỀN SỬA XOÁ CHO TED */
     .ted-card-controls {
       display: none;
       margin-top: 6px;
@@ -1315,7 +1572,6 @@
 </head>
 <body class="uv-mode-on"> <!-- ĐÈN UV MẶC ĐỊNH BẬT SẴN -->
 
-  <!-- KÝ HIỆU MẬT ẨN TRÊN TƯỜNG (CHỈ THẤY KHI BẬT ĐÈN UV) -->
   <div class="uv-secret-code">SITE 17-A // KẺ THỦ ÁC VẪN Ở ĐÂY // 1988</div>
 
   <!-- JUMPSCARE BÓNG MA QUỶ DỊ CHỚP CHỒM LÊN -->
@@ -1337,18 +1593,18 @@
   <canvas id="fog-canvas"></canvas>
   <canvas id="ember-canvas"></canvas>
 
-  <!-- ================= BẢNG ĐIỀU KHIỂN CÔNG TẮC DÂY XÍCH & TAPE DECK (THAY THẾ TOÀN BỘ ICON MÀU MÈ) ================= -->
+  <!-- ================= BẢNG ĐIỀU KHIỂN CÔNG TẮC DÂY XÍCH & TAPE DECK ================= -->
   <div class="top-switchboard">
-    <!-- CÔNG TẮC KÉO MÓC XÍCH ĐÈN UV -->
+    <!-- CÔNG TẮC GIẬT DÂY XÍCH CHO ĐÈN UV -->
     <div class="chain-pull-switch chain-active" id="btn-toggle-uv">
       <div class="chain-link-icon"></div>
       <span id="uv-state-label">ĐÈN UV [BẬT]</span>
     </div>
 
-    <!-- CÔNG TẮC ĐÈN THẨM VẤN SÁNG -->
-    <div class="chain-pull-switch" id="btn-toggle-light" style="display:none;">
+    <!-- CÔNG TẮC ĐÈN PHÒNG CHO TẤT CẢ MỌI NGƯỜI (ĐÃ MỞ KHÔNG BỊ ẨN) -->
+    <div class="chain-pull-switch" id="btn-toggle-light">
       <div class="chain-link-icon"></div>
-      <span id="light-state-label">ĐÈN SÁNG [BẬT]</span>
+      <span id="light-state-label">ĐÈN PHÒNG [TẮT]</span>
     </div>
 
     <!-- MÁY GHI ÂM ÁN MẠNG PHÁT RANDOM -->
@@ -1417,41 +1673,94 @@
       <h2 class="brand-headline">ĐẠI TỘI VÙNG CALIFORNIA</h2>
       <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
 
-      <!-- 3 BONG BÓNG MỜ ẢO SƠN DẦU -->
-      <div class="ethereal-orbs-nav">
-        <div class="art-orb-btn active" data-filter="all">
-          <div class="glass-orb-bubble">
-            <svg viewBox="0 0 40 40">
-              <circle cx="20" cy="20" r="14" stroke="rgba(212,175,55,0.7)" stroke-dasharray="3 2" />
-              <path d="M12 15 C16 12 24 12 28 15 L28 27 C24 24 16 24 12 27 Z" stroke="#fff" />
-              <path d="M20 13 L20 25" stroke="var(--crimson)" />
-            </svg>
+      <!-- ========================================================
+           CALIFORNIA ARCHIVE - GOTHIC LUXURY NAVIGATION CARDS
+           (3 THẺ ĐIỀU HƯỚNG TƯƠNG TÁC THAY THẾ TOÀN BỘ NÚT CŨ)
+      ======================================================== -->
+      <nav class="archive-navigation">
+        <!-- THẺ 1: TẤT CẢ HỒ SƠ -->
+        <div class="archive-card card-files active" data-filter="all">
+          <div class="card-corner corner-tl"></div>
+          <div class="card-corner corner-br"></div>
+          <span class="card-index">SEC.01 // ARCHIVES</span>
+
+          <div class="card-decoration">
+            <span class="deco-star">✧</span>
+            <span class="deco-seal">❖</span>
+            <div class="archive-icon">
+              <!-- Biểu tượng cuốn thư cổ và đôi cánh vòm Gothic -->
+              <svg viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="18" stroke-dasharray="3 2" />
+                <path d="M14 18 C19 14 29 14 34 18 L34 32 C29 28 19 28 14 32 Z" />
+                <path d="M24 16 L24 30" stroke="#ff8da9" stroke-width="1.5"/>
+                <path d="M18 22 C21 20 27 20 30 22" />
+              </svg>
+            </div>
+            <span class="deco-flower">❦</span>
           </div>
-          <span class="orb-label-title">TẤT CẢ HỒ SƠ</span>
+
+          <div class="card-content">
+            <span class="card-subtitle">CLASSIFIED DOSSIERS</span>
+            <h3>TẤT CẢ HỒ SƠ</h3>
+            <p>Toàn bộ tài liệu mật đã niêm phong</p>
+            <div class="card-enter"><b>KHÁM PHÁ</b> <span>✦</span></div>
+          </div>
         </div>
 
-        <div class="art-orb-btn" data-filter="Active">
-          <div class="glass-orb-bubble">
-            <svg viewBox="0 0 40 40">
-              <path d="M20 28 C10 20 8 13 14 9 C18 6 20 10 20 10 C20 10 22 6 26 9 C32 13 30 20 20 28 Z" stroke="#fff" fill="rgba(230,0,38,0.25)" />
-              <path d="M20 5 L20 34" stroke="var(--crimson)" stroke-width="1.8" />
-              <path d="M15 12 L25 12" stroke="rgba(212,175,55,0.8)" stroke-width="1.5" />
-            </svg>
+        <!-- THẺ 2: LỆNH TRUY NÃ -->
+        <div class="archive-card card-wanted" data-filter="Active">
+          <div class="card-corner corner-tl"></div>
+          <div class="card-corner corner-br"></div>
+          <span class="card-index">SEC.02 // RED NOTICE</span>
+
+          <div class="card-decoration">
+            <span class="deco-star">✦</span>
+            <div class="archive-icon">
+              <!-- Biểu tượng dao găm & hồng tâm truy lùng -->
+              <svg viewBox="0 0 48 48">
+                <path d="M24 8 L27 18 L38 21 L27 24 L24 38 L21 24 L10 21 L21 18 Z" />
+                <circle cx="24" cy="21" r="5" stroke="#ff4d66" stroke-width="1.5" />
+                <path d="M24 4 L24 44" stroke="#ff637d" stroke-width="1" stroke-dasharray="2 2"/>
+              </svg>
+            </div>
+            <div class="wanted-stamp">WANTED</div>
           </div>
-          <span class="orb-label-title">LỆNH TRUY NÃ</span>
+
+          <div class="card-content">
+            <span class="card-subtitle">DEADLY THREATS</span>
+            <h3>LỆNH TRUY NÃ</h3>
+            <p>Đối tượng báo động diện nguy cấp</p>
+            <div class="card-enter"><b>TRUY VẾT</b> <span>✦</span></div>
+          </div>
         </div>
 
-        <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="art-orb-btn ted-orb-special">
-          <div class="glass-orb-bubble">
-            <svg viewBox="0 0 40 40">
-              <path d="M20 14 C13 4 5 14 9 26 C13 24 17 20 20 22 C23 20 27 24 31 26 C35 14 27 4 20 14 Z" stroke="#ff3355" fill="rgba(255,51,85,0.2)" />
-              <circle cx="20" cy="23" r="2.5" fill="#fff" />
-              <circle cx="20" cy="10" r="5" stroke="rgba(212,175,55,0.9)" stroke-width="1.2" stroke-dasharray="2 2" />
-            </svg>
+        <!-- THẺ 3: TRẠM CỦA TED -->
+        <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="archive-card card-ted">
+          <div class="card-corner corner-tl"></div>
+          <div class="card-corner corner-br"></div>
+          <span class="card-index">SEC.03 // DISPATCH</span>
+
+          <div class="card-decoration">
+            <span class="deco-star">✧</span>
+            <div class="archive-icon">
+              <!-- Biểu tượng thiên thần vương miện của Đặc vụ Ted -->
+              <svg viewBox="0 0 48 48">
+                <path d="M24 16 C16 4 6 16 11 30 C16 28 20 23 24 25 C28 23 32 28 37 30 C42 16 32 4 24 16 Z" />
+                <circle cx="24" cy="26" r="3" fill="#fff" />
+                <circle cx="24" cy="11" r="6" stroke="#ffb6cb" stroke-width="1" stroke-dasharray="2 2" />
+              </svg>
+            </div>
+            <div class="ted-orbit">TED</div>
           </div>
-          <span class="orb-label-title">TRẠM CHỦ TED ↗</span>
+
+          <div class="card-content">
+            <span class="card-subtitle">HEADQUARTERS</span>
+            <h3>TRẠM CỦA TED</h3>
+            <p>Bản doanh chỉ huy & kênh liên lạc</p>
+            <div class="card-enter"><b>KẾT NỐI</b> <span>↗</span></div>
+          </div>
         </a>
-      </div>
+      </nav>
 
       <!-- KÍNH LÚP TÌM KIẾM ĐIỀU TRA -->
       <div class="dossier-search-wrapper">
@@ -1459,7 +1768,7 @@
         <input type="text" id="case-search-input" class="search-input-field" placeholder="NHẬP MÃ SỐ HOẶC TÊN HỒ SƠ ĐỂ ĐIỀU TRA...">
       </div>
 
-      <!-- THANH PHÂN TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) -->
+      <!-- THANH PHÂN TRANG 8 CHAR / TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) -->
       <div class="pagination-bar" id="pagination-control-bar">
         <button class="page-nav-btn" id="btn-prev-page" disabled>❮ TRƯỚC</button>
         <div class="page-indicator-text" id="page-display-text">TRANG <span id="current-page-num">1</span> / <span id="total-page-num">1</span></div>
@@ -1694,7 +2003,6 @@
       }
     }
 
-    // DANH SÁCH BÀI HÁT TỰ ĐỘNG PHÁT NGẪU NHIÊN
     const TRACK_PLAYLIST = [
       "Stract_Shiloh_Dynasty_feat._Burgettii_-_Losing_Interest_Remix_(mp3.pm).mp3",
       "I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3",
@@ -1714,11 +2022,10 @@
       noirAudio.play().then(() => {
         isMusicPlaying = true;
         btnToggleAudio.classList.add('tape-playing');
-        tapeStateLabel.innerText = "TAPE [ĐANG PHÁT]";
+        tapeStateLabel.innerText = "TAPE [BẬT]";
       }).catch(() => {});
     }
 
-    // Hết bài tự chuyển random bài khác
     noirAudio.addEventListener('ended', () => {
       let nextIdx;
       do {
@@ -1854,7 +2161,7 @@
     }
     drawEmbers();
 
-    /* ================= 4. ĐỒNG BỘ CHÍNH XÁC FIREBASE REALTIME - TED NẮM TOÀN QUYỀN ================= */
+    /* ================= 4. ĐỒNG BỘ CHÍNH XÁC FIREBASE REALTIME ================= */
     const FIREBASE_DB_URL = "https://ften2-bdaff-default-rtdb.asia-southeast1.firebasedatabase.app";
     const MASTER_KEY = "TED_PERMANENT_IMMORTAL_VAULT";
 
@@ -1912,14 +2219,12 @@
     let dossiers = getLocalCachedDossiers();
     let feedbacks = JSON.parse(localStorage.getItem('TED_PERMANENT_FEEDBACKS')) || [];
 
-    // TẢI TOÀN BỘ DỮ LIỆU TỪ ROOT CỦA FIREBASE
     async function syncFromFirebase() {
       try {
         const res = await fetch(`${FIREBASE_DB_URL}/california_vault.json`);
         if (res.ok) {
           const vault = await res.json();
           if (vault && typeof vault === 'object') {
-            // Khi Ted xoá hết thành rỗng, Firebase vẫn giữ mảng rỗng [] và cập nhật cho Trang!
             if (vault.cases !== undefined) {
               dossiers = Array.isArray(vault.cases) ? vault.cases : Object.values(vault.cases);
               localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
@@ -1932,17 +2237,14 @@
               renderFeedbacks();
             }
           } else {
-            // Lần đầu tiên Firebase rỗng -> Nạp dữ liệu ban đầu lên mây
             pushMasterVaultToFirebase();
           }
         }
-      } catch (err) {
-        console.log("Firebase sync fallback:", err);
-      }
+      } catch (err) {}
     }
     syncFromFirebase();
 
-    // TỰ ĐỘNG ĐỒNG BỘ THỜI GIAN THỰC (REALTIME STREAM - TED XOÁ THÌ MÁY KHÁCH BIẾN MẤT TỨC THÌ)
+    // REALTIME STREAM: KHI TED XOÁ THÌ MÁY KHÁCH TỰ MẤT CHAR NGAY TỨC THỜI
     try {
       const sse = new EventSource(`${FIREBASE_DB_URL}/california_vault.json`);
       sse.addEventListener('put', (e) => {
@@ -1965,7 +2267,6 @@
       });
     } catch(e){}
 
-    // ĐẨY DỮ LIỆU GỐC LÊN FIREBASE
     async function pushMasterVaultToFirebase() {
       try {
         const payload = {
@@ -1978,9 +2279,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-      } catch (err) {
-        console.error("Lỗi cập nhật Firebase:", err);
-      }
+      } catch (err) {}
     }
 
     /* ================= 5. MỞ CỔNG + NHÁ ĐÈN JUMPSCARE ================= */
@@ -2131,15 +2430,15 @@
       pushMasterVaultToFirebase();
     };
 
-    /* CHUYỂN BỘ LỌC 3 BONG BÓNG */
-    const orbBtns = document.querySelectorAll('.art-orb-btn');
-    orbBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (btn.hasAttribute('href')) return;
+    /* ĐIỀU HƯỚNG 3 THẺ GOTHIC LUXURY */
+    const navCards = document.querySelectorAll('.archive-card');
+    navCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (card.hasAttribute('href')) return;
         playMechClickSound();
-        orbBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.getAttribute('data-filter');
+        navCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        const filter = card.getAttribute('data-filter');
         currentPage = 1;
         if (filter === 'all') {
           currentFilteredList = dossiers;
@@ -2216,6 +2515,7 @@
         });
       });
 
+      // Dây nối từ tâm ? đến các hồ sơ
       pinCoords.forEach(pos => {
         threadCtx.beginPath();
         threadCtx.moveTo(hubX, hubY);
@@ -2229,6 +2529,7 @@
         threadCtx.stroke();
       });
 
+      // Dây đan chéo liên kết
       for (let i = 0; i < pinCoords.length; i++) {
         for (let j = i + 1; j < pinCoords.length; j++) {
           if (Math.abs(i - j) === 1 || (i % 2 === 0 && j === i + 2)) {
@@ -2346,7 +2647,7 @@
       pushMasterVaultToFirebase();
     });
 
-    /* ================= 11. CÔNG TẮC DÂY XÍCH: ĐÈN UV, ĐÈN PHÒNG & TED ADMIN ================= */
+    /* ================= 11. BẢNG CÔNG TẮC: ĐÈN UV, ĐÈN PHÒNG & TED ADMIN ================= */
     const authOverlay = document.getElementById('auth-overlay');
     const btnOpenTerminal = document.getElementById('btn-open-terminal');
     const btnCloseAuth = document.getElementById('btn-close-auth');
@@ -2358,7 +2659,7 @@
     const btnToggleUV = document.getElementById('btn-toggle-uv');
     const uvStateLabel = document.getElementById('uv-state-label');
 
-    // CÔNG TẮC GIẬT DÂY XÍCH CHO ĐÈN UV
+    // CÔNG TẮC KÉO MÓC XÍCH CHO ĐÈN UV
     let isUVActive = true;
     btnToggleUV.addEventListener('click', () => {
       playMechClickSound();
@@ -2368,14 +2669,14 @@
       uvStateLabel.innerText = isUVActive ? "ĐÈN UV [BẬT]" : "ĐÈN UV [TẮT]";
     });
 
-    // CÔNG TẮC ĐÈN THẨM VẤN
+    // CÔNG TẮC ĐÈN PHÒNG CHO TẤT CẢ MỌI NGƯỜI
     let isLightActive = false;
     btnToggleLight.addEventListener('click', () => {
       playMechClickSound();
       isLightActive = !isLightActive;
       document.body.classList.toggle('ted-illuminated', isLightActive);
       btnToggleLight.classList.toggle('chain-active', isLightActive);
-      lightStateLabel.innerText = isLightActive ? "ĐÈN SÁNG [BẬT]" : "ĐÈN SÁNG [TẮT]";
+      lightStateLabel.innerText = isLightActive ? "ĐÈN PHÒNG [SÁNG]" : "ĐÈN PHÒNG [TẮT]";
     });
 
     btnOpenTerminal.addEventListener('click', () => {
@@ -2397,7 +2698,11 @@
         playStampImpactSound();
         authOverlay.style.display = 'none';
 
-        btnToggleLight.style.display = 'flex';
+        document.body.classList.add('ted-illuminated');
+        isLightActive = true;
+        btnToggleLight.classList.add('chain-active');
+        lightStateLabel.innerText = "ĐÈN PHÒNG [SÁNG]";
+
         btnOpenTerminal.innerHTML = "<span>👑 TED ONLINE</span>";
         btnOpenTerminal.classList.add('active');
         tedActiveDesk.style.display = 'block';
@@ -2460,7 +2765,7 @@
         editModal.style.display = 'none';
         playStampImpactSound();
         await pushMasterVaultToFirebase();
-        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀ LƯU FIREBASE VĨNH VIỄN!");
+        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀO FIREBASE VĨNH VIỄN!");
       }
     });
 
@@ -2469,10 +2774,10 @@
       if (confirm(`Bạn có chắc chắn muốn tiêu huỷ hồ sơ [${dossiers[idx].name}] vĩnh viễn không?`)) {
         dossiers.splice(idx, 1);
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-        currentFilteredList = dossiers;
         renderCurrentView();
         playStampImpactSound();
 
+        // ĐẨY LẬP TỨC LÊN FIREBASE ĐỂ MỌI NGƯỜI BIẾN MẤT CÙNG LÚC
         await pushMasterVaultToFirebase();
         alert("ĐÃ TIÊU HUỶ HỒ SƠ KHỎI FIREBASE TOÀN CẦU!");
       }
