@@ -35,7 +35,6 @@
       user-select: none;
     }
 
-    /* BACKGROUND CHÍNH CỦA BẠN */
     body {
       background: 
         radial-gradient(circle at 50% 30%, transparent 20%, rgba(3, 2, 4, 0.9) 80%),
@@ -48,21 +47,21 @@
       position: relative;
     }
 
-    /* ================= RÈM NHUNG VÒM TRÊN CÙNG CHE ĐẦU TRẦN ================= */
+    /* RÈM NHUNG TRÊN ĐẦU CHE KHOẢNG HỞ */
     .top-velvet-drapery {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
-      height: 38px;
+      height: 35px;
       z-index: 37;
       pointer-events: none;
-      background: linear-gradient(180deg, rgba(8, 2, 5, 0.98) 0%, rgba(18, 4, 10, 0.85) 60%, transparent 100%);
+      background: linear-gradient(180deg, rgba(6, 1, 4, 0.98) 0%, rgba(18, 4, 10, 0.8) 60%, transparent 100%);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
-      border-bottom: 1px solid rgba(168, 0, 16, 0.2);
+      border-bottom: 1px solid rgba(168, 0, 16, 0.25);
     }
 
-    /* ================= ĐÈN TRẦN HẠ TỪ TRÊN XUỐNG VỚI ÁNH SÁNG TÂM ĐÈN ================= */
+    /* ================= 1. ĐÈN TRẦN & CHÙM SÁNG HÌNH TAM GIÁC MỀM MẠI ================= */
     .ceiling-lamp-fixture {
       position: fixed;
       top: -260px;
@@ -97,25 +96,34 @@
       filter: drop-shadow(0 10px 25px rgba(0,0,0,0.95));
     }
 
-    /* CHÙM ÁNH SÁNG TRẮNG TỎA RA CHUẨN TỪ TÂM CHAO ĐÈN */
-    .ceiling-white-beam {
+    /* CHÙM ÁNH SÁNG TAM GIÁC MỀM MẠI PHÁT TỪ ĐIỂM CUỐI CỦA TẤM ẢNH ĐÈN */
+    .ceiling-triangular-beam {
       position: absolute;
-      top: 75px;
+      top: 76px; /* Bắt đầu chuẩn xác từ mép đáy chao đèn */
       left: 50%;
       transform: translateX(-50%);
-      width: 120vw;
-      max-width: 1300px;
+      width: 135vw;
+      max-width: 1200px;
       height: 100vh;
-      background: radial-gradient(ellipse 1100px 900px at 50% 0%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.08) 45%, transparent 80%);
+      /* Cắt thành hình nón tam giác tỏa rộng xuống dưới */
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      /* Tâm tam giác sáng hơn, tỏa mềm dần ra hai bên và đáy */
+      background: radial-gradient(ellipse 100% 100% at 50% 0%, 
+        rgba(255, 255, 255, 0.45) 0%, 
+        rgba(255, 255, 255, 0.2) 30%, 
+        rgba(255, 255, 255, 0.05) 65%, 
+        transparent 95%);
+      filter: blur(6px);
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.6s ease;
     }
 
+    /* KHI BẬT ĐÈN TRẦN */
     body.room-light-on .ceiling-lamp-fixture {
-      top: -10px !important;
+      top: -12px !important;
     }
-    body.room-light-on .ceiling-white-beam {
+    body.room-light-on .ceiling-triangular-beam {
       opacity: 1 !important;
     }
     body.room-light-on .spotlight-layer {
@@ -125,34 +133,54 @@
       --bg: #151216;
     }
 
-    /* ĐÈN UV TỬ NGOẠI */
+    /* ================= 2. ĐÈN UV TỬ NGOẠI ĐẬM ĐẶC RÙNG RỢN ================= */
     body.uv-mode-on .spotlight-layer {
-      background: radial-gradient(circle 360px at var(--spot-x, 50%) var(--spot-y, 40%), rgba(90, 10, 180, 0.22) 0%, rgba(18, 2, 35, 0.7) 60%, rgba(4, 1, 10, 0.96) 100%) !important;
+      background: radial-gradient(circle 380px at var(--spot-x, 50%) var(--spot-y, 40%), rgba(140, 15, 240, 0.3) 0%, rgba(28, 2, 50, 0.78) 60%, rgba(5, 1, 12, 0.98) 100%) !important;
     }
     body.uv-mode-on #thread-canvas {
-      filter: drop-shadow(0 0 8px #ff0055) hue-rotate(290deg);
+      filter: drop-shadow(0 0 10px #ff0055) drop-shadow(0 0 20px #b84dff) hue-rotate(285deg);
     }
-    body.uv-mode-on .uv-secret-code {
-      opacity: 0.85 !important;
-      text-shadow: 0 0 10px #b84dff, 0 0 20px #ff0055;
+    body.uv-mode-on .uv-glow-trace {
+      opacity: 0.92 !important;
+      filter: drop-shadow(0 0 10px #b84dff) drop-shadow(0 0 22px #ff0055) !important;
     }
 
-    .uv-secret-code {
+    /* CÁC DẤU VẾT ÁN MẠNG PHÁT QUANG ĐẬM ĐẶC KHI BẬT UV */
+    .uv-glow-trace {
       position: fixed;
-      top: 18%;
-      left: 6%;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: #b84dff;
-      letter-spacing: 3px;
       pointer-events: none;
       z-index: 5;
       opacity: 0;
-      transform: rotate(-12deg);
       transition: opacity 0.5s ease;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: bold;
+    }
+    .uv-trace-1 {
+      top: 19%;
+      left: 5%;
+      font-size: 0.78rem;
+      color: #c95dff;
+      letter-spacing: 3px;
+      transform: rotate(-10deg);
+    }
+    .uv-trace-2 {
+      top: 35%;
+      right: 4%;
+      font-size: 0.72rem;
+      color: #ff2a70;
+      letter-spacing: 2px;
+      transform: rotate(14deg);
+    }
+    .uv-trace-3 {
+      bottom: 28%;
+      left: 8%;
+      font-size: 0.7rem;
+      color: #b84dff;
+      letter-spacing: 2.5px;
+      transform: rotate(-6deg);
     }
 
-    /* JUMPSCARE BÓNG MA */
+    /* ================= 3. JUMPSCARE 18+ DỮ DỘI BÙNG NỔ ================= */
     #jumpscare-overlay {
       position: fixed;
       inset: 0;
@@ -164,28 +192,37 @@
       background: #000;
     }
     .ghost-face-svg {
-      width: 85vw;
-      max-width: 420px;
+      width: 90vw;
+      max-width: 480px;
       height: auto;
-      filter: drop-shadow(0 0 50px var(--crimson));
-      animation: ghostLunge 0.38s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+      filter: drop-shadow(0 0 60px #ff0000);
+      animation: violentLunge 0.45s cubic-bezier(0.1, 0.9, 0.15, 1) forwards;
     }
-    @keyframes ghostLunge {
-      0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
-      40% { transform: scale(1.3) rotate(5deg); opacity: 1; filter: invert(1); }
-      70% { transform: scale(1.1) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 60px #ff0000); }
-      100% { transform: scale(1.4); opacity: 0; }
+    @keyframes violentLunge {
+      0% { transform: scale(0.2) rotate(-15deg); opacity: 0; }
+      30% { transform: scale(1.4) rotate(8deg); opacity: 1; filter: invert(1); }
+      60% { transform: scale(1.15) rotate(-4deg); opacity: 1; filter: drop-shadow(0 0 80px #ff0000); }
+      100% { transform: scale(1.5); opacity: 0; }
     }
 
-    .strobe-active {
+    .strobe-violent-active {
       display: flex !important;
-      animation: horrorStrobe 0.38s steps(2, start) forwards;
+      animation: violentHorrorStrobe 0.45s steps(3, start) forwards, screenShake 0.45s ease-in-out forwards;
     }
-    @keyframes horrorStrobe {
+    @keyframes violentHorrorStrobe {
       0% { background: #fff; }
-      30% { background: var(--crimson); }
-      60% { background: #000; }
+      20% { background: var(--crimson); }
+      40% { background: #000; }
+      60% { background: #ff0033; }
+      80% { background: #fff; }
       100% { background: transparent; }
+    }
+    @keyframes screenShake {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-12px, 8px) rotate(-1deg); }
+      40% { transform: translate(12px, -8px) rotate(1deg); }
+      60% { transform: translate(-8px, -6px); }
+      80% { transform: translate(6px, 8px); }
     }
 
     /* ĐÈN SPOTLIGHT MẶC ĐỊNH */
@@ -219,7 +256,7 @@
       mix-blend-mode: screen;
     }
 
-    /* ================= BẢNG CÔNG TẮC ĐIỀU KHIỂN - TỐI GIẢN KHÔNG MÀU MÈ ================= */
+    /* ================= BẢNG CÔNG TẮC ĐIỀU KHIỂN ================= */
     .top-switchboard {
       position: fixed;
       top: 10px;
@@ -519,7 +556,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-top: 60px;
+      margin-top: 55px;
       margin-bottom: 12px;
       position: relative;
       z-index: 10;
@@ -543,7 +580,7 @@
       margin-bottom: 12px;
     }
 
-    /* ================= 3 NÚT ĐIỀU HƯỚNG GOTHIC LUXURY TINH GỌN (TRONG SUỐT HƠN) ================= */
+    /* ================= 4. KHUNG 3 NÚT ĐIỀU HƯỚNG TRONG SUỐT VÀ THANH THOÁT ================= */
     .archive-navigation {
       width: min(100% - 10px, 980px);
       margin: 8px auto 18px;
@@ -558,7 +595,7 @@
     .archive-card {
       position: relative;
       min-width: 0;
-      min-height: 200px; /* Rút gọn không bị dài thô */
+      min-height: 195px;
       padding: 12px 8px 14px;
       display: flex;
       flex-direction: column;
@@ -571,20 +608,21 @@
       text-decoration: none;
       color: #e8cbd3;
 
-      /* Nền kính khói đỏ sang trọng, trong hơn */
+      /* NỀN NHẠT, TRONG SUỐT, NHÌN THẤU VÂN TƯỜNG PHÍA SAU */
       background:
-        radial-gradient(ellipse at 50% 30%, rgba(160, 20, 50, 0.22), transparent 70%),
-        linear-gradient(145deg, rgba(22, 7, 14, 0.82), rgba(6, 2, 5, 0.92));
-      backdrop-filter: blur(14px);
+        radial-gradient(ellipse at 50% 25%, rgba(180, 25, 60, 0.16), transparent 70%),
+        linear-gradient(145deg, rgba(20, 7, 14, 0.32), rgba(6, 2, 5, 0.45));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
 
-      border: 1px solid rgba(220, 110, 140, 0.45);
+      border: 1px solid rgba(225, 120, 150, 0.28);
       border-radius: 65px 65px 12px 12px;
 
       box-shadow:
-        inset 0 0 20px rgba(168, 0, 16, 0.15),
-        0 8px 25px rgba(0, 0, 0, 0.85);
+        inset 0 0 15px rgba(168, 0, 16, 0.1),
+        0 4px 20px rgba(0, 0, 0, 0.6);
 
-      transition: transform .3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color .3s, box-shadow .3s;
+      transition: transform .32s cubic-bezier(0.2, 0.8, 0.2, 1), border-color .3s, box-shadow .3s;
     }
 
     .archive-card::before {
@@ -592,7 +630,7 @@
       position: absolute;
       inset: 5px;
       z-index: -1;
-      border: 1px solid rgba(220, 139, 160, 0.2);
+      border: 1px solid rgba(220, 139, 160, 0.16);
       border-radius: 60px 60px 8px 8px;
       pointer-events: none;
     }
@@ -610,15 +648,15 @@
     .card-decoration {
       position: relative;
       width: 100%;
-      height: 85px;
+      height: 82px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
     .custom-card-art-frame {
-      width: 78px;
-      height: 78px;
+      width: 74px;
+      height: 74px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -672,7 +710,7 @@
       justify-content: center;
       gap: 5px;
       padding: 5px 10px;
-      border-top: 1px solid rgba(211, 116, 145, 0.3);
+      border-top: 1px solid rgba(211, 116, 145, 0.28);
       color: #e58da8;
       font-family: 'JetBrains Mono', monospace;
       font-size: 8px;
@@ -687,9 +725,9 @@
       transform: translateY(-6px);
       border-color: #ff8da9;
       box-shadow:
-        0 0 15px rgba(232, 72, 120, 0.4),
-        0 0 35px rgba(168, 0, 16, 0.35),
-        inset 0 0 30px rgba(177, 37, 76, 0.2);
+        0 0 15px rgba(232, 72, 120, 0.35),
+        0 0 32px rgba(168, 0, 16, 0.3),
+        inset 0 0 25px rgba(177, 37, 76, 0.16);
     }
     .archive-card:hover .card-enter, .archive-card.active .card-enter {
       color: #fff;
@@ -705,7 +743,7 @@
         margin: 8px auto 14px;
       }
       .archive-card {
-        min-height: 168px;
+        min-height: 172px;
         padding: 9px 2px 10px;
         border-radius: 46px 46px 10px 10px;
       }
@@ -721,7 +759,7 @@
     .dossier-search-wrapper {
       width: 100%;
       max-width: 440px;
-      margin: 5px auto 12px;
+      margin: 5px auto 14px;
       position: relative;
       z-index: 10;
     }
@@ -760,7 +798,7 @@
       justify-content: center;
       align-items: center;
       gap: 15px;
-      margin: 6px auto 16px;
+      margin: 8px auto 18px;
       position: relative;
       z-index: 15;
     }
@@ -799,7 +837,7 @@
     /* TÂM ĐIỂM '?' NỐI CHỈ ĐỎ */
     .mystery-hub-modern {
       text-align: center;
-      margin: 5px auto 18px;
+      margin: 5px auto 20px;
       position: relative;
       z-index: 10;
       width: fit-content;
@@ -807,7 +845,7 @@
 
     .question-core {
       font-family: 'Playfair Display', serif;
-      font-size: 3.8rem;
+      font-size: 4rem;
       line-height: 1;
       color: var(--crimson);
       text-shadow: 0 0 30px var(--crimson-glow);
@@ -1537,16 +1575,19 @@
   <!-- DẢI RÈM NHUNG CHE KÍN MẶT TRÊN CÙNG -->
   <div class="top-velvet-drapery"></div>
 
-  <!-- ĐÈN TRẦN FILE ẢNH BẠN GỬI THẢ TỪ TRÊN XUỐNG -->
+  <!-- ĐÈN TRẦN VÀ CHÙM SÁNG HÌNH TAM GIÁC MỀM MẠI PHÁT TỪ ĐÁY ĐÈN -->
   <div class="ceiling-lamp-fixture" id="ceiling-lamp">
     <div class="ceiling-lamp-chain"></div>
     <div class="ceiling-lamp-img-wrap">
       <img src="file_000000002b6c8209aa657cc551e48687.png" alt="Ceiling Lamp" class="ceiling-lamp-img">
     </div>
-    <div class="ceiling-white-beam"></div>
+    <div class="ceiling-triangular-beam"></div>
   </div>
 
-  <div class="uv-secret-code">SITE 17-A // KẺ THỦ ÁC VẪN Ở ĐÂY // 1988</div>
+  <!-- CÁC DẤU VẾT ÁN MẠNG PHÁT QUANG ĐẬM ĐẶC KHI BẬT UV -->
+  <div class="uv-glow-trace uv-trace-1">SITE 17-A // KẺ THỦ ÁC VẪN Ở ĐÂY // 1988</div>
+  <div class="uv-glow-trace uv-trace-2">LIES. LIES. LIES. // CHẠY TRỐN VÔ ÍCH</div>
+  <div class="uv-glow-trace uv-trace-3">EVIDENCE #042719 // KHÔNG MỘT AI SỐNG SÓT</div>
 
   <!-- JUMPSCARE BÓNG MA QUỶ DỊ CHỚP CHỒM LÊN -->
   <div id="jumpscare-overlay">
@@ -1641,7 +1682,7 @@
       <h2 class="brand-headline">ĐẠI TỘI VÙNG CALIFORNIA</h2>
       <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
 
-      <!-- ================= 3 NÚT ĐIỀU HƯỚNG GOTHIC LUXURY TINH GỌN ================= -->
+      <!-- ================= 3 NÚT ĐIỀU HƯỚNG TRONG SUỐT VÀ THANH THOÁT ================= -->
       <nav class="archive-navigation">
         <!-- NÚT 1: TẤT CẢ HỒ SƠ -->
         <div class="archive-card active" data-filter="all">
@@ -1677,7 +1718,7 @@
           </div>
         </div>
 
-        <!-- NÚT 3: TRẠM CỦA TED (FILE MỚI THEO YÊU CẦU + DẪN LINK FB) -->
+        <!-- NÚT 3: TRẠM CỦA TED -->
         <a href="https://www.facebook.com/share/14vr42JqQwu/" target="_blank" class="archive-card">
           <span class="card-index">SEC.03</span>
 
@@ -1737,7 +1778,7 @@
           </label>
         </div>
 
-        <!-- KHUNG NHẬP CỐT TRUYỆN / VĂN ÁN RỘNG DÀI -->
+        <!-- KHUNG NHẬP CỐT TRUYỆN / VĂN ÁN CUỘN DỌC -->
         <div class="field-wrap">
           <label>Cốt truyện / Văn án vụ án (Bản giấy điều tra cuộn dọc):</label>
           <textarea id="in-plot" rows="4" placeholder="Nhập diễn biến vụ án, tiểu sử, manh mối chi tiết tại đây..."></textarea>
@@ -1881,7 +1922,6 @@
         </label>
       </div>
 
-      <!-- SỬA CỐT TRUYỆN / VĂN ÁN DẠNG TEXTAREA -->
       <div class="field-wrap">
         <label>Cốt truyện / Văn án vụ án (Bản giấy điều tra cuộn dọc):</label>
         <textarea id="edit-plot" rows="4"></textarea>
@@ -2024,19 +2064,34 @@
       }, { once: true });
     });
 
-    function playJumpscareSound() {
+    /* ÂM THANH NỔ JUMPSCARE BÙNG NỔ DỮ DỘI */
+    function playViolentJumpscareSound() {
       initAudioContext();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(850, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(25, audioCtx.currentTime + 0.42);
-      gain.gain.setValueAtTime(1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.45);
+      // 1. Tiếng nổ Sub-Bass siêu trầm rung màn hình
+      const subOsc = audioCtx.createOscillator();
+      const subGain = audioCtx.createGain();
+      subOsc.type = 'sine';
+      subOsc.frequency.setValueAtTime(160, audioCtx.currentTime);
+      subOsc.frequency.exponentialRampToValueAtTime(18, audioCtx.currentTime + 0.5);
+      subGain.gain.setValueAtTime(1, audioCtx.currentTime);
+      subGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.55);
+      subOsc.connect(subGain);
+      subGain.connect(audioCtx.destination);
+      subOsc.start();
+      subOsc.stop(audioCtx.currentTime + 0.55);
+
+      // 2. Tiếng rít kim loại xé toang không gian
+      const screechOsc = audioCtx.createOscillator();
+      const screechGain = audioCtx.createGain();
+      screechOsc.type = 'sawtooth';
+      screechOsc.frequency.setValueAtTime(1400, audioCtx.currentTime);
+      screechOsc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.45);
+      screechGain.gain.setValueAtTime(0.9, audioCtx.currentTime);
+      screechGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+      screechOsc.connect(screechGain);
+      screechGain.connect(audioCtx.destination);
+      screechOsc.start();
+      screechOsc.stop(audioCtx.currentTime + 0.5);
     }
 
     function playStampImpactSound() {
@@ -2173,7 +2228,6 @@
     }
     syncFromFirebase();
 
-    // REALTIME STREAM: KHI TED XOÁ THÌ MÁY KHÁCH TỰ ĐỘNG MẤT
     try {
       const sse = new EventSource(`${FIREBASE_DB_URL}/california_vault.json`);
       sse.addEventListener('put', (e) => {
@@ -2209,7 +2263,7 @@
       } catch (err) {}
     }
 
-    /* ================= 5. MỞ CỔNG + NHÁ ĐÈN JUMPSCARE ================= */
+    /* ================= 5. MỞ CỔNG + JUMPSCARE DỮ DỘI ================= */
     const gate18 = document.getElementById('gate-18');
     const btnPassGate = document.getElementById('btn-pass-gate');
     const letterScreen = document.getElementById('letter-screen');
@@ -2220,16 +2274,17 @@
 
     btnPassGate.addEventListener('click', () => {
       initAudioContext();
-      playJumpscareSound();
-      jumpscareOverlay.classList.add('strobe-active');
+      // KÍCH HOẠT HIỆU ỨNG RUNG BÃO TỐ & ÂM THANH NỔ DỮ DỘI
+      playViolentJumpscareSound();
+      jumpscareOverlay.classList.add('strobe-violent-active');
 
       setTimeout(() => {
         playRandomTrack();
         gate18.style.display = 'none';
         letterScreen.style.display = 'flex';
-        jumpscareOverlay.classList.remove('strobe-active');
+        jumpscareOverlay.classList.remove('strobe-violent-active');
         syncFromFirebase();
-      }, 400);
+      }, 450);
     });
 
     artSeal.addEventListener('click', () => {
@@ -2329,7 +2384,7 @@
             </div>
           </div>
 
-          <!-- 2 NÚT LINK PLOT & GGAI -->
+          <!-- NÚT PLOT MỞ TỜ GIẤY ĐIỀU TRA CUỘN DỌC -->
           <div class="card-links">
             <button type="button" class="link-tag plot-btn" onclick="openPlotDossier(${actualIdx}, event)">[ PLOT ]</button>
             <a href="${item.ggai}" target="_blank" class="link-tag ggai" onclick="event.stopPropagation()">[ GGAI ]</a>
@@ -2421,7 +2476,6 @@
       inspectModal.style.display = 'none';
     });
 
-    // MỞ PLOT TỪ MODAL CHI TIẾT
     document.getElementById('btn-inspect-plot-open').addEventListener('click', () => {
       if (currentInspectedCase) {
         displayPlotModal(currentInspectedCase.name, currentInspectedCase.code, currentInspectedCase.plot);
@@ -2622,7 +2676,7 @@
       pushMasterVaultToFirebase();
     });
 
-    /* ================= 12. BẢNG CÔNG TẮC: ĐÈN UV, ĐÈN TRẦN & TED ADMIN ================= */
+    /* ================= 12. CÔNG TẮC ĐỘC QUYỀN GIỮA ĐÈN TRẦN & ĐÈN UV ================= */
     let isTedLoggedIn = false;
     const authOverlay = document.getElementById('auth-overlay');
     const btnOpenTerminal = document.getElementById('btn-open-terminal');
@@ -2634,16 +2688,31 @@
     const btnToggleUV = document.getElementById('btn-toggle-uv');
 
     let isUVActive = false;
+    let isLightActive = false;
+
+    // BẬT ĐÈN UV -> TỰ ĐỘNG TẮT ĐÈN TRẦN
     btnToggleUV.addEventListener('click', () => {
       playMechClickSound();
+      if (isLightActive) {
+        isLightActive = false;
+        document.body.classList.remove('room-light-on');
+        btnToggleLight.classList.remove('active');
+      }
+
       isUVActive = !isUVActive;
       document.body.classList.toggle('uv-mode-on', isUVActive);
       btnToggleUV.classList.toggle('active', isUVActive);
     });
 
-    let isLightActive = false;
+    // BẬT ĐÈN TRẦN -> TỰ ĐỘNG TẮT ĐÈN UV
     btnToggleLight.addEventListener('click', () => {
       playLightSwitchSound();
+      if (isUVActive) {
+        isUVActive = false;
+        document.body.classList.remove('uv-mode-on');
+        btnToggleUV.classList.remove('active');
+      }
+
       isLightActive = !isLightActive;
       document.body.classList.toggle('room-light-on', isLightActive);
       btnToggleLight.classList.toggle('active', isLightActive);
@@ -2829,4 +2898,4 @@
     });
   </script>
 </body>
-          </html>
+  </html>
