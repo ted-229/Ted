@@ -12,9 +12,9 @@
     :root {
       --bg: #030204;
       --crimson: #a80010;
-      --crimson-glow: rgba(168, 0, 16, 0.65);
-      --card-paper: #121013;
-      --tape: rgba(220, 215, 190, 0.4);
+      --crimson-glow: rgba(168, 0, 16, 0.7);
+      --card-paper: #0e0c0f;
+      --tape: rgba(220, 215, 190, 0.45);
       --text-main: #f0eef5;
       --text-dim: #8b889a;
       --border-subtle: rgba(255, 255, 255, 0.08);
@@ -38,7 +38,7 @@
 
     body {
       background: 
-        radial-gradient(circle at 50% 30%, transparent 20%, rgba(3, 2, 4, 0.88) 80%),
+        radial-gradient(circle at 50% 30%, transparent 20%, rgba(3, 2, 4, 0.9) 80%),
         url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
         var(--bg);
       color: var(--text-main);
@@ -90,7 +90,7 @@
       inset: 0;
       pointer-events: none;
       z-index: 35;
-      background: radial-gradient(circle 300px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(3, 2, 4, 0.45) 55%, rgba(3, 2, 4, 0.85) 100%);
+      background: radial-gradient(circle 300px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(3, 2, 4, 0.45) 55%, rgba(3, 2, 4, 0.88) 100%);
       transition: background 0.08s ease-out;
     }
 
@@ -115,7 +115,7 @@
       mix-blend-mode: screen;
     }
 
-    /* THANH NÚT TRÊN CÙNG */
+    /* THANH NÚT ĐIỀU KHIỂN GÓC TRÊN CÙNG */
     .top-bar-controls {
       position: fixed;
       top: 14px;
@@ -230,7 +230,7 @@
       box-shadow: 0 0 30px var(--crimson-glow);
     }
 
-    /* ================= 2. BỨC THƯ & MỘC ĐÓNG CÁI "ĐÙNG" ================= */
+    /* ================= 2. BỨC THƯ & MỘC PHÁP Y ĐÓNG CÁI "ĐÙNG" ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
@@ -310,6 +310,7 @@
       text-align: justify;
     }
 
+    /* MỘC PHÁP Y ĐÓNG CÁI "ĐÙNG" */
     .seal-permit-zone {
       display: flex;
       flex-direction: column;
@@ -599,67 +600,121 @@
       box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
     }
 
-    /* ================= BẢNG HỒ SƠ CUỘN NGANG (HORIZONTAL CONVEYOR) ================= */
-    .conspiracy-board-wall {
+    /* ================= BẢNG HỒ SƠ PHÂN TRANG (8 CHAR / TRANG) ================= */
+    .pagination-controls-bar {
       display: flex;
-      overflow-x: auto;
-      overflow-y: visible;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      gap: 22px;
-      padding: 20px 15px 40px 15px;
-      margin-bottom: 35px;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
       position: relative;
-      z-index: 10;
-      scrollbar-width: thin;
-      scrollbar-color: var(--crimson) transparent;
-    }
-    .conspiracy-board-wall::-webkit-scrollbar {
-      height: 6px;
-    }
-    .conspiracy-board-wall::-webkit-scrollbar-track {
-      background: rgba(10, 5, 8, 0.6);
-      border-radius: 3px;
-    }
-    .conspiracy-board-wall::-webkit-scrollbar-thumb {
-      background: var(--crimson);
-      border-radius: 3px;
-      box-shadow: 0 0 8px var(--crimson);
+      z-index: 15;
     }
 
+    .page-nav-arrow {
+      background: rgba(20, 10, 16, 0.85);
+      border: 1px solid var(--crimson);
+      color: #fff;
+      padding: 6px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.25s;
+    }
+    .page-nav-arrow:hover:not(:disabled) {
+      background: var(--crimson);
+      box-shadow: 0 0 15px var(--crimson-glow);
+    }
+    .page-nav-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      border-color: #444;
+    }
+
+    .page-indicator-badge {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--gold-baroque);
+      letter-spacing: 1px;
+    }
+
+    /* SLIDER CHỨA CÁC TRANG HỒ SƠ */
+    .dossier-pages-slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      position: relative;
+      z-index: 10;
+      margin-bottom: 35px;
+    }
+    .dossier-pages-slider::-webkit-scrollbar { display: none; }
+
+    .dossier-page-unit {
+      flex: 0 0 100%;
+      width: 100%;
+      scroll-snap-align: start;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 10px 4px 25px;
+    }
+
+    @media (min-width: 768px) {
+      .dossier-page-unit {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+      }
+    }
+
+    /* THẺ HỒ SƠ ĐẬM CHẤT PHÁP Y ÁN MẠNG */
     .polaroid-evidence-card {
-      flex: 0 0 265px;
-      max-width: 275px;
-      scroll-snap-align: center;
       background: var(--card-paper);
-      border: 1px solid rgba(230, 0, 38, 0.35);
-      padding: 14px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.95), inset 0 0 25px rgba(0,0,0,0.8);
+      border: 1px solid rgba(230, 0, 38, 0.45);
+      padding: 12px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.95), inset 0 0 25px rgba(0,0,0,0.85);
       position: relative;
       cursor: pointer;
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, border-color 0.3s;
       transform: rotate(var(--rot, 0deg));
+      border-radius: 2px;
     }
 
     .polaroid-evidence-card:hover {
-      transform: scale(1.05) rotate(0deg) translateY(-8px) !important;
+      transform: scale(1.04) rotate(0deg) translateY(-5px) !important;
       z-index: 40 !important;
       border-color: var(--crimson);
-      box-shadow: 0 25px 60px rgba(168, 0, 16, 0.6);
+      box-shadow: 0 20px 50px rgba(168, 0, 16, 0.65);
+    }
+
+    /* TÂM NGẮM BẮN / RETICLE ĐỎ GÓC THẺ (LẤY TỪ ẢNH TÂM NGẮM) */
+    .polaroid-evidence-card::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="14" fill="none" stroke="%23ff0022" stroke-width="2"/><circle cx="20" cy="20" r="8" fill="none" stroke="%23ff0022" stroke-width="1.5"/><line x1="20" y1="2" x2="20" y2="38" stroke="%23ff0022" stroke-width="2"/><line x1="2" y1="20" x2="38" y2="20" stroke="%23ff0022" stroke-width="2"/></svg>') center/contain no-repeat;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 8;
     }
 
     /* Băng dính đục góc */
     .polaroid-evidence-card::after {
       content: "";
       position: absolute;
-      top: -10px;
-      right: 12px;
-      width: 44px;
-      height: 18px;
+      top: -8px;
+      left: 12px;
+      width: 38px;
+      height: 16px;
       background: var(--tape);
       border-left: 1px dashed rgba(0,0,0,0.2);
       border-right: 1px dashed rgba(0,0,0,0.2);
-      transform: rotate(14deg);
+      transform: rotate(-10deg);
       pointer-events: none;
       z-index: 5;
     }
@@ -680,11 +735,12 @@
 
     .polaroid-photo-frame {
       width: 100%;
-      height: 200px;
+      height: 165px;
       background: #000;
       overflow: hidden;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
     }
 
     .polaroid-photo-frame img {
@@ -702,10 +758,10 @@
     .polaroid-title {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 0.98rem;
       line-height: 1.25;
       color: #fff;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -725,7 +781,7 @@
     .stamp-like-btn {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       cursor: pointer;
       color: #888;
       font-size: 0.7rem;
@@ -752,10 +808,10 @@
     /* 2 NÚT LINK PLOT & GGAI */
     .card-links {
       display: flex;
-      gap: 8px;
-      margin-top: 12px;
+      gap: 6px;
+      margin-top: 10px;
       border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 10px;
+      padding-top: 8px;
     }
     .link-tag {
       flex: 1;
@@ -764,9 +820,9 @@
       border: 1px solid rgba(255,255,255,0.15);
       color: #dfdfe6;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: bold;
-      padding: 6px 0;
+      padding: 5px 0;
       text-decoration: none;
       border-radius: 2px;
       transition: 0.2s;
@@ -790,7 +846,7 @@
     .ted-card-controls {
       display: none;
       margin-top: 8px;
-      padding-top: 8px;
+      padding-top: 6px;
       border-top: 1px dashed rgba(230, 0, 38, 0.3);
       gap: 6px;
     }
@@ -799,7 +855,7 @@
     }
     .btn-card-edit, .btn-card-del {
       flex: 1;
-      padding: 5px 0;
+      padding: 4px 0;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
       font-weight: bold;
@@ -1132,7 +1188,7 @@
 </head>
 <body>
 
-  <!-- JUMPSCARE BÓNG MA QUỶ DỊ -->
+  <!-- JUMPSCARE VỚI BÓNG MA QUỶ DỊ -->
   <div id="jumpscare-overlay">
     <svg class="ghost-face-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M100 10 C40 10 15 60 15 130 C15 190 40 230 100 230 C160 230 185 190 185 130 C185 60 160 10 100 10 Z" fill="#050002" stroke="#ff0020" stroke-width="4"/>
@@ -1323,8 +1379,15 @@
       <div style="font-family:'JetBrains Mono'; font-size:0.7rem; color:var(--text-dim); letter-spacing:2px; margin-top:4px;">SITE 17-A // NEXUS</div>
     </div>
 
-    <!-- BẢNG HỒ SƠ DẠNG CUỘN NGANG (HORIZONTAL CONVEYOR) -->
-    <div class="conspiracy-board-wall" id="cases-wall"></div>
+    <!-- THANH ĐIỀU HƯỚNG PHÂN TRANG (MỖI TRANG 8 CHAR) -->
+    <div class="pagination-controls-bar">
+      <button class="page-nav-arrow" id="btn-prev-page">❮ TRƯỚC</button>
+      <div class="page-indicator-badge" id="page-indicator-text">TRANG I / I</div>
+      <button class="page-nav-arrow" id="btn-next-page">TIẾP ❯</button>
+    </div>
+
+    <!-- KHUNG HỒ SƠ PHÂN TRANG CUỘN NGANG (8 HỒ SƠ / TRANG) -->
+    <div class="dossier-pages-slider" id="pages-slider-container"></div>
 
     <!-- DIỄN ĐÀN PHẢN HỒI GOTHIC MỸ THUẬT -->
     <section class="discord-feedback-zone">
@@ -1467,7 +1530,23 @@
       if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    /* ================= 2. HỆ THỐNG ÂM THANH NÂNG CẤP & JUMPSCARE ================= */
+    /* ================= 2. HỆ THỐNG ÂM THANH MỞ KHOÁ 100% HOẠT ĐỘNG ================= */
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // Tự động mở khoá Web Audio ngay cú chạm đầu tiên trên điện thoại
+    ['touchstart', 'click', 'pointerdown'].forEach(ev => {
+      window.addEventListener(ev, () => { getAudioContext(); }, { once: true });
+    });
+
     const noirAudio = document.getElementById('noir-ambient-audio');
     let isAudioOn = false;
     const audioPill = document.getElementById('audio-pill');
@@ -1502,54 +1581,67 @@
       }
     }, { once: false });
 
-    // HỆ THỐNG ÂM THANH NỔ CÁI ĐÙNG & TIẾNG CƠ HỌC
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
+    // TIẾNG RÍT JUMPSCARE
     function playJumpscareSound() {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
+      const ctx = getAudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(850, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(25, audioCtx.currentTime + 0.42);
-      gain.gain.setValueAtTime(1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.42);
+      gain.gain.setValueAtTime(1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
       osc.connect(gain);
-      gain.connect(audioCtx.destination);
+      gain.connect(ctx.destination);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.45);
+      osc.stop(ctx.currentTime + 0.45);
     }
 
-    // TIẾNG DẬP MỘC NỔ CÁI "ĐÙNG" SIÊU TRẦM + RUNG CHẤN
+    // TIẾNG DẬP MỘC NỔ CÁI "ĐÙNG" SIÊU TRẦM THỰC THỤ
     function playStampImpactSound() {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
+      const ctx = getAudioContext();
+      
+      // Lớp 1: Sub bass thud
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(140, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(18, audioCtx.currentTime + 0.48);
-      gain.gain.setValueAtTime(1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.52);
+      osc.frequency.setValueAtTime(150, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(18, ctx.currentTime + 0.5);
+      gain.gain.setValueAtTime(1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
       osc.connect(gain);
-      gain.connect(audioCtx.destination);
+      gain.connect(ctx.destination);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.52);
+      osc.stop(ctx.currentTime + 0.55);
+
+      // Lớp 2: Tiếng cọ xát gỗ và mực giấy
+      const noise = ctx.createOscillator();
+      const noiseGain = ctx.createGain();
+      noise.type = 'triangle';
+      noise.frequency.setValueAtTime(220, ctx.currentTime);
+      noise.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.2);
+      noiseGain.gain.setValueAtTime(0.6, ctx.currentTime);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      noise.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+      noise.start();
+      noise.stop(ctx.currentTime + 0.2);
     }
 
-    // TIẾNG CLICK CƠ HỌC KHI TƯƠNG TÁC
+    // TIẾNG CLICK CƠ HỌC BẤM NÚT
     function playMechClickSound() {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
+      const ctx = getAudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(450, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+      osc.frequency.setValueAtTime(500, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.4, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
       osc.connect(gain);
-      gain.connect(audioCtx.destination);
+      gain.connect(ctx.destination);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.08);
+      osc.stop(ctx.currentTime + 0.08);
     }
 
     /* ================= 3. TÀN TRO RỰC LỬA ================= */
@@ -1656,7 +1748,7 @@
             if (Array.isArray(cloudCases) && cloudCases.length > 0) {
               dossiers = cloudCases;
               localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-              renderCasesWall(dossiers);
+              renderPagesView(dossiers);
             }
           }
         }
@@ -1703,6 +1795,7 @@
     const jumpscareOverlay = document.getElementById('jumpscare-overlay');
 
     btnPassGate.addEventListener('click', () => {
+      getAudioContext();
       playJumpscareSound();
       jumpscareOverlay.classList.add('strobe-active');
 
@@ -1717,7 +1810,7 @@
 
     // HIỆU ỨNG ĐÓNG MỘC DẬP CÁI "ĐÙNG"
     artSeal.addEventListener('click', () => {
-      playStampImpactSound(); // Tiếng va đập siêu trầm nổ ra
+      playStampImpactSound();
       artSeal.classList.add('seal-slamming');
       letterPaperElm.classList.add('letter-rumble');
 
@@ -1726,61 +1819,127 @@
         letterScreen.style.transform = "translateY(-100%)";
         setTimeout(() => {
           boardMain.style.display = "block";
-          renderCasesWall(dossiers);
+          renderPagesView(dossiers);
           setTimeout(renderRedThreads, 300);
         }, 400);
       }, 500);
     });
 
-    /* ================= 6. VẼ BẢNG HỒ SƠ CUỘN NGANG & TƯƠNG TÁC ================= */
-    const casesWall = document.getElementById('cases-wall');
+    /* ================= 6. PHÂN TRANG HỒ SƠ (8 HỒ SƠ / TRANG) ================= */
+    const CARDS_PER_PAGE = 8;
+    let currentPageIndex = 0;
+    let currentFilteredList = dossiers;
 
-    // Tự động vẽ lại dây chỉ đỏ khi người dùng cuộn ngang
-    casesWall.addEventListener('scroll', () => {
-      requestAnimationFrame(renderRedThreads);
+    const pagesSliderContainer = document.getElementById('pages-slider-container');
+    const pageIndicatorText = document.getElementById('page-indicator-text');
+    const btnPrevPage = document.getElementById('btn-prev-page');
+    const btnNextPage = document.getElementById('btn-next-page');
+
+    function renderPagesView(items) {
+      currentFilteredList = items;
+      const totalPages = Math.max(1, Math.ceil(items.length / CARDS_PER_PAGE));
+      if (currentPageIndex >= totalPages) currentPageIndex = totalPages - 1;
+
+      pagesSliderContainer.innerHTML = "";
+
+      for (let p = 0; p < totalPages; p++) {
+        const pageElm = document.createElement('div');
+        pageElm.className = "dossier-page-unit";
+        pageElm.id = `dossier-page-${p}`;
+
+        const pageItems = items.slice(p * CARDS_PER_PAGE, (p + 1) * CARDS_PER_PAGE);
+
+        pageItems.forEach((item, idxInPage) => {
+          const globalIdx = p * CARDS_PER_PAGE + idxInPage;
+          const card = document.createElement('div');
+          card.className = "polaroid-evidence-card";
+          const rot = (globalIdx % 2 === 0 ? 1 : -1) * (1.2 + (globalIdx % 3) * 0.5);
+          card.style.setProperty('--rot', `${rot}deg`);
+
+          const isLiked = localStorage.getItem('cali_liked_' + item.code + '_' + item.name);
+
+          card.innerHTML = `
+            <div class="red-pushpin pin-node"></div>
+            <div class="polaroid-photo-frame">
+              <img src="${item.img}" alt="${item.name}">
+            </div>
+            <div class="polaroid-title">${item.name}</div>
+            <div class="polaroid-meta">
+              <span>MÃ: ${item.code}</span>
+              <div class="stamp-like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLikeChar(${globalIdx}, event)">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                <span>${item.likes || 0}</span>
+              </div>
+            </div>
+
+            <!-- 2 NÚT LINK PLOT & GGAI -->
+            <div class="card-links">
+              <a href="${item.plot}" target="_blank" class="link-tag" onclick="event.stopPropagation()">[ PLOT ]</a>
+              <a href="${item.ggai}" target="_blank" class="link-tag ggai" onclick="event.stopPropagation()">[ GGAI ]</a>
+            </div>
+
+            <div class="ted-card-controls">
+              <button class="btn-card-edit" onclick="openEditModal(${globalIdx}, event)">✏️ SỬA</button>
+              <button class="btn-card-del" onclick="deleteCase(${globalIdx}, event)">🗑️ XOÁ</button>
+            </div>
+          `;
+
+          card.addEventListener('click', () => inspectDossier(item));
+          pageElm.appendChild(card);
+        });
+
+        pagesSliderContainer.appendChild(pageElm);
+      }
+
+      updatePaginationControls(totalPages);
+      goToPage(currentPageIndex, false);
+      setTimeout(renderRedThreads, 200);
+    }
+
+    function updatePaginationControls(totalPages) {
+      pageIndicatorText.innerText = `TRANG ${currentPageIndex + 1} / ${totalPages}`;
+      btnPrevPage.disabled = (currentPageIndex === 0);
+      btnNextPage.disabled = (currentPageIndex >= totalPages - 1);
+    }
+
+    function goToPage(pageIdx, smooth = true) {
+      currentPageIndex = pageIdx;
+      const targetPageElm = document.getElementById(`dossier-page-${pageIdx}`);
+      if (targetPageElm) {
+        pagesSliderContainer.scrollTo({
+          left: targetPageElm.offsetLeft,
+          behavior: smooth ? 'smooth' : 'auto'
+        });
+      }
+      const totalPages = Math.max(1, Math.ceil(currentFilteredList.length / CARDS_PER_PAGE));
+      updatePaginationControls(totalPages);
+      setTimeout(renderRedThreads, 300);
+    }
+
+    btnPrevPage.addEventListener('click', () => {
+      playMechClickSound();
+      if (currentPageIndex > 0) goToPage(currentPageIndex - 1);
     });
 
-    function renderCasesWall(itemsToRender) {
-      casesWall.innerHTML = "";
-      itemsToRender.forEach((item, idx) => {
-        const card = document.createElement('div');
-        card.className = "polaroid-evidence-card";
-        const rot = (idx % 2 === 0 ? 1 : -1) * (1.2 + (idx % 3) * 0.6);
-        card.style.setProperty('--rot', `${rot}deg`);
+    btnNextPage.addEventListener('click', () => {
+      playMechClickSound();
+      const totalPages = Math.ceil(currentFilteredList.length / CARDS_PER_PAGE);
+      if (currentPageIndex < totalPages - 1) goToPage(currentPageIndex + 1);
+    });
 
-        const isLiked = localStorage.getItem('cali_liked_' + item.code + '_' + item.name);
-
-        card.innerHTML = `
-          <div class="red-pushpin pin-node"></div>
-          <div class="polaroid-photo-frame">
-            <img src="${item.img}" alt="${item.name}">
-          </div>
-          <div class="polaroid-title">${item.name}</div>
-          <div class="polaroid-meta">
-            <span>MÃ: ${item.code}</span>
-            <div class="stamp-like-btn ${isLiked ? 'liked' : ''}" onclick="toggleLikeChar(${idx}, event)">
-              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-              <span>${item.likes || 0}</span>
-            </div>
-          </div>
-
-          <!-- 2 NÚT LINK PLOT & GGAI ĐẦY ĐỦ -->
-          <div class="card-links">
-            <a href="${item.plot}" target="_blank" class="link-tag" onclick="event.stopPropagation()">[ PLOT ]</a>
-            <a href="${item.ggai}" target="_blank" class="link-tag ggai" onclick="event.stopPropagation()">[ GGAI ]</a>
-          </div>
-
-          <div class="ted-card-controls">
-            <button class="btn-card-edit" onclick="openEditModal(${idx}, event)">✏️ SỬA</button>
-            <button class="btn-card-del" onclick="deleteCase(${idx}, event)">🗑️ XOÁ</button>
-          </div>
-        `;
-
-        card.addEventListener('click', () => inspectDossier(item));
-        casesWall.appendChild(card);
-      });
-      renderRedThreads();
-    }
+    pagesSliderContainer.addEventListener('scroll', () => {
+      const scrollPos = pagesSliderContainer.scrollLeft;
+      const pageUnitWidth = pagesSliderContainer.clientWidth;
+      if (pageUnitWidth > 0) {
+        const calculatedPage = Math.round(scrollPos / pageUnitWidth);
+        if (calculatedPage !== currentPageIndex) {
+          currentPageIndex = calculatedPage;
+          const totalPages = Math.max(1, Math.ceil(currentFilteredList.length / CARDS_PER_PAGE));
+          updatePaginationControls(totalPages);
+          renderRedThreads();
+        }
+      }
+    });
 
     window.toggleLikeChar = function(idx, event) {
       event.stopPropagation();
@@ -1795,7 +1954,7 @@
         localStorage.removeItem(key);
       }
       localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-      renderCasesWall(dossiers);
+      renderPagesView(dossiers);
       saveSharedCloudCases(dossiers);
     };
 
@@ -1808,11 +1967,12 @@
         orbBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         const filter = btn.getAttribute('data-filter');
+        currentPageIndex = 0;
         if (filter === 'all') {
-          renderCasesWall(dossiers);
+          renderPagesView(dossiers);
         } else {
           const filtered = dossiers.filter(c => c.tags && c.tags.some(t => t.toLowerCase().includes(filter.toLowerCase())));
-          renderCasesWall(filtered);
+          renderPagesView(filtered);
         }
       });
     });
@@ -1821,8 +1981,9 @@
     const caseSearchInput = document.getElementById('case-search-input');
     caseSearchInput.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
+      currentPageIndex = 0;
       if (!q) {
-        renderCasesWall(dossiers);
+        renderPagesView(dossiers);
         return;
       }
       const matched = dossiers.filter(c => 
@@ -1830,7 +1991,7 @@
         c.name.toLowerCase().includes(q) ||
         (c.tags && c.tags.some(t => t.toLowerCase().includes(q)))
       );
-      renderCasesWall(matched);
+      renderPagesView(matched);
     });
 
     /* ================= 7. XEM CHI TIẾT HỒ SƠ PHÓNG TO ================= */
@@ -1853,7 +2014,7 @@
       inspectModal.style.display = 'none';
     });
 
-    /* ================= 8. DÂY CHỈ ĐỎ PHÁT QUANG CO DÃN THEO CUỘN NGANG ================= */
+    /* ================= 8. DÂY CHỈ ĐỎ PHÁT QUANG ================= */
     const threadCanvas = document.getElementById('thread-canvas');
     const threadCtx = threadCanvas.getContext('2d');
 
@@ -1871,12 +2032,15 @@
       const hubX = hubRect.left - boardRect.left + hubRect.width / 2;
       const hubY = hubRect.top - boardRect.top + hubRect.height / 2;
 
-      const pins = document.querySelectorAll('.pin-node');
+      // Chỉ nối dây cho các thẻ đang nằm trên trang đang hiển thị
+      const activePageElm = document.getElementById(`dossier-page-${currentPageIndex}`);
+      if (!activePageElm) return;
+
+      const pins = activePageElm.querySelectorAll('.pin-node');
       const pinCoords = [];
 
       pins.forEach(pin => {
         const r = pin.getBoundingClientRect();
-        // Chỉ vẽ dây cho các thẻ đang nằm trong tầm nhìn ngang
         pinCoords.push({
           x: r.left - boardRect.left + r.width / 2,
           y: r.top - boardRect.top + r.height / 2
@@ -2049,7 +2213,7 @@
         btnOpenTerminal.classList.add('active');
         tedActiveDesk.style.display = 'block';
         tedActiveDesk.scrollIntoView({ behavior: 'smooth' });
-        renderCasesWall(dossiers);
+        renderPagesView(dossiers);
         renderFeedbacks();
         setTimeout(renderRedThreads, 200);
       } else {
@@ -2110,7 +2274,7 @@
 
       async function finalizeEdit() {
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-        renderCasesWall(dossiers);
+        renderPagesView(dossiers);
         editModal.style.display = 'none';
         playStampImpactSound();
         await saveSharedCloudCases(dossiers);
@@ -2123,7 +2287,7 @@
       if (confirm(`Bạn có chắc chắn muốn tiêu huỷ hồ sơ [${dossiers[idx].name}] vĩnh viễn không?`)) {
         dossiers.splice(idx, 1);
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-        renderCasesWall(dossiers);
+        renderPagesView(dossiers);
         playStampImpactSound();
 
         await saveSharedCloudCases(dossiers);
@@ -2184,7 +2348,7 @@
 
         dossiers.unshift(newRecord);
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
-        renderCasesWall(dossiers);
+        renderPagesView(dossiers);
 
         await saveSharedCloudCases(dossiers);
 
