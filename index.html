@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ĐẠI TỘI VÙNG CALIFORNIA</title>
+  <title>ĐẠI TỘI VÙNG CALIFORNIA // ARCHIVE</title>
   
+  <!-- BỘ FONT CHUẨN 100% TIẾNG VIỆT - KHÔNG BAO GIỜ LỖI FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Reenie+Beanie&family=Space+Grotesk:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #040305;
+      --bg: #030204;
       --crimson: #a80010;
       --crimson-glow: rgba(168, 0, 16, 0.65);
-      --crimson-dark: #3a0008;
-      --paper: #e5ded2;
-      --postit-yellow: #f4dc66;
-      --tape: rgba(220, 215, 190, 0.65);
+      --card-paper: #121013;
+      --tape: rgba(220, 215, 190, 0.4);
       --text-main: #f0eef5;
-      --text-dim: #9b98ab;
+      --text-dim: #8b889a;
       --border-subtle: rgba(255, 255, 255, 0.08);
       --gold-baroque: #c5a059;
     }
@@ -38,44 +37,53 @@
       user-select: none;
     }
 
-    /* BACKGROUND CHÍNH THỨC CỦA BẠN */
+    /* BACKGROUND CHÍNH CỦA BẠN */
     body {
       background: 
-        radial-gradient(circle at 50% 30%, transparent 20%, rgba(5, 4, 6, 0.85) 80%),
+        radial-gradient(circle at 50% 30%, transparent 20%, rgba(3, 2, 4, 0.88) 80%),
         url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
         var(--bg);
       color: var(--text-main);
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Be Vietnam Pro', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
-      transition: background-color 0.8s ease;
     }
 
-    /* HIỆU ỨNG NHÁ ĐÈN & BÓNG ĐEN HÙ DỌA (JUMPSCARE) */
+    /* ================= JUMPSCARE BÓNG MA CHỒM RA ================= */
     #jumpscare-overlay {
       position: fixed;
       inset: 0;
-      z-index: 500;
+      z-index: 999;
       pointer-events: none;
       display: none;
-      background-color: #fff;
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+    .ghost-face-svg {
+      width: 85vw;
+      max-width: 420px;
+      height: auto;
+      filter: drop-shadow(0 0 40px var(--crimson));
+      animation: ghostLunge 0.4s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+    }
+    @keyframes ghostLunge {
+      0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+      40% { transform: scale(1.3) rotate(5deg); opacity: 1; filter: invert(1); }
+      70% { transform: scale(1.1) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 50px #ff0000); }
+      100% { transform: scale(1.4); opacity: 0; }
     }
 
     .strobe-active {
-      display: block !important;
+      display: flex !important;
       animation: horrorStrobe 0.4s steps(2, start) forwards;
     }
-
     @keyframes horrorStrobe {
-      0% { opacity: 1; filter: invert(0); }
-      25% { opacity: 0.95; filter: invert(1); background-color: var(--crimson); }
-      50% { opacity: 1; filter: invert(0); }
-      75% { opacity: 0.9; }
-      100% { opacity: 0; }
+      0% { background: #fff; }
+      30% { background: var(--crimson); }
+      60% { background: #000; }
+      100% { background: transparent; }
     }
 
     /* ĐÈN SPOTLIGHT ĐIỆN ẢNH */
@@ -84,11 +92,10 @@
       inset: 0;
       pointer-events: none;
       z-index: 35;
-      background: radial-gradient(circle 300px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(5, 4, 6, 0.5) 55%, rgba(5, 4, 6, 0.88) 100%);
+      background: radial-gradient(circle 300px at var(--spot-x, 50%) var(--spot-y, 40%), transparent 0%, rgba(3, 2, 4, 0.45) 55%, rgba(3, 2, 4, 0.85) 100%);
       transition: background 0.08s ease-out;
     }
 
-    /* LỚP KHÓI SƯƠNG CANVASS */
     #fog-canvas {
       position: fixed;
       inset: 0;
@@ -97,10 +104,9 @@
       pointer-events: none;
       z-index: 28;
       mix-blend-mode: screen;
-      opacity: 0.4;
+      opacity: 0.45;
     }
 
-    /* LỚP TÀN TRO ĐỎ CANVASS */
     #ember-canvas {
       position: fixed;
       inset: 0;
@@ -111,7 +117,7 @@
       mix-blend-mode: screen;
     }
 
-    /* THANH NÚT ĐIỀU KHIỂN TRÊN CÙNG */
+    /* THANH NÚT ĐIỀU KHIỂN GÓC TRÊN CÙNG */
     .top-bar-controls {
       position: fixed;
       top: 14px;
@@ -170,7 +176,7 @@
     #gate-18 {
       position: fixed;
       inset: 0;
-      background: #030204;
+      background: #020102;
       z-index: 200;
       display: flex;
       justify-content: center;
@@ -190,10 +196,10 @@
     }
 
     .gate-card h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 1.65rem;
-      letter-spacing: 1.5px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.7rem;
+      letter-spacing: 1px;
       margin-bottom: 15px;
       color: #ff1a2a;
       line-height: 1.3;
@@ -202,10 +208,9 @@
 
     .gate-card p {
       color: var(--text-dim);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       line-height: 1.6;
       margin-bottom: 28px;
-      font-family: 'Courier Prime', monospace;
     }
 
     .btn-action-glow {
@@ -213,11 +218,11 @@
       background: var(--crimson);
       border: 1px solid #ff4d4d;
       color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Be Vietnam Pro', sans-serif;
       font-weight: 700;
       font-size: 0.9rem;
       padding: 13px;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       cursor: pointer;
       transition: 0.3s;
@@ -227,7 +232,7 @@
       box-shadow: 0 0 30px var(--crimson-glow);
     }
 
-    /* ================= 2. BỨC THƯ & MỘC PHÁP Y HUYẾT ẤN ================= */
+    /* ================= 2. BỨC THƯ & MỘC ĐÓNG CÁI "ĐÙNG" ================= */
     #letter-screen {
       position: fixed;
       inset: 0;
@@ -238,19 +243,20 @@
       align-items: center;
       padding: 18px;
       overflow-y: auto;
-      transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+      transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1);
     }
 
     .forensic-dossier-letter {
       width: 100%;
       max-width: 520px;
-      background: var(--paper);
+      background: #e6dfd1;
       border: 1px solid #70624d;
-      padding: 35px 25px 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.95);
+      padding: 38px 28px 32px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.95);
       position: relative;
       margin: auto;
       color: #121013;
+      transform-origin: center center;
     }
 
     /* Kẹp giấy đính thư */
@@ -261,7 +267,7 @@
       left: 25px;
       width: 18px;
       height: 48px;
-      border: 3px solid #666;
+      border: 3px solid #555;
       border-radius: 10px;
       background: transparent;
       box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
@@ -269,28 +275,29 @@
     }
 
     .dossier-barcode {
-      font-family: 'Courier Prime', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       color: #555;
       letter-spacing: 2px;
       display: flex;
       justify-content: space-between;
-      border-bottom: 2px solid #333;
+      border-bottom: 2px solid #222;
       padding-bottom: 8px;
       margin-bottom: 18px;
     }
 
     .dossier-headline h2 {
-      font-family: 'Special Elite', cursive;
-      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 2.1rem;
       color: #111;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       margin-bottom: 4px;
     }
 
     .dossier-headline .sub {
-      font-family: 'Courier Prime', monospace;
-      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
       color: var(--crimson);
       font-weight: bold;
       letter-spacing: 1.5px;
@@ -299,21 +306,20 @@
     }
 
     .dossier-body {
-      font-family: 'Special Elite', cursive;
       font-size: 0.92rem;
       line-height: 1.7;
-      color: #222;
+      color: #2b282e;
       margin-bottom: 25px;
       text-align: justify;
     }
 
-    /* MỘC PHÁP Y HUYẾT ẤN CHUẨN CỤC LƯU TRỮ */
+    /* MỘC PHÁP Y ĐÓNG CÁI "ĐÙNG" CHUYÊN SÂU */
     .seal-permit-zone {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 12px;
-      border-top: 1px dashed #777;
+      border-top: 1px dashed #666;
       padding-top: 22px;
     }
 
@@ -329,14 +335,29 @@
       cursor: pointer;
       position: relative;
       transform: rotate(-6deg);
-      box-shadow: 0 0 25px rgba(168, 0, 16, 0.35);
+      box-shadow: 0 0 20px rgba(168, 0, 16, 0.25);
       background: radial-gradient(circle, rgba(168, 0, 16, 0.08) 0%, transparent 75%);
-      transition: all 0.3s;
+      transition: all 0.2s;
     }
-    .official-forensic-seal:hover {
-      transform: scale(1.06) rotate(0deg);
-      border-color: #ff1a2a;
-      box-shadow: 0 0 35px var(--crimson-glow);
+
+    /* HIỆU ỨNG DẬP CON MỘC XUỐNG CÁI ĐÙNG */
+    .seal-slamming {
+      animation: stampSlamImpact 0.4s cubic-bezier(0.1, 0.9, 0.2, 1) forwards !important;
+    }
+    @keyframes stampSlamImpact {
+      0% { transform: scale(2.8) rotate(-25deg); opacity: 0.3; }
+      60% { transform: scale(0.92) rotate(0deg); opacity: 1; border-color: #ff0000; box-shadow: 0 0 50px #ff0000; }
+      100% { transform: scale(1) rotate(-4deg); opacity: 1; border-color: var(--crimson); }
+    }
+
+    .letter-rumble {
+      animation: paperRumble 0.35s ease-out forwards;
+    }
+    @keyframes paperRumble {
+      0% { transform: translateY(0); }
+      30% { transform: translateY(8px) rotate(-1.5deg); }
+      60% { transform: translateY(-5px) rotate(1deg); }
+      100% { transform: translateY(0); }
     }
 
     .seal-svg-ring {
@@ -354,26 +375,26 @@
       z-index: 2;
     }
     .seal-center-text .permit-tag {
-      font-family: 'Special Elite', cursive;
-      font-weight: bold;
-      font-size: 0.85rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 0.9rem;
       letter-spacing: 2px;
       color: var(--crimson);
       display: block;
     }
     .seal-center-text .status-tag {
-      font-family: 'Courier Prime', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.55rem;
       color: #333;
       font-weight: bold;
-      border-top: 1px solid var(--crimson);
-      border-bottom: 1px solid var(--crimson);
+      border-top: 1.5px solid var(--crimson);
+      border-bottom: 1.5px solid var(--crimson);
       padding: 1px 0;
       margin: 3px 0;
       display: block;
     }
     .seal-center-text .auth-code {
-      font-family: 'Courier Prime', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.6rem;
       color: #666;
     }
@@ -410,23 +431,24 @@
     }
 
     .brand-headline {
-      font-family: 'Special Elite', cursive;
-      font-size: 1.9rem;
-      letter-spacing: 2px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 2rem;
+      letter-spacing: 1px;
       color: #fff;
       margin-bottom: 4px;
-      text-shadow: 2px 2px 4px #000, 0 0 10px var(--crimson);
+      text-shadow: 2px 2px 4px #000, 0 0 15px var(--crimson);
     }
 
     .brand-sub {
-      font-family: 'Courier Prime', monospace;
-      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
       color: var(--text-dim);
       letter-spacing: 1px;
       margin-bottom: 18px;
     }
 
-    /* 3 BONG BÓNG MỜ ẢO SƠN DẦU (ETHREAL GLASS ORBS) */
+    /* 3 BONG BÓNG MỜ ẢO SƠN DẦU */
     .ethereal-orbs-nav {
       display: flex;
       justify-content: center;
@@ -492,7 +514,7 @@
     }
 
     .orb-label-title {
-      font-family: 'Special Elite', cursive;
+      font-family: 'Playfair Display', serif;
       font-size: 0.72rem;
       letter-spacing: 1px;
       color: #beb9cb;
@@ -531,7 +553,7 @@
       color: #fff;
       padding: 11px 16px 11px 40px;
       border-radius: 25px;
-      font-family: 'Courier Prime', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
       letter-spacing: 1px;
       outline: none;
@@ -563,7 +585,7 @@
     }
 
     .question-core {
-      font-family: 'Special Elite', cursive;
+      font-family: 'Playfair Display', serif;
       font-size: 4.5rem;
       line-height: 1;
       color: var(--crimson);
@@ -582,7 +604,7 @@
       box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
     }
 
-    /* BẢNG POLAROID CẦU KỲ */
+    /* ================= BẢNG HỒ SƠ DARK NOIR CAO CẤP ================= */
     .conspiracy-board-wall {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -600,26 +622,27 @@
     }
 
     .polaroid-evidence-card {
-      background: var(--paper);
-      color: #1a171a;
-      padding: 12px 12px 20px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+      background: var(--card-paper);
+      border: 1px solid rgba(230, 0, 38, 0.35);
+      padding: 14px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.95), inset 0 0 25px rgba(0,0,0,0.8);
       position: relative;
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
       transform: rotate(var(--rot, 0deg));
       animation: floatCard 6s ease-in-out infinite alternate;
       animation-delay: calc(var(--rand) * -4s);
     }
     @keyframes floatCard {
       0% { transform: translateY(0) rotate(var(--rot)); }
-      100% { transform: translateY(-6px) rotate(calc(var(--rot) + 0.8deg)); }
+      100% { transform: translateY(-6px) rotate(calc(var(--rot) + 0.6deg)); }
     }
 
     .polaroid-evidence-card:hover {
       transform: scale(1.05) rotate(0deg) !important;
       z-index: 40 !important;
-      box-shadow: 0 20px 45px rgba(168, 0, 16, 0.55);
+      border-color: var(--crimson);
+      box-shadow: 0 25px 60px rgba(168, 0, 16, 0.6);
       animation: none;
     }
 
@@ -632,8 +655,8 @@
       width: 44px;
       height: 18px;
       background: var(--tape);
-      border-left: 1px dashed rgba(0,0,0,0.15);
-      border-right: 1px dashed rgba(0,0,0,0.15);
+      border-left: 1px dashed rgba(0,0,0,0.2);
+      border-right: 1px dashed rgba(0,0,0,0.2);
       transform: rotate(14deg);
       pointer-events: none;
       z-index: 5;
@@ -655,11 +678,11 @@
 
     .polaroid-photo-frame {
       width: 100%;
-      height: 175px;
-      background: #111;
+      height: 185px;
+      background: #000;
       overflow: hidden;
-      margin-bottom: 8px;
-      border: 1px solid #baa;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .polaroid-photo-frame img {
@@ -667,18 +690,19 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      filter: grayscale(90%) contrast(1.25);
+      filter: grayscale(80%) contrast(1.25);
       transition: filter 0.3s;
     }
     .polaroid-evidence-card:hover .polaroid-photo-frame img {
-      filter: grayscale(10%) contrast(1.3);
+      filter: grayscale(0%) contrast(1.35);
     }
 
     .polaroid-title {
-      font-family: 'Special Elite', cursive;
-      font-size: 1.15rem;
-      line-height: 1.2;
-      color: #121013;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.25;
+      color: #fff;
       margin-bottom: 4px;
       white-space: nowrap;
       overflow: hidden;
@@ -686,24 +710,24 @@
     }
 
     .polaroid-meta {
-      font-family: 'Courier Prime', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem;
-      color: #6a1a1a;
+      color: var(--crimson);
       letter-spacing: 0.5px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    /* NÚT THẢ TIM / LIKE NHỎ */
+    /* NÚT THẢ TIM / LIKE */
     .stamp-like-btn {
       display: inline-flex;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
       cursor: pointer;
-      color: #777;
-      font-size: 0.68rem;
-      font-family: 'Courier Prime', monospace;
+      color: #888;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
       transition: all 0.2s;
     }
     .stamp-like-btn.liked {
@@ -723,38 +747,49 @@
       filter: drop-shadow(0 0 4px var(--crimson));
     }
 
-    /* 2 NÚT LINK PLOT & GGAI MẪU MÁY ĐÁNH CHỮ */
+    /* 2 NÚT LINK PLOT & GGAI MẪU MÁY ĐÁNH CHỮ CAO CẤP */
     .card-links {
       display: flex;
-      gap: 6px;
-      margin-top: 10px;
-      border-top: 1px solid #ccc;
-      padding-top: 8px;
+      gap: 8px;
+      margin-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 10px;
     }
     .link-tag {
       flex: 1;
       text-align: center;
-      background: #fdfbf7;
-      border: 1px solid #888;
-      color: #111;
-      font-family: 'Courier Prime', monospace;
-      font-size: 0.65rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #dfdfe6;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
       font-weight: bold;
-      padding: 4px 0;
+      padding: 6px 0;
       text-decoration: none;
-      box-shadow: 1px 2px 3px rgba(0,0,0,0.15);
+      border-radius: 2px;
       transition: 0.2s;
     }
-    .link-tag:hover { background: #111; color: #fff; }
-    .link-tag.ggai { border-color: var(--crimson); color: var(--crimson); }
-    .link-tag.ggai:hover { background: var(--crimson); color: #fff; }
+    .link-tag:hover {
+      background: #fff;
+      color: #000;
+    }
+    .link-tag.ggai {
+      border-color: rgba(230, 0, 38, 0.4);
+      color: var(--crimson);
+      background: rgba(230, 0, 38, 0.08);
+    }
+    .link-tag.ggai:hover {
+      background: var(--crimson);
+      color: #fff;
+      box-shadow: 0 0 15px var(--crimson-glow);
+    }
 
-    /* QUYỀN SỬA XOÁ CHO TED TRÊN CARD */
+    /* QUYỀN SỬA XOÁ CHO TED */
     .ted-card-controls {
       display: none;
       margin-top: 8px;
-      padding-top: 6px;
-      border-top: 1px dashed rgba(0,0,0,0.25);
+      padding-top: 8px;
+      border-top: 1px dashed rgba(230, 0, 38, 0.3);
       gap: 6px;
     }
     body.ted-illuminated .ted-card-controls {
@@ -762,8 +797,8 @@
     }
     .btn-card-edit, .btn-card-del {
       flex: 1;
-      padding: 4px 0;
-      font-family: 'Courier Prime', monospace;
+      padding: 5px 0;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
       font-weight: bold;
       border: 1px solid #111;
@@ -771,6 +806,7 @@
       color: #fff;
       cursor: pointer;
       text-align: center;
+      border-radius: 2px;
     }
     .btn-card-del {
       background: #8a0014;
@@ -800,10 +836,10 @@
     }
 
     .channel-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
       color: #fff;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -814,13 +850,13 @@
       background: linear-gradient(135deg, #a8001a 0%, #52000c 100%);
       border: 1px solid var(--crimson);
       color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Be Vietnam Pro', sans-serif;
       font-weight: 700;
       font-size: 0.72rem;
       padding: 8px 16px;
       cursor: pointer;
       border-radius: 20px;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       box-shadow: 0 0 15px var(--crimson-glow);
     }
 
@@ -871,15 +907,14 @@
     }
 
     .author-name {
-      font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
       font-size: 0.85rem;
       color: #fff;
     }
 
     .author-badge {
-      font-family: 'Courier Prime', monospace;
-      font-size: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
       background: rgba(230,0,38,0.25);
       color: var(--crimson);
       padding: 1px 5px;
@@ -887,14 +922,14 @@
     }
 
     .msg-timestamp {
-      font-family: 'Courier Prime', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem;
       color: var(--text-dim);
     }
 
     .msg-body-text {
-      font-size: 0.82rem;
-      line-height: 1.45;
+      font-size: 0.85rem;
+      line-height: 1.5;
       color: #dfdaea;
     }
 
@@ -904,7 +939,7 @@
       border: none;
       color: #fff;
       font-size: 0.65rem;
-      font-family: 'Courier Prime', monospace;
+      font-family: 'JetBrains Mono', monospace;
       padding: 2px 6px;
       cursor: pointer;
       border-radius: 2px;
@@ -930,7 +965,7 @@
     .dossier-inspect-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(6, 4, 7, 0.95);
+      background: rgba(4, 2, 5, 0.96);
       backdrop-filter: blur(15px);
       z-index: 300;
       display: none;
@@ -942,11 +977,11 @@
     .dossier-inspect-card {
       width: 100%;
       max-width: 480px;
-      background: #0d080b;
+      background: #0f0a0d;
       border: 1px solid var(--crimson);
       padding: 26px;
       position: relative;
-      box-shadow: 0 0 50px rgba(230, 0, 38, 0.35);
+      box-shadow: 0 0 50px rgba(230, 0, 38, 0.4);
     }
 
     .close-inspect-btn {
@@ -962,7 +997,7 @@
 
     .inspect-mugshot {
       width: 100%;
-      height: 220px;
+      height: 230px;
       background: #000;
       border: 1px solid var(--border-subtle);
       margin: 12px 0 16px;
@@ -983,7 +1018,7 @@
     .inspect-actions a {
       text-align: center;
       padding: 10px 4px;
-      font-family: 'Courier Prime', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       text-decoration: none;
       font-weight: 700;
@@ -1004,7 +1039,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(5, 4, 6, 0.96);
+      background: rgba(4, 2, 5, 0.96);
       backdrop-filter: blur(20px);
       z-index: 250;
       display: none;
@@ -1028,8 +1063,8 @@
     }
     .field-wrap label {
       display: block;
-      font-family: 'Courier Prime', monospace;
-      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
       color: var(--text-dim);
       margin-bottom: 5px;
     }
@@ -1039,7 +1074,7 @@
       border: 1px solid var(--border-subtle);
       color: #fff;
       padding: 10px 12px;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Be Vietnam Pro', sans-serif;
       font-size: 0.85rem;
       outline: none;
     }
@@ -1049,7 +1084,7 @@
       background: rgba(230, 0, 38, 0.1);
       border: 1px solid var(--crimson);
       color: #ff6b81;
-      font-family: 'Courier Prime', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
       padding: 8px;
       margin-bottom: 12px;
@@ -1062,10 +1097,10 @@
       border: none;
       color: #fff;
       padding: 12px;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Be Vietnam Pro', sans-serif;
       font-weight: 700;
       font-size: 0.85rem;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       cursor: pointer;
     }
@@ -1084,7 +1119,7 @@
     #edit-dossier-modal {
       position: fixed;
       inset: 0;
-      background: rgba(5,4,6,0.96);
+      background: rgba(4,2,5,0.96);
       z-index: 310;
       display: none;
       justify-content: center;
@@ -1095,10 +1130,21 @@
 </head>
 <body>
 
-  <!-- JUMPSCARE FLASH & BÓNG MA CHỒM RA -->
-  <div id="jumpscare-overlay"></div>
+  <!-- JUMPSCARE VỚI BÓNG MA QUỶ DỊ CHỚP CHỒM LÊN -->
+  <div id="jumpscare-overlay">
+    <svg class="ghost-face-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 10 C40 10 15 60 15 130 C15 190 40 230 100 230 C160 230 185 190 185 130 C185 60 160 10 100 10 Z" fill="#050002" stroke="#ff0020" stroke-width="4"/>
+      <!-- Hốc mắt ma quỷ rực máu -->
+      <ellipse cx="65" cy="100" rx="20" ry="28" fill="#000" stroke="#ff0000" stroke-width="3"/>
+      <circle cx="65" cy="100" r="5" fill="#fff"/>
+      <ellipse cx="135" cy="100" rx="20" ry="28" fill="#000" stroke="#ff0000" stroke-width="3"/>
+      <circle cx="135" cy="100" r="5" fill="#fff"/>
+      <!-- Miệng ngoác dài -->
+      <path d="M60 165 C75 220 125 220 140 165 C125 180 75 180 60 165 Z" fill="#200" stroke="#ff0000" stroke-width="3"/>
+    </svg>
+  </div>
 
-  <!-- BÀI HÁT WHO IS SHE CHẠY LIÊN TỤC -->
+  <!-- NHẠC WHO IS SHE -->
   <audio id="noir-ambient-audio" loop preload="auto">
     <source src="I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3" type="audio/mpeg">
     <source src="I%20Monster%20-%20Who%20Is%20She%20%28Lyrics%29%20Immortal%20She%20Return%20To%20Me%20%5BTikTok%20Song%5D.mp3" type="audio/mpeg">
@@ -1108,7 +1154,7 @@
   <canvas id="fog-canvas"></canvas>
   <canvas id="ember-canvas"></canvas>
 
-  <!-- THANH NÚT TRÊN CÙNG: ĐÈN + NHẠC + NÚT TED KÍN ĐÁO -->
+  <!-- THANH ĐIỀU KHIỂN TRÊN CÙNG -->
   <div class="top-bar-controls">
     <div class="light-pill" id="btn-toggle-light" style="display:none;">
       <span>💡 ĐÈN: BẬT</span>
@@ -1117,7 +1163,6 @@
       <div class="audio-dot"></div>
       <span id="audio-state">AMBIENT OFF</span>
     </div>
-    <!-- NÚT TED ĐƯỢC THU NHỎ KÍN ĐÁO -->
     <div class="admin-pill" id="btn-open-terminal">
       <span>👁️‍🗨️ TED</span>
     </div>
@@ -1126,16 +1171,16 @@
   <!-- 1. CỔNG 18+: ĐẠI TỘI VÙNG CALIFORNIA -->
   <section id="gate-18">
     <div class="gate-card">
-      <span style="font-family:'Courier Prime'; font-size:0.7rem; color:var(--crimson); letter-spacing:2px; font-weight:bold;">// PROTOCOL 18+</span>
+      <span style="font-family:'JetBrains Mono'; font-size:0.7rem; color:var(--crimson); letter-spacing:2px; font-weight:bold;">// PROTOCOL 18+</span>
       <h1>ĐẠI TỘI VÙNG CALIFORNIA</h1>
       <p>Kho lưu trữ chứa các tư liệu hiện trường án mạng và thực thể dị thường. Yêu cầu bạn xác nhận độ tuổi trước khi giải mã dữ liệu.</p>
       <button class="btn-action-glow" id="btn-pass-gate">[ XÁC NHẬN TRÊN 18 TUỔI ]</button>
     </div>
   </section>
 
-  <!-- 2. THƯ CỦA TED & MỘC PHÁP Y HUYẾT ẤN -->
+  <!-- 2. BỨC THƯ & MỘC PHÁP Y ĐÓNG CÁI "ĐÙNG" -->
   <section id="letter-screen">
-    <div class="forensic-dossier-letter">
+    <div class="forensic-dossier-letter" id="letter-paper-elm">
       <div class="dossier-barcode">
         <span>MEMORANDUM // DEPT-04</span>
         <span>STATUS: CLASSIFIED</span>
@@ -1149,15 +1194,15 @@
       <div class="dossier-body">
         Chào mừng bạn đã bước vào hệ thống điều tra đen của California. Mọi bức ảnh, vết nứt tâm thần và chuỗi sự kiện tại đây đều là <em>những manh mối còn sót lại từ bóng tối</em>. Mỗi nạn nhân và kẻ thủ ác đều được nối với nhau qua một sợi chỉ định mệnh.
         <br><br>
-        <span style="color:var(--crimson); font-weight:bold;">"Trust the facts, not the rumors. Not every story has a happy ending."</span>
+        <span style="color:var(--crimson); font-weight:bold; font-style: italic;">"Trust the facts, not the rumors. Not every story has a happy ending."</span>
       </div>
 
-      <!-- MỘC PHÁP Y CHUẨN MỰC CHUYÊN SÂU -->
+      <!-- MỘC PHÁP Y CHUẨN MỰC: ĐÓNG CÁI ĐÙNG -->
       <div class="seal-permit-zone">
         <div class="official-forensic-seal" id="art-seal">
           <svg class="seal-svg-ring" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="46" stroke="var(--crimson)" stroke-width="1.5" fill="none" stroke-dasharray="3, 2.5"/>
-            <circle cx="50" cy="50" r="39" stroke="var(--crimson)" stroke-width="0.8" fill="none"/>
+            <circle cx="50" cy="50" r="46" stroke="var(--crimson)" stroke-width="1.8" fill="none" stroke-dasharray="3, 2.5"/>
+            <circle cx="50" cy="50" r="39" stroke="var(--crimson)" stroke-width="1" fill="none"/>
           </svg>
           <div class="seal-center-text">
             <span class="permit-tag">AUTHORIZED</span>
@@ -1165,12 +1210,12 @@
             <span class="auth-code">DOC.CA-098</span>
           </div>
         </div>
-        <div style="font-family:'Courier Prime'; font-size:0.68rem; color:#666; font-weight:bold;">[ CHẠM MỘC ĐỂ MỞ HỒ SƠ ]</div>
+        <div style="font-family:'JetBrains Mono'; font-size:0.7rem; color:#555; font-weight:bold; margin-top:5px;">[ CHẠM MỘC ĐỂ MỞ HỒ SƠ ]</div>
       </div>
     </div>
   </section>
 
-  <!-- 3. BẢNG ÁN MẠNG CHÍNH -->
+  <!-- 3. BẢNG ÁN MẠNG GOTHIC -->
   <main id="board-main">
     <canvas id="thread-canvas"></canvas>
 
@@ -1178,9 +1223,8 @@
       <h2 class="brand-headline">ĐẠI TỘI VÙNG CALIFORNIA</h2>
       <div class="brand-sub">CUSTODIAN OF RECORDS: TED // DIVISION 04</div>
 
-      <!-- 3 NÚT BONG BÓNG MỜ ẢO SƠN DẦU (ETHREAL GLASS ORBS) -->
+      <!-- 3 BONG BÓNG MỜ ẢO SƠN DẦU -->
       <div class="ethereal-orbs-nav">
-        
         <!-- BONG BÓNG 1: TẤT CẢ HỒ SƠ -->
         <div class="art-orb-btn active" data-filter="all">
           <div class="glass-orb-bubble">
@@ -1216,19 +1260,18 @@
           </div>
           <span class="orb-label-title">TRẠM CHỦ TED ↗</span>
         </a>
-
       </div>
 
       <!-- KÍNH LÚP TÌM KIẾM ĐIỀU TRA -->
       <div class="dossier-search-wrapper">
         <span class="search-lens-icon">🔍</span>
-        <input type="text" id="case-search-input" class="search-input-field" placeholder="NHẬP MÃ SỐ (VD: 01) HOẶC TÊN ĐỐI TƯỢNG ĐỂ ĐIỀU TRA...">
+        <input type="text" id="case-search-input" class="search-input-field" placeholder="NHẬP MÃ SỐ HOẶC TÊN HỒ SƠ ĐỂ ĐIỀU TRA...">
       </div>
     </div>
 
     <!-- KHU VỰC ĐĂNG HỒ SƠ TED -->
     <section id="ted-active-desk">
-      <h4 style="font-family:'Special Elite'; color:var(--crimson); font-size:1.2rem; margin-bottom:12px;">// ĐÍNH HỒ SƠ MỚI [QUYỀN CHỦ: TED]</h4>
+      <h4 style="font-family:'Playfair Display'; color:var(--crimson); font-size:1.25rem; margin-bottom:12px;">// ĐÍNH HỒ SƠ MỚI [QUYỀN CHỦ: TED]</h4>
       <form id="create-dossier-form">
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
           <div class="field-wrap">
@@ -1263,24 +1306,24 @@
         </div>
 
         <div class="field-wrap">
-          <label>Ghi chú tuyệt mật:</label>
-          <textarea id="in-desc" rows="2" placeholder="Ghi chép khám nghiệm..."></textarea>
+          <label>Ghi chú khám nghiệm:</label>
+          <textarea id="in-desc" rows="2" placeholder="Ghi chép án mạng..."></textarea>
         </div>
 
-        <button type="submit" class="btn-terminal-submit" id="btn-upload-submit">+ GHIM HỒ SƠ LÊN BẢNG (TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU)</button>
+        <button type="submit" class="btn-terminal-submit" id="btn-upload-submit">+ GHIM HỒ SƠ LÊN BẢNG (LƯU VĨNH VIỄN)</button>
       </form>
     </section>
 
-    <!-- TÂM ĐIỂM '?' NỐI DÂY ĐỎ -->
+    <!-- TÂM ĐIỂM '?' NỐI CHỈ ĐỎ -->
     <div class="mystery-hub-modern">
       <div class="question-core">
         ?
         <div class="hub-pin-node" id="hub-pin"></div>
       </div>
-      <div style="font-family:'Courier Prime'; font-size:0.7rem; color:var(--text-dim); letter-spacing:2px; margin-top:4px;">SITE 17-A // NEXUS</div>
+      <div style="font-family:'JetBrains Mono'; font-size:0.7rem; color:var(--text-dim); letter-spacing:2px; margin-top:4px;">SITE 17-A // NEXUS</div>
     </div>
 
-    <!-- BẢNG GHIM POLAROID 2 CỘT -->
+    <!-- BẢNG HỒ SƠ POLAROID DARK NOIR CAO CẤP -->
     <div class="conspiracy-board-wall" id="cases-wall"></div>
 
     <!-- DIỄN ĐÀN PHẢN HỒI GOTHIC MỸ THUẬT -->
@@ -1296,11 +1339,11 @@
     </section>
   </main>
 
-  <!-- MODAL ĐĂNG FEEDBACK (CÓ BỘ LỌC TỪ NGỮ BẬY TỤC) -->
+  <!-- MODAL ĐĂNG FEEDBACK (CHẶN TỪ TỤC TĨU) -->
   <div id="feedback-modal">
     <div class="terminal-window">
       <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.5rem; cursor:pointer;" id="btn-close-feedback">&times;</button>
-      <h4 style="font-family:'Cinzel'; font-size:1.2rem; color:#fff;">// GỬI PHẢN HỒI</h4>
+      <h4 style="font-family:'Playfair Display'; font-size:1.25rem; color:#fff;">// GỬI PHẢN HỒI</h4>
       <div class="field-wrap">
         <label>Tên của bạn:</label>
         <input type="text" id="fb-user-name" required placeholder="Nhập bí danh của bạn...">
@@ -1317,15 +1360,14 @@
   <div class="dossier-inspect-overlay" id="inspect-modal">
     <div class="dossier-inspect-card">
       <button class="close-inspect-btn" id="btn-close-inspect">&times;</button>
-      <div style="font-family:'Courier Prime'; font-size:0.75rem; color:var(--crimson); font-weight:bold;" id="ins-code">CA-XXXX</div>
-      <h3 style="font-family:'Special Elite'; font-size:1.6rem; color:#fff;" id="ins-name">NAME</h3>
+      <div style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--crimson); font-weight:bold;" id="ins-code">CA-XXXX</div>
+      <h3 style="font-family:'Playfair Display'; font-size:1.6rem; color:#fff;" id="ins-name">NAME</h3>
       <div class="inspect-mugshot">
         <img id="ins-img" src="" alt="Mugshot">
       </div>
-      <div style="font-size:0.75rem; color:var(--text-dim); margin-bottom:8px; font-family:'Courier Prime';" id="ins-tags"></div>
-      <p style="font-size:0.85rem; line-height:1.6; color:#ccc; font-family:'Special Elite';" id="ins-desc"></p>
+      <div style="font-size:0.75rem; color:var(--text-dim); margin-bottom:8px; font-family:'JetBrains Mono';" id="ins-tags"></div>
+      <p style="font-size:0.88rem; line-height:1.6; color:#ccc;" id="ins-desc"></p>
       
-      <!-- HAI NÚT LINK TRONG MODAL -->
       <div class="inspect-actions">
         <a id="ins-link-plot" href="#" target="_blank" class="btn-act-plot">XEM PLOT</a>
         <a id="ins-link-ggai" href="#" target="_blank" class="btn-act-ggai">BẢN GGAI</a>
@@ -1333,11 +1375,11 @@
     </div>
   </div>
 
-  <!-- MODAL CHỈNH SỬA HỒ SƠ (CHO PHÉP ĐỔI CẢ ẢNH MỚI) -->
+  <!-- MODAL CHỈNH SỬA HỒ SƠ (CHO PHÉP THAY ĐỔI CẢ ẢNH MỚI) -->
   <div id="edit-dossier-modal">
     <div class="terminal-window">
       <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.5rem; cursor:pointer;" id="btn-close-edit">&times;</button>
-      <h4 style="font-family:'Special Elite'; font-size:1.3rem; color:#fff;">// CHỈNH SỬA HỒ SƠ</h4>
+      <h4 style="font-family:'Playfair Display'; font-size:1.3rem; color:#fff;">// CHỈNH SỬA HỒ SƠ</h4>
       <input type="hidden" id="edit-idx">
       <div class="field-wrap">
         <label>Mã hồ sơ:</label>
@@ -1371,8 +1413,8 @@
   <div class="modal-overlay" id="auth-overlay">
     <div class="terminal-window">
       <button style="position:absolute; top:12px; right:15px; background:none; border:none; color:#777; font-size:1.5rem; cursor:pointer;" id="btn-close-auth">&times;</button>
-      <h4 style="font-family:'Special Elite'; font-size:1.4rem; color:#fff;">XÁC THỰC DANH TÍNH</h4>
-      <span style="font-family:'Courier Prime'; font-size:0.75rem; color:var(--crimson); margin-bottom:18px; display:block; font-weight:bold;">// TED - CUSTODIAN OF RECORDS ONLY</span>
+      <h4 style="font-family:'Playfair Display'; font-size:1.3rem; color:#fff;">XÁC THỰC DANH TÍNH</h4>
+      <span style="font-family:'JetBrains Mono'; font-size:0.72rem; color:var(--crimson); margin-bottom:18px; display:block; font-weight:bold;">// TED - CUSTODIAN OF RECORDS ONLY</span>
 
       <div id="auth-alert-box">THÔNG TIN KHÔNG CHÍNH XÁC</div>
 
@@ -1425,7 +1467,7 @@
       if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    /* ================= 2. PHÁT NHẠC TỰ ĐỘNG & JUMPSCARE BÓNG ĐEN ================= */
+    /* ================= 2. PHÁT NHẠC TỰ ĐỘNG & JUMPSCARE ================= */
     const noirAudio = document.getElementById('noir-ambient-audio');
     let isAudioOn = false;
     const audioPill = document.getElementById('audio-pill');
@@ -1460,13 +1502,9 @@
       }
     }, { once: false });
 
-    // HÌNH ẢNH BÓNG ĐEN MA QUÁI HÙ DỌA
-    const JUMPSCARE_GHOSTS = [
-      "https://images.unsplash.com/photo-1510255395725-780133c94474?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1605786657930-b37996c56787?auto=format&fit=crop&w=800&q=80"
-    ];
-
+    // HỆ THỐNG ÂM THANH NỔ CÁI ĐÙNG & RÍT JUMPSCARE
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
     function playJumpscareSound() {
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
@@ -1482,19 +1520,20 @@
       osc.stop(audioCtx.currentTime + 0.45);
     }
 
-    function playStampBang() {
+    // TIẾNG NỔ DẬP MỘC CÁI "ĐÙNG"
+    function playStampImpactSound() {
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(90, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(25, audioCtx.currentTime + 0.4);
-      gain.gain.setValueAtTime(0.8, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+      osc.frequency.setValueAtTime(130, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.45);
+      gain.gain.setValueAtTime(1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.4);
+      osc.stop(audioCtx.currentTime + 0.5);
     }
 
     /* ================= 3. TÀN TRO RỰC LỬA ================= */
@@ -1541,14 +1580,14 @@
     drawEmbers();
 
     /* ================= 4. HỆ THỐNG LƯU TRỮ VĨNH CỬU ================= */
-    const MASTER_KEY = "TED_MASTER_DOSSIERS_VAULT";
+    const MASTER_KEY = "TED_MASTER_DOSSIERS_VAULT_IMMORTAL";
 
     const PERMANENT_INITIAL_CASES = [
       {
         code: "01",
         name: "Đại tội vùng California",
-        img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
-        tags: ["Active"],
+        img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+        tags: ["Hi", "Active"],
         desc: "Hồ sơ tâm lý tội phạm đặc quyền của California.",
         plot: "https://google.com",
         ggai: "https://aistudio.google.com",
@@ -1557,8 +1596,8 @@
       {
         code: "01",
         name: "ted",
-        img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-        tags: ["Active"],
+        img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+        tags: ["Hi", "Active"],
         desc: "Hồ sơ của Đặc vụ Ted. Đã được ghi nhận vào kho lưu trữ California.",
         plot: "https://google.com",
         ggai: "https://aistudio.google.com",
@@ -1570,7 +1609,7 @@
       let data = localStorage.getItem(MASTER_KEY);
       if (data) return JSON.parse(data);
 
-      const oldKeys = ['CALI_FINAL_VAULT_V2', 'CALI_FINAL_VAULT', 'cali_cases_v8', 'cali_cases_v7', 'cali_cases_v6', 'cali_cases_v5'];
+      const oldKeys = ['TED_MASTER_DOSSIERS_VAULT', 'CALI_FINAL_VAULT_V2', 'CALI_FINAL_VAULT', 'cali_cases_v8'];
       for (let k of oldKeys) {
         let oldData = localStorage.getItem(k);
         if (oldData) {
@@ -1590,7 +1629,7 @@
 
     async function loadSharedCloudCases() {
       try {
-        const idRes = await fetch('https://api.keyval.org/get/ted_master_cloud_vault_v1');
+        const idRes = await fetch('https://api.keyval.org/get/ted_master_immortal_vault_2026');
         const blobId = (await idRes.text()).trim();
         if (blobId && blobId.length > 10 && !blobId.includes("error")) {
           const dataRes = await fetch('https://jsonblob.com/api/jsonBlob/' + blobId, {
@@ -1613,7 +1652,7 @@
       try {
         let blobId = "";
         try {
-          const idRes = await fetch('https://api.keyval.org/get/ted_master_cloud_vault_v1');
+          const idRes = await fetch('https://api.keyval.org/get/ted_master_immortal_vault_2026');
           blobId = (await idRes.text()).trim();
         } catch(e){}
 
@@ -1632,7 +1671,7 @@
           const location = createRes.headers.get('Location') || "";
           const newBlobId = location.split('/').pop();
           if (newBlobId) {
-            await fetch('https://api.keyval.org/set/ted_master_cloud_vault_v1/' + newBlobId);
+            await fetch('https://api.keyval.org/set/ted_master_immortal_vault_2026/' + newBlobId);
           }
         }
       } catch (err) {}
@@ -1643,13 +1682,13 @@
     const btnPassGate = document.getElementById('btn-pass-gate');
     const letterScreen = document.getElementById('letter-screen');
     const artSeal = document.getElementById('art-seal');
+    const letterPaperElm = document.getElementById('letter-paper-elm');
     const boardMain = document.getElementById('board-main');
     const jumpscareOverlay = document.getElementById('jumpscare-overlay');
 
     btnPassGate.addEventListener('click', () => {
+      // 🌟 KÍCH HOẠT TIẾNG RÍT & BÓNG MA CHỒM RA
       playJumpscareSound();
-      // Chọn ngẫu nhiên 1 bóng ma chồm lên
-      jumpscareOverlay.style.backgroundImage = `url('${JUMPSCARE_GHOSTS[Math.floor(Math.random()*JUMPSCARE_GHOSTS.length)]}')`;
       jumpscareOverlay.classList.add('strobe-active');
 
       setTimeout(() => {
@@ -1658,22 +1697,27 @@
         letterScreen.style.display = 'flex';
         jumpscareOverlay.classList.remove('strobe-active');
         loadSharedCloudCases();
-      }, 400);
+      }, 420);
     });
 
+    // 🌟 KÍCH HOẠT HIỆU ỨNG ĐÓNG MỘC DẬP CÁI "ĐÙNG"
     artSeal.addEventListener('click', () => {
-      playStampBang();
-      startMusic();
-      letterScreen.style.transform = "translateY(-100%)";
+      playStampImpactSound(); // Tiếng va đập nặng
+      artSeal.classList.add('seal-slamming');
+      letterPaperElm.classList.add('letter-rumble');
 
       setTimeout(() => {
-        boardMain.style.display = "block";
-        renderCasesWall(dossiers);
-        setTimeout(renderRedThreads, 350);
-      }, 450);
+        startMusic();
+        letterScreen.style.transform = "translateY(-100%)";
+        setTimeout(() => {
+          boardMain.style.display = "block";
+          renderCasesWall(dossiers);
+          setTimeout(renderRedThreads, 300);
+        }, 400);
+      }, 500);
     });
 
-    /* ================= 6. VẼ BẢNG POLAROID & LIKE ================= */
+    /* ================= 6. VẼ BẢNG HỒ SƠ & TƯƠNG TÁC ================= */
     const casesWall = document.getElementById('cases-wall');
 
     function renderCasesWall(itemsToRender) {
@@ -1681,7 +1725,7 @@
       itemsToRender.forEach((item, idx) => {
         const card = document.createElement('div');
         card.className = "polaroid-evidence-card";
-        const rot = (idx % 2 === 0 ? 1 : -1) * (1.5 + (idx % 3) * 0.7);
+        const rot = (idx % 2 === 0 ? 1 : -1) * (1.2 + (idx % 3) * 0.6);
         const rand = (idx % 4) * 0.4;
         card.style.setProperty('--rot', `${rot}deg`);
         card.style.setProperty('--rand', `${rand}`);
@@ -1727,7 +1771,7 @@
       if (!localStorage.getItem(key)) {
         item.likes = (item.likes || 0) + 1;
         localStorage.setItem(key, 'true');
-        playStampBang();
+        playStampImpactSound();
       } else {
         item.likes = Math.max(0, (item.likes || 1) - 1);
         localStorage.removeItem(key);
@@ -1748,7 +1792,7 @@
         if (filter === 'all') {
           renderCasesWall(dossiers);
         } else {
-          const filtered = dossiers.filter(c => c.tags.some(t => t.toLowerCase().includes(filter.toLowerCase())));
+          const filtered = dossiers.filter(c => c.tags && c.tags.some(t => t.toLowerCase().includes(filter.toLowerCase())));
           renderCasesWall(filtered);
         }
       });
@@ -1765,12 +1809,12 @@
       const matched = dossiers.filter(c => 
         c.code.toLowerCase().includes(q) || 
         c.name.toLowerCase().includes(q) ||
-        c.tags.some(t => t.toLowerCase().includes(q))
+        (c.tags && c.tags.some(t => t.toLowerCase().includes(q)))
       );
       renderCasesWall(matched);
     });
 
-    /* ================= 7. XEM CHI TIẾT HỒ SƠ ================= */
+    /* ================= 7. XEM CHI TIẾT HỒ SƠ PHÓNG TO ================= */
     const inspectModal = document.getElementById('inspect-modal');
     const btnCloseInspect = document.getElementById('btn-close-inspect');
 
@@ -1778,12 +1822,12 @@
       document.getElementById('ins-code').innerText = data.code;
       document.getElementById('ins-name').innerText = data.name;
       document.getElementById('ins-img').src = data.img;
-      document.getElementById('ins-tags').innerText = data.tags.map(t => `#${t.trim()}`).join(' ');
+      document.getElementById('ins-tags').innerText = data.tags ? data.tags.map(t => `#${t.trim()}`).join(' ') : "";
       document.getElementById('ins-desc').innerText = data.desc;
       document.getElementById('ins-link-plot').href = data.plot;
       document.getElementById('ins-link-ggai').href = data.ggai;
       inspectModal.style.display = 'flex';
-      playStampBang();
+      playStampImpactSound();
     }
     btnCloseInspect.addEventListener('click', () => inspectModal.style.display = 'none');
 
@@ -1840,7 +1884,7 @@
     }
     window.addEventListener('resize', renderRedThreads);
 
-    /* ================= 9. DIỄN ĐÀN SƠN DẦU (AVATAR MỸ THUẬT & XOÁ FEEDBACK) ================= */
+    /* ================= 9. DIỄN ĐÀN SƠN DẦU (CHẶN TỤC TĨU & XOÁ) ================= */
     const feedbackModal = document.getElementById('feedback-modal');
     const btnTriggerFeedback = document.getElementById('btn-trigger-feedback');
     const btnCloseFeedback = document.getElementById('btn-close-feedback');
@@ -1908,7 +1952,7 @@
         feedbacks.splice(idx, 1);
         localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
         renderFeedbacks();
-        playStampBang();
+        playStampImpactSound();
       }
     };
 
@@ -1938,7 +1982,7 @@
       renderFeedbacks();
       feedbackModal.style.display = 'none';
       document.getElementById('fb-user-msg').value = "";
-      playStampBang();
+      playStampImpactSound();
     });
 
     /* ================= 10. XÁC THỰC TED & BẬT ĐÈN ================= */
@@ -1962,7 +2006,7 @@
       const pwd = document.getElementById('login-pwd').value.trim();
 
       if (id === 'tcam9863@gmail.com' && pwd === 'camtien12') {
-        playStampBang();
+        playStampImpactSound();
         authOverlay.style.display = 'none';
 
         document.body.classList.add('ted-illuminated');
@@ -1987,7 +2031,7 @@
       btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
     });
 
-    /* ================= 11. SỬA HỒ SƠ (CÓ THAY ẢNH MỚI) & XOÁ ================= */
+    /* ================= 11. SỬA HỒ SƠ (CÓ ĐỔI ẢNH) & XOÁ ================= */
     const editModal = document.getElementById('edit-dossier-modal');
     const btnCloseEdit = document.getElementById('btn-close-edit');
     const btnSaveEdit = document.getElementById('btn-save-edit');
@@ -2030,7 +2074,7 @@
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
         renderCasesWall(dossiers);
         editModal.style.display = 'none';
-        playStampBang();
+        playStampImpactSound();
         await saveSharedCloudCases(dossiers);
         alert("ĐÃ CẬP NHẬT HỒ SƠ & LƯU MÂY TOÀN CẦU THÀNH CÔNG!");
       }
@@ -2042,14 +2086,14 @@
         dossiers.splice(idx, 1);
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
         renderCasesWall(dossiers);
-        playStampBang();
+        playStampImpactSound();
 
         await saveSharedCloudCases(dossiers);
         alert("ĐÃ TIÊU HUỶ HỒ SƠ!");
       }
     };
 
-    /* ================= 12. NÉN ẢNH CHUẨN TỈ LỆ KHÔNG MÉO & ĐĂNG MỚI ================= */
+    /* ================= 12. NÉN ẢNH CHUẨN TỈ LỆ & ĐĂNG MỚI ================= */
     const createDossierForm = document.getElementById('create-dossier-form');
     const btnUploadSubmit = document.getElementById('btn-upload-submit');
 
@@ -2106,7 +2150,7 @@
 
         await saveSharedCloudCases(dossiers);
 
-        playStampBang();
+        playStampImpactSound();
         alert(`⚡ HỒ SƠ [${nameVal}] ĐÃ ĐƯỢC ĐÍNH LÊN BẢNG VÀ TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU THÀNH CÔNG!`);
         btnUploadSubmit.innerText = "+ GHIM HỒ SƠ LÊN BẢNG (TỰ ĐỘNG ĐỒNG BỘ TOÀN CẦU)";
         btnUploadSubmit.disabled = false;
