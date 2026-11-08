@@ -14,14 +14,13 @@
       --crimson: #a80010;
       --crimson-glow: rgba(168, 0, 16, 0.7);
       --crimson-bright: #ff123d;
-      --card-paper: #0e0c0f;
-      --card-border: rgba(168, 0, 16, 0.45);
+      --card-paper: #0c0a0d;
+      --card-border: rgba(168, 0, 16, 0.4);
       --tape: rgba(220, 215, 190, 0.35);
       --text-main: #f0eef5;
       --text-dim: #8b889a;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --gold-baroque: #c5a059;
-      --uv-violet: #a84dff;
+      --iron-dark: #121015;
     }
 
     body.ted-illuminated {
@@ -31,15 +30,15 @@
       background: radial-gradient(circle 900px at 50% 30%, rgba(255, 215, 160, 0.22) 0%, rgba(20, 16, 18, 0.6) 60%, rgba(8, 7, 9, 0.88) 100%) !important;
     }
 
-    /* ĐÈN UV MẶC ĐỊNH PHÁT QUANG TỬ NGOẠI */
+    /* ĐÈN UV MẶC ĐỊNH SOI HUỲNH QUANG TRẦM */
     body.uv-mode-on .spotlight-layer {
-      background: radial-gradient(circle 350px at var(--spot-x, 50%) var(--spot-y, 40%), rgba(140, 20, 255, 0.22) 0%, rgba(25, 0, 50, 0.7) 60%, rgba(5, 0, 15, 0.96) 100%) !important;
+      background: radial-gradient(circle 360px at var(--spot-x, 50%) var(--spot-y, 40%), rgba(90, 10, 180, 0.22) 0%, rgba(18, 2, 35, 0.7) 60%, rgba(4, 1, 10, 0.96) 100%) !important;
     }
     body.uv-mode-on #thread-canvas {
       filter: drop-shadow(0 0 8px #ff0055) hue-rotate(290deg);
     }
     body.uv-mode-on .uv-secret-code {
-      opacity: 0.8 !important;
+      opacity: 0.85 !important;
       text-shadow: 0 0 10px #b84dff, 0 0 20px #ff0055;
     }
 
@@ -63,7 +62,7 @@
       position: relative;
     }
 
-    /* KÝ HIỆU PHÁT QUANG BÍ MẬT DƯỚI ĐÈN UV */
+    /* DÒNG MẬT MÃ ẨN PHÁT QUANG DƯỚI ĐÈN UV */
     .uv-secret-code {
       position: fixed;
       top: 18%;
@@ -115,7 +114,7 @@
       100% { background: transparent; }
     }
 
-    /* ĐÈN SPOTLIGHT */
+    /* ĐÈN SPOTLIGHT ĐIỆN ẢNH */
     .spotlight-layer {
       position: fixed;
       inset: 0;
@@ -146,72 +145,118 @@
       mix-blend-mode: screen;
     }
 
-    /* THANH NÚT ĐIỀU KHIỂN TRÊN CÙNG - KHÔNG BỊ CHE KHUẤT */
-    .top-bar-controls {
+    /* ================= BẢNG ĐIỀU KHIỂN CÔNG TẮC DÂY XÍCH & TAPE DECK (KHÔNG MÀU MÈ) ================= */
+    .top-switchboard {
       position: fixed;
-      top: 12px;
-      right: 12px;
+      top: 14px;
+      right: 14px;
       z-index: 120;
       display: flex;
       align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      gap: 10px;
     }
 
-    .ctrl-pill {
-      background: rgba(14, 8, 12, 0.94);
-      border: 1px solid rgba(230, 0, 38, 0.4);
-      backdrop-filter: blur(14px);
-      padding: 6px 11px;
-      border-radius: 20px;
+    /* CÔNG TẮC DÂY XÍCH KIM LOẠI */
+    .chain-pull-switch {
+      background: #110e13;
+      border: 1px solid #4a383d;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem;
-      letter-spacing: 0.5px;
-      color: var(--text-dim);
+      color: #b5b0be;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.9);
+      position: relative;
+      transition: all 0.2s;
+    }
+    .chain-pull-switch:hover {
+      border-color: var(--crimson);
+      color: #fff;
+    }
+    .chain-link-icon {
+      width: 8px;
+      height: 14px;
+      border: 1.5px solid #888;
+      border-radius: 4px;
+      position: relative;
+    }
+    .chain-link-icon::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1.5px;
+      height: 6px;
+      background: #888;
+    }
+    .chain-active {
+      border-color: #8b0015 !important;
+      color: #ff4d66 !important;
+      box-shadow: 0 0 15px rgba(168,0,16,0.6) !important;
+    }
+    .chain-active .chain-link-icon {
+      border-color: var(--crimson-bright);
+    }
+    .chain-active .chain-link-icon::after {
+      background: var(--crimson-bright);
+    }
+
+    /* MÁY PHÁT BĂNG CASSETTE */
+    .tape-player-pill {
+      background: #110e13;
+      border: 1px solid #4a383d;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #b5b0be;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.9);
+    }
+    .tape-reel {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #555;
+    }
+    .tape-playing {
+      border-color: var(--crimson) !important;
+      color: #fff !important;
+      box-shadow: 0 0 15px rgba(168,0,16,0.6) !important;
+    }
+    .tape-playing .tape-reel {
+      background: var(--crimson-bright);
+      box-shadow: 0 0 8px var(--crimson);
+      animation: spinReel 2s linear infinite;
+    }
+    @keyframes spinReel { 100% { transform: rotate(360deg); } }
+
+    /* NÚT HUY HIỆU TED */
+    .ted-master-badge {
+      background: #170d12;
+      border: 1px solid #552229;
+      padding: 6px 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: #e5cfd4;
+      font-weight: bold;
+      cursor: pointer;
       display: flex;
       align-items: center;
       gap: 5px;
-      cursor: pointer;
-      transition: 0.25s;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.9);
     }
-    .ctrl-pill:hover {
-      border-color: var(--crimson-bright);
-      color: #fff;
-    }
-    .admin-pill {
-      border-color: rgba(212, 175, 55, 0.6);
-      color: #dfcfab;
-      font-weight: bold;
-    }
-    .admin-pill.active {
-      border-color: var(--crimson-bright);
-      color: #fff;
-      box-shadow: 0 0 15px var(--crimson-glow);
-    }
-    .audio-pill.active {
+    .ted-master-badge:hover, .ted-master-badge.active {
       border-color: var(--crimson);
       color: #fff;
       box-shadow: 0 0 15px var(--crimson-glow);
     }
-    .uv-pill-active {
-      border-color: #b84dff !important;
-      color: #e6b8ff !important;
-      box-shadow: 0 0 15px rgba(184, 77, 255, 0.7) !important;
-    }
-    .audio-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--text-dim);
-    }
-    .audio-pill.active .audio-dot {
-      background: var(--crimson);
-      box-shadow: 0 0 8px var(--crimson);
-      animation: pulseDot 1.5s infinite;
-    }
-    @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
     /* ================= 1. CỔNG 18+ ================= */
     #gate-18 {
@@ -458,13 +503,12 @@
       z-index: 1;
     }
 
-    /* ĐẨY PHẦN HEADER XUỐNG ĐỂ KHÔNG BỊ THANH ĐIỀU KHIỂN CHE */
     .redesigned-header {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-top: 45px;
+      margin-top: 50px; /* Đẩy xuống để không bị thanh công tắc che */
       margin-bottom: 15px;
       position: relative;
       z-index: 10;
@@ -524,7 +568,7 @@
       align-items: center;
       position: relative;
       background: radial-gradient(circle at 35% 30%, rgba(255, 60, 90, 0.3) 0%, rgba(35, 12, 20, 0.85) 60%, rgba(8, 4, 7, 0.98) 100%);
-      border: 1.5px solid rgba(230, 0, 38, 0.4);
+      border: 1.5px solid rgba(212, 175, 55, 0.4);
       box-shadow: 0 10px 25px rgba(0,0,0,0.85), inset 0 0 16px rgba(230, 0, 38, 0.45);
       backdrop-filter: blur(14px);
     }
@@ -610,7 +654,7 @@
       pointer-events: none;
     }
 
-    /* PHÂN TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) */
+    /* PHÂN TRANG 8 CHAR / TRANG (BẠC KHÓI / ĐỎ THẪM) */
     .pagination-bar {
       display: flex;
       justify-content: center;
@@ -681,7 +725,7 @@
       box-shadow: 0 0 12px #fff, 0 0 20px var(--crimson);
     }
 
-    /* ================= BẢNG HỒ SƠ COMPACT GỌN GÀNG ================= */
+    /* BẢNG HỒ SƠ 2 CỘT COMPACT */
     .conspiracy-board-wall {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -799,6 +843,7 @@
       align-items: center;
     }
 
+    /* NÚT THẢ TIM */
     .stamp-like-btn {
       display: inline-flex;
       align-items: center;
@@ -826,6 +871,7 @@
       filter: drop-shadow(0 0 4px var(--crimson));
     }
 
+    /* 2 NÚT LINK PLOT & GGAI */
     .card-links {
       display: flex;
       gap: 5px;
@@ -862,6 +908,7 @@
       box-shadow: 0 0 12px var(--crimson-glow);
     }
 
+    /* QUYỀN SỬA XOÁ CHO TED */
     .ted-card-controls {
       display: none;
       margin-top: 6px;
@@ -1266,7 +1313,7 @@
     }
   </style>
 </head>
-<body class="uv-mode-on"> <!-- ĐÈN UV MẶC ĐỊNH BẬT SÁNG -->
+<body class="uv-mode-on"> <!-- ĐÈN UV MẶC ĐỊNH BẬT SẴN -->
 
   <!-- KÝ HIỆU MẬT ẨN TRÊN TƯỜNG (CHỈ THẤY KHI BẬT ĐÈN UV) -->
   <div class="uv-secret-code">SITE 17-A // KẺ THỦ ÁC VẪN Ở ĐÂY // 1988</div>
@@ -1283,30 +1330,35 @@
     </svg>
   </div>
 
-  <!-- NHẠC WHO IS SHE -->
-  <audio id="noir-ambient-audio" loop preload="auto">
-    <source src="I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3" type="audio/mpeg">
-    <source src="I%20Monster%20-%20Who%20Is%20She%20%28Lyrics%29%20Immortal%20She%20Return%20To%20Me%20%5BTikTok%20Song%5D.mp3" type="audio/mpeg">
-  </audio>
+  <!-- NHẠC NỀN NOIR TỰ ĐỘNG PHÁT RANDOM -->
+  <audio id="noir-ambient-audio" preload="auto"></audio>
 
   <div class="spotlight-layer" id="spotlight"></div>
   <canvas id="fog-canvas"></canvas>
   <canvas id="ember-canvas"></canvas>
 
-  <!-- THANH ĐIỀU KHIỂN TRÊN CÙNG -->
-  <div class="top-bar-controls">
-    <!-- NÚT ĐÈN UV MẶC ĐỊNH BẬT -->
-    <div class="ctrl-pill uv-pill-active" id="btn-toggle-uv">
-      <span>🟣 ĐÈN UV: BẬT</span>
+  <!-- ================= BẢNG ĐIỀU KHIỂN CÔNG TẮC DÂY XÍCH & TAPE DECK (THAY THẾ TOÀN BỘ ICON MÀU MÈ) ================= -->
+  <div class="top-switchboard">
+    <!-- CÔNG TẮC KÉO MÓC XÍCH ĐÈN UV -->
+    <div class="chain-pull-switch chain-active" id="btn-toggle-uv">
+      <div class="chain-link-icon"></div>
+      <span id="uv-state-label">ĐÈN UV [BẬT]</span>
     </div>
-    <div class="ctrl-pill" id="btn-toggle-light" style="display:none;">
-      <span>💡 ĐÈN: BẬT</span>
+
+    <!-- CÔNG TẮC ĐÈN THẨM VẤN SÁNG -->
+    <div class="chain-pull-switch" id="btn-toggle-light" style="display:none;">
+      <div class="chain-link-icon"></div>
+      <span id="light-state-label">ĐÈN SÁNG [BẬT]</span>
     </div>
-    <div class="ctrl-pill audio-pill" id="audio-pill">
-      <div class="audio-dot"></div>
-      <span id="audio-state">AMBIENT OFF</span>
+
+    <!-- MÁY GHI ÂM ÁN MẠNG PHÁT RANDOM -->
+    <div class="tape-player-pill" id="btn-toggle-audio">
+      <div class="tape-reel"></div>
+      <span id="tape-state-label">TAPE [TẮT]</span>
     </div>
-    <div class="ctrl-pill admin-pill" id="btn-open-terminal">
+
+    <!-- HUY HIỆU ĐẶC VỤ TED KÍN ĐÁO -->
+    <div class="ted-master-badge" id="btn-open-terminal">
       <span>👁️‍🗨️ TED</span>
     </div>
   </div>
@@ -1407,7 +1459,7 @@
         <input type="text" id="case-search-input" class="search-input-field" placeholder="NHẬP MÃ SỐ HOẶC TÊN HỒ SƠ ĐỂ ĐIỀU TRA...">
       </div>
 
-      <!-- THANH CHUYỂN TRANG 8 CHAR / TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) -->
+      <!-- THANH PHÂN TRANG (MÀU BẠC KHÓI / ĐỎ THẪM) -->
       <div class="pagination-bar" id="pagination-control-bar">
         <button class="page-nav-btn" id="btn-prev-page" disabled>❮ TRƯỚC</button>
         <div class="page-indicator-text" id="page-display-text">TRANG <span id="current-page-num">1</span> / <span id="total-page-num">1</span></div>
@@ -1631,7 +1683,7 @@
       if (e.touches[0]) updateSpotlight(e.touches[0].clientX, e.touches[0].clientY);
     });
 
-    /* ================= 2. HỆ THỐNG ÂM THANH ================= */
+    /* ================= 2. HỆ THỐNG ÂM THANH RANDOM PLAYLIST ================= */
     let audioCtx = null;
     function initAudioContext() {
       if (!audioCtx) {
@@ -1642,32 +1694,49 @@
       }
     }
 
-    const noirAudio = document.getElementById('noir-ambient-audio');
-    let isAudioOn = false;
-    const audioPill = document.getElementById('audio-pill');
-    const audioState = document.getElementById('audio-state');
+    // DANH SÁCH BÀI HÁT TỰ ĐỘNG PHÁT NGẪU NHIÊN
+    const TRACK_PLAYLIST = [
+      "Stract_Shiloh_Dynasty_feat._Burgettii_-_Losing_Interest_Remix_(mp3.pm).mp3",
+      "I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3",
+      "KId_Cudi_-_She_Knows_This_slowed_reverb_(mp3.pm).mp3"
+    ];
 
-    function startMusic() {
+    let currentTrackIdx = Math.floor(Math.random() * TRACK_PLAYLIST.length);
+    const noirAudio = document.getElementById('noir-ambient-audio');
+    let isMusicPlaying = false;
+    const btnToggleAudio = document.getElementById('btn-toggle-audio');
+    const tapeStateLabel = document.getElementById('tape-state-label');
+
+    function playRandomTrack() {
       initAudioContext();
+      noirAudio.src = TRACK_PLAYLIST[currentTrackIdx];
       noirAudio.volume = 0.8;
-      const playPromise = noirAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          isAudioOn = true;
-          audioPill.classList.add('active');
-          audioState.innerText = "AMBIENT ON";
-        }).catch(() => {});
-      }
+      noirAudio.play().then(() => {
+        isMusicPlaying = true;
+        btnToggleAudio.classList.add('tape-playing');
+        tapeStateLabel.innerText = "TAPE [ĐANG PHÁT]";
+      }).catch(() => {});
     }
 
-    audioPill.addEventListener('click', () => {
-      if (isAudioOn) {
+    // Hết bài tự chuyển random bài khác
+    noirAudio.addEventListener('ended', () => {
+      let nextIdx;
+      do {
+        nextIdx = Math.floor(Math.random() * TRACK_PLAYLIST.length);
+      } while (nextIdx === currentTrackIdx && TRACK_PLAYLIST.length > 1);
+      currentTrackIdx = nextIdx;
+      playRandomTrack();
+    });
+
+    btnToggleAudio.addEventListener('click', () => {
+      playMechClickSound();
+      if (isMusicPlaying) {
         noirAudio.pause();
-        isAudioOn = false;
-        audioPill.classList.remove('active');
-        audioState.innerText = "AMBIENT OFF";
+        isMusicPlaying = false;
+        btnToggleAudio.classList.remove('tape-playing');
+        tapeStateLabel.innerText = "TAPE [TẮT]";
       } else {
-        startMusic();
+        playRandomTrack();
       }
     });
 
@@ -1722,15 +1791,12 @@
       osc.stop(audioCtx.currentTime + 0.08);
     }
 
-    // ÂM THANH CHỤP ẢNH BẰNG CHỨNG (CAMERA SHUTTER)
     function playCameraShutterSound() {
       initAudioContext();
       const bufferSize = audioCtx.sampleRate * 0.06;
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const output = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        output[i] = Math.random() * 2 - 1;
-      }
+      for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
       const whiteNoise = audioCtx.createBufferSource();
       whiteNoise.buffer = buffer;
       const filter = audioCtx.createBiquadFilter();
@@ -1788,7 +1854,7 @@
     }
     drawEmbers();
 
-    /* ================= 4. KẾT NỐI CHÍNH THỨC VỚI GOOGLE FIREBASE CỦA BẠN ================= */
+    /* ================= 4. ĐỒNG BỘ CHÍNH XÁC FIREBASE REALTIME - TED NẮM TOÀN QUYỀN ================= */
     const FIREBASE_DB_URL = "https://ften2-bdaff-default-rtdb.asia-southeast1.firebasedatabase.app";
     const MASTER_KEY = "TED_PERMANENT_IMMORTAL_VAULT";
 
@@ -1846,63 +1912,75 @@
     let dossiers = getLocalCachedDossiers();
     let feedbacks = JSON.parse(localStorage.getItem('TED_PERMANENT_FEEDBACKS')) || [];
 
-    // TẢI DỮ LIỆU TỪ FIREBASE THỜI GIAN THỰC
-    async function loadDataFromFirebase() {
+    // TẢI TOÀN BỘ DỮ LIỆU TỪ ROOT CỦA FIREBASE
+    async function syncFromFirebase() {
       try {
-        const res = await fetch(`${FIREBASE_DB_URL}/dossiers.json`);
+        const res = await fetch(`${FIREBASE_DB_URL}/california_vault.json`);
         if (res.ok) {
-          const cloudCases = await res.json();
-          if (cloudCases && (Array.isArray(cloudCases) || typeof cloudCases === 'object')) {
-            const list = Array.isArray(cloudCases) ? cloudCases : Object.values(cloudCases);
-            if (list.length > 0) {
-              dossiers = list.filter(item => item !== null);
+          const vault = await res.json();
+          if (vault && typeof vault === 'object') {
+            // Khi Ted xoá hết thành rỗng, Firebase vẫn giữ mảng rỗng [] và cập nhật cho Trang!
+            if (vault.cases !== undefined) {
+              dossiers = Array.isArray(vault.cases) ? vault.cases : Object.values(vault.cases);
               localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
               currentFilteredList = dossiers;
               renderCurrentView();
             }
+            if (vault.feedbacks !== undefined) {
+              feedbacks = Array.isArray(vault.feedbacks) ? vault.feedbacks : Object.values(vault.feedbacks);
+              localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
+              renderFeedbacks();
+            }
+          } else {
+            // Lần đầu tiên Firebase rỗng -> Nạp dữ liệu ban đầu lên mây
+            pushMasterVaultToFirebase();
           }
         }
       } catch (err) {
         console.log("Firebase sync fallback:", err);
       }
-
-      // TẢI FEEDBACK TỪ FIREBASE
-      try {
-        const fbRes = await fetch(`${FIREBASE_DB_URL}/feedbacks.json`);
-        if (fbRes.ok) {
-          const cloudFb = await fbRes.json();
-          if (cloudFb) {
-            const fbList = Array.isArray(cloudFb) ? cloudFb : Object.values(cloudFb);
-            feedbacks = fbList.filter(f => f !== null);
-            localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
-            renderFeedbacks();
-          }
-        }
-      } catch (err){}
     }
-    loadDataFromFirebase();
+    syncFromFirebase();
 
-    // LƯU DỮ LIỆU VÀO FIREBASE CỦA BẠN
-    async function saveDossiersToFirebase(casesData) {
+    // TỰ ĐỘNG ĐỒNG BỘ THỜI GIAN THỰC (REALTIME STREAM - TED XOÁ THÌ MÁY KHÁCH BIẾN MẤT TỨC THÌ)
+    try {
+      const sse = new EventSource(`${FIREBASE_DB_URL}/california_vault.json`);
+      sse.addEventListener('put', (e) => {
+        try {
+          const streamData = JSON.parse(e.data);
+          if (streamData && streamData.path === '/') {
+            if (streamData.data && streamData.data.cases !== undefined) {
+              dossiers = streamData.data.cases || [];
+              localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+              currentFilteredList = dossiers;
+              renderCurrentView();
+            }
+            if (streamData.data && streamData.data.feedbacks !== undefined) {
+              feedbacks = streamData.data.feedbacks || [];
+              localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
+              renderFeedbacks();
+            }
+          }
+        } catch(err){}
+      });
+    } catch(e){}
+
+    // ĐẨY DỮ LIỆU GỐC LÊN FIREBASE
+    async function pushMasterVaultToFirebase() {
       try {
-        await fetch(`${FIREBASE_DB_URL}/dossiers.json`, {
+        const payload = {
+          cases: dossiers,
+          feedbacks: feedbacks,
+          lastUpdated: Date.now()
+        };
+        await fetch(`${FIREBASE_DB_URL}/california_vault.json`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(casesData)
+          body: JSON.stringify(payload)
         });
       } catch (err) {
-        console.error("Lỗi đẩy Firebase:", err);
+        console.error("Lỗi cập nhật Firebase:", err);
       }
-    }
-
-    async function saveFeedbacksToFirebase(fbData) {
-      try {
-        await fetch(`${FIREBASE_DB_URL}/feedbacks.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(fbData)
-        });
-      } catch (err){}
     }
 
     /* ================= 5. MỞ CỔNG + NHÁ ĐÈN JUMPSCARE ================= */
@@ -1920,11 +1998,11 @@
       jumpscareOverlay.classList.add('strobe-active');
 
       setTimeout(() => {
-        startMusic();
+        playRandomTrack();
         gate18.style.display = 'none';
         letterScreen.style.display = 'flex';
         jumpscareOverlay.classList.remove('strobe-active');
-        loadDataFromFirebase();
+        syncFromFirebase();
       }, 400);
     });
 
@@ -1934,7 +2012,7 @@
       letterPaperElm.classList.add('letter-rumble');
 
       setTimeout(() => {
-        startMusic();
+        if (!isMusicPlaying) playRandomTrack();
         letterScreen.style.transform = "translateY(-100%)";
         setTimeout(() => {
           boardMain.style.display = "block";
@@ -2050,7 +2128,7 @@
       }
       localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
       renderCurrentView();
-      saveDossiersToFirebase(dossiers);
+      pushMasterVaultToFirebase();
     };
 
     /* CHUYỂN BỘ LỌC 3 BONG BÓNG */
@@ -2094,7 +2172,7 @@
     const btnCloseInspect = document.getElementById('btn-close-inspect');
 
     function inspectDossier(data) {
-      playCameraShutterSound(); // Tiếng chớp máy ảnh tanh tách
+      playCameraShutterSound();
       document.getElementById('ins-code').innerText = data.code;
       document.getElementById('ins-name').innerText = data.name;
       document.getElementById('ins-img').src = data.img;
@@ -2109,7 +2187,7 @@
       inspectModal.style.display = 'none';
     });
 
-    /* ================= 9. MẠNG LƯỚI CHỈ ĐỎ DÀY ĐẶC (CONSPIRACY WEB) ================= */
+    /* ================= 9. MẠNG LƯỚI CHỈ ĐỎ DÀY ĐẶC ================= */
     const threadCanvas = document.getElementById('thread-canvas');
     const threadCtx = threadCanvas.getContext('2d');
 
@@ -2138,7 +2216,6 @@
         });
       });
 
-      // 1. DÂY TỪ TÂM '?' TỚI CÁC GHIM
       pinCoords.forEach(pos => {
         threadCtx.beginPath();
         threadCtx.moveTo(hubX, hubY);
@@ -2152,7 +2229,6 @@
         threadCtx.stroke();
       });
 
-      // 2. MẠNG DÂY ĐAN CHÉO LIÊN KẾT GIỮA CÁC HỒ SƠ
       for (let i = 0; i < pinCoords.length; i++) {
         for (let j = i + 1; j < pinCoords.length; j++) {
           if (Math.abs(i - j) === 1 || (i % 2 === 0 && j === i + 2)) {
@@ -2175,7 +2251,6 @@
     const btnSendFeedback = document.getElementById('btn-send-feedback');
     const feedbackChatList = document.getElementById('feedback-chat-list');
 
-    // AVATAR NGHỆ THUẬT PHI NHÂN LOẠI
     const ABSTRACT_DARK_AVATARS = [
       "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><circle cx='20' cy='20' r='18' fill='%23110508' stroke='%23a80010' stroke-width='2'/><path d='M20 5 L20 35 M5 20 L35 20' stroke='%23a80010' stroke-width='1.5'/><circle cx='20' cy='20' r='8' fill='none' stroke='%23ff123d' stroke-width='1.5'/></svg>",
       "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><circle cx='20' cy='20' r='18' fill='%230a050f' stroke='%23ff123d' stroke-width='2'/><polygon points='20,8 32,28 8,28' fill='%23220008' stroke='%23ff123d' stroke-width='1.5'/></svg>",
@@ -2228,7 +2303,7 @@
         localStorage.setItem('TED_PERMANENT_FEEDBACKS', JSON.stringify(feedbacks));
         renderFeedbacks();
         playMechClickSound();
-        saveFeedbacksToFirebase(feedbacks);
+        pushMasterVaultToFirebase();
       }
     };
 
@@ -2268,10 +2343,10 @@
       feedbackModal.style.display = 'none';
       document.getElementById('fb-user-msg').value = "";
       playMechClickSound();
-      saveFeedbacksToFirebase(feedbacks);
+      pushMasterVaultToFirebase();
     });
 
-    /* ================= 11. XÁC THỰC TED, ĐÈN UV & ĐÈN PHÒNG ================= */
+    /* ================= 11. CÔNG TẮC DÂY XÍCH: ĐÈN UV, ĐÈN PHÒNG & TED ADMIN ================= */
     const authOverlay = document.getElementById('auth-overlay');
     const btnOpenTerminal = document.getElementById('btn-open-terminal');
     const btnCloseAuth = document.getElementById('btn-close-auth');
@@ -2279,16 +2354,28 @@
     const tedActiveDesk = document.getElementById('ted-active-desk');
     const authAlertBox = document.getElementById('auth-alert-box');
     const btnToggleLight = document.getElementById('btn-toggle-light');
+    const lightStateLabel = document.getElementById('light-state-label');
     const btnToggleUV = document.getElementById('btn-toggle-uv');
+    const uvStateLabel = document.getElementById('uv-state-label');
 
-    // NÚT BẬT / TẮT ĐÈN UV
-    let isUVOn = true; // Mặc định bật sẵn
+    // CÔNG TẮC GIẬT DÂY XÍCH CHO ĐÈN UV
+    let isUVActive = true;
     btnToggleUV.addEventListener('click', () => {
       playMechClickSound();
-      isUVOn = !isUVOn;
-      document.body.classList.toggle('uv-mode-on', isUVOn);
-      btnToggleUV.classList.toggle('uv-pill-active', isUVOn);
-      btnToggleUV.innerHTML = isUVOn ? "<span>🟣 ĐÈN UV: BẬT</span>" : "<span>🟣 ĐÈN UV: TẮT</span>";
+      isUVActive = !isUVActive;
+      document.body.classList.toggle('uv-mode-on', isUVActive);
+      btnToggleUV.classList.toggle('chain-active', isUVActive);
+      uvStateLabel.innerText = isUVActive ? "ĐÈN UV [BẬT]" : "ĐÈN UV [TẮT]";
+    });
+
+    // CÔNG TẮC ĐÈN THẨM VẤN
+    let isLightActive = false;
+    btnToggleLight.addEventListener('click', () => {
+      playMechClickSound();
+      isLightActive = !isLightActive;
+      document.body.classList.toggle('ted-illuminated', isLightActive);
+      btnToggleLight.classList.toggle('chain-active', isLightActive);
+      lightStateLabel.innerText = isLightActive ? "ĐÈN SÁNG [BẬT]" : "ĐÈN SÁNG [TẮT]";
     });
 
     btnOpenTerminal.addEventListener('click', () => {
@@ -2310,10 +2397,8 @@
         playStampImpactSound();
         authOverlay.style.display = 'none';
 
-        document.body.classList.add('ted-illuminated');
         btnToggleLight.style.display = 'flex';
-
-        btnOpenTerminal.innerHTML = "<span>👁️‍🗨️ TED ONLINE</span>";
+        btnOpenTerminal.innerHTML = "<span>👑 TED ONLINE</span>";
         btnOpenTerminal.classList.add('active');
         tedActiveDesk.style.display = 'block';
         tedActiveDesk.scrollIntoView({ behavior: 'smooth' });
@@ -2324,13 +2409,6 @@
         authAlertBox.style.display = 'block';
         authAlertBox.innerText = "TRUY CẬP BỊ TỪ CHỐI // SAI ID HOẶC MẬT MÃ";
       }
-    });
-
-    btnToggleLight.addEventListener('click', () => {
-      playMechClickSound();
-      document.body.classList.toggle('ted-illuminated');
-      const isIlluminated = document.body.classList.contains('ted-illuminated');
-      btnToggleLight.innerText = isIlluminated ? "💡 ĐÈN: BẬT" : "💡 ĐÈN: TẮT";
     });
 
     /* ================= 12. SỬA HỒ SƠ & XOÁ ================= */
@@ -2381,8 +2459,8 @@
         renderCurrentView();
         editModal.style.display = 'none';
         playStampImpactSound();
-        await saveDossiersToFirebase(dossiers);
-        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀO FIREBASE VĨNH VIỄN!");
+        await pushMasterVaultToFirebase();
+        alert("ĐÃ CẬP NHẬT HỒ SƠ VÀ LƯU FIREBASE VĨNH VIỄN!");
       }
     });
 
@@ -2391,11 +2469,12 @@
       if (confirm(`Bạn có chắc chắn muốn tiêu huỷ hồ sơ [${dossiers[idx].name}] vĩnh viễn không?`)) {
         dossiers.splice(idx, 1);
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
+        currentFilteredList = dossiers;
         renderCurrentView();
         playStampImpactSound();
 
-        await saveDossiersToFirebase(dossiers);
-        alert("ĐÃ TIÊU HUỶ HỒ SƠ KHỎI FIREBASE!");
+        await pushMasterVaultToFirebase();
+        alert("ĐÃ TIÊU HUỶ HỒ SƠ KHỎI FIREBASE TOÀN CẦU!");
       }
     };
 
@@ -2456,7 +2535,7 @@
         localStorage.setItem(MASTER_KEY, JSON.stringify(dossiers));
         renderCurrentView();
 
-        await saveDossiersToFirebase(dossiers);
+        await pushMasterVaultToFirebase();
 
         playStampImpactSound();
         alert(`⚡ HỒ SƠ [${nameVal}] ĐÃ ĐƯỢC ĐÍNH LÊN BẢNG VÀ LƯU FIREBASE VĨNH VIỄN!`);
@@ -2467,4 +2546,4 @@
     });
   </script>
 </body>
-</html>
+  </html>
