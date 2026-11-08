@@ -2918,5 +2918,172 @@
       });
     });
   </script>
+  <!-- ================= ĐOẠN FIX: MÀU SÁNG ĐỀU TOÀN MÀN HÌNH + HIỆU ỨNG MỚI ================= -->
+  <style>
+    /* 1. TRIỆT TIÊU ĐƯỜNG RÃNH CHIA ĐÔI MÀN HÌNH */
+    .ceiling-triangular-beam {
+      display: none !important; /* Xoá triệt để lớp đèn bị lệch trục */
+    }
+
+    /* 2. LẤY MÀU SÁNG NHẠT BÊN TRÁI PHỦ ĐỀU 100% TOÀN BỘ GIAO DIỆN */
+    body.room-light-on::before {
+      content: "" !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(255, 255, 255, 0.12) !important; /* Chuẩn tông màu sáng nhạt bên trái */
+      pointer-events: none !important;
+      z-index: 34 !important;
+      /* HIỆU ỨNG 1: BẬT ĐÈN CHỚP NHẸ KHỞI ĐỘNG NHƯ PHÒNG GIẢI PHẪU */
+      animation: roomLightFlicker 0.45s ease-out forwards;
+    }
+
+    /* TẮT HOÀN TOÀN QUẦNG TỐI SPOTLIGHT ĐỂ SÁNG ĐỀU DỊU MẮT */
+    body.room-light-on .spotlight-layer {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+
+    body.room-light-on {
+      --bg: #221c21 !important;
+      background: 
+        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.06) 0%, rgba(15, 12, 16, 0.6) 100%),
+        url('aeb9497a0b88db83b7ed16734e6edb14.jpg') center/cover no-repeat fixed,
+        #221c21 !important;
+    }
+
+    /* HIỆU ỨNG 2: ĐÈN TRẦN HẠ XUỐNG CÓ ĐỘ ĐUNG ĐƯA NHÚN LẮC VẬT LÝ */
+    body.room-light-on .ceiling-lamp-fixture {
+      top: -12px !important;
+      animation: lampDropSway 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes lampDropSway {
+      0% { top: -260px; transform: translateX(-50%) rotate(0deg); }
+      60% { top: -8px; transform: translateX(-50%) rotate(3deg); }
+      75% { top: -14px; transform: translateX(-50%) rotate(-1.5deg); }
+      90% { top: -11px; transform: translateX(-50%) rotate(0.8deg); }
+      100% { top: -12px; transform: translateX(-50%) rotate(0deg); }
+    }
+
+    /* HIỆU ỨNG CHỚP ĐÈN DÂY TÓC */
+    @keyframes roomLightFlicker {
+      0% { opacity: 0; }
+      20% { opacity: 0.85; }
+      35% { opacity: 0.25; }
+      55% { opacity: 0.9; }
+      75% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    body.room-light-on .ceiling-lamp-img {
+      filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6)) drop-shadow(0 15px 35px rgba(0,0,0,0.95)) !important;
+    }
+
+    /* HIỆU ỨNG 3: ĐINH GHIM ĐỎ & TÂM ĐIỂM '?' THỞ HUỲNH QUANG HUYỀN BÍ */
+    .red-pushpin, .hub-pin-node {
+      box-shadow: 0 0 8px rgba(230, 0, 38, 0.8), 0 0 16px rgba(255, 18, 61, 0.5) !important;
+      animation: pinBreathingGlow 2.5s ease-in-out infinite alternate !important;
+    }
+    @keyframes pinBreathingGlow {
+      0% { filter: drop-shadow(0 0 2px #ff123d); transform: translateX(-50%) scale(1); }
+      100% { filter: drop-shadow(0 0 8px #ff123d) brightness(1.3); transform: translateX(-50%) scale(1.08); }
+    }
+    .hub-pin-node {
+      animation: hubBreathingGlow 2.5s ease-in-out infinite alternate !important;
+    }
+    @keyframes hubBreathingGlow {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 18px #fff, 0 0 30px var(--crimson); }
+    }
+
+    /* HIỆU ỨNG 4: THẺ HỒ SƠ TỎA ÁNH ĐỎ MA MỊ KHI HOVER / CHẠM VÀO */
+    .polaroid-evidence-card {
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, border-color 0.3s !important;
+    }
+    .polaroid-evidence-card:hover {
+      box-shadow: 0 20px 45px rgba(168, 0, 16, 0.7), 0 0 25px rgba(255, 18, 61, 0.45) !important;
+      border-color: var(--crimson-bright) !important;
+    }
+  </style>
+  (function() {
+    /* HỆ THỐNG PHÁT RANDOM 4 BÀI KHÔNG ĐỨT QUÃNG */
+    const NEW_TRACKS = [
+      "Stract_Shiloh_Dynasty_feat._Burgettii_-_Losing_Interest_Remix_(mp3.pm).mp3",
+      "I Monster - Who Is She (Lyrics) Immortal She Return To Me [TikTok Song].mp3",
+      "Lizz_Robinett_-_Hide_and_Seek_(mp3.pm).aac",
+      "Gesaffelstein_-_Aleph_slowed_reverb_(mp3.pm).mp3"
+    ];
+
+    let currentIdx = Math.floor(Math.random() * NEW_TRACKS.length);
+    const audioEl = document.getElementById('noir-ambient-audio');
+    const oldBtn = document.getElementById('btn-toggle-audio');
+    let isPlaying = false;
+    let userPaused = false;
+
+    function playTrack() {
+      if (!audioEl || NEW_TRACKS.length === 0) return;
+      audioEl.src = NEW_TRACKS[currentIdx];
+      audioEl.volume = 0.8;
+      audioEl.play().then(() => {
+        isPlaying = true;
+        userPaused = false;
+        const btn = document.getElementById('btn-toggle-audio');
+        const lbl = document.getElementById('tape-state-label');
+        if (btn) btn.classList.add('active');
+        if (lbl) lbl.innerText = "TAPE // PLAYING";
+      }).catch(() => {});
+    }
+
+    function playNextRandom() {
+      if (NEW_TRACKS.length > 1) {
+        let next;
+        do {
+          next = Math.floor(Math.random() * NEW_TRACKS.length);
+        } while (next === currentIdx);
+        currentIdx = next;
+      } else {
+        currentIdx = 0;
+      }
+      playTrack();
+    }
+
+    if (audioEl) {
+      audioEl.onended = playNextRandom;
+      audioEl.onerror = () => setTimeout(playNextRandom, 500);
+    }
+
+    if (oldBtn) {
+      const newBtn = oldBtn.cloneNode(true);
+      oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+
+      newBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (typeof playMechClickSound === 'function') playMechClickSound();
+        const lbl = document.getElementById('tape-state-label');
+        if (isPlaying) {
+          userPaused = true;
+          audioEl.pause();
+          isPlaying = false;
+          newBtn.classList.remove('active');
+          if (lbl) lbl.innerText = "TAPE // OFF";
+        } else {
+          userPaused = false;
+          playTrack();
+        }
+      });
+    }
+
+    function triggerAnywhere() {
+      if (!isPlaying && !userPaused) {
+        playTrack();
+      }
+    }
+    ['pointerdown', 'touchstart', 'click'].forEach(evt => {
+      document.addEventListener(evt, triggerAnywhere);
+    });
+  })();
+  </script>
 </body>
   </html>
