@@ -2998,5 +2998,130 @@
       });
     });
   </script>
+  <!-- ================= NÂNG CẤP TRANG TRÍ: TRUY NÃ BỰ ĐẬM & HỒ SƠ PHÁP Y PRO ================= -->
+  <style>
+    /* 1. HIỆU ỨNG TRUY NÃ SIÊU BỰ, ĐẬM & TỎA HÀO QUANG CẢNH BÁO */
+    .polaroid-evidence-card.wanted-evidence-card {
+      border: 2px solid #ff0033 !important;
+      box-shadow: 0 0 25px rgba(255, 0, 51, 0.75), inset 0 0 15px rgba(255, 0, 51, 0.25) !important;
+      animation: wantedSirenPulse 1.8s infinite ease-in-out !important;
+    }
+    @keyframes wantedSirenPulse {
+      0% { box-shadow: 0 0 15px rgba(255, 0, 51, 0.5), inset 0 0 10px rgba(255, 0, 51, 0.2); border-color: #b80018; }
+      50% { box-shadow: 0 0 35px rgba(255, 0, 51, 0.95), inset 0 0 20px rgba(255, 0, 51, 0.4); border-color: #ff2a55; }
+      100% { box-shadow: 0 0 15px rgba(255, 0, 51, 0.5), inset 0 0 10px rgba(255, 0, 51, 0.2); border-color: #b80018; }
+    }
+
+    /* CON DẤU WANTED TO BỰ, ĐẬM RỰC LỬA */
+    .wanted-danger-stamp {
+      top: 10px !important;
+      left: -8px !important;
+      font-size: 0.72rem !important;
+      padding: 5px 12px !important;
+      background: linear-gradient(135deg, #a80010 0%, #ff0033 100%) !important;
+      border: 2px solid #fff !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.9), 0 0 20px #ff0033 !important;
+      letter-spacing: 2px !important;
+      transform: rotate(-12deg) scale(1.08) !important;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    /* 2. BẢNG HỒ SƠ CHI TIẾT (INSPECTOR) NÂNG CẤP THÀNH HỒ SƠ ĐEN PHÁP Y */
+    .dossier-inspect-card {
+      background: #0d080b radial-gradient(circle at 90% 10%, rgba(230, 0, 38, 0.18) 0%, transparent 65%) !important;
+      border: 2px solid var(--crimson-bright) !important;
+      box-shadow: 0 0 70px rgba(230, 0, 38, 0.6), inset 0 0 35px rgba(0,0,0,0.95) !important;
+      animation: inspectSlamDrop 0.35s cubic-bezier(0.12, 0.95, 0.25, 1) forwards !important;
+      position: relative;
+    }
+    @keyframes inspectSlamDrop {
+      0% { transform: scale(0.85) translateY(20px); opacity: 0; }
+      70% { transform: scale(1.02) translateY(-4px); opacity: 1; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    /* VẠCH CHIA CHIỀU CAO TÙ NHÂN (MUGSHOT SCALE) TRONG ẢNH CHI TIẾT */
+    .inspect-mugshot {
+      position: relative;
+      border: 1.5px solid rgba(255, 18, 61, 0.5) !important;
+      box-shadow: inset 0 0 20px #000;
+    }
+    .inspect-mugshot::before {
+      content: "190 cm —\A 180 cm —\A 170 cm —\A 160 cm —\A 150 cm —";
+      white-space: pre-line;
+      position: absolute;
+      left: 8px;
+      top: 14px;
+      bottom: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: bold;
+      line-height: 2.3;
+      color: rgba(255, 255, 255, 0.45);
+      text-shadow: 1px 1px 3px #000;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* THANH THREAT LEVEL BÁO ĐỘNG ĐỎ GIẬT CHỚP NHỊP TIM */
+    .hazard-fill {
+      animation: hazardStrobeAlarm 1.2s infinite ease-in-out !important;
+    }
+    @keyframes hazardStrobeAlarm {
+      0% { filter: brightness(1) drop-shadow(0 0 4px var(--crimson)); }
+      50% { filter: brightness(1.7) drop-shadow(0 0 16px #ff123d); }
+      100% { filter: brightness(1) drop-shadow(0 0 4px var(--crimson)); }
+    }
+
+    /* DẤU VÂN TAY PHÁP Y VÀ CON DẤU MẬT TRÊN TỜ NOTE CỦA TED */
+    .ted-memo-note-box {
+      background: #dfd8cb url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" opacity="0.08" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23900" stroke-width="3"/><circle cx="50" cy="50" r="30" fill="none" stroke="%23900" stroke-width="2.5"/><circle cx="50" cy="50" r="20" fill="none" stroke="%23900" stroke-width="2"/><ellipse cx="50" cy="50" rx="10" ry="15" fill="none" stroke="%23900" stroke-width="2"/></svg>') center/contain no-repeat !important;
+      border: 1px solid #6e5f49 !important;
+      box-shadow: 4px 6px 18px rgba(0,0,0,0.85) !important;
+    }
+
+    /* NÚT BẤM BÊN DƯỚI HỒ SƠ CHI TIẾT SANG XỊN HƠN */
+    .inspect-actions .btn-act-plot,
+    .inspect-actions .btn-act-ggai {
+      background: rgba(20, 8, 12, 0.95);
+      border: 1px solid var(--crimson);
+      color: #fff;
+      padding: 11px;
+      font-weight: bold;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+      border-radius: 2px;
+    }
+    .inspect-actions .btn-act-plot:hover {
+      background: #c5a059;
+      color: #000;
+      border-color: #ffd885;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+    }
+    .inspect-actions .btn-act-ggai:hover {
+      background: var(--crimson-bright);
+      color: #fff;
+      border-color: #ff4d66;
+      box-shadow: 0 0 18px var(--crimson-glow);
+    }
+  </style>
+
+  <script>
+  (function() {
+    // Tự động kiểm tra và gắn viền truy nã cực đậm cho bất kỳ card nào thuộc diện truy nã
+    function enhanceWantedCards() {
+      document.querySelectorAll('.polaroid-evidence-card').forEach(card => {
+        if (card.querySelector('.wanted-danger-stamp') && !card.classList.contains('wanted-evidence-card')) {
+          card.classList.add('wanted-evidence-card');
+        }
+      });
+    }
+
+    const observer = new MutationObserver(enhanceWantedCards);
+    const wall = document.getElementById('cases-wall');
+    if (wall) observer.observe(wall, { childList: true, subtree: true });
+    enhanceWantedCards();
+  })();
+  </script>
 </body>
 </html>
